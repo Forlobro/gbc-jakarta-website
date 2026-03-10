@@ -22,6 +22,9 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- JavaScript -->
+     <script src="js/style.js"></script>
 </head>
 <body>
     <!-- ==========================================
@@ -33,19 +36,19 @@
         </a>
         
         <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#companies">Companies</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home" class="active" data-i18n="home">Home</a></li>
+            <li><a href="#about" data-i18n="about">About</a></li>
+            <li><a href="#companies" data-i18n="companies">Companies</a></li>
+            <li><a href="#team" data-i18n="team">Team</a></li>
+            <li><a href="#contact" data-i18n="contact">Contact</a></li>
         </ul>
         
         <div class="nav-right">
             <div class="lang-toggle">
-                <button class="lang-btn active">EN</button>
-                <button class="lang-btn">ID</button>
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="id">ID</button>
             </div>
-            <a href="#contact" class="nav-cta">Get in Touch</a>
+            <a href="#contact" class="nav-cta" data-i18n="cta">Get in Touch</a>
         </div>
     </nav>
 
@@ -61,16 +64,16 @@
                 <div class="hero-text">
                     <div class="hero-badge">
                         <i class="fas fa-certificate"></i>
-                        Official Gyeonggi Province Representative
+                        <span data-i18n="heroBadge">Official Gyeonggi Province Representative</span>
                     </div>
-                    <h1>Bridging <span class="highlight">Korean Excellence</span> to Indonesia</h1>
-                    <p class="hero-description">We connect innovative Korean SMEs from Gyeonggi Province with Indonesian market opportunities through strategic partnerships and business facilitation.</p>
+                    <h1 data-i18n="heroTitle"> Bridging <span class="highlight">Korean Excellence</span> to Indonesia</h1>
+                    <p class="hero-description" data-i18n="heroDesc">We connect innovative Korean SMEs from Gyeonggi Province with Indonesian market opportunities through strategic partnerships and business facilitation.</p>
                     <div class="hero-buttons">
                         <a href="#companies" class="btn btn-primary">
-                            <i class="fas fa-building"></i> Explore Companies
+                            <i class="fas fa-building"></i> <span data-i18n="explore">Explore Companies</span>
                         </a>
                         <a href="#about" class="btn btn-outline">
-                            Learn More <i class="fas fa-arrow-right"></i>
+                            <span data-i18n="learn">Learn More</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -80,19 +83,19 @@
                         <div class="hero-stats">
                             <div class="stat-item">
                                 <span class="stat-number">40+</span>
-                                <span class="stat-label">Partner Companies</span>
+                                <span class="stat-label" data-i18n="partnerCompanies">Partner Companies</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-number">5</span>
-                                <span class="stat-label">Industry Sectors</span>
+                                <span class="stat-label" data-i18n="industrySectors">Industry Sectors</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-number">100+</span>
-                                <span class="stat-label">Business Matches</span>
+                                <span class="stat-label" data-i18n="businessMatches">Business Matches</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-number">2023</span>
-                                <span class="stat-label">Established</span>
+                                <span class="stat-label" data-i18n="established">Established</span>
                             </div>
                         </div>
                     </div>
@@ -103,7 +106,7 @@
                         </div>
                         <div class="floating-text">
                             <h4>B2B Matching</h4>
-                            <span>Direct Connections</span>
+                            <span data-i18n="directConnections">Direct Connections</span>
                         </div>
                     </div>
                     
@@ -113,7 +116,7 @@
                         </div>
                         <div class="floating-text">
                             <h4>Market Entry</h4>
-                            <span>Indonesia Ready</span>
+                            <span data-i18n="indonesiaReady">Indonesia Ready</span>
                         </div>
                     </div>
                 </div>
@@ -128,19 +131,22 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-content reveal">
-                    <div class="section-label">About Us</div>
-                    <h2 class="section-title">Your Gateway to Korean Innovation</h2>
-                    <p>GBC Jakarta (Gyeonggi Business Center Jakarta) is a non-profit organization established under the Gyeonggi Provincial Government of the Republic of Korea.</p>
-                    <p>We serve as a business support platform to assist Gyeonggi-based companies in expanding their market presence in Indonesia through business matching, market entry support, trade promotion, and partnership development.</p>
-                    
+                    <div class="section-label" data-i18n="aboutLabel">About Us</div>
+
+                    <h2 class="section-title" data-i18n="aboutTitle">
+                    Your Gateway to Korean Innovation
+                    </h2>
+                    <p data-i18n="aboutDescription">GBC Jakarta (Gyeonggi Business Center Jakarta) is a non-profit organization established under the Gyeonggi Provincial Government of the Republic of Korea.</p>
+                    <p data-i18n="aboutDescription2">We serve as a business support platform to assist Gyeonggi-based companies in expanding their market presence in Indonesia through business matching, market entry support, trade promotion, and partnership development.</p>
+
                     <div class="about-features">
                         <div class="feature-item">
                             <div class="feature-icon">
                                 <i class="fas fa-search-dollar"></i>
                             </div>
                             <div class="feature-text">
-                                <h4>Market Research</h4>
-                                <p>In-depth Indonesian market analysis</p>
+                                <h4 data-i18n="marketResearch">Market Research</h4>
+                                <p data-i18n="IndepthIndonesianmarketanalysis">In-depth Indonesian market analysis</p>
                             </div>
                         </div>
                         <div class="feature-item">
@@ -148,8 +154,8 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="feature-text">
-                                <h4>Partner Matching</h4>
-                                <p>Connect with local distributors</p>
+                                <h4 data-i18n="businessMatching">Partner Matching</h4>
+                                <p data-i18n="connectWithLocalDistributors">Connect with local distributors</p>
                             </div>
                         </div>
                         <div class="feature-item">
@@ -157,8 +163,8 @@
                                 <i class="fas fa-file-signature"></i>
                             </div>
                             <div class="feature-text">
-                                <h4>Legal Support</h4>
-                                <p>Business registration guidance</p>
+                                <h4 data-i18n="legalSupport">Legal Support</h4>
+                                <p data-i18n="businessRegistrationGuidance">Business registration guidance</p>
                             </div>
                         </div>
                         <div class="feature-item">
@@ -166,8 +172,8 @@
                                 <i class="fas fa-bullhorn"></i>
                             </div>
                             <div class="feature-text">
-                                <h4>Promotion</h4>
-                                <p>Trade shows & exhibitions</p>
+                                <h4 data-i18n="tradePromotion">Promotion</h4>
+                                <p data-i18n="tradeShowsExhibitions">Trade shows & exhibitions</p>
                             </div>
                         </div>
                     </div>
@@ -190,17 +196,17 @@
         <div class="container">
             <div class="companies-header reveal">
                 <div class="section-label">GMS Program</div>
-                <h2 class="section-title">Featured Korean Companies</h2>
-                <p>Discover innovative products and services from Gyeonggi Province's leading SMEs</p>
+                <h2 class="section-title" data-i18n="featured">Featured Korean Companies</h2>
+                <p data-i18n="discover">Discover innovative products and services from Gyeonggi Province's leading SMEs</p>
             </div>
             
             <div class="filter-container reveal">
-                <button class="filter-btn active">All</button>
-                <button class="filter-btn">Industrial</button>
-                <button class="filter-btn">Safety & Environment</button>
-                <button class="filter-btn">Beauty & Lifestyle</button>
-                <button class="filter-btn">Agriculture</button>
-                <button class="filter-btn">F&B</button>
+                <button class="filter-btn active" data-i18n="all">All</button>
+                <button class="filter-btn" data-i18n="industrial">Industrial</button>
+                <button class="filter-btn" data-i18n="safetyEnvironment">Safety & Environment</button>
+                <button class="filter-btn" data-i18n="beautyLifestyle">Beauty & Lifestyle</button>
+                <button class="filter-btn" data-i18n="agriculture">Agriculture</button>
+                <button class="filter-btn" data-i18n="fb">F&B</button>
             </div>
             
             <div class="companies-grid">
@@ -208,58 +214,58 @@
                 <div class="company-card reveal">
                     <div class="company-logo-wrapper">ROBOTECH</div>
                     <h4>ROBOTECH ENG CO.,LTD.</h4>
-                    <span class="company-category">Industrial Equipment</span>
-                    <p>Leading Korean manufacturer of high-quality fans, blowers, and motors with 20+ years of export experience.</p>
-                    <a href="#" class="company-link">View Details <i class="fas fa-arrow-right"></i></a>
+                    <span class="company-category" data-i18n="industrialEquipment">Industrial Equipment</span>
+                    <p data-i18n="leading">Leading Korean manufacturer of high-quality fans, blowers, and motors with 20+ years of export experience.</p>
+                    <a href="#" class="company-link" data-i18n="viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
                 <!-- Company Card 2 -->
                 <div class="company-card reveal">
                     <div class="company-logo-wrapper">SENKO</div>
                     <h4>SENKO</h4>
-                    <span class="company-category">Safety Equipment</span>
-                    <p>Gas detectors designed for safety in hazardous environments with real-time monitoring capabilities.</p>
-                    <a href="#" class="company-link">View Details <i class="fas fa-arrow-right"></i></a>
+                    <span class="company-category" data-i18n="safetyEnvironment">Safety Equipment</span>
+                    <p data-i18n="safetyDescription">Gas detectors designed for safety in hazardous environments with real-time monitoring capabilities.</p>
+                    <a href="#" class="company-link" data-i18n="viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
                 <!-- Company Card 3 -->
                 <div class="company-card reveal">
                     <div class="company-logo-wrapper">ANGEL TRAY</div>
                     <h4>ANGEL TRAY</h4>
-                    <span class="company-category">Eco-Friendly</span>
-                    <p>Innovation in eco-friendly dining solutions with recyclable and biodegradable collagen trays.</p>
-                    <a href="#" class="company-link">View Details <i class="fas fa-arrow-right"></i></a>
+                    <span class="company-category" data-i18n="beautyLifestyle">Eco-Friendly</span>
+                    <p data-i18n="ecoDescription">Innovation in eco-friendly dining solutions with recyclable and biodegradable collagen trays.</p>
+                    <a href="#" class="company-link" data-i18n="viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
                 <!-- Company Card 4 -->
                 <div class="company-card reveal">
                     <div class="company-logo-wrapper">SILLIMANN</div>
                     <h4>SILLIMANN Co.,Ltd.</h4>
-                    <span class="company-category">Lifestyle</span>
-                    <p>Premium silicone products from kitchenware to kidsware with award-winning design.</p>
-                    <a href="#" class="company-link">View Details <i class="fas fa-arrow-right"></i></a>
+                    <span class="company-category" data-i18n="lifestyle">Lifestyle</span>
+                    <p data-i18n="lifestyleDescription">Premium silicone products from kitchenware to kidsware with award-winning design.</p>
+                    <a href="#" class="company-link" data-i18n="viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
                 <!-- Company Card 5 -->
                 <div class="company-card reveal">
                     <div class="company-logo-wrapper">SEONGHAN</div>
                     <h4>SEONGHAN CORP.</h4>
-                    <span class="company-category">Construction</span>
-                    <p>Eco-friendly waterproofing solution with excellent adhesion, flexibility, and crack-bridging.</p>
-                    <a href="#" class="company-link">View Details <i class="fas fa-arrow-right"></i></a>
+                    <span class="company-category" data-i18n="industrial">Construction</span>
+                    <p data-i18n="industrialDescription">Eco-friendly waterproofing solution with excellent adhesion, flexibility, and crack-bridging.</p>
+                    <a href="#" class="company-link" data-i18n="viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
                 <!-- Company Card 6 -->
                 <div class="company-card reveal">
                     <div class="company-logo-wrapper">MIRICO</div>
                     <h4>MIRICO</h4>
-                    <span class="company-category">Safety Tech</span>
-                    <p>Gas safety technology with certified detectors, alarms, and automatic shut-off systems.</p>
-                    <a href="#" class="company-link">View Details <i class="fas fa-arrow-right"></i></a>
+                    <span class="company-category" data-i18n="safetyEnvironment">Safety Tech</span>
+                    <p data-i18n="safetyDescription">Gas safety technology with certified detectors, alarms, and automatic shut-off systems.</p>
+                    <a href="#" class="company-link" data-i18n="viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             
-            <a href="#" class="btn btn-accent view-all-btn">
+            <a href="#" class="btn btn-accent view-all-btn" data-i18n="viewAllCompanies">
                 View All 40+ Companies <i class="fas fa-arrow-right"></i>
             </a>
         </div>
@@ -271,8 +277,8 @@
     <section class="team" id="team">
         <div class="container">
             <div class="team-header reveal">
-                <div class="section-label">Our Team</div>
-                <h2 class="section-title">Meet the People Behind GBC Jakarta</h2>
+                <div class="section-label" data-i18n="ourTeam">Our Team</div>
+                <h2 class="section-title" data-i18n="teamTitle">Meet the People Behind GBC Jakarta</h2>
             </div>
             
             <div class="org-structure reveal">
@@ -296,17 +302,6 @@
                 
                 <div class="org-line"></div>
                 
-                <!-- Accounting Manager -->
-                <div class="org-level">
-                    <div class="org-card secondary">
-                        <h4>Min Jiwoo</h4>
-                        <span>Accounting Manager</span>
-                    </div>
-                </div>
-                
-                <div class="org-line"></div>
-                <div class="org-line-h"></div>
-                
                 <!-- Staff -->
                 <div class="org-staff">
                     <div class="org-card secondary">
@@ -323,11 +318,11 @@
                     </div>
                     <div class="org-card secondary">
                         <h4>Caldha</h4>
-                        <span>Regional Specialist</span>
+                        <span>Marketing</span>
                     </div>
                     <div class="org-card secondary">
                         <h4>Azka</h4>
-                        <span>Regional Specialist</span>
+                        <span>Marketing</span>
                     </div>
                 </div>
             </div>
@@ -343,9 +338,11 @@
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-content reveal">
-                    <div class="section-label">Contact Us</div>
-                    <h2 class="section-title">Let's Build Partnership Together</h2>
-                    <p>Ready to explore the Indonesian market? Get in touch with our team and discover how we can help your business grow.</p>
+                    <div class="section-label" data-i18n="contactLabel">Contact Us</div>
+                    <h2 class="section-title" data-i18n="contactTitle">
+                    Let's Build Partnership Together
+                    </h2>
+                    <p data-i18n="contactDescription">Ready to explore the Indonesian market? Get in touch with our team and discover how we can help your business grow.</p>
                     
                     <div class="contact-info">
                         <div class="contact-item">
@@ -353,8 +350,8 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div>
-                                <h4>Office Address</h4>
-                                <p>DBS Tower Suite #905, Jl. Prof. Dr. Satrio Kav.3<br>Kuningan, South Jakarta 12940</p>
+                                <h4 data-i18n="officeAddress">Office Address</h4>
+                                <p>DBS Tower Suite #905, Jl. Prof. Dr. Satrio Kav.3 <br> Kuningan, South Jakarta 12940</p>
                             </div>
                         </div>
                         
@@ -374,7 +371,7 @@
                             </div>
                             <div>
                                 <h4>WhatsApp</h4>
-                                <a href="https://wa.me/628118160627">+62 811-816-0627</a>
+                                <a href="https://wa.me/628118160627">+62 21 3971 2135</a>
                             </div>
                         </div>
                     </div>
@@ -390,30 +387,30 @@
                 </div>
                 
                 <div class="contact-form-wrapper reveal">
-                    <form class="contact-form">
-                        <h3>Send us a Message</h3>
+                    <form  class="contact-form">
+                        <h3 data-i18n="sendMessage">Send us a Message</h3>
                         
                         <div class="form-group">
-                            <label for="name">Your Name</label>
+                            <label for="name" data-i18n="formName">Your Name</label>
                             <input type="text" id="name" name="name" placeholder="John Doe" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Email Address</label>
+                            <label for="email" data-i18n="formEmail">Email Address</label>
                             <input type="email" id="email" name="email" placeholder="john@company.com" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="company">Company</label>
+                            <label for="company" data-i18n="formCompany">Company</label>
                             <input type="text" id="company" name="company" placeholder="Your Company Name">
                         </div>
                         
                         <div class="form-group">
-                            <label for="message">Message</label>
+                            <label for="message" data-i18n="formMessage">Message</label>
                             <textarea id="message" name="message" placeholder="Tell us about your business needs..." required></textarea>
                         </div>
                         
-                        <button type="submit" class="form-submit">
+                        <button type="submit" class="form-submit" data-i18n="sendMessage">
                             Send Message <i class="fas fa-paper-plane"></i>
                         </button>
                     </form>
@@ -430,36 +427,36 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="assets/images/logo.jpg" alt="GBC Jakarta">
-                    <p>Gyeonggi Business Center Jakarta - Your trusted partner for Korean-Indonesian business collaboration.</p>
+                    <p data-i18n="gyeonggi">Gyeonggi Business Center Jakarta - Your trusted partner for Korean-Indonesian business collaboration.</p>
                 </div>
                 
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#companies">GMS Companies</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#home" data-i18n="home">Home</a></li>
+                        <li><a href="#about" data-i18n="about">About Us</a></li>
+                        <li><a href="#companies" data-i18n="companies">GMS Companies</a></li>
+                        <li><a href="#contact" data-i18n="contact">Contact</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h4>Services</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Market Research</a></li>
-                        <li><a href="#">Business Matching</a></li>
-                        <li><a href="#">Trade Promotion</a></li>
-                        <li><a href="#">Partnership Dev</a></li>
+                        <li><a href="#" data-i18n="marketResearch">Market Research</a></li>
+                        <li><a href="#" data-i18n="businessMatching">Business Matching</a></li>
+                        <li><a href="#" data-i18n="tradePromotion">Trade Promotion</a></li>
+                        <li><a href="#" data-i18n="partnerships">Partnership Dev</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h4>Industries</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Industrial</a></li>
-                        <li><a href="#">Beauty & Lifestyle</a></li>
-                        <li><a href="#">Agriculture</a></li>
-                        <li><a href="#">Food & Beverage</a></li>
+                        <li><a href="#home" data-i18n="home">Home</a></li>
+                        <li><a href="#about" data-i18n="aboutUs">About Us</a></li>
+                        <li><a href="#companies" data-i18n="gmsCompanies">GMS Companies</a></li>
+                        <li><a href="#contact" data-i18n="contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
