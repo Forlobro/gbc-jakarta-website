@@ -24,7 +24,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
   const { data: photos } = await supabase
     .from("gbc_companies_photos")
     .select("*")
-    .eq("company_id", companyId);
+    .eq("gbc_company_id", companyId);
 
   return NextResponse.json({
     ...company,
@@ -63,7 +63,7 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   const { data: photos } = await supabase
     .from("gbc_companies_photos")
     .select("photo_url")
-    .eq("company_id", parseInt(id));
+    .eq("gbc_company_id", parseInt(id));
 
   if (photos && photos.length > 0) {
     const filePaths = photos
@@ -71,13 +71,13 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
         if (!p.photo_url) return null;
         // Extract path from full URL
         const url = new URL(p.photo_url);
-        const path = url.pathname.split("/storage/v1/object/public/company-photos/")[1];
+        const path = url.pathname.split("/storage/v1/object/public/gbc_companies_photos/")[1];
         return path || null;
       })
       .filter(Boolean) as string[];
 
     if (filePaths.length > 0) {
-      await supabase.storage.from("company-photos").remove(filePaths);
+      await supabase.storage.from("gbc_companies_photos").remove(filePaths);
     }
   }
 
@@ -85,7 +85,7 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   await supabase
     .from("gbc_companies_photos")
     .delete()
-    .eq("company_id", parseInt(id));
+    .eq("gbc_company_id", parseInt(id));
 
   // Delete company
   const { error } = await supabase

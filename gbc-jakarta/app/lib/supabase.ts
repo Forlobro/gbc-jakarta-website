@@ -12,7 +12,7 @@ export interface GbcCompany {
 
 export interface GbcCompanyPhoto {
   id: number;
-  company_id: number | null;
+  gbc_company_id: number | null;
   photo_url: string | null;
 }
 

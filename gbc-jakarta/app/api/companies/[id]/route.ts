@@ -24,7 +24,7 @@ export async function GET(_req: NextRequest, { params }: RouteParams) {
   const { data: photos } = await supabase
     .from("gbc_companies_photos")
     .select("*")
-    .eq("company_id", companyId);
+    .eq("gbc_company_id", companyId);
 
   return NextResponse.json({
     ...company,
