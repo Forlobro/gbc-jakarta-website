@@ -25,7 +25,7 @@ export async function GET() {
   const result = (companies ?? []).map((company) => ({
     ...company,
     gbc_companies_photos: (photos ?? []).filter(
-      (p) => p.company_id === company.id
+      (p) => p.gbc_company_id === company.id
     ),
   }));
 
