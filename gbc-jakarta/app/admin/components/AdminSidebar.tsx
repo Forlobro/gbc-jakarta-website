@@ -53,8 +53,8 @@ export default function AdminSidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-[#00c2cb]/10 text-[#00c2cb] shadow-sm"
-                  : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                  ? "bg-[#00c2cb] text-white shadow-sm shadow-[#00c2cb]/30"
+                  : "bg-[#00c2cb]/70 text-white hover:bg-[#00c2cb]"
               }`}
             >
               <i className={`${item.icon} w-5 text-center`} />

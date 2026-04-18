@@ -281,7 +281,7 @@ export default function EventsPage() {
                         {event.description}
                       </p>
                       <span className="inline-flex items-center gap-2 text-accent text-[0.85rem] font-semibold mt-4">
-                        Lihat Detail <i className="fas fa-arrow-right text-xs" />
+                        {t("viewDetail")} <i className="fas fa-arrow-right text-xs" />
                       </span>
                     </div>
                   </div>

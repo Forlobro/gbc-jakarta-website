@@ -17,13 +17,13 @@ export default function ContactSection() {
 
   return (
     <section
-      className="py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden"
+      className="py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative"
       id="contact"
     >
       {/* Wave divider top */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-          <path d="M0,40 C360,0 1080,70 1440,20 L1440,0 L0,0 Z" fill="white"/>
+          <path d="M0,40 C360,0 1080,70 1440,20 L1440,0 L0,0 Z" fill="#f8fafc"/>
         </svg>
       </div>
 

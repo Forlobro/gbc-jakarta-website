@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "../lib/LanguageContext";
 
 const VIDEOS = [
   { id: "J4aWZjyJ3A4", title: "GBC Jakarta Video 1" },
@@ -9,12 +10,20 @@ const VIDEOS = [
 
 export default function VideoSection() {
   const [current, setCurrent] = useState(0);
+  const { t } = useTranslation();
 
   const prev = () => setCurrent((c) => (c === 0 ? VIDEOS.length - 1 : c - 1));
   const next = () => setCurrent((c) => (c === VIDEOS.length - 1 ? 0 : c + 1));
 
   return (
-    <section className="py-20 bg-gray-50 relative overflow-hidden" id="video">
+    <section className="py-20 bg-gray-50 relative" id="video">
+
+      {/* Wave divider top — matches Hero dark bg */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+          <path d="M0,40 C360,70 1080,0 1440,30 L1440,0 L0,0 Z" fill="#0f2847"/>
+        </svg>
+      </div>
 
       {/* Dot pattern */}
       <div className="absolute inset-0 pointer-events-none" style={{
@@ -49,10 +58,10 @@ export default function VideoSection() {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
-            GBC Jakarta
+            {t("videoLabel")}
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-text leading-tight">
-            Mengenal GBC Jakarta
+            {t("videoTitle")}
           </h2>
         </div>
 

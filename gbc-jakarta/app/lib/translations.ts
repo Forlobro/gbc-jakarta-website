@@ -4,7 +4,7 @@ export const translations = {
     home: "Home",
     about: "About",
     companies: "Companies",
-    team: "Team",
+    team: "Director",
     events: "Events",
     contact: "Contact",
     cta: "Get in Touch",
@@ -66,7 +66,14 @@ export const translations = {
       "Eco-friendly waterproofing solution with excellent adhesion, flexibility, and crack-bridging.",
     viewAllCompanies: "View All 40+ Companies",
 
-    // Team
+    // Video Section
+    videoLabel: "GBC Jakarta",
+    videoTitle: "Getting to Know GBC Jakarta",
+
+    // Team / Director
+    directorLabel: "Director General",
+    messageTitle: "Message & Vision",
+    messageText: "We are here to bridge business opportunities between Korea and Indonesia, bringing the best innovations from Gyeonggi Province to support mutual economic growth. With a spirit of collaboration and trust, we are committed to providing the best service for all GBC Jakarta business partners.",
     ourTeam: "Our Team",
     teamTitle: "Meet the People Behind GBC Jakarta",
 
@@ -82,6 +89,7 @@ export const translations = {
     formEmail: "Email Address",
     formCompany: "Company",
     formMessage: "Message",
+    viewDetail: "View Detail",
 
     // Events Page
     eventsPageBadge: "GBC Jakarta Events",
@@ -157,7 +165,7 @@ export const translations = {
     home: "Beranda",
     about: "Tentang",
     companies: "Perusahaan",
-    team: "Tim",
+    team: "Direktur",
     events: "Events",
     contact: "Kontak",
     cta: "Hubungi Kami",
@@ -187,8 +195,8 @@ export const translations = {
       "Kami berfungsi sebagai platform pendukung bisnis untuk membantu perusahaan-perusahaan yang berbasis di Gyeonggi dalam memperluas kehadiran pasar mereka di Indonesia melalui pencocokan bisnis, dukungan masuk pasar, promosi perdagangan, dan pengembangan kemitraan.",
     marketResearch: "Riset Pasar",
     businessMatching: "Pencocokan Bisnis",
+    legalSupport: "Dukungan Hukum",
     tradePromotion: "Promosi Perdagangan",
-    partnerships: "Kemitraan",
     IndepthIndonesianmarketanalysis: "Analisis Pasar Indonesia Mendalam",
     connectWithLocalDistributors: "Terhubung dengan distributor lokal",
     businessRegistrationGuidance: "Panduan Pendaftaran Bisnis",
@@ -219,7 +227,14 @@ export const translations = {
       "Solusi tahan air ramah lingkungan dengan daya rekat, fleksibilitas, dan jembatan retak yang sangat baik.",
     viewAllCompanies: "Lihat Semua 40+ Perusahaan",
 
-    // Team
+    // Video Section
+    videoLabel: "GBC Jakarta",
+    videoTitle: "Mengenal GBC Jakarta",
+
+    // Team / Director
+    directorLabel: "Direktur Utama",
+    messageTitle: "Pesan dan Harapan",
+    messageText: "Kami hadir untuk menjembatani peluang bisnis antara Korea dan Indonesia, membawa inovasi terbaik dari Provinsi Gyeonggi untuk mendukung pertumbuhan ekonomi bersama. Dengan semangat kolaborasi dan kepercayaan, kami berkomitmen untuk terus memberikan pelayanan terbaik bagi seluruh mitra usaha GBC Jakarta.",
     ourTeam: "Tim Kami",
     teamTitle: "Tim di Balik GBC Jakarta",
 
@@ -235,7 +250,7 @@ export const translations = {
     formEmail: "Alamat Email",
     formCompany: "Perusahaan",
     formMessage: "Pesan",
-    legalSupport: "Dukungan Hukum",
+    viewDetail: "Lihat Detail",
 
     // Events Page
     eventsPageBadge: "GBC Jakarta Events",
@@ -301,6 +316,7 @@ export const translations = {
     // Footer
     gyeonggi:
       "Gyeonggi Business Center Jakarta - Mitra terpercaya Anda untuk kolaborasi bisnis Korea-Indonesia.",
+    partnerships: "Kemitraan",
     aboutUs: "Tentang Kami",
     gmsCompanies: "Perusahaan GMS",
   },

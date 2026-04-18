@@ -33,7 +33,7 @@ export default function CompaniesSection() {
   ).slice(0, 6);
 
   return (
-    <section className="py-36 bg-[#f8fafc] relative overflow-hidden" id="companies">
+    <section className="py-36 bg-[#f8fafc] relative" id="companies">
 
       {/* Wave divider top */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none">

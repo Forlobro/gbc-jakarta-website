@@ -25,7 +25,7 @@ export default function AdminDashboard() {
   return (
     <div>
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-8" >
         <h1 className="text-2xl font-bold text-white">Dashboard</h1>
         <p className="text-slate-400 text-sm mt-1">
           Welcome back! Here&#39;s an overview of your data.
@@ -95,13 +95,13 @@ export default function AdminDashboard() {
           </Link>
           <Link
             href="/admin/companies"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-slate-700 text-white rounded-xl text-sm font-medium hover:bg-slate-600 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
           >
             <i className="fas fa-list" /> Manage Companies
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-slate-700 text-white rounded-xl text-sm font-medium hover:bg-slate-600 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
           >
             <i className="fas fa-external-link-alt" /> View Website
           </Link>
