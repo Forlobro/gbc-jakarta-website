@@ -1,55 +1,55 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { GbcCompanyWithPhotos } from "../../lib/supabase";
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { GbcCompanyWithPhotos } from "../../lib/supabase"
 
 export default function AdminCompaniesPage() {
-  const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState("")
+  const [deletingId, setDeletingId] = useState<number | null>(null)
 
   const fetchCompanies = () => {
-    setLoading(true);
+    setLoading(true)
     fetch("/api/admin/companies")
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) setCompanies(data);
+        if (Array.isArray(data)) setCompanies(data)
       })
-      .finally(() => setLoading(false));
-  };
+      .finally(() => setLoading(false))
+  }
 
   useEffect(() => {
-    fetchCompanies();
-  }, []);
+    fetchCompanies()
+  }, [])
 
   const handleDelete = async (id: number, name: string) => {
-    if (!confirm(`Delete "${name}"? This will also delete all photos.`)) return;
-    setDeletingId(id);
+    if (!confirm(`Delete "${name}"? This will also delete all photos.`)) return
+    setDeletingId(id)
 
     try {
       const res = await fetch(`/api/admin/companies/${id}`, {
         method: "DELETE",
-      });
+      })
       if (res.ok) {
-        setCompanies((prev) => prev.filter((c) => c.id !== id));
+        setCompanies((prev) => prev.filter((c) => c.id !== id))
       } else {
-        const err = await res.json();
-        alert(`Delete failed: ${err.error}`);
+        const err = await res.json()
+        alert(`Delete failed: ${err.error}`)
       }
     } catch {
-      alert("Delete failed. Please try again.");
+      alert("Delete failed. Please try again.")
     } finally {
-      setDeletingId(null);
+      setDeletingId(null)
     }
-  };
+  }
 
   const filtered = companies.filter(
     (c) =>
       (c.name || "").toLowerCase().includes(search.toLowerCase()) ||
-      (c.category || "").toLowerCase().includes(search.toLowerCase())
-  );
+      (c.category || "").toLowerCase().includes(search.toLowerCase()),
+  )
 
   return (
     <div>
@@ -63,7 +63,7 @@ export default function AdminCompaniesPage() {
         </div>
         <Link
           href="/admin/companies/new"
-          className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#00c2cb] to-[#00a8b0] text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-[#00c2cb]/25 transition-all hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 px-5 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all hover:-translate-y-0.5"
         >
           <i className="fas fa-plus" /> Add Company
         </Link>
@@ -78,7 +78,7 @@ export default function AdminCompaniesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search companies..."
-            className="w-full pl-11 pr-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all"
+            className="w-full pl-11 pr-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
           />
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function AdminCompaniesPage() {
       <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-sm">
         {loading ? (
           <div className="p-12 text-center">
-            <i className="fas fa-spinner fa-spin text-2xl text-[#00c2cb] mb-3" />
+            <i className="fas fa-spinner fa-spin text-2xl text-accent mb-3" />
             <p className="text-slate-400 text-sm">Loading companies...</p>
           </div>
         ) : filtered.length === 0 ? (
@@ -119,7 +119,7 @@ export default function AdminCompaniesPage() {
                   Photos
                 </th>
                 <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  Created
+                  Period
                 </th>
                 <th className="text-right px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                   Actions
@@ -137,7 +137,7 @@ export default function AdminCompaniesPage() {
                       <div className="w-9 h-9 bg-slate-700 rounded-lg flex items-center justify-center text-slate-300 font-bold text-xs shrink-0">
                         {(company.name || "?").charAt(0)}
                       </div>
-                      <span className="text-white text-sm font-medium truncate max-w-[250px]">
+                      <span className="text-white text-sm font-medium truncate max-w-62.5">
                         {company.name}
                       </span>
                     </div>
@@ -156,14 +156,20 @@ export default function AdminCompaniesPage() {
                   </td>
                   <td className="px-6 py-4">
                     <span className="text-slate-500 text-sm">
-                      {new Date(company.created_at).toLocaleDateString()}
+                      {company.start_date && company.end_date
+                        ? `${new Date(company.start_date).toLocaleDateString()} - ${new Date(company.end_date).toLocaleDateString()}`
+                        : company.start_date
+                          ? `Start: ${new Date(company.start_date).toLocaleDateString()}`
+                          : company.end_date
+                            ? `End: ${new Date(company.end_date).toLocaleDateString()}`
+                            : "-"}
                     </span>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center justify-end gap-2">
                       <Link
                         href={`/admin/companies/${company.id}/edit`}
-                        className="p-2 text-slate-400 hover:text-[#00c2cb] hover:bg-[#00c2cb]/10 rounded-lg transition-colors"
+                        className="p-2 text-slate-400 hover:text-accent hover:bg-accent/10 rounded-lg transition-colors"
                         title="Edit"
                       >
                         <i className="fas fa-pen text-sm" />
@@ -198,5 +204,5 @@ export default function AdminCompaniesPage() {
         </p>
       )}
     </div>
-  );
+  )
 }

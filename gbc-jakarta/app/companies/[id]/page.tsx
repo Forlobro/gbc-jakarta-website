@@ -1,49 +1,57 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import { GbcCompanyWithPhotos } from "../../lib/supabase";
+import { useEffect, useState } from "react"
+import { useParams } from "next/navigation"
+import Link from "next/link"
+import Image from "next/image"
+import Navbar from "../../components/Navbar"
+import Footer from "../../components/Footer"
+import { GbcCompanyWithPhotos } from "../../lib/supabase"
+
+function getCompanyLogoText(name: string | null | undefined) {
+  const safeName = (name || "?").trim()
+  if (!safeName) return "?"
+  return safeName.split(" ").slice(0, 2).join(" ")
+}
 
 export default function CompanyDetailPage() {
-  const params = useParams();
-  const id = params.id as string;
+  const params = useParams()
+  const id = params.id as string
 
-  const [company, setCompany] = useState<GbcCompanyWithPhotos | null>(null);
-  const [related, setRelated] = useState<GbcCompanyWithPhotos[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
-  const [activePhoto, setActivePhoto] = useState(0);
+  const [company, setCompany] = useState<GbcCompanyWithPhotos | null>(null)
+  const [related, setRelated] = useState<GbcCompanyWithPhotos[]>([])
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
+  const [activePhoto, setActivePhoto] = useState(0)
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) return
 
     // Fetch this company
     fetch(`/api/companies/${id}`)
       .then((r) => {
         if (r.status === 404) {
-          setNotFound(true);
-          return null;
+          setNotFound(true)
+          return null
         }
-        return r.json();
+        return r.json()
       })
       .then((data) => {
-        if (data) setCompany(data);
+        if (data) setCompany(data)
       })
-      .finally(() => setLoading(false));
+      .finally(() => setLoading(false))
 
     // Fetch related (all, then exclude current)
     fetch("/api/companies")
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          setRelated(data.filter((c) => String(c.id) !== String(id)).slice(0, 3));
+          setRelated(
+            data.filter((c) => String(c.id) !== String(id)).slice(0, 3),
+          )
         }
-      });
-  }, [id]);
+      })
+  }, [id])
 
   if (loading) {
     return (
@@ -53,7 +61,7 @@ export default function CompanyDetailPage() {
           <i className="fas fa-spinner fa-spin text-3xl text-primary opacity-50" />
         </div>
       </>
-    );
+    )
   }
 
   if (notFound || !company) {
@@ -78,17 +86,17 @@ export default function CompanyDetailPage() {
         </div>
         <Footer />
       </>
-    );
+    )
   }
 
-  const photos = company.gbc_companies_photos ?? [];
+  const photos = company.gbc_companies_photos ?? []
 
   return (
     <>
       <Navbar />
 
       {/* Company Hero */}
-      <section className="pt-40 pb-20 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
+      <section className="pt-40 pb-20 bg-linear-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
@@ -96,13 +104,13 @@ export default function CompanyDetailPage() {
               "radial-gradient(circle at 80% 20%, rgba(0, 194, 203, 0.1) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 40%)",
           }}
         />
-        <div className="max-w-[1400px] mx-auto px-[5%] relative z-[1]">
+        <div className="max-w-350 mx-auto px-[5%] relative z-1">
           <div className="flex flex-col md:flex-row items-center gap-12">
             {/* Logo / First Photo */}
-            <div className="w-[140px] h-[140px] bg-white rounded-3xl flex items-center justify-center p-4 shadow-2xl shrink-0 overflow-hidden">
-              {photos[0]?.photo_url ? (
+            <div className="w-35 h-35 bg-white rounded-3xl flex items-center justify-center p-4 shadow-2xl shrink-0 overflow-hidden">
+              {company.logo_url ? (
                 <Image
-                  src={photos[0].photo_url}
+                  src={company.logo_url}
                   alt={company.name ?? ""}
                   width={140}
                   height={140}
@@ -110,7 +118,7 @@ export default function CompanyDetailPage() {
                 />
               ) : (
                 <span className="font-display font-extrabold text-base text-primary text-center">
-                  {(company.name ?? "?").split(" ").slice(0, 2).join(" ")}
+                  {getCompanyLogoText(company.name)}
                 </span>
               )}
             </div>
@@ -148,7 +156,7 @@ export default function CompanyDetailPage() {
 
       {/* Company Content */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-[5%]">
+        <div className="max-w-350 mx-auto px-[5%]">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
             {/* Main Content */}
             <div>
@@ -214,11 +222,12 @@ export default function CompanyDetailPage() {
             </div>
 
             {/* Sidebar */}
-            <div className="lg:sticky lg:top-[100px] lg:self-start space-y-6">
+            <div className="lg:sticky lg:top-25 lg:self-start space-y-6">
               {/* Contact Card */}
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
                 <h3 className="font-display text-lg font-bold text-primary mb-6 flex items-center gap-2">
-                  <i className="fas fa-address-card text-accent" /> Contact via GBC
+                  <i className="fas fa-address-card text-accent" /> Contact via
+                  GBC
                 </h3>
                 <div className="flex flex-col gap-4 mb-6">
                   <div className="flex items-start gap-4">
@@ -303,7 +312,7 @@ export default function CompanyDetailPage() {
       {/* Related Companies */}
       {related.length > 0 && (
         <section className="py-20 bg-[#f9fafb]">
-          <div className="max-w-[1400px] mx-auto px-[5%]">
+          <div className="max-w-350 mx-auto px-[5%]">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-primary text-center mb-12">
               Other Companies You May Be Interested In
             </h2>
@@ -313,20 +322,20 @@ export default function CompanyDetailPage() {
                   key={c.id}
                   className="bg-white rounded-[20px] p-8 transition-all duration-400 border border-gray-100 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
                 >
-                  {c.gbc_companies_photos?.[0]?.photo_url ? (
-                    <div className="w-full h-36 rounded-2xl overflow-hidden mb-6">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <div className="w-20 h-20 bg-[#f9fafb] rounded-2xl flex items-center justify-center mb-6 overflow-hidden">
+                    {c.logo_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={c.gbc_companies_photos[0].photo_url}
+                        src={c.logo_url}
                         alt={c.name ?? ""}
                         className="w-full h-full object-cover"
                       />
-                    </div>
-                  ) : (
-                    <div className="w-20 h-20 bg-[#f9fafb] rounded-2xl flex items-center justify-center mb-6 font-display font-bold text-[0.75rem] text-primary text-center p-2">
-                      {(c.name ?? "?").split(" ")[0]}
-                    </div>
-                  )}
+                    ) : (
+                      <span className="font-display font-bold text-[0.75rem] text-primary text-center p-2 leading-tight">
+                        {getCompanyLogoText(c.name)}
+                      </span>
+                    )}
+                  </div>
                   <h4 className="text-lg font-bold text-text mb-2">{c.name}</h4>
                   {c.category && (
                     <span className="inline-block bg-accent/10 text-primary-light px-3.5 py-1.5 rounded-[20px] text-[0.75rem] font-semibold mb-4">
@@ -353,5 +362,5 @@ export default function CompanyDetailPage() {
 
       <Footer />
     </>
-  );
+  )
 }

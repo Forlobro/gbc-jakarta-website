@@ -1,27 +1,16 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { useTranslation } from "../lib/LanguageContext";
+import Link from "next/link"
+import Image from "next/image"
+import { useTranslation } from "../lib/LanguageContext"
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const { language, setLanguage, t } = useTranslation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { language, setLanguage, t } = useTranslation()
 
   return (
     <nav
       id="navbar"
-      className={`fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-[5%] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] backdrop-blur-[20px] bg-white py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]`}
+      className={`fixed top-0 left-0 right-0 z-1000 flex items-center justify-between px-[5%] transition-all duration-400 ease-cubic-bezier(0.4,0,0.2,1) backdrop-blur-[20px] bg-white py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]`}
     >
       {/* Logo */}
       <Link href="/" className="flex items-center gap-3 z-10">
@@ -30,7 +19,7 @@ export default function Navbar() {
           alt="GBC Jakarta"
           width={61}
           height={18}
-          className="h-[18px] w-auto transition-transform duration-300 hover:scale-105"
+          className="h-4.5 w-auto transition-transform duration-300 hover:scale-105"
         />
       </Link>
 
@@ -90,5 +79,5 @@ export default function Navbar() {
         </Link>
       </div>
     </nav>
-  );
+  )
 }

@@ -1,26 +1,26 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { GbcCompanyWithPhotos } from "../lib/supabase";
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { GbcCompanyWithPhotos } from "../lib/supabase"
 
 export default function AdminDashboard() {
-  const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch("/api/admin/companies")
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) setCompanies(data);
+        if (Array.isArray(data)) setCompanies(data)
       })
-      .finally(() => setLoading(false));
-  }, []);
+      .finally(() => setLoading(false))
+  }, [])
 
   const totalPhotos = companies.reduce(
     (acc, c) => acc + (c.gbc_companies_photos?.length || 0),
-    0
-  );
+    0,
+  )
 
   return (
     <div>
@@ -60,7 +60,11 @@ export default function AdminDashboard() {
             value: loading
               ? "—"
               : companies.length > 0
-                ? new Date(companies[0].created_at).toLocaleDateString()
+                ? companies[0].end_date
+                  ? new Date(companies[0].end_date).toLocaleDateString()
+                  : companies[0].start_date
+                    ? new Date(companies[0].start_date).toLocaleDateString()
+                    : "N/A"
                 : "N/A",
             icon: "fas fa-clock",
             color: "from-amber-500 to-amber-600",
@@ -72,7 +76,7 @@ export default function AdminDashboard() {
           >
             <div className="flex items-center justify-between mb-4">
               <div
-                className={`w-11 h-11 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-lg`}
+                className={`w-11 h-11 bg-linear-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-lg`}
               >
                 <i className={`${stat.icon} text-white text-sm`} />
               </div>
@@ -89,7 +93,7 @@ export default function AdminDashboard() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/admin/companies/new"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#00c2cb] to-[#00a8b0] text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-[#00c2cb]/25 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all"
           >
             <i className="fas fa-plus" /> Add Company
           </Link>
@@ -144,5 +148,5 @@ export default function AdminDashboard() {
         </div>
       )}
     </div>
-  );
+  )
 }

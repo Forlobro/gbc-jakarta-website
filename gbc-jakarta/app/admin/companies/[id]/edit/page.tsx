@@ -1,83 +1,80 @@
-"use client";
+"use client"
 
-import { useEffect, useState, use, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import CompanyForm from "../../../components/CompanyForm";
-import PhotoManager from "../../../components/PhotoManager";
-import { GbcCompanyWithPhotos } from "../../../../lib/supabase";
+import { useEffect, useState, use, useCallback } from "react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import CompanyForm, { CompanyFormData } from "../../../components/CompanyForm"
+import LogoManager from "../../../components/LogoManager"
+import PhotoManager from "../../../components/PhotoManager"
+import { GbcCompanyWithPhotos } from "../../../../lib/supabase"
 
 export default function AdminEditCompanyPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>
 }) {
-  const { id } = use(params);
-  const [company, setCompany] = useState<GbcCompanyWithPhotos | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const router = useRouter();
+  const { id } = use(params)
+  const [company, setCompany] = useState<GbcCompanyWithPhotos | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const router = useRouter()
 
   const fetchCompany = useCallback(() => {
     fetch(`/api/admin/companies/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert("Company not found");
-          router.push("/admin/companies");
-          return;
+          alert("Company not found")
+          router.push("/admin/companies")
+          return
         }
-        setCompany(data);
+        setCompany(data)
       })
-      .finally(() => setLoading(false));
-  }, [id, router]);
+      .finally(() => setLoading(false))
+  }, [id, router])
 
   useEffect(() => {
-    fetchCompany();
-  }, [fetchCompany]);
+    fetchCompany()
+  }, [fetchCompany])
 
-  const handleSubmit = async (data: {
-    name: string;
-    category: string;
-    description: string;
-  }) => {
-    setSaving(true);
-    setSaved(false);
+  const handleSubmit = async (data: CompanyFormData) => {
+    setSaving(true)
+    setSaved(false)
 
     try {
       const res = await fetch(`/api/admin/companies/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      });
+      })
 
       if (!res.ok) {
-        const err = await res.json();
-        alert(`Error: ${err.error}`);
-        return;
+        const err = await res.json()
+        alert(`Error: ${err.error}`)
+        return
       }
 
-      const updated = await res.json();
-      setCompany((prev) => (prev ? { ...prev, ...updated } : prev));
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
+      const updated = await res.json()
+      setCompany((prev) => (prev ? { ...prev, ...updated } : prev))
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
     } catch {
-      alert("Failed to update. Please try again.");
+      alert("Failed to update. Please try again.")
     } finally {
-      setSaving(false);
+      setSaving(false)
     }
-  };
+  }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center py-24">
-        <i className="fas fa-spinner fa-spin text-2xl text-[#00c2cb]" />
+        <i className="fas fa-spinner fa-spin text-2xl text-accent" />
       </div>
-    );
+    )
   }
 
-  if (!company) return null;
+  if (!company) return null
 
   return (
     <div>
@@ -105,13 +102,16 @@ export default function AdminEditCompanyPage({
         {/* Company Form */}
         <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
           <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-            <i className="fas fa-edit text-[#00c2cb]" /> Company Details
+            <i className="fas fa-edit text-accent" /> Company Details
           </h2>
           <CompanyForm
             initialData={{
               name: company.name || "",
               category: company.category || "",
               description: company.description || "",
+              start_date: company.start_date || "",
+              end_date: company.end_date || "",
+              link_video: company.link_video || "",
             }}
             onSubmit={handleSubmit}
             submitLabel="Update Company"
@@ -120,14 +120,27 @@ export default function AdminEditCompanyPage({
         </div>
 
         {/* Photo Manager */}
-        <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
-          <PhotoManager
-            companyId={company.id}
-            photos={company.gbc_companies_photos || []}
-            onPhotosChange={fetchCompany}
-          />
+        <div className="space-y-8">
+          <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
+            <LogoManager
+              companyId={company.id}
+              companyName={company.name || ""}
+              logoUrl={company.logo_url || null}
+              onLogoChange={fetchCompany}
+            />
+          </div>
+
+          <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
+            <PhotoManager
+              companyId={company.id}
+              photos={company.gbc_companies_photos || []}
+              onPhotosChange={fetchCompany}
+              title="Gallery"
+              description="Upload foto pendukung untuk gallery company."
+            />
+          </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

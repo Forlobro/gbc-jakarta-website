@@ -1,42 +1,38 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import CompanyForm from "../../components/CompanyForm";
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import CompanyForm, { CompanyFormData } from "../../components/CompanyForm"
 
 export default function AdminNewCompanyPage() {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
-  const handleSubmit = async (data: {
-    name: string;
-    category: string;
-    description: string;
-  }) => {
-    setLoading(true);
+  const handleSubmit = async (data: CompanyFormData) => {
+    setLoading(true)
 
     try {
       const res = await fetch("/api/admin/companies", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      });
+      })
 
       if (!res.ok) {
-        const err = await res.json();
-        alert(`Error: ${err.error}`);
-        return;
+        const err = await res.json()
+        alert(`Error: ${err.error}`)
+        return
       }
 
-      const company = await res.json();
-      router.push(`/admin/companies/${company.id}/edit`);
+      const company = await res.json()
+      router.push(`/admin/companies/${company.id}/edit`)
     } catch {
-      alert("Failed to create company. Please try again.");
+      alert("Failed to create company. Please try again.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div>
@@ -63,5 +59,5 @@ export default function AdminNewCompanyPage() {
         />
       </div>
     </div>
-  );
+  )
 }

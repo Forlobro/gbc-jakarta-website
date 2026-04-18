@@ -1,20 +1,21 @@
-"use client";
+"use client"
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react"
+
+export interface CompanyFormData {
+  name: string
+  category: string
+  description: string
+  start_date: string
+  end_date: string
+  link_video: string
+}
 
 interface CompanyFormProps {
-  initialData?: {
-    name: string;
-    category: string;
-    description: string;
-  };
-  onSubmit: (data: {
-    name: string;
-    category: string;
-    description: string;
-  }) => Promise<void>;
-  submitLabel: string;
-  loading?: boolean;
+  initialData?: CompanyFormData
+  onSubmit: (data: CompanyFormData) => Promise<void>
+  submitLabel: string
+  loading?: boolean
 }
 
 const categories = [
@@ -53,7 +54,7 @@ const categories = [
   "Industrial Automation",
   "Textile Technology",
   "Industrial Sensors",
-];
+]
 
 export default function CompanyForm({
   initialData,
@@ -61,16 +62,24 @@ export default function CompanyForm({
   submitLabel,
   loading = false,
 }: CompanyFormProps) {
-  const [name, setName] = useState(initialData?.name || "");
-  const [category, setCategory] = useState(initialData?.category || "");
-  const [description, setDescription] = useState(
-    initialData?.description || ""
-  );
+  const [name, setName] = useState(initialData?.name || "")
+  const [category, setCategory] = useState(initialData?.category || "")
+  const [description, setDescription] = useState(initialData?.description || "")
+  const [startDate, setStartDate] = useState(initialData?.start_date || "")
+  const [endDate, setEndDate] = useState(initialData?.end_date || "")
+  const [linkVideo, setLinkVideo] = useState(initialData?.link_video || "")
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    await onSubmit({ name, category, description });
-  };
+    e.preventDefault()
+    await onSubmit({
+      name,
+      category,
+      description,
+      start_date: startDate,
+      end_date: endDate,
+      link_video: linkVideo,
+    })
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -85,20 +94,21 @@ export default function CompanyForm({
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. ROBOTECH ENG CO.,LTD."
           required
-          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all"
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
         />
       </div>
 
       {/* Category */}
       <div>
         <label className="block text-sm font-medium text-slate-300 mb-2">
-          Category
+          Category <span className="text-red-400">*</span>
         </label>
         <div className="relative">
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all appearance-none cursor-pointer"
+            required
+            className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all appearance-none cursor-pointer"
           >
             <option value="">Select category...</option>
             {categories.map((c) => (
@@ -117,7 +127,8 @@ export default function CompanyForm({
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           placeholder="Custom category..."
-          className="w-full mt-2 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all"
+          required
+          className="w-full mt-2 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
         />
       </div>
 
@@ -131,15 +142,55 @@ export default function CompanyForm({
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe the company, their products, and services..."
           rows={6}
-          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#00c2cb] focus:ring-2 focus:ring-[#00c2cb]/20 transition-all resize-y"
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all resize-y"
+        />
+      </div>
+
+      {/* Start Batch */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Start Batch
+        </label>
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
+        />
+      </div>
+
+      {/* End Batch */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          End Batch
+        </label>
+        <input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
+        />
+      </div>
+
+      {/* Video Profile */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Video Profile
+        </label>
+        <input
+          type="url"
+          value={linkVideo}
+          onChange={(e) => setLinkVideo(e.target.value)}
+          placeholder="https://..."
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
         />
       </div>
 
       {/* Submit */}
       <button
         type="submit"
-        disabled={loading || !name}
-        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#00c2cb] to-[#00a8b0] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#00c2cb]/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 text-sm"
+        disabled={loading || !name || !category}
+        className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 text-sm"
       >
         {loading ? (
           <>
@@ -152,5 +203,5 @@ export default function CompanyForm({
         )}
       </button>
     </form>
-  );
+  )
 }
