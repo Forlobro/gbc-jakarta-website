@@ -8,6 +8,16 @@ import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
 import { GbcCompanyWithPhotos } from "../../lib/supabase"
 
+function getEmbedUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  if (url.includes("youtube.com/embed/")) return url;
+  const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+  if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}`;
+  const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}`;
+  return null;
+}
+
 function getCompanyLogoText(name: string | null | undefined) {
   const safeName = (name || "?").trim()
   if (!safeName) return "?"
@@ -160,6 +170,26 @@ export default function CompanyDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
             {/* Main Content */}
             <div>
+              {/* Video */}
+              {getEmbedUrl(company.link_video) && (
+                <div className="mb-12">
+                  <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
+                    <i className="fas fa-play-circle text-accent" /> Video Profile
+                  </h2>
+                  <div className="rounded-3xl overflow-hidden shadow-xl">
+                    <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                      <iframe
+                        src={getEmbedUrl(company.link_video)!}
+                        className="absolute inset-0 w-full h-full"
+                        title={`${company.name} video`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Description */}
               {company.description && (
                 <div className="mb-12">

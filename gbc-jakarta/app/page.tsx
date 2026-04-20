@@ -14,7 +14,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <VideoSection />
-      <AboutSection />
+<AboutSection />
       <CompaniesSection />
       <TeamSection />
       <MapSection />

@@ -16,6 +16,7 @@ const EVENTS: Record<string, {
   image: string;
   description: string;
   details: string;
+  video_url?: string;
 }> = {
   "1": {
     id: 1,
@@ -27,6 +28,7 @@ const EVENTS: Record<string, {
     description: "Connecting Korean and Indonesian companies through SmartCity & ICT innovation excellence.",
     details:
       "Korea–Indonesia SmartCity & ICT Roadshow will be an exclusive platform for networking, providing an opportunity for Indonesian companies to directly connect with leading Korean companies in the SmartCity and ICT sector. As a valued participant, you will have the chance to engage in one-on-one business meetings with key representatives from Korean companies.",
+    video_url: "https://www.youtube.com/embed/J4aWZjyJ3A4",
   },
   "2": {
     id: 2,
@@ -316,6 +318,28 @@ export default function EventDetailPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Event Video ── */}
+      {event.video_url && (
+        <section className="py-16 bg-[#f8fafc]">
+          <div className="max-w-[1400px] mx-auto px-[5%]">
+            <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
+              Event Video
+            </h2>
+            <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                <iframe
+                  src={event.video_url}
+                  className="absolute inset-0 w-full h-full"
+                  title={event.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Event Gallery (only event 1) ── */}
       {id === "1" && <EventGallery />}

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useTranslation } from "../lib/LanguageContext"
 import ScrollReveal from "./ScrollReveal"
 import { GbcCompanyWithPhotos } from "../lib/supabase"
@@ -12,17 +12,48 @@ function getCompanyLogoText(name: string | null | undefined) {
   return safeName.split(" ").slice(0, 2).join(" ")
 }
 
+function getYear(dateValue: string | null | undefined): number | null {
+  if (!dateValue) return null
+  const match = dateValue.match(/^(\d{4})/)
+  if (!match) return null
+  const year = Number(match[1])
+  return Number.isNaN(year) ? null : year
+}
+
+function getCoveredYears(company: GbcCompanyWithPhotos): number[] {
+  const startYear = getYear(company.start_date)
+  const endYear = getYear(company.end_date)
+  if (startYear && endYear) {
+    const from = Math.min(startYear, endYear)
+    const to = Math.max(startYear, endYear)
+    const years: number[] = []
+    for (let year = from; year <= to; year += 1) years.push(year)
+    return years
+  }
+  if (startYear) return [startYear]
+  if (endYear) return [endYear]
+  return []
+}
+
 export default function CompaniesSection() {
   const { t } = useTranslation()
   const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
   const [loading, setLoading] = useState(true)
   const [activeFilter, setActiveFilter] = useState("All")
+  const [search, setSearch] = useState("")
+  const [selectedYear, setSelectedYear] = useState<number | null>(null)
 
   useEffect(() => {
     fetch("/api/companies")
       .then((r) => r.json())
       .then((data) => {
-        if (Array.isArray(data)) setCompanies(data)
+        if (Array.isArray(data)) {
+          setCompanies(data)
+          const years = Array.from(
+            new Set(data.flatMap((c: GbcCompanyWithPhotos) => getCoveredYears(c)))
+          ).sort((a, b) => b - a)
+          setSelectedYear((prev) => prev ?? years[0] ?? null)
+        }
       })
       .finally(() => setLoading(false))
   }, [])
@@ -32,11 +63,25 @@ export default function CompaniesSection() {
     ...Array.from(new Set(companies.map((c) => c.category).filter(Boolean))),
   ] as string[]
 
-  const filtered = (
-    activeFilter === "All"
-      ? companies
-      : companies.filter((c) => c.category === activeFilter)
-  ).slice(0, 6)
+  const availableYears = useMemo(() => {
+    const years = new Set<number>()
+    for (const company of companies) {
+      for (const year of getCoveredYears(company)) years.add(year)
+    }
+    return Array.from(years).sort((a, b) => b - a)
+  }, [companies])
+
+  const filtered = companies
+    .filter((c) => {
+      const years = getCoveredYears(c)
+      const matchesYear = selectedYear === null || years.includes(selectedYear)
+      const matchesSearch =
+        (c.name ?? "").toLowerCase().includes(search.toLowerCase()) ||
+        (c.category ?? "").toLowerCase().includes(search.toLowerCase())
+      const matchesFilter = activeFilter === "All" || c.category === activeFilter
+      return matchesYear && matchesSearch && matchesFilter
+    })
+    .slice(0, 6)
 
   return (
     <section
@@ -104,17 +149,48 @@ export default function CompaniesSection() {
 
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
-        <ScrollReveal className="text-center max-w-[700px] mx-auto mb-16">
+        <ScrollReveal className="text-center max-w-[700px] mx-auto mb-10">
           <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
             GMS Program
           </div>
           <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-6 leading-[1.2]">
             {t("featured")}
           </h2>
-          <p className="text-text-light text-lg">{t("discover")}</p>
+          <p className="text-text-light text-lg mb-6">{t("discover")}</p>
+
+          {/* Search */}
+          <div className="relative max-w-md mx-auto">
+            <i className="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search companies..."
+              className="w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-full text-sm focus:outline-none focus:border-accent transition-all"
+            />
+          </div>
         </ScrollReveal>
 
-        {/* Filter Buttons */}
+        {/* Year Filter */}
+        {!loading && availableYears.length > 0 && (
+          <ScrollReveal className="flex justify-center gap-2 flex-wrap mb-4">
+            {availableYears.map((year) => (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
+                  selectedYear === year
+                    ? "bg-accent border-accent text-primary"
+                    : "bg-white border-gray-200 text-text-light hover:border-accent hover:text-primary"
+                }`}
+              >
+                {year}
+              </button>
+            ))}
+          </ScrollReveal>
+        )}
+
+        {/* Category Filter Buttons */}
         {!loading && categories.length > 1 && (
           <ScrollReveal className="flex justify-center gap-2 flex-wrap mb-10">
             {categories.map((cat) => (

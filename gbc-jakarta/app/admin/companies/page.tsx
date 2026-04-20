@@ -169,10 +169,10 @@ export default function AdminCompaniesPage() {
                     <div className="flex items-center justify-end gap-2">
                       <Link
                         href={`/admin/companies/${company.id}/edit`}
-                        className="p-2 text-slate-400 hover:text-accent hover:bg-accent/10 rounded-lg transition-colors"
+                        className="p-2 text-white hover:text-accent hover:bg-accent/10 rounded-lg transition-colors"
                         title="Edit"
                       >
-                        <i className="fas fa-pen text-sm" />
+                        <i className="fas fa-pen text-sm text-white" />
                       </Link>
                       <button
                         onClick={() =>

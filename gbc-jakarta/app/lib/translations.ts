@@ -70,6 +70,11 @@ export const translations = {
     videoLabel: "GBC Jakarta",
     videoTitle: "Getting to Know GBC Jakarta",
 
+    // Company Videos Section
+    companyVideosLabel: "Company Videos",
+    companyVideosTitle: "Videos from GBC Jakarta Companies",
+    companyVideosDesc: "Watch product and company profile videos from our partner Korean SMEs.",
+
     // Team / Director
     directorLabel: "Director General",
     messageTitle: "Message & Vision",
@@ -230,6 +235,11 @@ export const translations = {
     // Video Section
     videoLabel: "GBC Jakarta",
     videoTitle: "Mengenal GBC Jakarta",
+
+    // Company Videos Section
+    companyVideosLabel: "Video Perusahaan",
+    companyVideosTitle: "Video dari Perusahaan GBC Jakarta",
+    companyVideosDesc: "Tonton video profil produk dan perusahaan dari mitra UKM Korea kami.",
 
     // Team / Director
     directorLabel: "Direktur Utama",
