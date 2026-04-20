@@ -82,6 +82,17 @@ export const translations = {
     ourTeam: "Our Team",
     teamTitle: "Meet the People Behind GBC Jakarta",
 
+    // Map Section
+    mapLabel: "Our Location",
+    mapTitle: "Find Us in Jakarta",
+    mapAddress: "Address",
+    mapHours: "Office Hours",
+    mapMonFri: "Monday – Friday",
+    mapSatSun: "Saturday – Sunday",
+    mapClosed: "Closed",
+    mapOpenInMaps: "Open in Google Maps",
+    mapGetDirections: "Get directions",
+
     // Contact
     contactLabel: "Contact Us",
     contactTitle: "Let's Build Partnership Together",
@@ -95,6 +106,20 @@ export const translations = {
     formCompany: "Company",
     formMessage: "Message",
     viewDetail: "View Detail",
+
+    // Event Detail Page
+    backToEvents: "Back to Events",
+    aboutThisEvent: "About This Event",
+    eventVideo: "Event Video",
+    eventGallery: "Event Gallery",
+    exhibitorList: "Exhibitor List",
+    brochure: "Brochure",
+    eventsP1Details: "Korea–Indonesia SmartCity & ICT Roadshow will be an exclusive platform for networking, providing an opportunity for Indonesian companies to directly connect with leading Korean companies in the SmartCity and ICT sector. As a valued participant, you will have the chance to engage in one-on-one business meetings with key representatives from Korean companies.",
+    eventsP2Details: "An intensive B2B matching session designed to facilitate direct connections between Gyeonggi Province SMEs and potential Indonesian business partners. The session covered 5 key industry sectors and resulted in numerous partnership agreements.",
+    eventsP3Details: "An official delegation from Gyeonggi Province visited Jakarta to explore and strengthen bilateral trade and investment opportunities. The mission included site visits, government meetings, and business networking sessions.",
+    eventsP4Details: "The official grand opening of GBC Jakarta was attended by representatives from Gyeonggi Provincial Government, Korean Embassy in Indonesia, and key Indonesian business stakeholders. This milestone marks the beginning of GBC Jakarta's mission to bridge Korean and Indonesian businesses.",
+    eventsP5Details: "A curated exhibition featuring premium Korean beauty and lifestyle brands from Gyeonggi Province. The event attracted thousands of Indonesian consumers and retail buyers, with live demonstrations, product sampling, and exclusive launch events.",
+    eventsP6Details: "A high-level industry forum bringing together government officials, business leaders, and trade associations from both Korea and Indonesia. Key topics included regulatory frameworks, investment opportunities, and sector-specific collaboration strategies.",
 
     // Events Page
     eventsPageBadge: "GBC Jakarta Events",
@@ -248,6 +273,17 @@ export const translations = {
     ourTeam: "Tim Kami",
     teamTitle: "Tim di Balik GBC Jakarta",
 
+    // Map Section
+    mapLabel: "Lokasi Kami",
+    mapTitle: "Temukan Kami di Jakarta",
+    mapAddress: "Alamat",
+    mapHours: "Jam Operasional",
+    mapMonFri: "Senin – Jumat",
+    mapSatSun: "Sabtu – Minggu",
+    mapClosed: "Tutup",
+    mapOpenInMaps: "Buka di Google Maps",
+    mapGetDirections: "Dapatkan petunjuk arah",
+
     // Contact
     contactLabel: "Kontak Kami",
     contactTitle: "Mari Bangun Kemitraan Bersama",
@@ -261,6 +297,20 @@ export const translations = {
     formCompany: "Perusahaan",
     formMessage: "Pesan",
     viewDetail: "Lihat Detail",
+
+    // Event Detail Page
+    backToEvents: "Kembali ke Events",
+    aboutThisEvent: "Tentang Event Ini",
+    eventVideo: "Video Event",
+    eventGallery: "Galeri Event",
+    exhibitorList: "Daftar Peserta",
+    brochure: "Brosur",
+    eventsP1Details: "Korea–Indonesia SmartCity & ICT Roadshow akan menjadi platform eksklusif untuk jaringan bisnis, memberikan kesempatan bagi perusahaan Indonesia untuk terhubung langsung dengan perusahaan Korea terkemuka di sektor SmartCity dan ICT. Sebagai peserta terpilih, Anda akan berkesempatan untuk terlibat dalam pertemuan bisnis satu-satu dengan perwakilan utama dari perusahaan-perusahaan Korea.",
+    eventsP2Details: "Sesi pencocokan B2B intensif yang dirancang untuk memfasilitasi koneksi langsung antara UKM Provinsi Gyeonggi dan calon mitra bisnis Indonesia. Sesi ini mencakup 5 sektor industri utama dan menghasilkan banyak kesepakatan kemitraan.",
+    eventsP3Details: "Delegasi resmi dari Provinsi Gyeonggi mengunjungi Jakarta untuk menjajaki dan memperkuat peluang perdagangan dan investasi bilateral. Misi ini mencakup kunjungan lokasi, pertemuan pemerintah, dan sesi jaringan bisnis.",
+    eventsP4Details: "Pembukaan resmi GBC Jakarta dihadiri oleh perwakilan dari Pemerintah Provinsi Gyeonggi, Kedutaan Besar Korea di Indonesia, dan pemangku kepentingan bisnis Indonesia utama. Tonggak sejarah ini menandai awal misi GBC Jakarta untuk menjembatani bisnis Korea dan Indonesia.",
+    eventsP5Details: "Pameran pilihan yang menampilkan merek kecantikan dan gaya hidup Korea premium dari Provinsi Gyeonggi. Event ini menarik ribuan konsumen dan pembeli ritel Indonesia, dengan demonstrasi langsung, sampling produk, dan event peluncuran eksklusif.",
+    eventsP6Details: "Forum industri tingkat tinggi yang mempertemukan pejabat pemerintah, pemimpin bisnis, dan asosiasi perdagangan dari Korea dan Indonesia. Topik utama mencakup kerangka regulasi, peluang investasi, dan strategi kolaborasi sektor tertentu.",
 
     // Events Page
     eventsPageBadge: "GBC Jakarta Events",

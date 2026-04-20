@@ -5,85 +5,81 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { useTranslation } from "../../lib/LanguageContext";
+import { TranslationKey } from "../../lib/translations";
 
 // ── Event Data ──────────────────────────────────────────────
 const EVENTS: Record<string, {
   id: number;
   tag: string;
-  title: string;
-  date: string;
-  location: string;
+  titleKey: TranslationKey;
+  dateKey: TranslationKey;
+  locationKey: TranslationKey;
   image: string;
-  description: string;
-  details: string;
+  descKey: TranslationKey;
+  detailsKey: TranslationKey;
   video_url?: string;
 }> = {
   "1": {
     id: 1,
     tag: "Roadshow",
-    title: "Korea–Indonesia SmartCity Roadshow 2024",
-    date: "16 May 2024",
-    location: "Sheraton Grand Jakarta, Randsome City Hotel",
+    titleKey: "eventsP1Title",
+    dateKey: "eventsP1Date",
+    locationKey: "eventsP1Location",
     image: "/images/Suwon.jpg",
-    description: "Connecting Korean and Indonesian companies through SmartCity & ICT innovation excellence.",
-    details:
-      "Korea–Indonesia SmartCity & ICT Roadshow will be an exclusive platform for networking, providing an opportunity for Indonesian companies to directly connect with leading Korean companies in the SmartCity and ICT sector. As a valued participant, you will have the chance to engage in one-on-one business meetings with key representatives from Korean companies.",
+    descKey: "eventsP1Desc",
+    detailsKey: "eventsP1Details",
     video_url: "https://www.youtube.com/embed/J4aWZjyJ3A4",
   },
   "2": {
     id: 2,
     tag: "B2B Matching",
-    title: "B2B Business Matching Session — Q1 2024",
-    date: "8 March 2024",
-    location: "DBS Tower, Jakarta",
+    titleKey: "eventsP2Title",
+    dateKey: "eventsP2Date",
+    locationKey: "eventsP2Location",
     image: "/images/ceremonial.png",
-    description: "Direct business matching between 15 Gyeonggi SMEs and Indonesian distributors across 5 industry sectors.",
-    details:
-      "An intensive B2B matching session designed to facilitate direct connections between Gyeonggi Province SMEs and potential Indonesian business partners. The session covered 5 key industry sectors and resulted in numerous partnership agreements.",
+    descKey: "eventsP2Desc",
+    detailsKey: "eventsP2Details",
   },
   "3": {
     id: 3,
     tag: "Trade Mission",
-    title: "Gyeonggi Trade Mission to Jakarta",
-    date: "20 February 2024",
-    location: "Jakarta, Indonesia",
+    titleKey: "eventsP3Title",
+    dateKey: "eventsP3Date",
+    locationKey: "eventsP3Location",
     image: "/images/gedung.jpg",
-    description: "Official trade mission delegation from Gyeonggi Province exploring partnership opportunities in Indonesia.",
-    details:
-      "An official delegation from Gyeonggi Province visited Jakarta to explore and strengthen bilateral trade and investment opportunities. The mission included site visits, government meetings, and business networking sessions.",
+    descKey: "eventsP3Desc",
+    detailsKey: "eventsP3Details",
   },
   "4": {
     id: 4,
     tag: "Ceremony",
-    title: "GBC Jakarta Opening Ceremony",
-    date: "14 November 2023",
-    location: "DBS Tower Suite #905, Jakarta",
+    titleKey: "eventsP4Title",
+    dateKey: "eventsP4Date",
+    locationKey: "eventsP4Location",
     image: "/images/ceremonial.png",
-    description: "Grand opening of GBC Jakarta marking the official establishment of Gyeonggi Business Center in Indonesia.",
-    details:
-      "The official grand opening of GBC Jakarta was attended by representatives from Gyeonggi Provincial Government, Korean Embassy in Indonesia, and key Indonesian business stakeholders. This milestone marks the beginning of GBC Jakarta's mission to bridge Korean and Indonesian businesses.",
+    descKey: "eventsP4Desc",
+    detailsKey: "eventsP4Details",
   },
   "5": {
     id: 5,
     tag: "Exhibition",
-    title: "K-Beauty & Lifestyle Exhibition",
-    date: "5 October 2023",
-    location: "Grand Indonesia, Jakarta",
+    titleKey: "eventsP5Title",
+    dateKey: "eventsP5Date",
+    locationKey: "eventsP5Location",
     image: "/images/Suwon.jpg",
-    description: "Showcasing premium Korean beauty and lifestyle products to Indonesian consumers and retail partners.",
-    details:
-      "A curated exhibition featuring premium Korean beauty and lifestyle brands from Gyeonggi Province. The event attracted thousands of Indonesian consumers and retail buyers, with live demonstrations, product sampling, and exclusive launch events.",
+    descKey: "eventsP5Desc",
+    detailsKey: "eventsP5Details",
   },
   "6": {
     id: 6,
     tag: "Forum",
-    title: "Korea–Indonesia Industry Forum",
-    date: "18 August 2023",
-    location: "Pullman Jakarta, Indonesia",
+    titleKey: "eventsP6Title",
+    dateKey: "eventsP6Date",
+    locationKey: "eventsP6Location",
     image: "/images/gedung.jpg",
-    description: "High-level forum discussing bilateral trade opportunities between Korea's Gyeonggi Province and Indonesia.",
-    details:
-      "A high-level industry forum bringing together government officials, business leaders, and trade associations from both Korea and Indonesia. Key topics included regulatory frameworks, investment opportunities, and sector-specific collaboration strategies.",
+    descKey: "eventsP6Desc",
+    detailsKey: "eventsP6Details",
   },
 };
 
@@ -158,21 +154,35 @@ const GALLERY_PHOTOS = [
   "/images/gedung.jpg",
 ];
 
-function EventGallery() {
+function EventGallery({ title }: { title: string }) {
   const [current, setCurrent] = useState(0);
 
   const prev = () => setCurrent((c) => (c === 0 ? GALLERY_PHOTOS.length - 1 : c - 1));
   const next = () => setCurrent((c) => (c === GALLERY_PHOTOS.length - 1 ? 0 : c + 1));
 
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-[1400px] mx-auto px-[5%]">
+    <section className="py-16 bg-white relative">
+      {/* Blurred accent — top left */}
+      <div className="absolute -top-24 -left-24 w-[380px] h-[380px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
+      {/* Circle outline — bottom right */}
+      <div className="absolute -bottom-16 -right-16 w-[300px] h-[300px] rounded-full border-[40px] border-primary/8 pointer-events-none" />
+      {/* Blurred primary — bottom right */}
+      <div className="absolute -bottom-20 -right-20 w-[350px] h-[350px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
+      {/* Floating symbols */}
+      <div className="absolute top-10 right-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
+      <div className="absolute bottom-10 left-[5%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">◦</div>
+      {/* Decorative lines — right */}
+      <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
+        {[60, 40, 90, 50, 75, 35].map((w, i) => (
+          <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
+        ))}
+      </div>
+      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
-          Event Gallery
+          {title}
         </h2>
 
         <div className="relative max-w-4xl mx-auto">
-          {/* Main Photo */}
           <div className="rounded-2xl overflow-hidden" style={{ aspectRatio: "16/9" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -183,7 +193,6 @@ function EventGallery() {
             />
           </div>
 
-          {/* Prev Button */}
           <button
             onClick={prev}
             className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
@@ -191,7 +200,6 @@ function EventGallery() {
             <i className="fas fa-chevron-left text-sm" />
           </button>
 
-          {/* Next Button */}
           <button
             onClick={next}
             className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
@@ -199,7 +207,6 @@ function EventGallery() {
             <i className="fas fa-chevron-right text-sm" />
           </button>
 
-          {/* Dots */}
           <div className="flex justify-center gap-2 mt-5">
             {GALLERY_PHOTOS.map((_, i) => (
               <button
@@ -212,7 +219,6 @@ function EventGallery() {
             ))}
           </div>
 
-          {/* Counter */}
           <p className="text-center text-text-muted text-sm mt-3">
             {current + 1} / {GALLERY_PHOTOS.length}
           </p>
@@ -234,7 +240,8 @@ const TAG_COLORS: Record<string, string> = {
 export default function EventDetailPage() {
   const params = useParams();
   const id = params.id as string;
-  const event = EVENTS[id];
+  const { t } = useTranslation();
+  const eventMeta = EVENTS[id];
   const [activeFilter, setActiveFilter] = useState("All");
 
   const filteredExhibitors =
@@ -242,7 +249,7 @@ export default function EventDetailPage() {
       ? EXHIBITORS
       : EXHIBITORS.filter((e) => e.category === activeFilter);
 
-  if (!event) {
+  if (!eventMeta) {
     return (
       <>
         <Navbar />
@@ -250,7 +257,7 @@ export default function EventDetailPage() {
           <div className="text-center">
             <p className="text-text-light text-lg mb-4">Event not found.</p>
             <Link href="/events" className="text-accent font-semibold hover:underline">
-              ← Back to Events
+              ← {t("backToEvents")}
             </Link>
           </div>
         </div>
@@ -258,6 +265,11 @@ export default function EventDetailPage() {
       </>
     );
   }
+
+  const title = t(eventMeta.titleKey);
+  const date = t(eventMeta.dateKey);
+  const location = t(eventMeta.locationKey);
+  const details = t(eventMeta.detailsKey);
 
   return (
     <>
@@ -267,7 +279,7 @@ export default function EventDetailPage() {
       <section
         className="pt-36 pb-20 relative overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(rgba(15,40,71,0.85), rgba(15,40,71,0.85)), url('${event.image}')`,
+          backgroundImage: `linear-gradient(rgba(15,40,71,0.85), rgba(15,40,71,0.85)), url('${eventMeta.image}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -277,61 +289,84 @@ export default function EventDetailPage() {
             href="/events"
             className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm mb-8 transition-colors"
           >
-            <i className="fas fa-arrow-left" /> Back to Events
+            <i className="fas fa-arrow-left" /> {t("backToEvents")}
           </Link>
 
           <span
             className={`inline-block text-[0.75rem] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 ${
-              TAG_COLORS[event.tag] ?? "bg-gray-100 text-gray-600"
+              TAG_COLORS[eventMeta.tag] ?? "bg-gray-100 text-gray-600"
             }`}
           >
-            {event.tag}
+            {eventMeta.tag}
           </span>
 
           <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white leading-[1.15] mb-6 max-w-[750px]">
-            {event.title}
+            {title}
           </h1>
 
           <div className="flex flex-wrap gap-6 text-white/70 text-[0.9rem]">
             <span className="flex items-center gap-2">
               <i className="fas fa-calendar-alt text-accent" />
-              {event.date}
+              {date}
             </span>
             <span className="flex items-center gap-2">
               <i className="fas fa-map-marker-alt text-accent" />
-              {event.location}
+              {location}
             </span>
           </div>
         </div>
       </section>
 
       {/* ── Event Detail ── */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[1400px] mx-auto px-[5%]">
+      <section className="py-16 bg-white relative">
+        {/* Blurred accent — top right */}
+        <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
+        {/* Circle outline — top right */}
+        <div className="absolute -top-12 -right-12 w-[280px] h-[280px] rounded-full border-[40px] border-accent/10 pointer-events-none" />
+        {/* Blurred primary — bottom left */}
+        <div className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
+        {/* Floating symbols */}
+        <div className="absolute top-10 left-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
+        <div className="absolute bottom-10 right-[6%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
+        {/* Decorative lines — left */}
+        <div className="absolute left-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
+          {[70, 45, 100, 50, 80, 40].map((w, i) => (
+            <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
+          ))}
+        </div>
+        <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
           <div className="max-w-[800px]">
             <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
-              About This Event
+              {t("aboutThisEvent")}
             </h2>
             <p className="text-text-light text-[1rem] leading-[1.9]">
-              {event.details}
+              {details}
             </p>
           </div>
         </div>
       </section>
 
       {/* ── Event Video ── */}
-      {event.video_url && (
-        <section className="py-16 bg-[#f8fafc]">
-          <div className="max-w-[1400px] mx-auto px-[5%]">
+      {eventMeta.video_url && (
+        <section className="py-16 bg-[#f8fafc] relative">
+          {/* Dot pattern */}
+          <div className="absolute inset-y-0 left-0 w-32 pointer-events-none" style={{
+            backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
+            backgroundSize: "20px 20px",
+          }} />
+          <div className="absolute -top-20 -left-20 w-[300px] h-[300px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-20 -right-20 w-[300px] h-[300px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
+          <div className="absolute top-8 right-[7%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">◦</div>
+          <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
             <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
-              Event Video
+              {t("eventVideo")}
             </h2>
             <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
               <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                 <iframe
-                  src={event.video_url}
+                  src={eventMeta.video_url}
                   className="absolute inset-0 w-full h-full"
-                  title={event.title}
+                  title={title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
@@ -342,17 +377,38 @@ export default function EventDetailPage() {
       )}
 
       {/* ── Event Gallery (only event 1) ── */}
-      {id === "1" && <EventGallery />}
+      {id === "1" && <EventGallery title={t("eventGallery")} />}
 
       {/* ── Exhibitor List (only event 1) ── */}
       {id === "1" && (
-        <section className="py-16 bg-[#f8fafc]">
-          <div className="max-w-[1400px] mx-auto px-[5%]">
+        <section className="py-16 bg-[#f8fafc] relative">
+          {/* Blurred primary — top right */}
+          <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />
+          {/* Circle outline — top right */}
+          <div className="absolute -top-14 -right-14 w-[300px] h-[300px] rounded-full border-[40px] border-primary/8 pointer-events-none" />
+          {/* Blurred accent — bottom left */}
+          <div className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
+          {/* Circle outline — bottom left */}
+          <div className="absolute -bottom-14 -left-14 w-[280px] h-[280px] rounded-full border-[38px] border-accent/10 pointer-events-none" />
+          {/* Dot pattern — left strip */}
+          <div className="absolute inset-y-0 left-0 w-28 pointer-events-none" style={{
+            backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
+            backgroundSize: "20px 20px",
+          }} />
+          {/* Floating symbols */}
+          <div className="absolute top-12 left-[7%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
+          <div className="absolute bottom-12 right-[6%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
+          {/* Decorative lines — right */}
+          <div className="absolute right-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
+            {[65, 40, 95, 55, 80, 38].map((w, i) => (
+              <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
+            ))}
+          </div>
+          <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
             <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
-              Exhibitor List
+              {t("exhibitorList")}
             </h2>
 
-            {/* Filter Tabs */}
             <div className="flex justify-center gap-2 flex-wrap mb-12">
               {EXHIBITOR_CATEGORIES.map((cat) => (
                 <button
@@ -369,14 +425,12 @@ export default function EventDetailPage() {
               ))}
             </div>
 
-            {/* Exhibitor Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredExhibitors.map((exhibitor) => (
                 <div
                   key={exhibitor.id}
                   className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col items-center text-center"
                 >
-                  {/* Logo placeholder */}
                   <div className="w-20 h-20 bg-[#f0f4f8] rounded-2xl flex items-center justify-center mb-4 font-display font-bold text-[0.7rem] text-primary p-2">
                     {exhibitor.logo}
                   </div>
@@ -395,7 +449,7 @@ export default function EventDetailPage() {
 
                   <div className="flex gap-2 mt-auto">
                     <button className="px-4 py-1.5 bg-primary text-white text-[0.75rem] font-semibold rounded-full hover:bg-primary-light transition-colors">
-                      Brochure
+                      {t("brochure")}
                     </button>
                     <button className="px-4 py-1.5 border-2 border-primary text-primary text-[0.75rem] font-semibold rounded-full hover:bg-primary hover:text-white transition-colors">
                       Website

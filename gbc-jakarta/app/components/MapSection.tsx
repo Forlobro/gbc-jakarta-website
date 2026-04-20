@@ -1,4 +1,10 @@
+"use client";
+
+import { useTranslation } from "../lib/LanguageContext";
+
 export default function MapSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-36 bg-[#f8fafc] relative" id="location">
 
@@ -36,10 +42,10 @@ export default function MapSection() {
         {/* Header */}
         <div className="text-center max-w-[600px] mx-auto mb-14">
           <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-            Lokasi Kami
+            {t("mapLabel")}
           </div>
           <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-4 leading-[1.2]">
-            Temukan Kami di Jakarta
+            {t("mapTitle")}
           </h2>
           <p className="text-text-light text-lg">
             DBS Tower Suite #905, Jl. Prof. Dr. Satrio Kav.3, Kuningan, South Jakarta 12940
@@ -71,7 +77,7 @@ export default function MapSection() {
                 <i className="fas fa-map-marker-alt" />
               </div>
               <div>
-                <h4 className="text-[0.85rem] font-semibold text-text/50 uppercase tracking-[0.05em] mb-1">Alamat</h4>
+                <h4 className="text-[0.85rem] font-semibold text-text/50 uppercase tracking-[0.05em] mb-1">{t("mapAddress")}</h4>
                 <p className="text-[0.95rem] text-text leading-[1.7]">
                   DBS Tower Suite #905<br />
                   Jl. Prof. Dr. Satrio Kav.3<br />
@@ -86,15 +92,15 @@ export default function MapSection() {
                 <i className="fas fa-clock" />
               </div>
               <div>
-                <h4 className="text-[0.85rem] font-semibold text-text/50 uppercase tracking-[0.05em] mb-2">Jam Operasional</h4>
+                <h4 className="text-[0.85rem] font-semibold text-text/50 uppercase tracking-[0.05em] mb-2">{t("mapHours")}</h4>
                 <div className="space-y-1 text-[0.95rem] text-text">
                   <div className="flex justify-between gap-6">
-                    <span>Senin – Jumat</span>
+                    <span>{t("mapMonFri")}</span>
                     <span className="font-semibold">09:00 – 17:00</span>
                   </div>
                   <div className="flex justify-between gap-6 text-text-light">
-                    <span>Sabtu – Minggu</span>
-                    <span>Tutup</span>
+                    <span>{t("mapSatSun")}</span>
+                    <span>{t("mapClosed")}</span>
                   </div>
                 </div>
               </div>
@@ -111,8 +117,8 @@ export default function MapSection() {
                 <i className="fas fa-directions" />
               </div>
               <div>
-                <h4 className="font-bold text-base mb-0.5 text-white">Buka di Google Maps</h4>
-                <p className="text-white/70 text-sm">Dapatkan petunjuk arah</p>
+                <h4 className="font-bold text-base mb-0.5 text-white">{t("mapOpenInMaps")}</h4>
+                <p className="text-white/70 text-sm">{t("mapGetDirections")}</p>
               </div>
               <i className="fas fa-arrow-right ml-auto text-white/60 group-hover:translate-x-1 transition-transform" />
             </a>

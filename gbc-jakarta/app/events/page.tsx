@@ -133,8 +133,21 @@ export default function EventsPage() {
       </section>
 
       {/* ── Featured Events ── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1400px] mx-auto px-[5%]">
+      <section className="py-24 bg-white relative">
+        {/* Blurred accent — top right */}
+        <div className="absolute -top-28 -right-28 w-[450px] h-[450px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
+        {/* Circle outline — top right */}
+        <div className="absolute -top-16 -right-16 w-[320px] h-[320px] rounded-full border-[45px] border-accent/10 pointer-events-none" />
+        {/* Floating symbols */}
+        <div className="absolute top-12 left-[7%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
+        <div className="absolute bottom-12 right-[7%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
+        {/* Decorative lines — left side */}
+        <div className="absolute left-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
+          {[80, 50, 110, 40, 90, 60].map((w, i) => (
+            <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
+          ))}
+        </div>
+        <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
           <ScrollReveal className="mb-14">
             <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-3 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
               {t("eventsFeaturedLabel")}
@@ -234,8 +247,28 @@ export default function EventsPage() {
       </section>
 
       {/* ── Past Events ── */}
-      <section className="py-24 bg-[#f8fafc]">
-        <div className="max-w-[1400px] mx-auto px-[5%]">
+      <section className="py-24 bg-[#f8fafc] relative">
+        {/* Blurred primary — top left */}
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />
+        {/* Circle outline — bottom right */}
+        <div className="absolute -bottom-20 -right-20 w-[350px] h-[350px] rounded-full border-[45px] border-primary/8 pointer-events-none" />
+        {/* Blurred accent — bottom right */}
+        <div className="absolute -bottom-28 -right-28 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
+        {/* Dot pattern — right strip */}
+        <div className="absolute inset-y-0 right-0 w-32 pointer-events-none" style={{
+          backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.15) 1.5px, transparent 1.5px)",
+          backgroundSize: "20px 20px",
+        }} />
+        {/* Floating symbols */}
+        <div className="absolute top-16 right-[8%] text-accent/12 text-8xl font-bold pointer-events-none select-none leading-none">+</div>
+        <div className="absolute bottom-20 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">◦</div>
+        {/* Decorative lines — right side */}
+        <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
+          {[70, 45, 95, 55, 80, 35].map((w, i) => (
+            <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
+          ))}
+        </div>
+        <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
           <ScrollReveal className="text-center max-w-[600px] mx-auto mb-14">
             <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-3 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block after:content-[''] after:w-10 after:h-0.5 after:bg-accent after:block">
               {t("eventsPastLabel")}
