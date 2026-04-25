@@ -7,6 +7,7 @@ import Image from "next/image"
 import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
 import { GbcCompanyWithPhotos } from "../../lib/supabase"
+import { useTranslation } from "../../lib/LanguageContext"
 
 function getEmbedUrl(url: string | null | undefined): string | null {
   if (!url) return null;
@@ -33,6 +34,8 @@ export default function CompanyDetailPage() {
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
   const [activePhoto, setActivePhoto] = useState(0)
+
+  const { language } = useTranslation()
 
   useEffect(() => {
     if (!id) return
@@ -191,13 +194,15 @@ export default function CompanyDetailPage() {
               )}
 
               {/* Description */}
-              {company.description && (
+              {(company.description_id || company.description_en) && (
                 <div className="mb-12">
                   <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
                     <i className="fas fa-building text-accent" /> About Company
                   </h2>
                   <div className="text-text-light text-[1.05rem] leading-[1.9] whitespace-pre-line">
-                    {company.description}
+                    {language === "en"
+                      ? company.description_en || company.description_id
+                      : company.description_id || company.description_en}
                   </div>
                 </div>
               )}
@@ -253,6 +258,26 @@ export default function CompanyDetailPage() {
 
             {/* Sidebar */}
             <div className="lg:sticky lg:top-25 lg:self-start space-y-6">
+              {/* Brochure Card */}
+              {company.link_brochure && (
+                <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+                  <h3 className="font-display text-lg font-bold text-primary mb-4 flex items-center gap-2">
+                    <i className="fas fa-file-pdf text-accent" /> Brochure
+                  </h3>
+                  <p className="text-[0.9rem] text-text-light mb-6">
+                    {language === "en" ? "Download or view the official company brochure for more details." : "Unduh atau lihat brosur resmi perusahaan untuk detail lebih lanjut."}
+                  </p>
+                  <a
+                    href={company.link_brochure}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 py-4 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5"
+                  >
+                    <i className="fas fa-download" /> {language === "en" ? "View Brochure" : "Lihat Brosur"}
+                  </a>
+                </div>
+              )}
+
               {/* Contact Card */}
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
                 <h3 className="font-display text-lg font-bold text-primary mb-6 flex items-center gap-2">
@@ -260,22 +285,6 @@ export default function CompanyDetailPage() {
                   GBC
                 </h3>
                 <div className="flex flex-col gap-4 mb-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0">
-                      <i className="fas fa-envelope" />
-                    </div>
-                    <div>
-                      <label className="block text-[0.75rem] text-text-muted uppercase tracking-[0.05em] mb-0.5">
-                        Email
-                      </label>
-                      <a
-                        href="mailto:gbcjkt@gbcprime.com"
-                        className="text-[0.95rem] text-primary font-medium hover:text-accent transition-colors"
-                      >
-                        gbcjkt@gbcprime.com
-                      </a>
-                    </div>
-                  </div>
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0">
                       <i className="fas fa-phone" />
@@ -292,46 +301,11 @@ export default function CompanyDetailPage() {
                 </div>
                 <div className="flex flex-col gap-3">
                   <a
-                    href={`https://wa.me/628118160627?text=Hi%20GBC%20Jakarta,%20I'm%20interested%20in%20${encodeURIComponent(company.name ?? "")}%20products`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 py-4 bg-[#25D366] text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1da851] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(37,211,102,0.3)]"
+                    href="mailto:gbcjkt@gbcprime.com"
+                    className="flex items-center justify-center gap-3 py-4 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5"
                   >
-                    <i className="fab fa-whatsapp" /> Inquire via WhatsApp
+                    <i className="fas fa-envelope" /> gbcjkt@gbcprime.com
                   </a>
-                  <Link
-                    href="/companies"
-                    className="flex items-center justify-center gap-3 py-4 bg-white text-primary border-2 border-primary rounded-xl font-semibold transition-all duration-300 hover:bg-primary hover:text-white"
-                  >
-                    <i className="fas fa-arrow-left" /> Back to Companies
-                  </Link>
-                </div>
-              </div>
-
-              {/* Company Stats */}
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-                <h3 className="font-display text-lg font-bold text-primary mb-6 flex items-center gap-2">
-                  <i className="fas fa-chart-bar text-accent" /> Overview
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { label: "Program", value: "GMS" },
-                    { label: "Batch", value: "2025" },
-                    { label: "Origin", value: "KR" },
-                    { label: "Market", value: "ID" },
-                  ].map((s) => (
-                    <div
-                      key={s.label}
-                      className="text-center p-4 bg-[#f9fafb] rounded-xl"
-                    >
-                      <span className="font-display text-2xl font-extrabold text-primary block">
-                        {s.value}
-                      </span>
-                      <span className="text-[0.8rem] text-text-light">
-                        {s.label}
-                      </span>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
@@ -372,9 +346,9 @@ export default function CompanyDetailPage() {
                       {c.category}
                     </span>
                   )}
-                  {c.description && (
+                  {(c.description_en || c.description_id) && (
                     <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 line-clamp-2">
-                      {c.description}
+                      {language === "en" ? c.description_en || c.description_id : c.description_id || c.description_en}
                     </p>
                   )}
                   <Link

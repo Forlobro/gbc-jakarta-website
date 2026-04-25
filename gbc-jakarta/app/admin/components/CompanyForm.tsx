@@ -5,10 +5,12 @@ import { useState, FormEvent } from "react"
 export interface CompanyFormData {
   name: string
   category: string
-  description: string
+  description_id: string
+  description_en: string
   start_date: string
   end_date: string
   link_video: string
+  link_brochure: string
 }
 
 interface CompanyFormProps {
@@ -64,20 +66,24 @@ export default function CompanyForm({
 }: CompanyFormProps) {
   const [name, setName] = useState(initialData?.name || "")
   const [category, setCategory] = useState(initialData?.category || "")
-  const [description, setDescription] = useState(initialData?.description || "")
+  const [descriptionId, setDescriptionId] = useState(initialData?.description_id || "")
+  const [descriptionEn, setDescriptionEn] = useState(initialData?.description_en || "")
   const [startDate, setStartDate] = useState(initialData?.start_date || "")
   const [endDate, setEndDate] = useState(initialData?.end_date || "")
   const [linkVideo, setLinkVideo] = useState(initialData?.link_video || "")
+  const [linkBrochure, setLinkBrochure] = useState(initialData?.link_brochure || "")
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     await onSubmit({
       name,
       category,
-      description,
+      description_id: descriptionId,
+      description_en: descriptionEn,
       start_date: startDate,
       end_date: endDate,
       link_video: linkVideo,
+      link_brochure: linkBrochure,
     })
   }
 
@@ -132,15 +138,29 @@ export default function CompanyForm({
         />
       </div>
 
-      {/* Description */}
+      {/* Description (ID) */}
       <div>
         <label className="block text-sm font-medium text-slate-300 mb-2">
-          Description
+          Description (ID)
         </label>
         <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Describe the company, their products, and services..."
+          value={descriptionId}
+          onChange={(e) => setDescriptionId(e.target.value)}
+          placeholder="Deskripsi perusahaan (Bahasa Indonesia)..."
+          rows={6}
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all resize-y"
+        />
+      </div>
+
+      {/* Description (EN) */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Description (EN)
+        </label>
+        <textarea
+          value={descriptionEn}
+          onChange={(e) => setDescriptionEn(e.target.value)}
+          placeholder="Company description (English)..."
           rows={6}
           className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all resize-y"
         />
@@ -181,6 +201,20 @@ export default function CompanyForm({
           type="url"
           value={linkVideo}
           onChange={(e) => setLinkVideo(e.target.value)}
+          placeholder="https://..."
+          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
+        />
+      </div>
+
+      {/* Link Brochure */}
+      <div>
+        <label className="block text-sm font-medium text-slate-300 mb-2">
+          Link Brochure
+        </label>
+        <input
+          type="url"
+          value={linkBrochure}
+          onChange={(e) => setLinkBrochure(e.target.value)}
           placeholder="https://..."
           className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
         />

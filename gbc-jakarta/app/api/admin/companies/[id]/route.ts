@@ -49,12 +49,16 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
   }
 
-  const { name, category, description, start_date, end_date, link_video } = body
+  const { name, category, description_id, description_en, start_date, end_date, link_video, link_brochure } = body
   const normalizedName = typeof name === "string" ? name.trim() : ""
   const normalizedCategory = typeof category === "string" ? category.trim() : ""
-  const normalizedDescription =
-    typeof description === "string" && description.trim().length > 0
-      ? description.trim()
+  const normalizedDescriptionId =
+    typeof description_id === "string" && description_id.trim().length > 0
+      ? description_id.trim()
+      : null
+  const normalizedDescriptionEn =
+    typeof description_en === "string" && description_en.trim().length > 0
+      ? description_en.trim()
       : null
   const normalizedStartDate =
     typeof start_date === "string" && start_date.trim().length > 0
@@ -67,6 +71,10 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   const normalizedLinkVideo =
     typeof link_video === "string" && link_video.trim().length > 0
       ? link_video.trim()
+      : null
+  const normalizedLinkBrochure =
+    typeof link_brochure === "string" && link_brochure.trim().length > 0
+      ? link_brochure.trim()
       : null
 
   if (!normalizedName) {
@@ -110,10 +118,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     .update({
       name: normalizedName,
       category: normalizedCategory,
-      description: normalizedDescription,
+      description_id: normalizedDescriptionId,
+      description_en: normalizedDescriptionEn,
       start_date: normalizedStartDate,
       end_date: normalizedEndDate,
       link_video: normalizedLinkVideo,
+      link_brochure: normalizedLinkBrochure,
     })
     .eq("id", companyId)
     .select()

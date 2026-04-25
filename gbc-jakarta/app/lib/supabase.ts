@@ -6,10 +6,12 @@ export interface GbcCompany {
   id: number
   name: string
   category: string
-  description: string | null
+  description_id: string | null
+  description_en: string | null
   start_date: string | null
   end_date: string | null
   link_video: string | null
+  link_brochure: string | null
   logo_url: string | null
   created_at?: string | null
 }
