@@ -108,10 +108,12 @@ export default function AdminEditCompanyPage({
             initialData={{
               name: company.name || "",
               category: company.category || "",
-              description: company.description || "",
+              description_id: company.description_id || "",
+              description_en: company.description_en || "",
               start_date: company.start_date || "",
               end_date: company.end_date || "",
               link_video: company.link_video || "",
+              link_brochure: company.link_brochure || "",
             }}
             onSubmit={handleSubmit}
             submitLabel="Update Company"

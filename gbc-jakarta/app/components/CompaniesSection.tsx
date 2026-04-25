@@ -36,7 +36,7 @@ function getCoveredYears(company: GbcCompanyWithPhotos): number[] {
 }
 
 export default function CompaniesSection() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
   const [loading, setLoading] = useState(true)
   const [activeFilter, setActiveFilter] = useState("All")
@@ -261,9 +261,9 @@ export default function CompaniesSection() {
                     </span>
                   )}
 
-                  {company.description && (
+                  {(company.description_id || company.description_en) && (
                     <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 line-clamp-3">
-                      {company.description}
+                      {language === "en" ? company.description_en || company.description_id : company.description_id || company.description_en}
                     </p>
                   )}
 

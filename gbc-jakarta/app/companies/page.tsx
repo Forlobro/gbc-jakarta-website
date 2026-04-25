@@ -39,7 +39,7 @@ function getCoveredYears(company: GbcCompanyWithPhotos): number[] {
 }
 
 export default function CompaniesPage() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
@@ -91,7 +91,8 @@ export default function CompaniesPage() {
     const matchesSearch =
       (c.name ?? "").toLowerCase().includes(search.toLowerCase()) ||
       (c.category ?? "").toLowerCase().includes(search.toLowerCase()) ||
-      (c.description ?? "").toLowerCase().includes(search.toLowerCase())
+      (c.description_id ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      (c.description_en ?? "").toLowerCase().includes(search.toLowerCase())
     const matchesFilter = activeFilter === "All" || c.category === activeFilter
     return matchesYear && matchesSearch && matchesFilter
   })
@@ -256,9 +257,9 @@ export default function CompaniesPage() {
                       </span>
                     )}
 
-                    {company.description && (
+                    {(company.description_id || company.description_en) && (
                       <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 flex-1 line-clamp-3">
-                        {company.description}
+                        {language === "en" ? company.description_en || company.description_id : company.description_id || company.description_en}
                       </p>
                     )}
 
