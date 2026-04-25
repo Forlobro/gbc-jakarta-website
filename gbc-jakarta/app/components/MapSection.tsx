@@ -86,25 +86,7 @@ export default function MapSection() {
               </div>
             </div>
 
-            {/* Hours */}
-            <div className="bg-white rounded-2xl p-7 shadow-md border border-gray-100 flex gap-5 items-start">
-              <div className="w-[52px] h-[52px] bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center text-accent text-xl shrink-0">
-                <i className="fas fa-clock" />
-              </div>
-              <div>
-                <h4 className="text-[0.85rem] font-semibold text-text/50 uppercase tracking-[0.05em] mb-2">{t("mapHours")}</h4>
-                <div className="space-y-1 text-[0.95rem] text-text">
-                  <div className="flex justify-between gap-6">
-                    <span>{t("mapMonFri")}</span>
-                    <span className="font-semibold">09:00 – 17:00</span>
-                  </div>
-                  <div className="flex justify-between gap-6 text-text-light">
-                    <span>{t("mapSatSun")}</span>
-                    <span>{t("mapClosed")}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+
 
             {/* Open in Maps button */}
             <a

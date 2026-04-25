@@ -129,11 +129,7 @@ export default function CompanyVideosSection() {
                 <h3 className="font-display text-2xl md:text-3xl font-extrabold text-primary mb-4 leading-[1.3]">
                   {company.name}
                 </h3>
-                {company.description && (
-                  <p className="text-text-light text-base leading-[1.8] mb-6 line-clamp-3">
-                    {company.description}
-                  </p>
-                )}
+            
 
                 <Link
                   href={`/companies/${company.id}`}
