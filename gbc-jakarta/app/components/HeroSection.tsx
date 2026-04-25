@@ -148,30 +148,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Floating Badge - Top Right */}
-            <div className="absolute -top-5 -right-10 bg-white rounded-2xl px-6 py-4 flex items-center gap-4 shadow-2xl animate-float hidden lg:flex">
-              <div className="w-[50px] h-[50px] bg-gradient-to-br from-primary to-primary-light rounded-xl flex items-center justify-center text-white text-xl">
-                <i className="fas fa-handshake" />
-              </div>
-              <div>
-                <h4 className="text-[0.9rem] font-bold text-text">B2B Matching</h4>
-                <span className="text-[0.8rem] text-text-light">{t("directConnections")}</span>
-              </div>
-            </div>
 
-            {/* Floating Badge - Bottom Left */}
-            <div
-              className="absolute -bottom-5 -left-10 bg-white rounded-2xl px-6 py-4 flex items-center gap-4 shadow-2xl animate-float hidden lg:flex"
-              style={{ animationDelay: "3s" }}
-            >
-              <div className="w-[50px] h-[50px] bg-gradient-to-br from-primary to-primary-light rounded-xl flex items-center justify-center text-white text-xl">
-                <i className="fas fa-globe-asia" />
-              </div>
-              <div>
-                <h4 className="text-[0.9rem] font-bold text-text">Market Entry</h4>
-                <span className="text-[0.8rem] text-text-light">{t("indonesiaReady")}</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

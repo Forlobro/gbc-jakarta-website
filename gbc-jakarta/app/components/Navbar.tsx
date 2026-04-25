@@ -22,17 +22,20 @@ export default function Navbar() {
     >
       {/* Logo kiri: Gyeonggi + GBC + GBSA */}
       <div className="flex items-center gap-3 z-10">      
-        
-        <Image
+        <Link href="#home">
+          <Image
           src="/images/gbsa-logo.jpeg"
           alt="GBSA"
           width={80}
           height={40}
-          className="h-9 w-auto"
+          className="h-9 w-auto transition-transform duration-300 hover:scale-105"
         />
+        </Link>
+        
+        
 
         <div className="w-px h-7 bg-gray-200" />
-        <Link href="/">
+        <Link href="#home">
           <Image
             src="/images/logo.jpg"
             alt="GBC Jakarta"
@@ -68,16 +71,7 @@ export default function Navbar() {
       <div className="flex items-center gap-3">
         {/* Language Toggle */}
         <div className="flex bg-gray-100 rounded-[30px] p-0.5">
-          <button
-            onClick={() => setLanguage("en")}
-            className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
-              language === "en"
-                ? "bg-primary text-white shadow-md"
-                : "bg-transparent text-text-light"
-            }`}
-          >
-            EN
-          </button>
+          
           <button
             onClick={() => setLanguage("id")}
             className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
@@ -87,6 +81,16 @@ export default function Navbar() {
             }`}
           >
             ID
+          </button>
+          <button
+            onClick={() => setLanguage("en")}
+            className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
+              language === "en"
+                ? "bg-primary text-white shadow-md"
+                : "bg-transparent text-text-light"
+            }`}
+          >
+            EN
           </button>
         </div>
 

@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-white text-primary pt-16 pb-6 border-t border-gray-100">
+    <footer className="bg-white text-primary pt-10 pb-6 border-t border-gray-100">
       <div className="max-w-[1400px] mx-auto px-[5%]">
         {/* Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-[51px] mb-[51px]">
@@ -28,27 +28,27 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-[0.8rem] font-bold mb-[19px] text-primary">
+            <h4 className="text-[1.2rem] font-bold mb-[19px] text-primary">
               Quick Links
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/#home" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#home" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("home")}
                 </Link>
               </li>
               <li>
-                <Link href="/#about" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#about" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("about")}
                 </Link>
               </li>
               <li>
-                <Link href="/#companies" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#companies" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("companies")}
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#contact" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("contact")}
                 </Link>
               </li>
@@ -57,25 +57,25 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="text-[0.8rem] font-bold mb-[19px] text-primary">Services</h4>
+            <h4 className="text-[1.2rem] font-bold mb-[19px] text-primary">Services</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="#" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("marketResearch")}
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="#" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("businessMatching")}
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="#" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("tradePromotion")}
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="#" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("partnerships")}
                 </Link>
               </li>
@@ -84,25 +84,25 @@ export default function Footer() {
 
           {/* Industries */}
           <div>
-            <h4 className="text-[0.8rem] font-bold mb-[19px] text-primary">Industries</h4>
+            <h4 className="text-[1.2rem] font-bold mb-[19px] text-primary">Industries</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/#home" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#home" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("home")}
                 </Link>
               </li>
               <li>
-                <Link href="/#about" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#about" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("aboutUs")}
                 </Link>
               </li>
               <li>
-                <Link href="/#companies" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#companies" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("gmsCompanies")}
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="text-primary/60 text-[0.76rem] transition-colors duration-300 hover:text-accent">
+                <Link href="/#contact" className="text-primary/60 text-[0.9rem] transition-colors duration-300 hover:text-accent">
                   {t("contact")}
                 </Link>
               </li>
