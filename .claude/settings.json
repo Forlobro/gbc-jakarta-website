@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(vercel --version)"
     ]
   }
 }
