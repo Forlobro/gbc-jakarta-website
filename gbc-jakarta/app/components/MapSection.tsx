@@ -52,61 +52,29 @@ export default function MapSection() {
           </p>
         </div>
 
-        {/* Map + Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-
-          {/* Map Embed */}
-          <div className="lg:col-span-2 rounded-3xl overflow-hidden shadow-2xl border border-gray-100 min-h-[450px]">
-            <iframe
-              src="https://maps.google.com/maps?q=DBS+Tower+Jl+Prof+Dr+Satrio+Kav+3+Kuningan+Jakarta+Selatan&output=embed&z=16"
-              className="w-full h-full min-h-[450px]"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="GBC Jakarta Location"
-            />
-          </div>
-
-          {/* Info Cards */}
-          <div className="flex flex-col gap-5">
-
-            {/* Address */}
-            <div className="bg-white rounded-2xl p-7 shadow-md border border-gray-100 flex gap-5 items-start">
-              <div className="w-[52px] h-[52px] bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center text-accent text-xl shrink-0">
-                <i className="fas fa-map-marker-alt" />
-              </div>
-              <div>
-                <h4 className="text-[0.85rem] font-semibold text-text/50 uppercase tracking-[0.05em] mb-1">{t("mapAddress")}</h4>
-                <p className="text-[0.95rem] text-text leading-[1.7]">
-                  DBS Tower Suite #905<br />
-                  Jl. Prof. Dr. Satrio Kav.3<br />
-                  Kuningan, South Jakarta 12940
-                </p>
-              </div>
+        {/* Map — full width, clickable */}
+        <a
+          href="https://maps.app.goo.gl/2pfY976JZ8GiKhjX6"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block relative rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group"
+        >
+          <iframe
+            src="https://maps.google.com/maps?q=GBC+Gyeonggi+Business+Center+Jakarta&ftid=0x2e69f300357af55f:0xfa5a6df37d1ec5bf&output=embed&z=17"
+            className="w-full h-[500px] pointer-events-none"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="GBC Jakarta Location"
+          />
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-300 flex items-center justify-center">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg flex items-center gap-3 text-primary font-semibold text-sm">
+              <i className="fas fa-external-link-alt" /> {t("mapOpenInMaps")}
             </div>
-
-
-
-            {/* Open in Maps button */}
-            <a
-              href="https://maps.app.goo.gl/2pfY976JZ8GiKhjX6"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gradient-to-br from-primary to-primary-light text-white rounded-2xl p-7 shadow-md flex gap-5 items-center group hover:-translate-y-1 transition-transform duration-300"
-            >
-              <div className="w-[52px] h-[52px] bg-white/15 rounded-xl flex items-center justify-center text-white text-xl shrink-0">
-                <i className="fas fa-directions" />
-              </div>
-              <div>
-                <h4 className="font-bold text-base mb-0.5 text-white">{t("mapOpenInMaps")}</h4>
-                <p className="text-white/70 text-sm">{t("mapGetDirections")}</p>
-              </div>
-              <i className="fas fa-arrow-right ml-auto text-white/60 group-hover:translate-x-1 transition-transform" />
-            </a>
-
           </div>
-        </div>
+        </a>
 
       </div>
     </section>

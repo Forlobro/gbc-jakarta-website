@@ -51,7 +51,7 @@ export default function CompaniesSection() {
           setCompanies(data)
           const years = Array.from(
             new Set(data.flatMap((c: GbcCompanyWithPhotos) => getCoveredYears(c)))
-          ).sort((a, b) => b - a)
+          ).sort((a, b) => a - b)
           setSelectedYear((prev) => prev ?? years[0] ?? null)
         }
       })
@@ -68,7 +68,7 @@ export default function CompaniesSection() {
     for (const company of companies) {
       for (const year of getCoveredYears(company)) years.add(year)
     }
-    return Array.from(years).sort((a, b) => b - a)
+    return Array.from(years).sort((a, b) => a - b)
   }, [companies])
 
   const filtered = companies

@@ -59,7 +59,7 @@ export default function CompaniesPage() {
                 getCoveredYears(company),
               ),
             ),
-          ).sort((a, b) => b - a)
+          ).sort((a, b) => a - b)
 
           setSelectedYear((prev) => prev ?? years[0] ?? null)
         }
@@ -82,7 +82,7 @@ export default function CompaniesPage() {
       }
     }
 
-    return Array.from(years).sort((a, b) => b - a)
+    return Array.from(years).sort((a, b) => a - b)
   }, [companies])
 
   const filtered = companies.filter((c) => {
