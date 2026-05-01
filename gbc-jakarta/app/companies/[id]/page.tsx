@@ -262,19 +262,34 @@ export default function CompanyDetailPage() {
               {company.link_brochure && (
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
                   <h3 className="font-display text-lg font-bold text-primary mb-4 flex items-center gap-2">
-                    <i className="fas fa-file-pdf text-accent" /> Brochure
+                    <i className="fas fa-file-pdf text-red-500" /> Brochure
                   </h3>
                   <p className="text-[0.9rem] text-text-light mb-6">
-                    {language === "en" ? "Download or view the official company brochure for more details." : "Unduh atau lihat brosur resmi perusahaan untuk detail lebih lanjut."}
+                    {language === "en"
+                      ? "View or download the official company brochure."
+                      : "Lihat atau unduh brosur resmi perusahaan."}
                   </p>
-                  <a
-                    href={company.link_brochure}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 py-4 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5"
-                  >
-                    <i className="fas fa-download" /> {language === "en" ? "View Brochure" : "Lihat Brosur"}
-                  </a>
+                  <div className="flex flex-col gap-3">
+                    {/* Preview — opens native browser PDF viewer in new tab */}
+                    <a
+                      href={company.link_brochure}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-3 py-3.5 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5 text-[0.9rem]"
+                    >
+                      <i className="fas fa-eye" />
+                      {language === "en" ? "View Brochure" : "Lihat Brosur"}
+                    </a>
+                    {/* Download — forces file save dialog */}
+                    <a
+                      href={company.link_brochure}
+                      download
+                      className="flex items-center justify-center gap-3 py-3.5 bg-accent/10 !text-primary border-2 border-accent/30 rounded-xl font-semibold transition-all duration-300 hover:bg-accent/20 hover:border-accent hover:-translate-y-0.5 text-[0.9rem]"
+                    >
+                      <i className="fas fa-download" />
+                      {language === "en" ? "Download PDF" : "Download PDF"}
+                    </a>
+                  </div>
                 </div>
               )}
 

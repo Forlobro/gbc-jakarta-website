@@ -8,6 +8,8 @@ import Footer from "../components/Footer"
 import ScrollReveal from "../components/ScrollReveal"
 import { GbcCompanyWithPhotos } from "../lib/supabase"
 
+const PAGE_SIZE = 9
+
 function getYear(dateValue: string | null | undefined): number | null {
   if (!dateValue) return null
   const match = dateValue.match(/^(\d{4})/)
@@ -45,6 +47,7 @@ export default function CompaniesPage() {
   const [search, setSearch] = useState("")
   const [activeFilter, setActiveFilter] = useState("All")
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
     fetch("/api/companies")
@@ -67,7 +70,12 @@ export default function CompaniesPage() {
       .finally(() => setLoading(false))
   }, [])
 
-  // Collect unique categories
+  // Reset to page 1 whenever filters/search change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [search, activeFilter, selectedYear])
+
+  // Unique categories
   const categories = [
     "All",
     ...Array.from(new Set(companies.map((c) => c.category).filter(Boolean))),
@@ -75,16 +83,15 @@ export default function CompaniesPage() {
 
   const availableYears = useMemo(() => {
     const years = new Set<number>()
-
     for (const company of companies) {
       for (const year of getCoveredYears(company)) {
         years.add(year)
       }
     }
-
     return Array.from(years).sort((a, b) => b - a)
   }, [companies])
 
+  // Full filtered list — used for pagination total
   const filtered = companies.filter((c) => {
     const years = getCoveredYears(c)
     const matchesYear = selectedYear === null || years.includes(selectedYear)
@@ -97,31 +104,36 @@ export default function CompaniesPage() {
     return matchesYear && matchesSearch && matchesFilter
   })
 
+  // "Y" = total matching the current CATEGORY filter only (ignores year & search)
+  const categoryTotal = useMemo(() => {
+    if (activeFilter === "All") return companies.length
+    return companies.filter((c) => c.category === activeFilter).length
+  }, [companies, activeFilter])
+
+  // Pagination
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const safePage = Math.min(currentPage, totalPages)
+  const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE)
+
   return (
     <>
       <Navbar />
 
       <section className="pt-32 pb-36 bg-[#f8fafc] relative" id="companies">
 
-        {/* Large blurred primary circle — top right */}
+        {/* Decorative background */}
         <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />
-        {/* Bold circle outline — top right */}
         <div className="absolute -top-24 -right-24 w-[450px] h-[450px] rounded-full border-[55px] border-primary/8 pointer-events-none" />
-        {/* Large blurred accent — bottom left */}
         <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
-        {/* Bold circle outline — bottom left */}
         <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full border-[45px] border-accent/10 pointer-events-none" />
-        {/* Dot pattern — left strip */}
         <div className="absolute inset-y-0 left-0 w-32 pointer-events-none" style={{
           backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.2) 1.5px, transparent 1.5px)",
           backgroundSize: "20px 20px",
         }} />
-        {/* Floating symbols */}
         <div className="absolute top-20 left-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">+</div>
         <div className="absolute bottom-28 right-[6%] text-primary/10 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
         <div className="absolute top-1/2 right-[3%] text-accent/12 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
         <div className="absolute top-[30%] left-[3%] text-primary/8 text-5xl font-bold pointer-events-none select-none leading-none">◦</div>
-        {/* Decorative lines — right side */}
         <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
           {[80, 50, 100, 60, 90, 40].map((w, i) => (
             <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
@@ -152,9 +164,19 @@ export default function CompaniesPage() {
             </div>
           </ScrollReveal>
 
-          {/* Year Filter Buttons */}
+          {/* Year Filter — includes "All Years" */}
           {!loading && availableYears.length > 0 && (
             <ScrollReveal className="flex justify-center gap-2 flex-wrap mb-6">
+              <button
+                onClick={() => setSelectedYear(null)}
+                className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
+                  selectedYear === null
+                    ? "bg-accent border-accent text-primary"
+                    : "bg-white border-gray-200 text-text-light hover:border-accent hover:text-primary"
+                }`}
+              >
+                All Years
+              </button>
               {availableYears.map((year) => (
                 <button
                   key={year}
@@ -171,7 +193,7 @@ export default function CompaniesPage() {
             </ScrollReveal>
           )}
 
-          {/* Category Filter Buttons (dynamic from DB) */}
+          {/* Category Filter */}
           {!loading && categories.length > 1 && (
             <ScrollReveal className="flex justify-center gap-2 flex-wrap mb-10">
               {categories.map((cat) => (
@@ -188,14 +210,6 @@ export default function CompaniesPage() {
                 </button>
               ))}
             </ScrollReveal>
-          )}
-
-          {/* Count */}
-          {!loading && (
-            <p className="text-center text-text-muted text-sm mb-8">
-              {selectedYear ? `${selectedYear} • ` : ""}
-              Showing {filtered.length} of {companies.length} companies
-            </p>
           )}
 
           {/* Cards */}
@@ -228,7 +242,7 @@ export default function CompaniesPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filtered.map((company) => (
+              {paginated.map((company) => (
                 <ScrollReveal key={company.id}>
                   <div className="bg-white rounded-[20px] p-8 transition-all duration-400 ease-in-out border border-gray-100 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-linear-to-r before:from-accent before:to-[#00a8b0] before:scale-x-0 before:transition-transform before:duration-400 hover:before:scale-x-100 h-full flex flex-col">
                     {/* Photo or initials */}
@@ -259,7 +273,9 @@ export default function CompaniesPage() {
 
                     {(company.description_id || company.description_en) && (
                       <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 flex-1 line-clamp-3">
-                        {language === "en" ? company.description_en || company.description_id : company.description_id || company.description_en}
+                        {language === "en"
+                          ? company.description_en || company.description_id
+                          : company.description_id || company.description_en}
                       </p>
                     )}
 
@@ -272,6 +288,93 @@ export default function CompaniesPage() {
                   </div>
                 </ScrollReveal>
               ))}
+            </div>
+          )}
+
+          {/* Bottom bar: count + pagination */}
+          {!loading && filtered.length > 0 && (
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+              {/* Count label */}
+              <p className="text-text-muted text-sm">
+                {selectedYear && (
+                  <>
+                    <span className="font-semibold text-primary">{selectedYear}</span>
+                    {" • "}
+                  </>
+                )}
+                Showing{" "}
+                <span className="font-semibold text-text">{paginated.length}</span>
+                {" "}of{" "}
+                <span className="font-semibold text-text">{categoryTotal}</span>
+                {" "}companies
+                {activeFilter !== "All" && (
+                  <span className="text-text-muted/70"> in {activeFilter}</span>
+                )}
+              </p>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center gap-1.5">
+                  {/* Prev */}
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    disabled={safePage === 1}
+                    className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200 text-text-light text-sm transition-all duration-200 hover:border-primary hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                    aria-label="Previous page"
+                  >
+                    <i className="fas fa-chevron-left text-xs" />
+                  </button>
+
+                  {/* Page numbers with ellipsis */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                    const isActive = page === safePage
+                    const show =
+                      page === 1 ||
+                      page === totalPages ||
+                      Math.abs(page - safePage) <= 1
+
+                    if (!show) {
+                      if (page === 2 || page === totalPages - 1) {
+                        return (
+                          <span
+                            key={page}
+                            className="w-9 h-9 flex items-center justify-center text-text-muted text-sm select-none"
+                          >
+                            …
+                          </span>
+                        )
+                      }
+                      return null
+                    }
+
+                    return (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`w-9 h-9 flex items-center justify-center rounded-full border-2 text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                          isActive
+                            ? "bg-primary border-primary text-white shadow-md"
+                            : "border-gray-200 text-text-light hover:border-primary hover:text-primary"
+                        }`}
+                        aria-label={`Page ${page}`}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {page}
+                      </button>
+                    )
+                  })}
+
+                  {/* Next */}
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                    disabled={safePage === totalPages}
+                    className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200 text-text-light text-sm transition-all duration-200 hover:border-primary hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                    aria-label="Next page"
+                  >
+                    <i className="fas fa-chevron-right text-xs" />
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
