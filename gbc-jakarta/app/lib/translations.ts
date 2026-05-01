@@ -13,7 +13,7 @@ export const translations = {
     heroBadge: "Official Gyeonggi Province Representative",
     heroTitle: "Bridging Gyeonggi Excellence to Indonesia",
     heroDesc:
-      "We connect innovative Korean SMEs from Gyeonggi Province with Indonesian market opportunities through strategic partnerships and business facilitation.",
+      "We connect innovative Gyeonggi SMEs with Indonesian market opportunities through strategic partnerships and business facilitation.",
     directConnections: "Direct Connection to Gyeonggi Companies",
     indonesiaReady: "Indonesia Ready",
     explore: "Explore Companies",
@@ -180,7 +180,7 @@ export const translations = {
     eventsP6Date: "18 August 2023",
     eventsP6Location: "Pullman Jakarta, Indonesia",
     eventsP6Category: "Forum",
-    eventsP6Desc: "High-level forum discussing bilateral trade opportunities between Korea's Gyeonggi Province and Indonesia.",
+    eventsP6Desc: "High-level forum discussing bilateral trade opportunities between Gyeonggi Province and Indonesia.",
 
     // Footer
     gyeonggi:
@@ -204,7 +204,7 @@ export const translations = {
     heroBadge: "Perwakilan Resmi Provinsi Gyeonggi",
     heroTitle: "Menjembatani Keunggulan Gyeonggi ke Indonesia",
     heroDesc:
-      "Kami menghubungkan UKM inovatif Korea dari Provinsi Gyeonggi dengan peluang pasar Indonesia melalui kemitraan strategis.",
+      "Kami menghubungkan UKM inovatif Gyeonggi dengan peluang pasar Indonesia melalui kemitraan strategis.",
     explore: "Lihat Perusahaan",
     learn: "Pelajari Lebih Lanjut",
     directConnections: "Koneksi Langsung dengan Perusahaan Gyeonggi",
@@ -309,7 +309,7 @@ export const translations = {
     eventsP2Details: "Sesi pencocokan B2B intensif yang dirancang untuk memfasilitasi koneksi langsung antara UKM Provinsi Gyeonggi dan calon mitra bisnis Indonesia. Sesi ini mencakup 5 sektor industri utama dan menghasilkan banyak kesepakatan kemitraan.",
     eventsP3Details: "Delegasi resmi dari Provinsi Gyeonggi mengunjungi Jakarta untuk menjajaki dan memperkuat peluang perdagangan dan investasi bilateral. Misi ini mencakup kunjungan lokasi, pertemuan pemerintah, dan sesi jaringan bisnis.",
     eventsP4Details: "Pembukaan resmi GBC Jakarta dihadiri oleh perwakilan dari Pemerintah Provinsi Gyeonggi, Kedutaan Besar Korea di Indonesia, dan pemangku kepentingan bisnis Indonesia utama. Tonggak sejarah ini menandai awal misi GBC Jakarta untuk menjembatani bisnis Gyeonggi dan Indonesia.",
-    eventsP5Details: "Pameran pilihan yang menampilkan merek kecantikan dan gaya hidup Korea premium dari Provinsi Gyeonggi. Event ini menarik ribuan konsumen dan pembeli ritel Indonesia, dengan demonstrasi langsung, sampling produk, dan event peluncuran eksklusif.",
+    eventsP5Details: "Pameran pilihan yang menampilkan merek kecantikan dan gaya hidup Gyeonggi premium dari Provinsi Gyeonggi. Event ini menarik ribuan konsumen dan pembeli ritel Indonesia, dengan demonstrasi langsung, sampling produk, dan event peluncuran eksklusif.",
     eventsP6Details: "Forum industri tingkat tinggi yang mempertemukan pejabat pemerintah, pemimpin bisnis, dan asosiasi perdagangan dari Gyeonggi dan Indonesia. Topik utama mencakup kerangka regulasi, peluang investasi, dan strategi kolaborasi sektor tertentu.",
 
     // Events Page
@@ -323,11 +323,11 @@ export const translations = {
     eventsPastTitle: "Event yang Telah Berlangsung",
     // Featured Event 1
     eventsF1Tag: "Pameran Internasional",
-    eventsF1Title: "Korea Pavilion di Indonesia International Exhibition 2024",
+    eventsF1Title: "Gyeonggi Pavilion di Indonesia International Exhibition 2024",
     eventsF1Date: "12–15 September 2024",
     eventsF1Location: "Jakarta International Expo, Kemayoran",
     eventsF1Desc:
-      "GBC Jakarta dengan bangga mewakili UKM Provinsi Gyeonggi di Korea Pavilion pada pameran dagang internasional terkemuka Indonesia. Lebih dari 40 perusahaan Gyeonggi memamerkan produk inovatif di sektor peralatan industri, kecantikan, pertanian, dan F&B kepada ribuan pembeli dan distributor Indonesia.",
+      "GBC Jakarta dengan bangga mewakili UKM Provinsi Gyeonggi di Gyeonggi Pavilion pada pameran dagang internasional terkemuka Indonesia. Lebih dari 40 perusahaan Gyeonggi memamerkan produk inovatif di sektor peralatan industri, kecantikan, pertanian, dan F&B kepada ribuan pembeli dan distributor Indonesia.",
     eventsF1H1: "40+ UKM Gyeonggi",
     eventsF1H2: "3.000+ Pengunjung",
     eventsF1H3: "120+ Pertemuan B2B",
@@ -337,7 +337,7 @@ export const translations = {
     eventsF2Date: "22–23 November 2024",
     eventsF2Location: "DBS Tower, Kuningan, Jakarta Selatan",
     eventsF2Desc:
-      "Pameran eksklusif yang mempertemukan produk-produk unggulan Korea dari Provinsi Gyeonggi langsung kepada para pemangku kepentingan pasar Indonesia. Event ini memfasilitasi pertemuan langsung antara produsen Gyeonggi dan importir, distributor, serta retailer Indonesia.",
+      "Pameran eksklusif yang mempertemukan produk-produk unggulan Gyeonggi langsung kepada para pemangku kepentingan pasar Indonesia. Event ini memfasilitasi pertemuan langsung antara produsen Gyeonggi dan importir, distributor, serta retailer Indonesia.",
     eventsF2H1: "25 Merek Gyeonggi",
     eventsF2H2: "200+ Peserta",
     eventsF2H3: "50+ Kesepakatan Awal",
@@ -371,7 +371,7 @@ export const translations = {
     eventsP6Date: "18 Agustus 2023",
     eventsP6Location: "Pullman Jakarta, Indonesia",
     eventsP6Category: "Forum",
-    eventsP6Desc: "Forum tingkat tinggi yang membahas peluang perdagangan bilateral antara Provinsi Gyeonggi dan Indonesia.",
+    eventsP6Desc: "Forum tingkat tinggi yang membahas peluang perdagangan bilateral antara Gyeonggi dan Indonesia.",
 
     // Footer
     gyeonggi:

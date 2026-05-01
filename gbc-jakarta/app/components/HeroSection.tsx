@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useTranslation } from "../lib/LanguageContext";
 
 const HIGHLIGHT_BY_LANG: Record<string, string> = {
-  en: "Korean Excellence",
-  id: "Keunggulan Korea",
+  en: "Gyeonggi Excellence",
+  id: "Keunggulan Gyeonggi",
 };
 
 const BG_IMAGES = [
