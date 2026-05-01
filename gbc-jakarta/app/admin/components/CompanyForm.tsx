@@ -10,7 +10,6 @@ export interface CompanyFormData {
   start_date: string
   end_date: string
   link_video: string
-  link_brochure: string
 }
 
 interface CompanyFormProps {
@@ -71,7 +70,6 @@ export default function CompanyForm({
   const [startDate, setStartDate] = useState(initialData?.start_date || "")
   const [endDate, setEndDate] = useState(initialData?.end_date || "")
   const [linkVideo, setLinkVideo] = useState(initialData?.link_video || "")
-  const [linkBrochure, setLinkBrochure] = useState(initialData?.link_brochure || "")
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -83,7 +81,6 @@ export default function CompanyForm({
       start_date: startDate,
       end_date: endDate,
       link_video: linkVideo,
-      link_brochure: linkBrochure,
     })
   }
 
@@ -206,19 +203,6 @@ export default function CompanyForm({
         />
       </div>
 
-      {/* Link Brochure */}
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">
-          Link Brochure
-        </label>
-        <input
-          type="url"
-          value={linkBrochure}
-          onChange={(e) => setLinkBrochure(e.target.value)}
-          placeholder="https://..."
-          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
-        />
-      </div>
 
       {/* Submit */}
       <button

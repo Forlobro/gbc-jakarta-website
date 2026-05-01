@@ -49,7 +49,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
   }
 
-  const { name, category, description_id, description_en, start_date, end_date, link_video, link_brochure } = body
+  const { name, category, description_id, description_en, start_date, end_date, link_video } = body
   const normalizedName = typeof name === "string" ? name.trim() : ""
   const normalizedCategory = typeof category === "string" ? category.trim() : ""
   const normalizedDescriptionId =
@@ -71,10 +71,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   const normalizedLinkVideo =
     typeof link_video === "string" && link_video.trim().length > 0
       ? link_video.trim()
-      : null
-  const normalizedLinkBrochure =
-    typeof link_brochure === "string" && link_brochure.trim().length > 0
-      ? link_brochure.trim()
       : null
 
   if (!normalizedName) {
@@ -123,7 +119,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       start_date: normalizedStartDate,
       end_date: normalizedEndDate,
       link_video: normalizedLinkVideo,
-      link_brochure: normalizedLinkBrochure,
     })
     .eq("id", companyId)
     .select()
