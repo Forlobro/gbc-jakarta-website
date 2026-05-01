@@ -130,17 +130,17 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/* WhatsApp */}
+              {/* Telephone */}
               <div className="flex gap-5 items-start">
                 <div className="w-[55px] h-[55px] bg-white/10 rounded-[14px] flex items-center justify-center text-xl text-accent shrink-0">
-                  <i className="fab fa-whatsapp" />
+                  <i className="fas fa-phone" />
                 </div>
                 <div>
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
-                    WhatsApp
+                    Telephone
                   </h4>
                   <a
-                    href="https://wa.me/628118160627"
+                    href="tel:+622139712135"
                     className="text-[1.05rem] text-white hover:text-accent transition-colors"
                   >
                     +62 21 3971 2135
@@ -168,6 +168,15 @@ export default function ContactSection() {
                 className="w-[50px] h-[50px] bg-white/10 rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-[5px]"
               >
                 <i className="fab fa-linkedin-in" />
+              </a>
+              <a
+                href="https://www.youtube.com/@gbcjakarta"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="w-[50px] h-[50px] bg-white/10 rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:bg-accent hover:text-primary hover:-translate-y-[5px]"
+              >
+                <i className="fab fa-youtube" />
               </a>
             </div>
           </ScrollReveal>
