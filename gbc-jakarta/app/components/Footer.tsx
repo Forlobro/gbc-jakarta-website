@@ -19,6 +19,7 @@ export default function Footer() {
               alt="GBC Jakarta"
               width={160}
               height={60}
+              style={{ width: "auto", height: "auto" }}
               className="h-[60px] w-auto mb-[19px] rounded-xl"
             />
             <p className="text-primary/60 text-[0.76rem] leading-[1.8] max-w-[240px]">
@@ -122,6 +123,7 @@ export default function Footer() {
               alt="GBSA"
               width={78}
               height={20}
+              style={{ width: "auto", height: "auto" }}
               className="h-[10px] w-auto opacity-100 transition-opacity duration-300 hover:opacity-100"
             />
             <Image
@@ -129,6 +131,7 @@ export default function Footer() {
               alt="Gyeonggi-do"
               width={78}
               height={20}
+              style={{ width: "auto", height: "auto" }}
               className="h-[10px] w-auto opacity-100 transition-opacity duration-300 hover:opacity-100"
             />
           </div>

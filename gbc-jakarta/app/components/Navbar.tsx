@@ -24,12 +24,14 @@ export default function Navbar() {
       <div className="flex items-center gap-3 z-10">      
         <Link href="#home">
           <Image
-          src="/images/gbsa-logo.jpeg"
-          alt="GBSA"
-          width={80}
-          height={40}
-          className="h-9 w-auto transition-transform duration-300 hover:scale-105"
-        />
+            src="/images/gbsa-logo.jpeg"
+            alt="GBSA"
+            width={80}
+            height={40}
+            priority={true}
+            style={{ width: "auto", height: "auto" }}
+            className="h-9 w-auto transition-transform duration-300 hover:scale-105"
+          />
         </Link>
         
         
@@ -41,6 +43,8 @@ export default function Navbar() {
             alt="GBC Jakarta"
             width={60}
             height={30}
+            priority={true}
+            style={{ width: "auto", height: "auto" }}
             className="h-9 w-auto transition-transform duration-300 hover:scale-105"
           />
         </Link>
@@ -107,6 +111,8 @@ export default function Navbar() {
           alt="Gyeonggi-do"
           width={80}
           height={40}
+          priority={true}
+          style={{ width: "auto", height: "auto" }}
           className="h-9 w-auto -mt-2"
         />
       </div>

@@ -6,6 +6,7 @@ import Link from "next/link"
 import CompanyForm, { CompanyFormData } from "../../../components/CompanyForm"
 import LogoManager from "../../../components/LogoManager"
 import PhotoManager from "../../../components/PhotoManager"
+import BrochureManager from "../../../components/BrochureManager"
 import { GbcCompanyWithPhotos } from "../../../../lib/supabase"
 
 export default function AdminEditCompanyPage({
@@ -113,7 +114,6 @@ export default function AdminEditCompanyPage({
               start_date: company.start_date || "",
               end_date: company.end_date || "",
               link_video: company.link_video || "",
-              link_brochure: company.link_brochure || "",
             }}
             onSubmit={handleSubmit}
             submitLabel="Update Company"
@@ -139,6 +139,15 @@ export default function AdminEditCompanyPage({
               onPhotosChange={fetchCompany}
               title="Gallery"
               description="Upload foto pendukung untuk gallery company."
+            />
+          </div>
+
+          <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
+            <BrochureManager
+              companyId={company.id}
+              companyName={company.name || ""}
+              brochureUrl={company.link_brochure || null}
+              onBrochureChange={fetchCompany}
             />
           </div>
         </div>
