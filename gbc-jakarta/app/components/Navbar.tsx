@@ -7,9 +7,9 @@ import { useTranslation } from "../lib/LanguageContext"
 const NAV_ITEMS = [
   { href: "/#home",      key: "home"      as const, color: "#1f478f" },
   { href: "/#about",     key: "about"     as const, color: "#694fb2" },
-  { href: "/#companies", key: "companies" as const, color: "#4daf7e" },
+  { href: "/companies",  key: "companies" as const, color: "#4daf7e" },
   { href: "/events",     key: "events"    as const, color: "#f28c38" },
-  { href: "/#contact",   key: "contact"   as const, color: "#2b9fd2" },
+  { href: "/contact",    key: "contact"   as const, color: "#2b9fd2" },
 ]
 
 export default function Navbar() {
