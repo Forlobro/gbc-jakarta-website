@@ -77,12 +77,12 @@ export default function TeamSection() {
               <div className="grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden shadow-xl border border-gray-100">
 
                 {/* Left: Title */}
-                <div className="bg-white flex flex-col justify-center px-14 py-16">
-                  <h3 className="font-display text-4xl md:text-5xl font-extrabold text-text leading-tight mb-5">
+                <div className="bg-white flex flex-col justify-center px-10 py-12">
+                  <h3 className="font-display text-3xl font-extrabold text-text leading-tight mb-4">
                     {t("messageTitle")}
                   </h3>
-                  <div className="w-36 h-[5px] bg-[#00c2cb] rounded-full mb-6" />
-                  <p className="text-text-light text-base leading-[1.9]">
+                  <div className="w-28 h-[4px] bg-[#00c2cb] rounded-full mb-5" />
+                  <p className="text-text-light text-sm leading-[1.8]">
                     {t("messageText")}
                   </p>
                 </div>
