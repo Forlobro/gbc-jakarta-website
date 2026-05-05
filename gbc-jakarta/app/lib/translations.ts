@@ -78,7 +78,7 @@ export const translations = {
     // Team / Director
     directorLabel: "Director General",
     messageTitle: "Message & Vision",
-    messageText: "We are here to bridge business opportunities between Gyeonggi and Indonesia, bringing the best innovations from Gyeonggi Province to support mutual economic growth. With a spirit of collaboration and trust, we are committed to providing the best service for all GBC Jakarta business partners.",
+    messageText: "It is a wonderful time to be doing business in Indonesia. I really feel that of all the places to be doing business in the world, this is the place to be. As the GBC Director of the newly founded GBC branch in Jakarta, I am excited to share what Indonesia has to offer to SMEs in Gyeonggi province. Our GBC Office in Jakarta will effectively promote outstanding products from the Gyeonggi province to reach the B2C, B2B and B2G business sectors with great success. Ultimately, I look forward to developing a mutually beneficial and amicable relationship between South Korea and Indonesia.",
     ourTeam: "Our Team",
     teamTitle: "Meet the People Behind GBC Jakarta",
 
@@ -269,7 +269,7 @@ export const translations = {
     // Team / Director
     directorLabel: "Direktur Utama",
     messageTitle: "Pesan dan Harapan",
-    messageText: "Kami hadir untuk menjembatani peluang bisnis antara Gyeonggi dan Indonesia, membawa inovasi terbaik dari Provinsi Gyeonggi untuk mendukung pertumbuhan ekonomi bersama. Dengan semangat kolaborasi dan kepercayaan, kami berkomitmen untuk terus memberikan pelayanan terbaik bagi seluruh mitra usaha GBC Jakarta.",
+    messageText: "Ini adalah waktu yang luar biasa untuk berbisnis di Indonesia. Saya benar-benar merasa bahwa dari semua tempat untuk berbisnis di dunia, inilah tempatnya. Sebagai Direktur GBC dari cabang GBC yang baru didirikan di Jakarta, saya sangat antusias untuk berbagi apa yang Indonesia tawarkan kepada UKM-UKM di provinsi Gyeonggi. Kantor GBC kami di Jakarta akan secara efektif mempromosikan produk-produk unggulan dari provinsi Gyeonggi untuk menjangkau sektor bisnis B2C, B2B, dan B2G dengan sukses besar. Pada akhirnya, saya berharap dapat mengembangkan hubungan yang saling menguntungkan dan bersahabat antara Korea Selatan dan Indonesia.",
     ourTeam: "Tim Kami",
     teamTitle: "Tim di Balik GBC Jakarta",
 

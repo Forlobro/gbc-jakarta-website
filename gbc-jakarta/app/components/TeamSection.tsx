@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ScrollReveal from "./ScrollReveal";
 import { useTranslation } from "../lib/LanguageContext";
 
@@ -8,19 +9,9 @@ const directors = [
     name: "Shin Ho Jin",
     role: "Director General",
     roleId: "Direktur Utama",
+    photo: "/images/GBC Director Jakarta.png",
   },
 ];
-
-function PersonSilhouette() {
-  return (
-    <svg viewBox="0 0 160 260" fill="currentColor" className="w-full h-full">
-      {/* Head */}
-      <circle cx="80" cy="58" r="38" />
-      {/* Shoulders / body */}
-      <path d="M10,260 L10,175 C10,130 38,108 80,102 C122,108 150,130 150,175 L150,260 Z" />
-    </svg>
-  );
-}
 
 export default function TeamSection() {
   const { t } = useTranslation();
@@ -96,8 +87,8 @@ export default function TeamSection() {
                   </p>
                 </div>
 
-                {/* Right: Person + diagonal background */}
-                <div className="relative bg-gradient-to-br from-blue-50 via-slate-50 to-sky-100 flex flex-col items-center justify-end pt-10 pb-8 overflow-hidden min-h-[320px]">
+                {/* Right: Photo */}
+                <div className="relative bg-gradient-to-br from-blue-50 via-slate-50 to-sky-100 flex flex-col items-center justify-center gap-6 py-12 px-10 overflow-hidden">
                   {/* Diagonal streaks */}
                   <div
                     className="absolute inset-0 pointer-events-none"
@@ -107,13 +98,18 @@ export default function TeamSection() {
                     }}
                   />
 
-                  {/* Silhouette */}
-                  <div className="relative z-[1] w-44 h-56 text-slate-800">
-                    <PersonSilhouette />
+                  {/* Director Photo */}
+                  <div className="relative z-[1] w-full max-w-[280px] aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
+                    <Image
+                      src={director.photo}
+                      alt={director.name}
+                      fill
+                      className="object-cover object-top"
+                    />
                   </div>
 
                   {/* Name tag */}
-                  <div className="relative z-[1] flex items-center gap-3 mt-5 bg-white/70 backdrop-blur-sm px-6 py-2.5 rounded-full shadow-sm">
+                  <div className="relative z-[1] flex items-center gap-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-md">
                     <span className="text-text-light text-sm">{director.roleId}</span>
                     <span className="text-gray-300 font-light">|</span>
                     <span className="font-bold text-text text-sm">{director.name}</span>
