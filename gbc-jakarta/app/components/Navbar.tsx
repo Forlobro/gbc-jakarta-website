@@ -21,31 +21,26 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-1000 flex items-center justify-between px-[3%] transition-all duration-400 backdrop-blur-[20px] bg-white py-2 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
     >
       {/* Logo kiri: Gyeonggi + GBC + GBSA */}
-      <div className="flex items-center gap-3 z-10">      
+      <div className="flex items-center gap-4 z-10">
         <Link href="#home">
           <Image
-            src="/images/gbsa-logo.jpeg"
+            src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
             alt="GBSA"
             width={80}
             height={40}
             priority={true}
-            style={{ width: "auto", height: "auto" }}
             className="h-9 w-auto transition-transform duration-300 hover:scale-105"
           />
         </Link>
-        
-        
 
-        <div className="w-px h-7 bg-gray-200" />
         <Link href="#home">
           <Image
             src="/images/logo.jpg"
             alt="GBC Jakarta"
-            width={60}
-            height={30}
+            width={40}
+            height={10}
             priority={true}
-            style={{ width: "auto", height: "auto" }}
-            className="h-7 w-auto transition-transform duration-300 hover:scale-105"
+            className="h-1 w-auto mix-blend-multiply transition-transform duration-300 hover:scale-105"
           />
         </Link>
       </div>
@@ -72,7 +67,7 @@ export default function Navbar() {
       </ul>
 
       {/* Right Side */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         {/* Language Toggle */}
         <div className="flex bg-gray-100 rounded-[30px] p-0.5">
           
@@ -112,8 +107,7 @@ export default function Navbar() {
           width={80}
           height={40}
           priority={true}
-          style={{ width: "auto", height: "auto" }}
-          className="h-9 w-auto -mt-2"
+          className="h-9 w-auto mix-blend-multiply"
         />
       </div>
     </nav>
