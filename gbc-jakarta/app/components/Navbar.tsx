@@ -45,7 +45,7 @@ export default function Navbar() {
             height={30}
             priority={true}
             style={{ width: "auto", height: "auto" }}
-            className="h-9 w-auto transition-transform duration-300 hover:scale-105"
+            className="h-7 w-auto transition-transform duration-300 hover:scale-105"
           />
         </Link>
       </div>
