@@ -117,62 +117,70 @@ function AboutHero() {
   const { language } = useTranslation();
   const isId = language === "id";
 
-  const sections = isId
-    ? ["Jaringan Global GBC", "GBSA", "Gyeonggi-do", "Sejarah"]
-    : ["GBC Global Network", "GBSA", "Gyeonggi-do", "History"];
-
   return (
-    <section className="relative overflow-hidden bg-primary pt-36 pb-20" id="about-intro">
-      {/* Dot pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.4) 1.5px, transparent 1.5px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-      {/* Glow blobs */}
-      <div className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-accent/20 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 -right-24 w-[380px] h-[380px] rounded-full bg-white/5 blur-3xl pointer-events-none" />
+    <section className="relative bg-white pt-32 pb-16" id="about-intro">
+      <div className="max-w-[1200px] mx-auto px-[5%]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-      <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-
-          {/* Left */}
+          {/* Left: text */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-[0.75rem] font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
+            <div className="inline-block text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-accent bg-accent/10 px-4 py-1.5 rounded-full mb-5">
               {isId ? "Tentang Kami" : "About Us"}
             </div>
-            <h1 className="font-display text-4xl md:text-[3.2rem] font-extrabold text-white mb-5 leading-[1.15]">
-              {isId ? "Mengenal GBC Jakarta & Ekosistemnya" : "Discover GBC Jakarta & Its Ecosystem"}
+            <h1 className="font-display text-4xl md:text-[2.8rem] font-extrabold text-primary leading-[1.15] mb-5">
+              {isId ? "Tentang GBC Jakarta" : "About GBC Jakarta"}
             </h1>
-            <p className="text-white/70 text-lg leading-[1.9] mb-8">
+            <p className="text-text-light text-base leading-[1.85] mb-4">
               {isId
-                ? "Halaman ini menceritakan siapa kami, dari mana kami berasal, dan bagaimana jaringan global GBC bersama GBSA dan Pemerintah Provinsi Gyeonggi bekerja untuk mendukung pertumbuhan bisnis Korea–Indonesia."
-                : "This page tells who we are, where we come from, and how the global GBC network together with GBSA and the Gyeonggi Provincial Government works to support Korean–Indonesian business growth."}
+                ? "GBC Jakarta (Gyeonggi Business Center Jakarta) adalah kantor perwakilan resmi dari Gyeonggi Business & Science Accelerator (GBSA) — lembaga pemerintah Provinsi Gyeonggi, Korea Selatan — yang berdedikasi memfasilitasi ekspansi bisnis perusahaan Korea ke pasar Indonesia."
+                : "GBC Jakarta (Gyeonggi Business Center Jakarta) is the official representative office of Gyeonggi Business & Science Accelerator (GBSA) — a government agency of Gyeonggi Province, South Korea — dedicated to facilitating Korean business expansion into the Indonesian market."}
             </p>
+            <p className="text-text-light text-base leading-[1.85]">
+              {isId
+                ? "Kami hadir sebagai jembatan antara ekosistem inovasi Gyeonggi yang dinamis dengan peluang bisnis yang terus berkembang di Indonesia, memberikan dukungan nyata bagi UKM Korea yang ingin tumbuh di Asia Tenggara."
+                : "We serve as a bridge between Gyeonggi's dynamic innovation ecosystem and the growing business opportunities in Indonesia, providing tangible support for Korean SMEs looking to grow in Southeast Asia."}
+            </p>
+          </div>
 
-            {/* Section pills */}
-            <div className="flex flex-wrap gap-2">
-              {sections.map((s) => (
-                <span key={s} className="bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-1.5 rounded-full transition-colors duration-200">
-                  {s}
-                </span>
-              ))}
+          {/* Right: logo grid */}
+          <div className="grid grid-cols-2 gap-6">
+            {/* Gyeonggi-do */}
+            <div className="flex flex-col items-center justify-center bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <Image
+                src="/images/gyeonggi-logo.jpeg"
+                alt="Gyeonggi-do"
+                width={120}
+                height={60}
+                className="h-14 w-auto object-contain mix-blend-multiply"
+              />
+              <span className="mt-3 text-[0.7rem] font-semibold text-text-light tracking-wide uppercase text-center">Gyeonggi-do</span>
+            </div>
+
+            {/* GBSA */}
+            <div className="flex flex-col items-center justify-center bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <Image
+                src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
+                alt="GBSA"
+                width={120}
+                height={60}
+                className="h-14 w-auto object-contain"
+              />
+              <span className="mt-3 text-[0.7rem] font-semibold text-text-light tracking-wide uppercase text-center">GBSA</span>
+            </div>
+
+            {/* GBC Jakarta — full width */}
+            <div className="col-span-2 flex flex-col items-center justify-center bg-primary/5 rounded-2xl p-6 border border-primary/10 shadow-sm">
+              <Image
+                src="/images/logo.jpg"
+                alt="GBC Jakarta"
+                width={160}
+                height={60}
+                className="h-14 w-auto object-contain mix-blend-multiply"
+              />
+              <span className="mt-3 text-[0.7rem] font-semibold text-primary/60 tracking-wide uppercase text-center">GBC Jakarta</span>
             </div>
           </div>
 
-          {/* Right: photo */}
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-            <Image
-              src="/images/ceremonial.png"
-              alt="GBC Jakarta Opening Ceremony"
-              width={800}
-              height={600}
-              className="w-full h-auto block object-cover aspect-[4/3]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
-          </div>
         </div>
       </div>
     </section>
