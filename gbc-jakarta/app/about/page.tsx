@@ -142,42 +142,49 @@ function AboutHero() {
             </p>
           </div>
 
-          {/* Right: logo grid */}
-          <div className="grid grid-cols-2 gap-6">
-            {/* Gyeonggi-do */}
-            <div className="flex flex-col items-center justify-center bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
-              <Image
-                src="/images/gyeonggi-logo.jpeg"
-                alt="Gyeonggi-do"
-                width={120}
-                height={60}
-                className="h-14 w-auto object-contain mix-blend-multiply"
-              />
-              <span className="mt-3 text-[0.7rem] font-semibold text-text-light tracking-wide uppercase text-center">Gyeonggi-do</span>
+          {/* Right: logos */}
+          <div className="flex flex-col items-center gap-8">
+            {/* Gyeonggi-do + GBSA side by side */}
+            <div className="flex items-center justify-center gap-12 w-full">
+              <div className="flex flex-col items-center gap-2">
+                <Image
+                  src="/images/gyeonggi-logo.jpeg"
+                  alt="Gyeonggi-do"
+                  width={120}
+                  height={60}
+                  className="h-14 w-auto object-contain mix-blend-multiply"
+                />
+                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">Gyeonggi-do</span>
+              </div>
+              <div className="w-px h-12 bg-gray-200" />
+              <div className="flex flex-col items-center gap-2">
+                <Image
+                  src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
+                  alt="GBSA"
+                  width={120}
+                  height={60}
+                  className="h-14 w-auto object-contain"
+                />
+                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">GBSA</span>
+              </div>
             </div>
 
-            {/* GBSA */}
-            <div className="flex flex-col items-center justify-center bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
-              <Image
-                src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
-                alt="GBSA"
-                width={120}
-                height={60}
-                className="h-14 w-auto object-contain"
-              />
-              <span className="mt-3 text-[0.7rem] font-semibold text-text-light tracking-wide uppercase text-center">GBSA</span>
+            {/* Divider with arrow */}
+            <div className="flex flex-col items-center gap-1 text-gray-300">
+              <div className="w-px h-6 bg-gray-200" />
+              <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M8 10L0 0h16L8 10z" fill="currentColor"/></svg>
             </div>
 
-            {/* GBC Jakarta — full width */}
-            <div className="col-span-2 flex flex-col items-center justify-center bg-primary/5 rounded-2xl p-6 border border-primary/10 shadow-sm">
+            {/* GBC Jakarta */}
+            <div className="flex flex-col items-center gap-2">
               <Image
                 src="/images/logo.jpg"
                 alt="GBC Jakarta"
                 width={160}
                 height={60}
-                className="h-14 w-auto object-contain mix-blend-multiply"
+                className="h-16 w-auto object-contain mix-blend-multiply"
               />
-              <span className="mt-3 text-[0.7rem] font-semibold text-primary/60 tracking-wide uppercase text-center">GBC Jakarta</span>
+              <span className="text-[0.68rem] font-semibold text-primary/50 tracking-wide uppercase">GBC Jakarta</span>
             </div>
           </div>
 
