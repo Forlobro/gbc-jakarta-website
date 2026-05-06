@@ -150,7 +150,7 @@ export default function CompaniesPage() {
             <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-4 leading-[1.2]">
               {t("featured")}
             </h2>
-            <p className="text-text-light text-lg mb-6">{t("discover")}</p>
+            <p className="text-text-light text-lg mb-6 text-justify">{t("discover")}</p>
 
             {/* Search */}
             <div className="relative max-w-md mx-auto">
@@ -159,7 +159,7 @@ export default function CompaniesPage() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search companies..."
+                placeholder={t("searchPlaceholder")}
                 className="w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-full text-sm focus:outline-none focus:border-accent transition-all"
               />
             </div>
@@ -176,7 +176,7 @@ export default function CompaniesPage() {
                     : "bg-white border-gray-200 text-text-light hover:border-accent hover:text-primary"
                 }`}
               >
-                All Years
+                {t("allYears")}
               </button>
               {availableYears.map((year) => (
                 <button
@@ -231,13 +231,13 @@ export default function CompaniesPage() {
           ) : filtered.length === 0 ? (
             <div className="text-center py-20 text-text-light">
               <i className="fas fa-building text-5xl mb-5 opacity-20" />
-              <p className="text-lg">No companies found.</p>
+              <p className="text-lg">{t("noCompaniesFound")}</p>
               {search && (
                 <button
                   onClick={() => setSearch("")}
                   className="mt-4 text-accent underline text-sm cursor-pointer"
                 >
-                  Clear search
+                  {t("clearSearch")}
                 </button>
               )}
             </div>
@@ -273,7 +273,7 @@ export default function CompaniesPage() {
                     )}
 
                     {(company.description_id || company.description_en) && (
-                      <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 flex-1 line-clamp-3">
+                      <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 flex-1 line-clamp-3 text-justify">
                         {language === "en"
                           ? company.description_en || company.description_id
                           : company.description_id || company.description_en}
@@ -303,13 +303,13 @@ export default function CompaniesPage() {
                     {" • "}
                   </>
                 )}
-                Showing{" "}
+                {t("showing")}{" "}
                 <span className="font-semibold text-text">{paginated.length}</span>
-                {" "}of{" "}
+                {" "}{t("companiesOf")}{" "}
                 <span className="font-semibold text-text">{categoryTotal}</span>
-                {" "}companies
+                {" "}{t("companiesWord")}
                 {activeFilter !== "All" && (
-                  <span className="text-text-muted/70"> in {activeFilter}</span>
+                  <span className="text-text-muted/70"> {t("companiesIn")} {activeFilter}</span>
                 )}
               </p>
 

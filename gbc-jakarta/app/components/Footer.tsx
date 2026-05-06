@@ -21,7 +21,7 @@ export default function Footer() {
               height={50}
               className="h-[45px] w-auto mb-4 rounded-xl"
             />
-            <p className="text-primary/60 text-[0.82rem] leading-[1.8] mb-5 max-w-[300px]">
+            <p className="text-primary/60 text-[0.82rem] leading-[1.8] mb-5 max-w-[300px] text-justify">
               {t("gyeonggi")}
             </p>
             <div className="flex gap-2.5">
@@ -48,7 +48,7 @@ export default function Footer() {
               Jl. Prof. Dr. Satrio Kav.3,<br />
               Kuningan, South Jakarta 12940
             </p>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">Contact</h4>
+            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerContact")}</h4>
             <ul className="space-y-2.5">
               <li className="flex items-center gap-2.5 text-primary/60 text-[0.82rem]">
                 <i className="fas fa-phone text-accent text-[0.7rem] w-3" />
@@ -63,7 +63,7 @@ export default function Footer() {
 
           {/* Col 3: Services */}
           <div>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">Our Services</h4>
+            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerServices")}</h4>
             <ul className="space-y-2.5">
               {[
                 t("marketResearch"),
@@ -85,10 +85,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-primary/10 pt-5 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-primary/40 text-[0.72rem]">
-            &copy; 2026 GBC Jakarta. All rights reserved.
+            {t("footerCopyright")}
           </p>
           <div className="flex items-center gap-5">
-            <span className="text-primary/40 text-[0.72rem]">Supported by:</span>
+            <span className="text-primary/40 text-[0.72rem]">{t("footerSupportedBy")}</span>
             <Image src="/images/gbsa-logo.jpeg" alt="GBSA" width={70} height={20}
               className="h-[14px] w-auto mix-blend-multiply opacity-70 hover:opacity-100 transition-opacity" />
             <Image src="/images/gyeonggi-logo.jpeg" alt="Gyeonggi-do" width={70} height={20}

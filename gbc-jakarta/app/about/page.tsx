@@ -9,55 +9,70 @@ import Footer from "../components/Footer";
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const GYEONGGI_STATS = [
-  { value: "527 Triliun KRW", label: "Total produksi regional (#1 Korea, 25.4%)", color: "text-[#f59e0b]" },
-  { value: "13.6 Juta",       label: "Total populasi (26.4% total Korea)",         color: "text-[#60a5fa]" },
-  { value: "1.84 Juta UKM",   label: "UKM terdaftar (25.3% nasional)",             color: "text-[#a78bfa]" },
-  { value: "470 Triliun KRW", label: "Total belanja R&D (50.5% nasional)",         color: "text-[#34d399]" },
-  { value: "250,652",          label: "Tenaga R&D (33.5% nasional Korea)",          color: "text-[#f472b6]" },
+  { value: "527 Triliun KRW", label: "Total produksi regional (#1 Korea, 25.4%)", labelEn: "Total regional output (#1 Korea, 25.4%)",  color: "text-[#f59e0b]" },
+  { value: "13.6 Juta",       label: "Total populasi (26.4% total Korea)",         labelEn: "Total population (26.4% of Korea)",       color: "text-[#60a5fa]" },
+  { value: "1.84 Juta UKM",   label: "UKM terdaftar (25.3% nasional)",             labelEn: "Registered SMEs (25.3% national)",        color: "text-[#a78bfa]" },
+  { value: "470 Triliun KRW", label: "Total belanja R&D (50.5% nasional)",         labelEn: "Total R&D spending (50.5% national)",     color: "text-[#34d399]" },
+  { value: "250,652",          label: "Tenaga R&D (33.5% nasional Korea)",          labelEn: "R&D workforce (33.5% of Korea)",          color: "text-[#f472b6]" },
 ];
 
 const GYEONGGI_FACTS = [
-  { icon: "fas fa-microchip",    text: "Pusat industri semikonduktor Korea — home to Samsung Electronics, SK Hynix" },
-  { icon: "fas fa-flask",        text: "Hub bio & healthcare terbesar di Asia Tenggara Korea" },
-  { icon: "fas fa-chart-line",   text: "Menyumbang 60% lapangan kerja nasional Korea" },
-  { icon: "fas fa-globe-asia",   text: "Koridor ekonomi Asia Timur Laut — populasi 1.6 miliar dalam jangkauan" },
+  { icon: "fas fa-microchip",  text: "Pusat industri semikonduktor Korea — home to Samsung Electronics, SK Hynix", textEn: "Korea's semiconductor industry hub — home to Samsung Electronics, SK Hynix" },
+  { icon: "fas fa-flask",      text: "Hub bio & healthcare terbesar di Asia Tenggara Korea",                       textEn: "Korea's largest bio & healthcare hub in Northeast Asia" },
+  { icon: "fas fa-chart-line", text: "Menyumbang 60% lapangan kerja nasional Korea",                              textEn: "Contributes 60% of Korea's national employment" },
+  { icon: "fas fa-globe-asia", text: "Koridor ekonomi Asia Timur Laut — populasi 1.6 miliar dalam jangkauan",    textEn: "Northeast Asia economic corridor — 1.6 billion population within reach" },
 ];
 
 const GBSA_PILLARS = [
   {
-    num: "01", color: "bg-blue-500", title: "Promosi Industri Masa Depan",
+    num: "01", color: "bg-blue-500",
+    title: "Promosi Industri Masa Depan",
+    titleEn: "Future Industry Promotion",
     points: ["Semikonduktor, bioteknologi, mobilitas canggih", "Digitalisasi manufaktur tradisional (furnitur, tekstil)", "Dukungan energi baru & respons krisis iklim"],
+    pointsEn: ["Semiconductors, biotechnology, advanced mobility", "Digitalization of traditional manufacturing (furniture, textiles)", "New energy support & climate crisis response"],
   },
   {
-    num: "02", color: "bg-green-500", title: "Ekosistem Inovasi Dinamis",
+    num: "02", color: "bg-green-500",
+    title: "Ekosistem Inovasi Dinamis",
+    titleEn: "Dynamic Innovation Ecosystem",
     points: ["Revitalisasi ekosistem startup inovatif", "Pengembangan Pangyo & Gwanggyo Techno Valley", "Sistem kolaborasi industri-akademik-penelitian"],
+    pointsEn: ["Revitalizing the innovative startup ecosystem", "Development of Pangyo & Gwanggyo Techno Valley", "Industry-academia-research collaboration system"],
   },
   {
-    num: "03", color: "bg-amber-500", title: "Peningkatan Daya Saing Global",
+    num: "03", color: "bg-amber-500",
+    title: "Peningkatan Daya Saing Global",
+    titleEn: "Global Competitiveness Enhancement",
     points: ["Menarik investasi 100 triliun KRW", "Fostering hidden champions & ekspor UKM", "Platform ekspor digital terintegrasi (GBCprime)"],
+    pointsEn: ["Attracting 100 trillion KRW in investment", "Fostering hidden champions & SME exports", "Integrated digital export platform (GBCprime)"],
   },
   {
-    num: "04", color: "bg-purple-500", title: "Manajemen GBSA Kelas Dunia",
+    num: "04", color: "bg-purple-500",
+    title: "Manajemen GBSA Kelas Dunia",
+    titleEn: "World-Class GBSA Management",
     points: ["Kepemimpinan manajemen ESG", "Penguatan manajemen digital & AI", "Transparansi, keselamatan & integritas organisasi"],
+    pointsEn: ["ESG management leadership", "Strengthening digital & AI management", "Transparency, safety & organizational integrity"],
   },
 ];
 
 
 const TIMELINE = [
-  { year: "1997", text: "Pendirian yayasan pendukung UKM Gyeonggi" },
-  { year: "2005", text: "GBC pertama dibuka di Mumbai, India. Penghargaan PM Korea" },
-  { year: "2008", text: "GBC Kuala Lumpur — ekspansi pertama ke Asia Tenggara" },
-  { year: "2010", text: "GBC Shanghai dibuka, cabang regional barat & selatan" },
-  { year: "2016", text: "GBC Guangzhou & Ho Chi Minh dibuka" },
+  { year: "1997", text: "Pendirian yayasan pendukung UKM Gyeonggi",                                        textEn: "Establishment of Gyeonggi SME support foundation" },
+  { year: "2005", text: "GBC pertama dibuka di Mumbai, India. Penghargaan PM Korea",                        textEn: "First GBC opened in Mumbai, India. Korean PM Award" },
+  { year: "2008", text: "GBC Kuala Lumpur — ekspansi pertama ke Asia Tenggara",                             textEn: "GBC Kuala Lumpur — first Southeast Asian expansion" },
+  { year: "2010", text: "GBC Shanghai dibuka, cabang regional barat & selatan",                             textEn: "GBC Shanghai opened, western & southern regional branches" },
+  { year: "2016", text: "GBC Guangzhou & Ho Chi Minh dibuka",                                               textEn: "GBC Guangzhou & Ho Chi Minh opened" },
   {
     year: "2017",
     text: "GBSA resmi diluncurkan sebagai lembaga terintegrasi",
+    textEn: "GBSA officially launched as an integrated institution",
     note: "Integrasi Small and Medium Business Center + Science Technology Promotion Agency",
+    noteEn: "Integration of Small and Medium Business Center + Science Technology Promotion Agency",
   },
-  { year: "2020", text: "GBC Bangkok dibuka. Penghargaan Presiden Korea" },
+  { year: "2020", text: "GBC Bangkok dibuka. Penghargaan Presiden Korea",                                   textEn: "GBC Bangkok opened. Korean Presidential Award" },
   {
     year: "2023",
     text: "GBC Jakarta, Bengaluru, Tashkent dibuka. Digital GBC diluncurkan di 5 lokasi.",
+    textEn: "GBC Jakarta, Bengaluru, Tashkent opened. Digital GBC launched in 5 locations.",
     highlight: true,
   },
 ];
@@ -130,12 +145,12 @@ function AboutHero() {
             <h1 className="font-display text-4xl md:text-[2.8rem] font-extrabold text-primary leading-[1.15] mb-5">
               {isId ? "Tentang GBC Jakarta" : "About GBC Jakarta"}
             </h1>
-            <p className="text-text-light text-base leading-[1.85] mb-4">
+            <p className="text-text-light text-base leading-[1.85] mb-4 text-justify">
               {isId
                 ? "GBC Jakarta (Gyeonggi Business Center Jakarta) adalah kantor perwakilan resmi dari Gyeonggi Business & Science Accelerator (GBSA) — lembaga pemerintah Provinsi Gyeonggi, Korea Selatan — yang berdedikasi memfasilitasi ekspansi bisnis perusahaan Korea ke pasar Indonesia."
                 : "GBC Jakarta (Gyeonggi Business Center Jakarta) is the official representative office of Gyeonggi Business & Science Accelerator (GBSA) — a government agency of Gyeonggi Province, South Korea — dedicated to facilitating Korean business expansion into the Indonesian market."}
             </p>
-            <p className="text-text-light text-base leading-[1.85]">
+            <p className="text-text-light text-base leading-[1.85] text-justify">
               {isId
                 ? "Kami hadir sebagai jembatan antara ekosistem inovasi Gyeonggi yang dinamis dengan peluang bisnis yang terus berkembang di Indonesia, memberikan dukungan nyata bagi UKM Korea yang ingin tumbuh di Asia Tenggara."
                 : "We serve as a bridge between Gyeonggi's dynamic innovation ecosystem and the growing business opportunities in Indonesia, providing tangible support for Korean SMEs looking to grow in Southeast Asia."}
@@ -150,9 +165,10 @@ function AboutHero() {
                 <Image
                   src="/images/gyeonggi-logo.jpeg"
                   alt="Gyeonggi-do"
-                  width={140}
-                  height={70}
-                  className="h-16 w-auto object-contain mix-blend-multiply"
+                  width={280}
+                  height={140}
+                  className="w-auto object-contain mix-blend-multiply"
+                  style={{ height: "60px" }}
                 />
                 <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">Gyeonggi-do</span>
               </div>
@@ -160,9 +176,10 @@ function AboutHero() {
                 <Image
                   src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
                   alt="GBSA"
-                  width={140}
-                  height={70}
-                  className="h-16 w-auto object-contain"
+                  width={280}
+                  height={140}
+                  className="w-auto object-contain"
+                  style={{ height: "50px" }}
                 />
                 <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">GBSA</span>
               </div>
@@ -189,6 +206,8 @@ function AboutHero() {
 
 // ─── 2. Global Network ────────────────────────────────────────────────────────
 function GlobalNetworkSection() {
+  const { language } = useTranslation();
+  const isId = language === "id";
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden" id="global-network">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
@@ -202,13 +221,15 @@ function GlobalNetworkSection() {
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-12">
           <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
-            JARINGAN GLOBAL
+            {isId ? "JARINGAN GLOBAL" : "GLOBAL NETWORK"}
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-tight mb-3">
             GBC — Gyeonggi Business Center
           </h2>
-          <p className="text-text-light text-lg">
-            Jaringan kantor perwakilan luar negeri GBSA di 14 negara dengan 19 kantor.
+          <p className="text-text-light text-lg text-justify">
+            {isId
+              ? "Jaringan kantor perwakilan luar negeri GBSA di 14 negara dengan 19 kantor."
+              : "GBSA's overseas representative network in 14 countries with 19 offices."}
           </p>
         </ScrollReveal>
 
@@ -239,6 +260,8 @@ function GlobalNetworkSection() {
 
 // ─── 3. GBSA Section ──────────────────────────────────────────────────────────
 function GBSASection() {
+  const { language } = useTranslation();
+  const isId = language === "id";
   return (
     <section className="py-24 bg-white relative overflow-hidden" id="gbsa">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
@@ -252,15 +275,17 @@ function GBSASection() {
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
 
         {/* Header */}
-        <ScrollReveal className="max-w-[640px] mb-12">
-          <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-            LEMBAGA INDUK
+        <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">
+          <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
+            {isId ? "LEMBAGA INDUK" : "PARENT ORGANIZATION"}
           </div>
           <h2 className="font-display text-3xl md:text-[2.6rem] font-extrabold text-primary mb-3 leading-[1.2]">
             GBSA — Gyeonggido Business & Science Accelerator
           </h2>
-          <p className="text-text-light text-lg">
-            Lembaga publik resmi milik Pemerintah Provinsi Gyeonggi yang menjadi induk dari seluruh jaringan GBC di dunia.
+          <p className="text-text-light text-lg text-justify">
+            {isId
+              ? "Lembaga publik resmi milik Pemerintah Provinsi Gyeonggi yang menjadi induk dari seluruh jaringan GBC di dunia."
+              : "Official public institution of Gyeonggi Provincial Government that oversees the entire global GBC network."}
           </p>
         </ScrollReveal>
 
@@ -280,28 +305,28 @@ function GBSASection() {
 
             {/* Kiri: deskripsi */}
             <div>
-              <p className="text-text-light text-base leading-[1.9] mb-4">
-                GBSA (경기도경제과학진흥원) adalah lembaga publik resmi milik Pemerintah Provinsi
-                Gyeonggi, Korea Selatan. Diluncurkan pada Januari 2017 sebagai hasil integrasi
-                Small and Medium Business Center dan Science Technology Promotion Agency.
+              <p className="text-text-light text-base leading-[1.9] mb-4 text-justify">
+                {isId
+                  ? "GBSA (경기도경제과학진흥원) adalah lembaga publik resmi milik Pemerintah Provinsi Gyeonggi, Korea Selatan. Diluncurkan pada Januari 2017 sebagai hasil integrasi Small and Medium Business Center dan Science Technology Promotion Agency."
+                  : "GBSA (경기도경제과학진흥원) is an official public institution of Gyeonggi Provincial Government, South Korea. Launched in January 2017 as the integration of the Small and Medium Business Center and Science Technology Promotion Agency."}
               </p>
-              <p className="text-text-light text-base leading-[1.9]">
-                GBSA hadir sebagai mitra terpercaya bagi UKM di seluruh siklus bisnis — mulai dari
-                startup, komersialisasi, investasi, ekspor, hingga R&D sains dan teknologi — dengan
-                tujuan menjadikan Provinsi Gyeonggi sebagai pusat peluang pertumbuhan dunia.
+              <p className="text-text-light text-base leading-[1.9] text-justify">
+                {isId
+                  ? "GBSA hadir sebagai mitra terpercaya bagi UKM di seluruh siklus bisnis — mulai dari startup, komersialisasi, investasi, ekspor, hingga R&D sains dan teknologi — dengan tujuan menjadikan Provinsi Gyeonggi sebagai pusat peluang pertumbuhan dunia."
+                  : "GBSA serves as a trusted partner for SMEs across the entire business cycle — from startup, commercialization, investment, and export, to science and technology R&D — with the goal of making Gyeonggi Province a global hub of growth opportunities."}
               </p>
             </div>
 
             {/* Kanan: Misi & Visi */}
             <div className="flex flex-col gap-4">
               <div className="bg-primary rounded-2xl px-7 py-6">
-                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/40 mb-2">Misi</p>
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/40 mb-2">{isId ? "Misi" : "Mission"}</p>
                 <p className="text-base font-bold text-white leading-snug">
                   Making Gyeonggi Province abound with growth opportunities
                 </p>
               </div>
               <div className="bg-accent rounded-2xl px-7 py-6">
-                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/60 mb-2">Visi</p>
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/60 mb-2">{isId ? "Visi" : "Vision"}</p>
                 <p className="text-base font-bold text-white leading-snug">
                   GBSA — Partner for SMEs Innovation
                 </p>
@@ -312,16 +337,18 @@ function GBSASection() {
 
         {/* 4 Strategic Pillars */}
         <ScrollReveal>
-          <p className="text-sm font-semibold text-text-light mb-5">Empat pilar strategi GBSA</p>
+          <p className="text-sm font-semibold text-text-light mb-5">
+            {isId ? "Empat pilar strategi GBSA" : "Four strategic pillars of GBSA"}
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {GBSA_PILLARS.map((p) => (
               <div key={p.num} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow duration-300">
                 <span className={`w-8 h-8 rounded-lg ${p.color} flex items-center justify-center text-white text-xs font-extrabold`}>
                   {p.num}
                 </span>
-                <h4 className="text-sm font-bold text-text">{p.title}</h4>
+                <h4 className="text-sm font-bold text-text">{isId ? p.title : p.titleEn}</h4>
                 <ul className="flex flex-col gap-1">
-                  {p.points.map((pt) => (
+                  {(isId ? p.points : p.pointsEn).map((pt) => (
                     <li key={pt} className="text-xs text-text-light leading-relaxed flex gap-1.5">
                       <span className="mt-1 shrink-0 w-1 h-1 rounded-full bg-accent/60" />
                       {pt}
@@ -339,6 +366,8 @@ function GBSASection() {
 
 // ─── 4. Gyeonggi-do Section ───────────────────────────────────────────────────
 function GyeonggiSection() {
+  const { language } = useTranslation();
+  const isId = language === "id";
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden" id="gyeonggi">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
@@ -352,17 +381,17 @@ function GyeonggiSection() {
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
 
         {/* Header */}
-        <ScrollReveal className="max-w-[640px] mb-12">
-          <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-            PEMERINTAH PROVINSI
+        <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">
+          <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
+            {isId ? "PEMERINTAH PROVINSI" : "PROVINCIAL GOVERNMENT"}
           </div>
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
             Gyeonggi-do
           </h2>
-          <p className="text-text-light text-lg leading-[1.8]">
-            Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang
-            25.4% total produksi nasional dan menjadi rumah bagi konglomerat global seperti
-            Samsung Electronics & SK Hynix.
+          <p className="text-text-light text-lg leading-[1.8] text-justify">
+            {isId
+              ? "Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang 25.4% total produksi nasional dan menjadi rumah bagi konglomerat global seperti Samsung Electronics & SK Hynix."
+              : "The largest province in South Korea — the center of economy, innovation, and technology, contributing 25.4% of national output and home to global conglomerates like Samsung Electronics & SK Hynix."}
           </p>
         </ScrollReveal>
 
@@ -383,12 +412,12 @@ function GyeonggiSection() {
             {/* Stats panel */}
             <div className="bg-primary rounded-2xl p-8 flex flex-col gap-4">
               <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/40">
-                GYEONGGI-DO DALAM ANGKA
+                {isId ? "GYEONGGI-DO DALAM ANGKA" : "GYEONGGI-DO IN NUMBERS"}
               </p>
               {GYEONGGI_STATS.map((s) => (
                 <div key={s.value} className="flex flex-col gap-0.5">
                   <span className={`text-xl font-extrabold leading-tight ${s.color}`}>{s.value}</span>
-                  <span className="text-xs text-white/50">{s.label}</span>
+                  <span className="text-xs text-white/50">{isId ? s.label : s.labelEn}</span>
                 </div>
               ))}
             </div>
@@ -400,7 +429,7 @@ function GyeonggiSection() {
                   <div className="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0">
                     <i className={f.icon} />
                   </div>
-                  <p className="text-sm text-text leading-relaxed">{f.text}</p>
+                  <p className="text-sm text-text leading-relaxed">{isId ? f.text : f.textEn}</p>
                 </div>
               ))}
             </div>
@@ -413,6 +442,8 @@ function GyeonggiSection() {
 
 // ─── 4. Timeline ──────────────────────────────────────────────────────────────
 function TimelineSection() {
+  const { language } = useTranslation();
+  const isId = language === "id";
   return (
     <section className="py-24 bg-[#f8fafc] relative overflow-hidden" id="history">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
@@ -426,13 +457,15 @@ function TimelineSection() {
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="max-w-[600px] mx-auto text-center mb-14">
           <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
-            SEJARAH
+            {isId ? "SEJARAH" : "HISTORY"}
           </div>
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
-            Perjalanan GBSA &amp; GBC (1997–2023)
+            {isId ? "Perjalanan GBSA & GBC (1997–2023)" : "GBSA & GBC Journey (1997–2023)"}
           </h2>
-          <p className="text-text-light text-lg">
-            Kronologi lengkap dari pendirian awal hingga pembukaan GBC Jakarta.
+          <p className="text-text-light text-lg text-justify">
+            {isId
+              ? "Kronologi lengkap dari pendirian awal hingga pembukaan GBC Jakarta."
+              : "Complete chronology from founding to GBC Jakarta opening."}
           </p>
         </ScrollReveal>
 
@@ -460,16 +493,20 @@ function TimelineSection() {
                   <span className={`text-sm font-extrabold tracking-wide ${item.highlight ? "text-amber-600" : "text-primary"}`}>
                     {item.year}
                   </span>
-                  <span className="text-[0.95rem] text-text leading-relaxed">{item.text}</span>
+                  <span className="text-[0.95rem] text-text leading-relaxed">{isId ? item.text : item.textEn}</span>
                   {item.note && (
-                    <span className="text-xs text-text-light italic mt-0.5">{item.note}</span>
+                    <span className="text-xs text-text-light italic mt-0.5">
+                      {isId ? item.note : ((item as { noteEn?: string }).noteEn ?? item.note)}
+                    </span>
                   )}
                 </div>
               </div>
             ))}
 
             <p className="text-xs text-text-light italic mt-6">
-              Timeline lengkap: 20 milestone · Sumber: GBSA Brochure 2023
+              {isId
+                ? "Timeline lengkap: 20 milestone · Sumber: GBSA Brochure 2023"
+                : "Full timeline: 20 milestones · Source: GBSA Brochure 2023"}
             </p>
           </div>
         </ScrollReveal>

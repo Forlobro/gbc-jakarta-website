@@ -90,6 +90,7 @@ const EXHIBITORS = [
     name: "ROBOTECH ENG CO., LTD.",
     category: "Industrial",
     description: "Leading Korean manufacturer of high-quality fans, blowers, and motors with 20+ years of export experience.",
+    descId: "Produsen Korea terkemuka untuk kipas, blower, dan motor berkualitas tinggi dengan pengalaman ekspor lebih dari 20 tahun.",
     logo: "ROBOTECH",
   },
   {
@@ -97,6 +98,7 @@ const EXHIBITORS = [
     name: "SENKO CO., LTD.",
     category: "Safety & Environment",
     description: "Gas detectors designed for safety in hazardous environments with real-time monitoring capabilities.",
+    descId: "Detektor gas dirancang untuk keselamatan di lingkungan berbahaya dengan kemampuan pemantauan waktu nyata.",
     logo: "SENKO",
   },
   {
@@ -104,27 +106,31 @@ const EXHIBITORS = [
     name: "SEONGHAN CORP.",
     category: "Industrial",
     description: "Eco-friendly waterproofing solution with excellent adhesion, flexibility, and crack-bridging capability.",
+    descId: "Solusi tahan air ramah lingkungan dengan daya rekat, fleksibilitas, dan jembatan retak yang sangat baik.",
     logo: "SEONGHAN",
   },
   {
     id: 4,
     name: "MIRICO CO., LTD.",
     category: "Safety & Environment",
-    description: "Certified gas safety technology including detectors, alarms, and automatic extinguishing systems.",
+    description: "Certified gas safety technology with advanced sensors for industrial applications.",
+    descId: "Teknologi keselamatan gas bersertifikat dengan sensor canggih untuk aplikasi industri.",
     logo: "MIRICO",
   },
   {
     id: 5,
     name: "SMARTECH KOREA",
     category: "ICT & Smart",
-    description: "Innovative smart city solutions integrating IoT, AI, and big data for urban infrastructure management.",
+    description: "Innovative smart city solutions including IoT infrastructure and digital governance platforms.",
+    descId: "Solusi kota pintar inovatif termasuk infrastruktur IoT dan platform tata kelola digital.",
     logo: "SMARTECH",
   },
   {
     id: 6,
     name: "INNOVA SYSTEMS",
     category: "ICT & Smart",
-    description: "End-to-end IoT infrastructure provider specializing in smart building and energy management systems.",
+    description: "End-to-end IoT infrastructure solutions for smart cities and industrial automation.",
+    descId: "Solusi infrastruktur IoT end-to-end untuk kota pintar dan otomasi industri.",
     logo: "INNOVA",
   },
   {
@@ -132,6 +138,7 @@ const EXHIBITORS = [
     name: "ANGEL TRAY CO.",
     category: "Industrial",
     description: "Innovation in eco-friendly dining solutions with recyclable and biodegradable collagen trays.",
+    descId: "Inovasi dalam solusi makan ramah lingkungan dengan baki kolagen yang dapat didaur ulang.",
     logo: "ANGEL TRAY",
   },
   {
@@ -139,6 +146,7 @@ const EXHIBITORS = [
     name: "SILLIMANN CO., LTD.",
     category: "ICT & Smart",
     description: "Premium silicone products from kitchenware to kidsware with award-winning design.",
+    descId: "Produk silikon premium dari peralatan dapur hingga perlengkapan anak dengan desain pemenang penghargaan.",
     logo: "SILLIMANN",
   },
 ];
@@ -240,7 +248,7 @@ const TAG_COLORS: Record<string, string> = {
 export default function EventDetailPage() {
   const params = useParams();
   const id = params.id as string;
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const eventMeta = EVENTS[id];
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -255,7 +263,7 @@ export default function EventDetailPage() {
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <p className="text-text-light text-lg mb-4">Event not found.</p>
+            <p className="text-text-light text-lg mb-4">{language === "id" ? "Event tidak ditemukan." : "Event not found."}</p>
             <Link href="/events" className="text-accent font-semibold hover:underline">
               ← {t("backToEvents")}
             </Link>
@@ -339,7 +347,7 @@ export default function EventDetailPage() {
             <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
               {t("aboutThisEvent")}
             </h2>
-            <p className="text-text-light text-[1rem] leading-[1.9]">
+            <p className="text-text-light text-[1rem] leading-[1.9] text-justify">
               {details}
             </p>
           </div>
@@ -443,8 +451,8 @@ export default function EventDetailPage() {
                     {exhibitor.category}
                   </span>
 
-                  <p className="text-text-light text-[0.8rem] leading-[1.6] line-clamp-3 mb-4">
-                    {exhibitor.description}
+                  <p className="text-text-light text-[0.8rem] leading-[1.6] line-clamp-3 mb-4 text-justify">
+                    {language === "id" ? exhibitor.descId : exhibitor.description}
                   </p>
 
                   <div className="flex gap-2 mt-auto">
@@ -452,7 +460,7 @@ export default function EventDetailPage() {
                       {t("brochure")}
                     </button>
                     <button className="px-4 py-1.5 border-2 border-primary text-primary text-[0.75rem] font-semibold rounded-full hover:bg-primary hover:text-white transition-colors">
-                      Website
+                      {t("websiteLabel")}
                     </button>
                   </div>
                 </div>

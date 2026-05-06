@@ -71,7 +71,7 @@ export default function CompanyVideosSection() {
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-4 leading-[1.2]">
             {t("companyVideosTitle")}
           </h2>
-          <p className="text-text-light text-lg">{t("companyVideosDesc")}</p>
+          <p className="text-text-light text-lg text-justify">{t("companyVideosDesc")}</p>
         </ScrollReveal>
 
         {/* Slider */}

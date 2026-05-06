@@ -85,10 +85,10 @@ export default function AboutSection() {
               {t("aboutTitle")}
             </h2>
 
-            <p className="text-text-light text-lg leading-[1.9] mb-8">
+            <p className="text-text-light text-lg leading-[1.9] mb-8 text-justify">
               {t("aboutDescription")}
             </p>
-            <p className="text-text-light text-lg leading-[1.9] mb-8">
+            <p className="text-text-light text-lg leading-[1.9] mb-8 text-justify">
               {t("aboutDescription2")}
             </p>
 
@@ -106,7 +106,7 @@ export default function AboutSection() {
                     <h4 className="text-base font-bold text-text mb-1">
                       {feature.title}
                     </h4>
-                    <p className="text-[0.9rem] text-text-light m-0">
+                    <p className="text-[0.9rem] text-text-light m-0 text-justify">
                       {feature.desc}
                     </p>
                   </div>

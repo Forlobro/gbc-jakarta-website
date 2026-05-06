@@ -188,6 +188,45 @@ export const translations = {
     partnerships: "Partnership Dev",
     aboutUs: "About Us",
     gmsCompanies: "GMS Companies",
+    footerContact: "Contact",
+    footerServices: "Our Services",
+    footerSupportedBy: "Supported by:",
+    footerCopyright: "© 2026 GBC Jakarta. All rights reserved.",
+
+    // Contact Section
+    contactSuccess: "Thank you for your message! We will get back to you soon.",
+    contactEmail: "Email",
+    contactPhone: "Telephone",
+    namePlaceholder: "John Doe",
+    emailPlaceholder: "john@company.com",
+    companyPlaceholder: "Your Company Name",
+    messagePlaceholder: "Tell us about your business needs...",
+
+    // Companies page
+    searchPlaceholder: "Search companies...",
+    allYears: "All Years",
+    noCompaniesFound: "No companies found.",
+    clearSearch: "Clear search",
+    showing: "Showing",
+    companiesOf: "of",
+    companiesWord: "companies",
+    companiesIn: "in",
+
+    // Company detail page
+    companyNotFound: "Company Not Found",
+    companyNotFoundMsg: "The company you are looking for does not exist.",
+    backToCompanies: "Back to Companies",
+    videoProfile: "Video Profile",
+    aboutCompany: "About Company",
+    galleryLabel: "Gallery",
+    contactViaGbc: "Contact via GBC",
+    phoneLabel: "Phone",
+    otherCompanies: "Other Companies You May Be Interested In",
+    locationKorea: "Gyeonggi-do, South Korea",
+    brochureDesc: "Download our company brochure for detailed product information and specifications.",
+    downloadBrochure: "Download Brochure",
+    viewBrochure: "View Brochure",
+    websiteLabel: "Website",
   },
 
   id: {
@@ -379,6 +418,45 @@ export const translations = {
     partnerships: "Kemitraan",
     aboutUs: "Tentang Kami",
     gmsCompanies: "Perusahaan GMS",
+    footerContact: "Kontak",
+    footerServices: "Layanan Kami",
+    footerSupportedBy: "Didukung oleh:",
+    footerCopyright: "© 2026 GBC Jakarta. Hak cipta dilindungi.",
+
+    // Contact Section
+    contactSuccess: "Terima kasih atas pesan Anda! Kami akan menghubungi Anda segera.",
+    contactEmail: "Email",
+    contactPhone: "Telepon",
+    namePlaceholder: "John Doe",
+    emailPlaceholder: "john@perusahaan.com",
+    companyPlaceholder: "Nama Perusahaan Anda",
+    messagePlaceholder: "Ceritakan kebutuhan bisnis Anda...",
+
+    // Companies page
+    searchPlaceholder: "Cari perusahaan...",
+    allYears: "Semua Tahun",
+    noCompaniesFound: "Perusahaan tidak ditemukan.",
+    clearSearch: "Hapus pencarian",
+    showing: "Menampilkan",
+    companiesOf: "dari",
+    companiesWord: "perusahaan",
+    companiesIn: "di",
+
+    // Company detail page
+    companyNotFound: "Perusahaan Tidak Ditemukan",
+    companyNotFoundMsg: "Perusahaan yang Anda cari tidak ditemukan.",
+    backToCompanies: "Kembali ke Perusahaan",
+    videoProfile: "Profil Video",
+    aboutCompany: "Tentang Perusahaan",
+    galleryLabel: "Galeri",
+    contactViaGbc: "Hubungi via GBC",
+    phoneLabel: "Telepon",
+    otherCompanies: "Perusahaan Lain yang Mungkin Anda Minati",
+    locationKorea: "Gyeonggi-do, Korea Selatan",
+    brochureDesc: "Unduh brosur perusahaan kami untuk informasi produk dan spesifikasi terperinci.",
+    downloadBrochure: "Unduh Brosur",
+    viewBrochure: "Lihat Brosur",
+    websiteLabel: "Website",
   },
 } as const;
 

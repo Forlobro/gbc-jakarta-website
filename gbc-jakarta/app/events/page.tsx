@@ -125,7 +125,7 @@ export default function EventsPage() {
               <span className="text-accent">Korea</span>
               {t("eventsPageTitle").split("Korea")[1]}
             </h1>
-            <p className="text-white/70 text-lg leading-[1.8]">
+            <p className="text-white/70 text-lg leading-[1.8] text-justify">
               {t("eventsPageDesc")}
             </p>
           </div>
@@ -216,7 +216,7 @@ export default function EventsPage() {
                     </div>
 
                     <p
-                      className={`text-[0.95rem] leading-[1.8] mb-7 ${
+                      className={`text-[0.95rem] leading-[1.8] mb-7 text-justify ${
                         event.dark ? "text-white/75" : "text-text-light"
                       }`}
                     >
@@ -310,7 +310,7 @@ export default function EventsPage() {
                       <h4 className="font-bold text-text text-[1rem] leading-[1.4] mb-3">
                         {event.title}
                       </h4>
-                      <p className="text-text-light text-[0.85rem] leading-[1.7] line-clamp-2">
+                      <p className="text-text-light text-[0.85rem] leading-[1.7] line-clamp-2 text-justify">
                         {event.description}
                       </p>
                       <span className="inline-flex items-center gap-2 text-accent text-[0.85rem] font-semibold mt-4">

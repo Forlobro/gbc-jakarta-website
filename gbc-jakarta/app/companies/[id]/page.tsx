@@ -35,7 +35,7 @@ export default function CompanyDetailPage() {
   const [notFound, setNotFound] = useState(false)
   const [activePhoto, setActivePhoto] = useState(0)
 
-  const { language } = useTranslation()
+  const { language, t } = useTranslation()
 
   useEffect(() => {
     if (!id) return
@@ -84,16 +84,16 @@ export default function CompanyDetailPage() {
         <div className="min-h-screen flex items-center justify-center pt-20">
           <div className="text-center">
             <h1 className="font-display text-4xl font-bold text-primary mb-4">
-              Company Not Found
+              {t("companyNotFound")}
             </h1>
-            <p className="text-text-light mb-8">
-              The company you are looking for does not exist.
+            <p className="text-text-light mb-8 text-justify">
+              {t("companyNotFoundMsg")}
             </p>
             <Link
               href="/companies"
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-semibold"
             >
-              <i className="fas fa-arrow-left" /> Back to Companies
+              <i className="fas fa-arrow-left" /> {t("backToCompanies")}
             </Link>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function CompanyDetailPage() {
               <div className="flex flex-wrap gap-6 justify-center md:justify-start text-sm opacity-75">
                 <span className="flex items-center gap-2">
                   <i className="fas fa-map-marker-alt text-accent" />
-                  Gyeonggi-do, South Korea
+                  {t("locationKorea")}
                 </span>
                 <span className="flex items-center gap-2">
                   <i className="fas fa-calendar text-accent" />
@@ -177,7 +177,7 @@ export default function CompanyDetailPage() {
               {getEmbedUrl(company.link_video) && (
                 <div className="mb-12">
                   <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="fas fa-play-circle text-accent" /> Video Profile
+                    <i className="fas fa-play-circle text-accent" /> {t("videoProfile")}
                   </h2>
                   <div className="rounded-3xl overflow-hidden shadow-xl">
                     <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
@@ -197,7 +197,7 @@ export default function CompanyDetailPage() {
               {(company.description_id || company.description_en) && (
                 <div className="mb-12">
                   <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="fas fa-building text-accent" /> About Company
+                    <i className="fas fa-building text-accent" /> {t("aboutCompany")}
                   </h2>
                   <div className="text-text-light text-[1.05rem] leading-[1.9] whitespace-pre-line">
                     {language === "en"
@@ -211,7 +211,7 @@ export default function CompanyDetailPage() {
               {photos.length > 0 && (
                 <div className="mb-12">
                   <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="fas fa-images text-accent" /> Gallery
+                    <i className="fas fa-images text-accent" /> {t("galleryLabel")}
                     <span className="text-base font-normal text-text-muted">
                       ({photos.length} photos)
                     </span>
@@ -262,12 +262,10 @@ export default function CompanyDetailPage() {
               {company.link_brochure && (
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
                   <h3 className="font-display text-lg font-bold text-primary mb-4 flex items-center gap-2">
-                    <i className="fas fa-file-pdf text-red-500" /> Brochure
+                    <i className="fas fa-file-pdf text-red-500" /> {t("brochure")}
                   </h3>
-                  <p className="text-[0.9rem] text-text-light mb-6">
-                    {language === "en"
-                      ? "View or download the official company brochure."
-                      : "Lihat atau unduh brosur resmi perusahaan."}
+                  <p className="text-[0.9rem] text-text-light mb-6 text-justify">
+                    {t("brochureDesc")}
                   </p>
                   <div className="flex flex-col gap-3">
                     {/* Preview — opens native browser PDF viewer in new tab */}
@@ -278,7 +276,7 @@ export default function CompanyDetailPage() {
                       className="flex items-center justify-center gap-3 py-3.5 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5 text-[0.9rem]"
                     >
                       <i className="fas fa-eye" />
-                      {language === "en" ? "View Brochure" : "Lihat Brosur"}
+                      {t("viewBrochure")}
                     </a>
                     {/* Download — forces file save dialog */}
                     <a
@@ -287,7 +285,7 @@ export default function CompanyDetailPage() {
                       className="flex items-center justify-center gap-3 py-3.5 bg-accent/10 !text-primary border-2 border-accent/30 rounded-xl font-semibold transition-all duration-300 hover:bg-accent/20 hover:border-accent hover:-translate-y-0.5 text-[0.9rem]"
                     >
                       <i className="fas fa-download" />
-                      {language === "en" ? "Download PDF" : "Download PDF"}
+                      {t("downloadBrochure")}
                     </a>
                   </div>
                 </div>
@@ -296,8 +294,7 @@ export default function CompanyDetailPage() {
               {/* Contact Card */}
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
                 <h3 className="font-display text-lg font-bold text-primary mb-6 flex items-center gap-2">
-                  <i className="fas fa-address-card text-accent" /> Contact via
-                  GBC
+                  <i className="fas fa-address-card text-accent" /> {t("contactViaGbc")}
                 </h3>
                 <div className="flex flex-col gap-4 mb-6">
                   <div className="flex items-start gap-4">
@@ -306,7 +303,7 @@ export default function CompanyDetailPage() {
                     </div>
                     <div>
                       <label className="block text-[0.75rem] text-text-muted uppercase tracking-[0.05em] mb-0.5">
-                        Phone
+                        {t("phoneLabel")}
                       </label>
                       <span className="text-[0.95rem] text-text font-medium">
                         +62 21 3971 2135
@@ -333,7 +330,7 @@ export default function CompanyDetailPage() {
         <section className="py-20 bg-[#f9fafb]">
           <div className="max-w-350 mx-auto px-[5%]">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-primary text-center mb-12">
-              Other Companies You May Be Interested In
+              {t("otherCompanies")}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((c) => (
@@ -362,7 +359,7 @@ export default function CompanyDetailPage() {
                     </span>
                   )}
                   {(c.description_en || c.description_id) && (
-                    <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 line-clamp-2">
+                    <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 line-clamp-2 text-justify">
                       {language === "en" ? c.description_en || c.description_id : c.description_id || c.description_en}
                     </p>
                   )}
@@ -370,7 +367,7 @@ export default function CompanyDetailPage() {
                     href={`/companies/${c.id}`}
                     className="inline-flex items-center gap-2 text-primary font-semibold text-[0.9rem] transition-all duration-300 hover:gap-3"
                   >
-                    View Details <i className="fas fa-arrow-right" />
+                    {t("viewDetails")} <i className="fas fa-arrow-right" />
                   </Link>
                 </div>
               ))}

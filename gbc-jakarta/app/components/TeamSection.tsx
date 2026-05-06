@@ -82,7 +82,7 @@ export default function TeamSection() {
                     {t("messageTitle")}
                   </h3>
                   <div className="w-28 h-[4px] bg-[#00c2cb] rounded-full mb-5" />
-                  <p className="text-text-light text-sm leading-[1.8]">
+                  <p className="text-text-light text-sm leading-[1.8] text-justify">
                     {t("messageText")}
                   </p>
                 </div>

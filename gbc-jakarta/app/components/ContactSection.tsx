@@ -89,7 +89,7 @@ export default function ContactSection() {
               {t("contactTitle")}
             </h2>
 
-            <p className="text-white/70 text-lg mb-12">
+            <p className="text-white/70 text-lg mb-12 text-justify">
               {t("contactDescription")}
             </p>
 
@@ -119,7 +119,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
-                    Email
+                    {t("contactEmail")}
                   </h4>
                   <a
                     href="mailto:gbcjkt@gbcprime.com"
@@ -137,7 +137,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
-                    Telephone
+                    {t("contactPhone")}
                   </h4>
                   <a
                     href="tel:+622139712135"
@@ -197,7 +197,7 @@ export default function ContactSection() {
                   <input
                     type="text"
                     name="name"
-                    placeholder="John Doe"
+                    placeholder={t("namePlaceholder")}
                     required
                     className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
@@ -211,7 +211,7 @@ export default function ContactSection() {
                   <input
                     type="email"
                     name="email"
-                    placeholder="john@company.com"
+                    placeholder={t("emailPlaceholder")}
                     required
                     className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
@@ -225,7 +225,7 @@ export default function ContactSection() {
                   <input
                     type="text"
                     name="company"
-                    placeholder="Your Company Name"
+                    placeholder={t("companyPlaceholder")}
                     className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
                 </div>
@@ -237,7 +237,7 @@ export default function ContactSection() {
                   </label>
                   <textarea
                     name="message"
-                    placeholder="Tell us about your business needs..."
+                    placeholder={t("messagePlaceholder")}
                     required
                     className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 resize-y min-h-[120px] focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
@@ -253,7 +253,7 @@ export default function ContactSection() {
 
                 {submitted && (
                   <p className="mt-4 text-center text-accent font-semibold">
-                    Thank you for your message! We will get back to you soon.
+                    {t("contactSuccess")}
                   </p>
                 )}
               </form>
