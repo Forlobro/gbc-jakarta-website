@@ -4,25 +4,43 @@ import Image from "next/image";
 import { useTranslation } from "../lib/LanguageContext";
 import ScrollReveal from "../components/ScrollReveal";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";  
+import Footer from "../components/Footer";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const GBSA_STATS = [
-  { value: "527 Triliun KRW", label: "GDP terbesar di Korea (#1, 25.4%)",      color: "text-[#f59e0b]" },
-  { value: "13.6 Juta",       label: "Populasi (26.4% total Korea)",            color: "text-[#60a5fa]" },
-  { value: "1.84 Juta UKM",  label: "Terdaftar di Gyeonggi (28.3% nasional)", color: "text-[#a78bfa]" },
-  { value: "470 Triliun KRW",label: "Total belanja R&D (50.5% nasional)",      color: "text-[#34d399]" },
-  { value: "250,652",         label: "Tenaga R&D (33.5% nasional Korea)",       color: "text-[#f472b6]" },
+const GYEONGGI_STATS = [
+  { value: "527 Triliun KRW", label: "Total produksi regional (#1 Korea, 25.4%)", color: "text-[#f59e0b]" },
+  { value: "13.6 Juta",       label: "Total populasi (26.4% total Korea)",         color: "text-[#60a5fa]" },
+  { value: "1.84 Juta UKM",   label: "UKM terdaftar (25.3% nasional)",             color: "text-[#a78bfa]" },
+  { value: "470 Triliun KRW", label: "Total belanja R&D (50.5% nasional)",         color: "text-[#34d399]" },
+  { value: "250,652",          label: "Tenaga R&D (33.5% nasional Korea)",          color: "text-[#f472b6]" },
 ];
 
-const STRATEGIES = [
-  { dot: "bg-green-500",  title: "Industri masa depan",  desc: "Semikonduktor, bio, mobilitas, hidrogen, digitalisasi manufaktur" },
-  { dot: "bg-blue-500",   title: "Ekosistem inovasi",    desc: "Startup, Techno Valley, kolaborasi industri-akademik" },
-  { dot: "bg-amber-500",  title: "Daya saing global",    desc: "Ekspor, investasi, GBC network, hidden champions global" },
-  { dot: "bg-purple-500", title: "Manajemen ESG",        desc: "Keberlanjutan, digital, transparansi, keamanan" },
+const GYEONGGI_FACTS = [
+  { icon: "fas fa-microchip",    text: "Pusat industri semikonduktor Korea — home to Samsung Electronics, SK Hynix" },
+  { icon: "fas fa-flask",        text: "Hub bio & healthcare terbesar di Asia Tenggara Korea" },
+  { icon: "fas fa-chart-line",   text: "Menyumbang 60% lapangan kerja nasional Korea" },
+  { icon: "fas fa-globe-asia",   text: "Koridor ekonomi Asia Timur Laut — populasi 1.6 miliar dalam jangkauan" },
 ];
 
+const GBSA_PILLARS = [
+  {
+    num: "01", color: "bg-blue-500", title: "Promosi Industri Masa Depan",
+    points: ["Semikonduktor, bioteknologi, mobilitas canggih", "Digitalisasi manufaktur tradisional (furnitur, tekstil)", "Dukungan energi baru & respons krisis iklim"],
+  },
+  {
+    num: "02", color: "bg-green-500", title: "Ekosistem Inovasi Dinamis",
+    points: ["Revitalisasi ekosistem startup inovatif", "Pengembangan Pangyo & Gwanggyo Techno Valley", "Sistem kolaborasi industri-akademik-penelitian"],
+  },
+  {
+    num: "03", color: "bg-amber-500", title: "Peningkatan Daya Saing Global",
+    points: ["Menarik investasi 100 triliun KRW", "Fostering hidden champions & ekspor UKM", "Platform ekspor digital terintegrasi (GBCprime)"],
+  },
+  {
+    num: "04", color: "bg-purple-500", title: "Manajemen GBSA Kelas Dunia",
+    points: ["Kepemimpinan manajemen ESG", "Penguatan manajemen digital & AI", "Transparansi, keselamatan & integritas organisasi"],
+  },
+];
 
 
 const TIMELINE = [
@@ -44,11 +62,10 @@ const TIMELINE = [
   },
 ];
 
-// ─── Shared decorative background (matches existing sections) ─────────────────
+// ─── Shared decorative background ─────────────────────────────────────────────
 function SectionBg({ flip = false }: { flip?: boolean }) {
   return (
     <>
-    <Navbar />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -66,109 +83,96 @@ function SectionBg({ flip = false }: { flip?: boolean }) {
   );
 }
 
-// ─── 1. Hero / About GBC Jakarta ──────────────────────────────────────────────
-function AboutHero() {
-  const { t } = useTranslation();
-
-  const features = [
-    { icon: "fas fa-search-dollar",  title: t("marketResearch"),   desc: t("IndepthIndonesianmarketanalysis") },
-    { icon: "fas fa-users",          title: t("businessMatching"), desc: t("connectWithLocalDistributors") },
-    { icon: "fas fa-file-signature", title: t("legalSupport"),     desc: t("businessRegistrationGuidance") },
-    { icon: "fas fa-bullhorn",       title: t("tradePromotion"),   desc: t("tradeShowsExhibitions") },
-  ];
+function VideoEmbed({ srcId, srcEn, captionId, captionEn }: {
+  srcId: string;
+  srcEn: string;
+  captionId: string;
+  captionEn: string;
+}) {
+  const { language } = useTranslation();
+  const src     = language === "id" ? srcId     : srcEn;
+  const caption = language === "id" ? captionId : captionEn;
 
   return (
-    <section className="pt-36 pb-24 bg-white relative" id="about-intro">
-      {/* Wave divider top — matches section above */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-          <path d="M0,30 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="#f9fafb" />
-        </svg>
+    <div className="max-w-4xl mx-auto mb-16">
+      <div className="rounded-2xl overflow-hidden shadow-xl">
+        <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+          <iframe
+            key={src}
+            className="absolute inset-0 w-full h-full"
+            src={src}
+            title={caption}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
       </div>
+      <p className="text-center text-sm text-text-light mt-3">{caption}</p>
+    </div>
+  );
+}
 
-      <SectionBg />
+// ─── 1. Hero / Page Banner ────────────────────────────────────────────────────
+function AboutHero() {
+  const { language } = useTranslation();
+  const isId = language === "id";
 
-      {/* Decorative lines — left side */}
-      <div className="absolute left-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
-        {[70, 110, 50, 90, 60, 100].map((w, i) => (
-          <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
-        ))}
-      </div>
+  const sections = isId
+    ? ["Jaringan Global GBC", "GBSA", "Gyeonggi-do", "Sejarah"]
+    : ["GBC Global Network", "GBSA", "Gyeonggi-do", "History"];
 
-      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+  return (
+    <section className="relative overflow-hidden bg-primary pt-36 pb-20" id="about-intro">
+      {/* Dot pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20"
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.4) 1.5px, transparent 1.5px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+      {/* Glow blobs */}
+      <div className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-accent/20 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-[380px] h-[380px] rounded-full bg-white/5 blur-3xl pointer-events-none" />
 
-          {/* Left: Content */}
-          <ScrollReveal>
-            <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-              {t("aboutLabel")}
+      <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+          {/* Left */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-[0.75rem] font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
+              {isId ? "Tentang Kami" : "About Us"}
             </div>
-
-            <h1 className="font-display text-4xl md:text-[3.8rem] font-extrabold text-primary mb-6 leading-[1.15]">
-              {t("aboutTitle")}
+            <h1 className="font-display text-4xl md:text-[3.2rem] font-extrabold text-white mb-5 leading-[1.15]">
+              {isId ? "Mengenal GBC Jakarta & Ekosistemnya" : "Discover GBC Jakarta & Its Ecosystem"}
             </h1>
-
-            <p className="text-text-light text-lg leading-[1.9] mb-5">
-              {t("aboutDescription")}
-            </p>
-            <p className="text-text-light text-lg leading-[1.9] mb-8">
-              {t("aboutDescription2")}
+            <p className="text-white/70 text-lg leading-[1.9] mb-8">
+              {isId
+                ? "Halaman ini menceritakan siapa kami, dari mana kami berasal, dan bagaimana jaringan global GBC bersama GBSA dan Pemerintah Provinsi Gyeonggi bekerja untuk mendukung pertumbuhan bisnis Korea–Indonesia."
+                : "This page tells who we are, where we come from, and how the global GBC network together with GBSA and the Gyeonggi Provincial Government works to support Korean–Indonesian business growth."}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
-              {features.map((f) => (
-                <div key={f.title} className="flex items-start gap-4">
-                  <div className="w-[50px] h-[50px] bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center text-accent text-xl shrink-0">
-                    <i className={f.icon} />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-text mb-1">{f.title}</h4>
-                    <p className="text-[0.9rem] text-text-light m-0">{f.desc}</p>
-                  </div>
-                </div>
+            {/* Section pills */}
+            <div className="flex flex-wrap gap-2">
+              {sections.map((s) => (
+                <span key={s} className="bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-1.5 rounded-full transition-colors duration-200">
+                  {s}
+                </span>
               ))}
             </div>
-          </ScrollReveal>
+          </div>
 
-          {/* Right: Image + logos */}
-          <ScrollReveal className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="/images/ceremonial.png"
-                alt="GBC Jakarta Opening Ceremony"
-                width={800}
-                height={600}
-                className="w-full h-auto block object-cover aspect-[4/3]"
-              />
-            </div>
-            {/* Corner accent */}
-            <div className="absolute w-[200px] h-[200px] border-[3px] border-accent rounded-3xl -top-[30px] -right-[30px] -z-[1]" />
-
-            {/* Logo row */}
-            <div className="flex items-center gap-6 mt-8 flex-wrap">
-              <Image
-                src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
-                alt="GBSA"
-                width={100}
-                height={44}
-                className="h-10 w-auto mix-blend-multiply opacity-80"
-              />
-              <Image
-                src="/images/gyeonggi-logo.jpeg"
-                alt="Gyeonggi-do"
-                width={100}
-                height={44}
-                className="h-10 w-auto mix-blend-multiply opacity-80"
-              />
-              <Image
-                src="/images/logo-panjang.png"
-                alt="GBC Jakarta"
-                width={130}
-                height={44}
-                className="h-10 w-auto"
-              />
-            </div>
-          </ScrollReveal>
+          {/* Right: photo */}
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <Image
+              src="/images/ceremonial.png"
+              alt="GBC Jakarta Opening Ceremony"
+              width={800}
+              height={600}
+              className="w-full h-auto block object-cover aspect-[4/3]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
+          </div>
         </div>
       </div>
     </section>
@@ -178,8 +182,7 @@ function AboutHero() {
 // ─── 2. Global Network ────────────────────────────────────────────────────────
 function GlobalNetworkSection() {
   return (
-    <section className="py-36 bg-gray-50 relative" id="global-network">
-      {/* Wave top */}
+    <section className="py-24 bg-gray-50 relative overflow-hidden" id="global-network">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
           <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
@@ -188,17 +191,8 @@ function GlobalNetworkSection() {
 
       <SectionBg flip />
 
-      {/* Decorative lines — right side */}
-      <div className="absolute right-[4%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
-        {[90, 60, 110, 50, 80, 40].map((w, i) => (
-          <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
-        ))}
-      </div>
-
-      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-
-        {/* Header */}
-        <ScrollReveal className="text-center max-w-[640px] mx-auto mb-14">
+      <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
+        <ScrollReveal className="text-center max-w-[600px] mx-auto mb-12">
           <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
             JARINGAN GLOBAL
           </div>
@@ -210,35 +204,24 @@ function GlobalNetworkSection() {
           </p>
         </ScrollReveal>
 
-        {/* Video */}
-        <ScrollReveal className="max-w-4xl mx-auto mb-16">
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/viTmdnYlmQo"
-                title="Video perkenalan jaringan GBC global"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-          <p className="text-center text-sm text-text-light mt-3">Video perkenalan jaringan GBC global</p>
+        <ScrollReveal>
+          <VideoEmbed
+            srcId="https://www.youtube.com/embed/E722_8UgqHY"
+            srcEn="https://www.youtube.com/embed/viTmdnYlmQo"
+            captionId="Video perkenalan jaringan GBC global (Indonesia)"
+            captionEn="Video perkenalan jaringan GBC global (English)"
+          />
         </ScrollReveal>
 
-        {/* Locations grid card */}
         <ScrollReveal>
-          <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 md:p-12">
-            <div className="mb-10">
-              <Image
-                src="/images/gbc.png"
-                alt="GBC Network Map — 19 lokasi di 14 negara"
-                width={1200}
-                height={800}
-                className="w-full h-auto rounded-2xl"
-              />
-            </div>
-            
+          <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 md:p-10">
+            <Image
+              src="/images/gbc.png"
+              alt="GBC Network Map — 19 lokasi di 14 negara"
+              width={1200}
+              height={800}
+              className="w-full h-auto rounded-2xl"
+            />
           </div>
         </ScrollReveal>
       </div>
@@ -246,11 +229,10 @@ function GlobalNetworkSection() {
   );
 }
 
-// ─── 3. Parent Organization (Gyeonggi-do / GBSA) ──────────────────────────────
-function ParentOrgSection() {
+// ─── 3. GBSA Section ──────────────────────────────────────────────────────────
+function GBSASection() {
   return (
-    <section className="py-36 bg-white relative" id="parent-org">
-      {/* Wave top */}
+    <section className="py-24 bg-white relative overflow-hidden" id="gbsa">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
           <path d="M0,30 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="#f9fafb" />
@@ -259,122 +241,161 @@ function ParentOrgSection() {
 
       <SectionBg />
 
-      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
+      <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
 
         {/* Header */}
-        <ScrollReveal className="max-w-[640px] mb-14">
+        <ScrollReveal className="max-w-[640px] mb-12">
           <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
             LEMBAGA INDUK
           </div>
-          <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-3 leading-[1.2]">
-            GBSA - Gyeonggido Business & Science Accelerator
+          <h2 className="font-display text-3xl md:text-[2.6rem] font-extrabold text-primary mb-3 leading-[1.2]">
+            GBSA — Gyeonggido Business & Science Accelerator
           </h2>
           <p className="text-text-light text-lg">
-            Lembaga resmi Pemerintah Provinsi Gyeonggi yang mengelola seluruh jaringan GBC.
+            Lembaga publik resmi milik Pemerintah Provinsi Gyeonggi yang menjadi induk dari seluruh jaringan GBC di dunia.
           </p>
         </ScrollReveal>
 
         {/* Video */}
-        <ScrollReveal className="max-w-4xl mx-auto mb-16">
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/E722_8UgqHY"
-                title="Video perkenalan GBSA"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-          <p className="text-center text-sm text-text-light mt-3">Video perkenalan GBC</p>
-        </ScrollReveal>
-
-                <ScrollReveal className="max-w-[640px] mb-14">
-          <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-            LEMBAGA INDUK
-          </div>
-          <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-3 leading-[1.2]">
-            Gyeonggi-do
-          </h2>
-          <p className="text-text-light text-lg">
-            Lembaga resmi Pemerintah Provinsi Gyeonggi yang mengelola seluruh jaringan GBC.
-          </p>
-        </ScrollReveal>
-
-        {/* Video */}
-        <ScrollReveal className="max-w-4xl mx-auto mb-16">
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/xm02usuSO6Q"
-                title="Video perkenalan GBSA"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-          <p className="text-center text-sm text-text-light mt-3">Video perkenalan GBSA</p>
-        </ScrollReveal>
-        
-
-        {/* Description + Stats */}
         <ScrollReveal>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+          <VideoEmbed
+            srcId="https://www.youtube.com/embed/xm02usuSO6Q"
+            srcEn="https://www.youtube.com/embed/xm02usuSO6Q"
+            captionId="Video perkenalan GBSA (English — versi Indonesia dalam proses)"
+            captionEn="Video introduction of GBSA (English)"
+          />
+        </ScrollReveal>
 
-            {/* Left */}
-            <div className="flex flex-col gap-6">
-              <p className="text-text-light text-lg leading-[1.9]">
+        {/* Description + Misi/Visi — 2 kolom */}
+        <ScrollReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-14">
+
+            {/* Kiri: deskripsi */}
+            <div>
+              <p className="text-text-light text-base leading-[1.9] mb-4">
                 GBSA (경기도경제과학진흥원) adalah lembaga publik resmi milik Pemerintah Provinsi
-                Gyeonggi. Berdiri sejak 1997, mendukung UKM melalui seluruh siklus: startup,
-                komersialisasi, investasi, ekspor, R&D.
+                Gyeonggi, Korea Selatan. Diluncurkan pada Januari 2017 sebagai hasil integrasi
+                Small and Medium Business Center dan Science Technology Promotion Agency.
               </p>
-              <div className="flex flex-col gap-3">
-                <div className="bg-gray-50 rounded-xl px-5 py-4 border border-gray-100">
-                  <p className="text-[0.7rem] font-bold uppercase tracking-widest text-text-light mb-1">Misi</p>
-                  <p className="text-base font-semibold text-primary">
-                    Making Gyeonggi Province abound with growth opportunities
-                  </p>
-                </div>
-                <div className="bg-gray-50 rounded-xl px-5 py-4 border border-gray-100">
-                  <p className="text-[0.7rem] font-bold uppercase tracking-widest text-text-light mb-1">Visi</p>
-                  <p className="text-base font-semibold text-primary">
-                    GBSA — Partner for SMEs Innovation
-                  </p>
-                </div>
+              <p className="text-text-light text-base leading-[1.9]">
+                GBSA hadir sebagai mitra terpercaya bagi UKM di seluruh siklus bisnis — mulai dari
+                startup, komersialisasi, investasi, ekspor, hingga R&D sains dan teknologi — dengan
+                tujuan menjadikan Provinsi Gyeonggi sebagai pusat peluang pertumbuhan dunia.
+              </p>
+            </div>
+
+            {/* Kanan: Misi & Visi */}
+            <div className="flex flex-col gap-4">
+              <div className="bg-primary rounded-2xl px-7 py-6">
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/40 mb-2">Misi</p>
+                <p className="text-base font-bold text-white leading-snug">
+                  Making Gyeonggi Province abound with growth opportunities
+                </p>
+              </div>
+              <div className="bg-accent rounded-2xl px-7 py-6">
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/60 mb-2">Visi</p>
+                <p className="text-base font-bold text-white leading-snug">
+                  GBSA — Partner for SMEs Innovation
+                </p>
               </div>
             </div>
+          </div>
+        </ScrollReveal>
 
-            {/* Right: Stats dark panel */}
-            <div className="bg-primary rounded-2xl p-8 flex flex-col gap-5">
+        {/* 4 Strategic Pillars */}
+        <ScrollReveal>
+          <p className="text-sm font-semibold text-text-light mb-5">Empat pilar strategi GBSA</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {GBSA_PILLARS.map((p) => (
+              <div key={p.num} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow duration-300">
+                <span className={`w-8 h-8 rounded-lg ${p.color} flex items-center justify-center text-white text-xs font-extrabold`}>
+                  {p.num}
+                </span>
+                <h4 className="text-sm font-bold text-text">{p.title}</h4>
+                <ul className="flex flex-col gap-1">
+                  {p.points.map((pt) => (
+                    <li key={pt} className="text-xs text-text-light leading-relaxed flex gap-1.5">
+                      <span className="mt-1 shrink-0 w-1 h-1 rounded-full bg-accent/60" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
+      </div>
+    </section>
+  );
+}
+
+// ─── 4. Gyeonggi-do Section ───────────────────────────────────────────────────
+function GyeonggiSection() {
+  return (
+    <section className="py-24 bg-gray-50 relative overflow-hidden" id="gyeonggi">
+      <div className="absolute top-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+          <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
+        </svg>
+      </div>
+
+      <SectionBg flip />
+
+      <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
+
+        {/* Header */}
+        <ScrollReveal className="max-w-[640px] mb-12">
+          <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
+            PEMERINTAH PROVINSI
+          </div>
+          <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
+            Gyeonggi-do
+          </h2>
+          <p className="text-text-light text-lg leading-[1.8]">
+            Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang
+            25.4% total produksi nasional dan menjadi rumah bagi konglomerat global seperti
+            Samsung Electronics & SK Hynix.
+          </p>
+        </ScrollReveal>
+
+        {/* Video */}
+        <ScrollReveal>
+          <VideoEmbed
+            srcId="https://www.youtube.com/embed/TIx-GWhA8d8"
+            srcEn="https://www.youtube.com/embed/TIx-GWhA8d8"
+            captionId="Video perkenalan Gyeonggi-do"
+            captionEn="Video introduction of Gyeonggi-do"
+          />
+        </ScrollReveal>
+
+        {/* Stats + Facts */}
+        <ScrollReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+            {/* Stats panel */}
+            <div className="bg-primary rounded-2xl p-8 flex flex-col gap-4">
               <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/40">
-                PROVINSI GYEONGGI DALAM ANGKA
+                GYEONGGI-DO DALAM ANGKA
               </p>
-              {GBSA_STATS.map((s) => (
+              {GYEONGGI_STATS.map((s) => (
                 <div key={s.value} className="flex flex-col gap-0.5">
                   <span className={`text-xl font-extrabold leading-tight ${s.color}`}>{s.value}</span>
                   <span className="text-xs text-white/50">{s.label}</span>
                 </div>
               ))}
             </div>
-          </div>
-        </ScrollReveal>
 
-        {/* Strategy cards */}
-        <ScrollReveal>
-          <p className="text-sm font-semibold text-text-light mb-4">Empat strategi utama GBSA</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {STRATEGIES.map((s) => (
-              <div
-                key={s.title}
-                className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow duration-300"
-              >
-                <span className={`w-2.5 h-2.5 rounded-full ${s.dot}`} />
-                <h4 className="text-sm font-bold text-text">{s.title}</h4>
-                <p className="text-xs text-text-light leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
+            {/* Facts */}
+            <div className="flex flex-col gap-4 justify-center">
+              {GYEONGGI_FACTS.map((f) => (
+                <div key={f.text} className="flex items-start gap-4 bg-white rounded-xl px-5 py-4 border border-gray-100 shadow-sm">
+                  <div className="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0">
+                    <i className={f.icon} />
+                  </div>
+                  <p className="text-sm text-text leading-relaxed">{f.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
       </div>
@@ -385,8 +406,7 @@ function ParentOrgSection() {
 // ─── 4. Timeline ──────────────────────────────────────────────────────────────
 function TimelineSection() {
   return (
-    <section className="py-36 bg-[#f8fafc] relative" id="history">
-      {/* Wave top */}
+    <section className="py-24 bg-[#f8fafc] relative overflow-hidden" id="history">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
           <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
@@ -395,14 +415,12 @@ function TimelineSection() {
 
       <SectionBg flip />
 
-      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-
-        {/* Header */}
-        <ScrollReveal className="max-w-[640px] mx-auto text-center mb-16">
+      <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
+        <ScrollReveal className="max-w-[600px] mx-auto text-center mb-14">
           <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
             SEJARAH
           </div>
-          <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-3 leading-[1.2]">
+          <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
             Perjalanan GBSA &amp; GBC (1997–2023)
           </h2>
           <p className="text-text-light text-lg">
@@ -410,10 +428,8 @@ function TimelineSection() {
           </p>
         </ScrollReveal>
 
-        {/* Timeline list */}
         <ScrollReveal className="max-w-2xl mx-auto">
-          <div className="relative pl-8">
-            {/* Vertical line */}
+          <div className="relative pl-10">
             <div className="absolute left-[7px] top-2 bottom-8 w-[2px] bg-gray-200 rounded-full" />
 
             {TIMELINE.map((item) => (
@@ -421,24 +437,19 @@ function TimelineSection() {
                 key={item.year}
                 className={`relative mb-8 last:mb-0 ${
                   item.highlight
-                    ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-4"
+                    ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-2"
                     : ""
                 }`}
               >
-                {/* Dot */}
                 <div
-                  className={`absolute top-1 rounded-full border-2 border-white shadow ${
+                  className={`absolute top-1.5 rounded-full border-2 border-white shadow ${
                     item.highlight
-                      ? "-left-[38px] w-4 h-4 bg-amber-400 shadow-amber-200"
-                      : "-left-[30px] w-3 h-3 bg-gray-300"
+                      ? "-left-[36px] w-4 h-4 bg-amber-400 shadow-amber-200"
+                      : "-left-[28px] w-3 h-3 bg-gray-300"
                   }`}
                 />
                 <div className="flex flex-col gap-1">
-                  <span
-                    className={`text-sm font-extrabold tracking-wide ${
-                      item.highlight ? "text-amber-600" : "text-primary"
-                    }`}
-                  >
+                  <span className={`text-sm font-extrabold tracking-wide ${item.highlight ? "text-amber-600" : "text-primary"}`}>
                     {item.year}
                   </span>
                   <span className="text-[0.95rem] text-text leading-relaxed">{item.text}</span>
@@ -463,9 +474,11 @@ function TimelineSection() {
 export default function AboutPage() {
   return (
     <main>
+      <Navbar />
       <AboutHero />
       <GlobalNetworkSection />
-      <ParentOrgSection />
+      <GBSASection />
+      <GyeonggiSection />
       <TimelineSection />
       <Footer />
     </main>
