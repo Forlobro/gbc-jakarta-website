@@ -103,7 +103,7 @@ export default function AdminEditCompanyPage({
         {/* Company Form */}
         <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
           <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-            <i className="fas fa-edit text-accent" /> Company Details
+            <i className="far fa-edit text-accent" /> Company Details
           </h2>
           <CompanyForm
             initialData={{

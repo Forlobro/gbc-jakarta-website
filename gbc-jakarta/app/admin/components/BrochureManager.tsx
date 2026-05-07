@@ -95,7 +95,7 @@ export default function BrochureManager({
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-bold text-white flex items-center gap-2">
-          <i className="fas fa-file-pdf text-accent" /> Company Brochure (PDF)
+          <i className="far fa-file-pdf text-accent" /> Company Brochure (PDF)
         </h3>
         <p className="text-slate-500 text-xs mt-1">
           Upload file PDF brosur perusahaan. File disimpan di storage folder{" "}
@@ -106,7 +106,7 @@ export default function BrochureManager({
       {/* Current Brochure Status */}
       <div className="flex items-center gap-4 p-4 bg-slate-900/50 border border-slate-700 rounded-xl">
         <div className="w-12 h-12 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center shrink-0">
-          <i className="fas fa-file-pdf text-red-400 text-xl" />
+          <i className="far fa-file-pdf text-red-400 text-xl" />
         </div>
         <div className="flex-1 min-w-0">
           {brochureUrl ? (
@@ -135,7 +135,7 @@ export default function BrochureManager({
 
         {selectedFile && (
           <span className="text-accent text-xs font-medium shrink-0">
-            <i className="fas fa-check-circle mr-1" />
+            <i className="far fa-check-circle mr-1" />
             {selectedFile.name}
           </span>
         )}
@@ -149,7 +149,7 @@ export default function BrochureManager({
           className="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors cursor-pointer disabled:opacity-50"
           disabled={uploading || deleting}
         >
-          <i className="fas fa-folder-open mr-2" />
+          <i className="far fa-folder-open mr-2" />
           Pilih PDF
         </button>
 
@@ -199,7 +199,7 @@ export default function BrochureManager({
               </>
             ) : (
               <>
-                <i className="fas fa-trash mr-2" />
+                <i className="far fa-trash mr-2" />
                 Hapus Brosur
               </>
             )}

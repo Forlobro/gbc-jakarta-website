@@ -117,7 +117,7 @@ export default function EventsPage() {
         <div className="max-w-[1400px] mx-auto px-[5%] relative z-10">
           <div className="max-w-[700px]">
             <div className="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 px-4 py-2 rounded-full text-accent text-[0.85rem] font-semibold mb-6">
-              <i className="fas fa-calendar-alt text-xs" />
+              <i className="far fa-calendar-alt text-xs" />
               {t("eventsPageBadge")}
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white leading-[1.15] mb-5">
@@ -206,7 +206,7 @@ export default function EventsPage() {
                       }`}
                     >
                       <span>
-                        <i className="fas fa-calendar-alt mr-2" />
+                        <i className="far fa-calendar-alt mr-2" />
                         {event.date}
                       </span>
                       <span>
@@ -233,7 +233,7 @@ export default function EventsPage() {
                               : "bg-primary/10 text-primary"
                           }`}
                         >
-                          <i className="fas fa-check-circle text-accent text-xs" />
+                          <i className="far fa-check-circle text-accent text-xs" />
                           {h}
                         </div>
                       ))}
@@ -301,7 +301,7 @@ export default function EventsPage() {
 
                     <div className="p-6">
                       <div className="flex items-center gap-2 text-text-muted text-[0.8rem] mb-3">
-                        <i className="fas fa-calendar-alt" />
+                        <i className="far fa-calendar-alt" />
                         <span>{event.date}</span>
                         <span className="mx-1">·</span>
                         <i className="fas fa-map-marker-alt" />

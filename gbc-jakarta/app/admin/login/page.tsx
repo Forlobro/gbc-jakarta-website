@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
                 Email Address
               </label>
               <div className="relative">
-                <i className="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm" />
+                <i className="far fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm" />
                 <input
                   type="email"
                   value={email}
@@ -83,7 +83,7 @@ export default function AdminLoginPage() {
                 Password
               </label>
               <div className="relative">
-                <i className="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm" />
+                <i className="far fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm" />
                 <input
                   type="password"
                   value={password}
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
             {/* Error */}
             {error && (
               <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
-                <i className="fas fa-exclamation-circle" />
+                <i className="far fa-exclamation-circle" />
                 {error}
               </div>
             )}

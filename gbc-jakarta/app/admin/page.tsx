@@ -38,13 +38,13 @@ export default function AdminDashboard() {
           {
             label: "Total Companies",
             value: loading ? "—" : companies.length,
-            icon: "fas fa-building",
+            icon: "far fa-building",
             color: "from-blue-500 to-blue-600",
           },
           {
             label: "Total Photos",
             value: loading ? "—" : totalPhotos,
-            icon: "fas fa-images",
+            icon: "far fa-images",
             color: "from-emerald-500 to-emerald-600",
           },
           {

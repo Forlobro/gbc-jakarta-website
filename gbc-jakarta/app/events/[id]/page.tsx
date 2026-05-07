@@ -314,7 +314,7 @@ export default function EventDetailPage() {
 
           <div className="flex flex-wrap gap-6 text-white/70 text-[0.9rem]">
             <span className="flex items-center gap-2">
-              <i className="fas fa-calendar-alt text-accent" />
+              <i className="far fa-calendar-alt text-accent" />
               {date}
             </span>
             <span className="flex items-center gap-2">

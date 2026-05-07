@@ -116,7 +116,7 @@ export default function LogoManager({
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-bold text-white flex items-center gap-2">
-          <i className="fas fa-image text-accent" /> Company Logo
+          <i className="far fa-image text-accent" /> Company Logo
         </h3>
         <p className="text-slate-500 text-xs mt-1">
           Logo disimpan di kolom logo_url dan hanya bisa satu gambar.

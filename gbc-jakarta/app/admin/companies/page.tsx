@@ -92,7 +92,7 @@ export default function AdminCompaniesPage() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="p-12 text-center">
-            <i className="fas fa-building text-4xl text-slate-600 mb-3" />
+            <i className="far fa-building text-4xl text-slate-600 mb-3" />
             <p className="text-slate-400 text-sm">
               {search ? "No companies match your search" : "No companies yet"}
             </p>
@@ -185,7 +185,7 @@ export default function AdminCompaniesPage() {
                         {deletingId === company.id ? (
                           <i className="fas fa-spinner fa-spin text-sm" />
                         ) : (
-                          <i className="fas fa-trash-alt text-sm" />
+                          <i className="far fa-trash-alt text-sm" />
                         )}
                       </button>
                     </div>

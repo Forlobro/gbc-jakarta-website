@@ -115,7 +115,7 @@ export default function ContactSection() {
               {/* Email */}
               <div className="flex gap-5 items-start">
                 <div className="w-[55px] h-[55px] bg-white/10 rounded-[14px] flex items-center justify-center text-xl text-accent shrink-0">
-                  <i className="fas fa-envelope" />
+                  <i className="far fa-envelope" />
                 </div>
                 <div>
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
@@ -248,7 +248,7 @@ export default function ContactSection() {
                   className="w-full py-4 bg-gradient-to-br from-primary to-primary-light text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(15,40,71,0.3)]"
                 >
                   {t("sendBtn")}{" "}
-                  <i className="fas fa-paper-plane ml-2" />
+                  <i className="far fa-paper-plane ml-2" />
                 </button>
 
                 {submitted && (

@@ -216,7 +216,7 @@ export default function CompanyForm({
           </>
         ) : (
           <>
-            <i className="fas fa-save" /> {submitLabel}
+            <i className="far fa-save" /> {submitLabel}
           </>
         )}
       </button>

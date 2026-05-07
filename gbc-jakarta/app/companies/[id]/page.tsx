@@ -152,7 +152,7 @@ export default function CompanyDetailPage() {
                   {t("locationKorea")}
                 </span>
                 <span className="flex items-center gap-2">
-                  <i className="fas fa-calendar text-accent" />
+                  <i className="far fa-calendar text-accent" />
                   GMS Batch 1 (2025)
                 </span>
                 {company.category && (
@@ -177,7 +177,7 @@ export default function CompanyDetailPage() {
               {getEmbedUrl(company.link_video) && (
                 <div className="mb-12">
                   <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="fas fa-play-circle text-accent" /> {t("videoProfile")}
+                    <i className="far fa-play-circle text-accent" /> {t("videoProfile")}
                   </h2>
                   <div className="rounded-3xl overflow-hidden shadow-xl">
                     <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
@@ -197,7 +197,7 @@ export default function CompanyDetailPage() {
               {(company.description_id || company.description_en) && (
                 <div className="mb-12">
                   <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="fas fa-building text-accent" /> {t("aboutCompany")}
+                    <i className="far fa-building text-accent" /> {t("aboutCompany")}
                   </h2>
                   <div className="text-text-light text-[1.05rem] leading-[1.9] whitespace-pre-line">
                     {language === "en"
@@ -211,7 +211,7 @@ export default function CompanyDetailPage() {
               {photos.length > 0 && (
                 <div className="mb-12">
                   <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="fas fa-images text-accent" /> {t("galleryLabel")}
+                    <i className="far fa-images text-accent" /> {t("galleryLabel")}
                     <span className="text-base font-normal text-text-muted">
                       ({photos.length} photos)
                     </span>
@@ -262,7 +262,7 @@ export default function CompanyDetailPage() {
               {company.link_brochure && (
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
                   <h3 className="font-display text-lg font-bold text-primary mb-4 flex items-center gap-2">
-                    <i className="fas fa-file-pdf text-red-500" /> {t("brochure")}
+                    <i className="far fa-file-pdf text-red-500" /> {t("brochure")}
                   </h3>
                   <p className="text-[0.9rem] text-text-light mb-6 text-justify">
                     {t("brochureDesc")}
@@ -275,7 +275,7 @@ export default function CompanyDetailPage() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-3 py-3.5 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5 text-[0.9rem]"
                     >
-                      <i className="fas fa-eye" />
+                      <i className="far fa-eye" />
                       {t("viewBrochure")}
                     </a>
                     {/* Download — forces file save dialog */}
@@ -294,7 +294,7 @@ export default function CompanyDetailPage() {
               {/* Contact Card */}
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
                 <h3 className="font-display text-lg font-bold text-primary mb-6 flex items-center gap-2">
-                  <i className="fas fa-address-card text-accent" /> {t("contactViaGbc")}
+                  <i className="far fa-address-card text-accent" /> {t("contactViaGbc")}
                 </h3>
                 <div className="flex flex-col gap-4 mb-6">
                   <div className="flex items-start gap-4">
@@ -316,7 +316,7 @@ export default function CompanyDetailPage() {
                     href="mailto:gbcjkt@gbcprime.com"
                     className="flex items-center justify-center gap-3 py-4 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5"
                   >
-                    <i className="fas fa-envelope" /> gbcjkt@gbcprime.com
+                    <i className="far fa-envelope" /> gbcjkt@gbcprime.com
                   </a>
                 </div>
               </div>

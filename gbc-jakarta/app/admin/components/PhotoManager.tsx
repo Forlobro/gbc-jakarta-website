@@ -173,7 +173,7 @@ export default function PhotoManager({
       {/* Header */}
       <div>
         <h3 className="text-lg font-bold text-white flex items-center gap-2">
-          <i className="fas fa-images text-accent" />
+          <i className="far fa-images text-accent" />
           {title}
           <span className="text-slate-500 text-sm font-normal ml-1">
             ({photos.length} saved)
@@ -220,7 +220,7 @@ export default function PhotoManager({
                   {deletingId === photo.id ? (
                     <i className="fas fa-spinner fa-spin text-sm" />
                   ) : (
-                    <i className="fas fa-trash-alt text-sm" />
+                    <i className="far fa-trash-alt text-sm" />
                   )}
                 </button>
               </div>
@@ -346,7 +346,7 @@ export default function PhotoManager({
                   )}
                   {item.status === "error" && (
                     <span className="text-red-400 text-xs flex items-center gap-1">
-                      <i className="fas fa-times text-[10px]" /> Failed
+                      <i className="far fa-times text-[10px]" /> Failed
                     </span>
                   )}
                 </div>
@@ -357,7 +357,7 @@ export default function PhotoManager({
                     onClick={() => removeFromQueue(idx)}
                     className="shrink-0 w-6 h-6 flex items-center justify-center text-slate-600 hover:text-red-400 transition-colors cursor-pointer"
                   >
-                    <i className="fas fa-times text-xs" />
+                    <i className="far fa-times text-xs" />
                   </button>
                 )}
               </div>

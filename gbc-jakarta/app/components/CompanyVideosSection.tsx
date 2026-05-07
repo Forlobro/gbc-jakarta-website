@@ -101,20 +101,20 @@ export default function CompanyVideosSection() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
-                      <i className="fas fa-play-circle text-6xl text-primary/30" />
+                      <i className="far fa-play-circle text-6xl text-primary/30" />
                     </div>
                   )}
 
                   {/* Play overlay */}
                   <div className="absolute inset-0 bg-primary/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl">
-                      <i className="fas fa-play text-primary text-xl ml-1" />
+                      <i className="far fa-play text-primary text-xl ml-1" />
                     </div>
                   </div>
 
                   {/* Video badge */}
                   <div className="absolute top-4 left-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
-                    <i className="fas fa-video text-[10px]" /> Video
+                    <i className="far fa-video text-[10px]" /> Video
                   </div>
                 </div>
               </Link>
@@ -135,7 +135,7 @@ export default function CompanyVideosSection() {
                   href={`/companies/${company.id}`}
                   className="inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-br from-primary to-primary-light text-white rounded-full font-semibold text-sm shadow-[0_4px_20px_rgba(15,40,71,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(15,40,71,0.4)]"
                 >
-                  <i className="fas fa-play" /> {t("viewDetails")}
+                  <i className="far fa-play" /> {t("viewDetails")}
                 </Link>
 
                 {/* Counter */}

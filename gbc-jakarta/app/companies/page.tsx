@@ -230,7 +230,7 @@ export default function CompaniesPage() {
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-20 text-text-light">
-              <i className="fas fa-building text-5xl mb-5 opacity-20" />
+              <i className="far fa-building text-5xl mb-5 opacity-20" />
               <p className="text-lg">{t("noCompaniesFound")}</p>
               {search && (
                 <button

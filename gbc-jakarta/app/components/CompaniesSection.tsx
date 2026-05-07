@@ -227,7 +227,7 @@ export default function CompaniesSection() {
           </div>
         ) : companies.length === 0 ? (
           <div className="text-center py-16 text-text-light">
-            <i className="fas fa-building text-4xl mb-4 opacity-30" />
+            <i className="far fa-building text-4xl mb-4 opacity-30" />
             <p>No companies available yet.</p>
           </div>
         ) : (

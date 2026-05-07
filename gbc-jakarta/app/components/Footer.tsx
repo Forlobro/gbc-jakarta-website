@@ -55,7 +55,7 @@ export default function Footer() {
                 <a href="tel:+622139712135" className="hover:text-accent transition-colors">+62 21 3971 2135</a>
               </li>
               <li className="flex items-center gap-2.5 text-primary/60 text-[0.82rem]">
-                <i className="fas fa-envelope text-accent text-[0.7rem] w-3" />
+                <i className="far fa-envelope text-accent text-[0.7rem] w-3" />
                 <a href="mailto:gbcjkt@gbcprime.com" className="hover:text-accent transition-colors">gbcjkt@gbcprime.com</a>
               </li>
             </ul>

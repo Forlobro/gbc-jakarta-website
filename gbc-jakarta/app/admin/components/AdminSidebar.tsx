@@ -9,7 +9,7 @@ const navItems = [
   {
     href: "/admin/companies",
     label: "Companies",
-    icon: "fas fa-building",
+    icon: "far fa-building",
   },
 ];
 
