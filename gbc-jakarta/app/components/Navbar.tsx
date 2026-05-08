@@ -21,7 +21,7 @@ export default function Navbar() {
     <>
       <nav
         id="navbar"
-        className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-[3%] transition-all duration-400 backdrop-blur-[20px] bg-primary py-2 shadow-[0_4px_30px_rgba(0,0,0,0.2)]"
+        className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-[3%] transition-all duration-400 backdrop-blur-[20px] bg-white py-2 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
       >
         {/* Logo */}
         <div className="flex items-center gap-4 z-10">
@@ -32,7 +32,7 @@ export default function Navbar() {
               width={80}
               height={40}
               priority={true}
-              className="h-9 w-auto transition-transform duration-300 hover:scale-105 brightness-0 invert"
+              className="h-9 w-auto transition-transform duration-300 hover:scale-105"
             />
           </Link>
           <Link href="#home">
@@ -42,7 +42,7 @@ export default function Navbar() {
               width={40}
               height={10}
               priority={true}
-              className="h-1 w-auto brightness-0 invert transition-transform duration-300 hover:scale-105"
+              className="h-1 w-auto mix-blend-multiply transition-transform duration-300 hover:scale-105"
             />
           </Link>
         </div>
@@ -71,11 +71,11 @@ export default function Navbar() {
         {/* Right Side */}
         <div className="flex items-center gap-3">
           {/* Language Toggle */}
-          <div className="flex bg-white/10 rounded-[30px] p-0.5">
+          <div className="flex bg-gray-100 rounded-[30px] p-0.5">
             <button
               onClick={() => setLanguage("id")}
               className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
-                language === "id" ? "bg-white text-primary shadow-md" : "bg-transparent text-white/70"
+                language === "id" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
               }`}
             >
               ID
@@ -83,7 +83,7 @@ export default function Navbar() {
             <button
               onClick={() => setLanguage("en")}
               className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
-                language === "en" ? "bg-white text-primary shadow-md" : "bg-transparent text-white/70"
+                language === "en" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
               }`}
             >
               EN
@@ -104,16 +104,16 @@ export default function Navbar() {
             width={80}
             height={40}
             priority={true}
-            className="hidden md:block h-9 w-auto brightness-0 invert"
+            className="hidden md:block h-9 w-auto mix-blend-multiply"
           />
 
           {/* Hamburger — mobile only */}
           <button
-            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px] rounded-lg hover:bg-white/10 transition-colors"
+            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px] rounded-lg hover:bg-gray-100 transition-colors"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
-            <span className={`block h-[2px] w-5 bg-white rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
             <span className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
             <span className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
