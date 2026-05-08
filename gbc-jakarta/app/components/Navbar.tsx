@@ -60,7 +60,7 @@ export default function Navbar() {
                     ? "rounded-r-full"
                     : ""
                 }`}
-                style={{ backgroundColor: item.color }}
+                style={{ backgroundColor: item.color, color: "white" }}
               >
                 {t(item.key)}
               </Link>
@@ -164,7 +164,7 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-[0.9rem] transition-all duration-200 hover:opacity-90 text-white"
-                style={{ backgroundColor: item.color }}
+                style={{ backgroundColor: item.color, color: "white" }}
               >
                 {t(item.key)}
               </Link>
