@@ -122,10 +122,10 @@ export default function ContactSection() {
                     {t("contactEmail")}
                   </h4>
                   <a
-                    href="mailto:gbcjkt@gbcprime.com"
+                    href="mailto:chat.gbcjkt@gmail.com"
                     className="text-[1.05rem] text-white hover:text-accent transition-colors"
                   >
-                    gbcjkt@gbcprime.com
+                    chat.gbcjkt@gmail.com
                   </a>
                 </div>
               </div>

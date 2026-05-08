@@ -313,10 +313,10 @@ export default function CompanyDetailPage() {
                 </div>
                 <div className="flex flex-col gap-3">
                   <a
-                    href="mailto:gbcjkt@gbcprime.com"
+                    href="mailto:chat.gbcjkt@gmail.com"
                     className="flex items-center justify-center gap-3 py-4 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5"
                   >
-                    <i className="far fa-envelope" /> gbcjkt@gbcprime.com
+                    <i className="far fa-envelope" /> chat.gbcjkt@gmail.com
                   </a>
                 </div>
               </div>
