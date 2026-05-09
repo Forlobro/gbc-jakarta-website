@@ -83,16 +83,16 @@ export default function AdminEditCompanyPage({
       <div className="mb-8">
         <Link
           href="/admin/companies"
-          className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm mb-4 transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm mb-4 transition-colors"
         >
           <i className="fas fa-arrow-left" /> Back to Companies
         </Link>
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-2xl font-bold text-slate-900">
             Edit: {company.name}
           </h1>
           {saved && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-lg text-sm font-medium">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-sm font-medium">
               <i className="fas fa-check" /> Saved!
             </span>
           )}
@@ -101,8 +101,8 @@ export default function AdminEditCompanyPage({
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         {/* Company Form */}
-        <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
-          <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+        <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
+          <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
             <i className="far fa-edit text-accent" /> Company Details
           </h2>
           <CompanyForm
@@ -123,7 +123,7 @@ export default function AdminEditCompanyPage({
 
         {/* Photo Manager */}
         <div className="space-y-8">
-          <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
+          <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
             <LogoManager
               companyId={company.id}
               companyName={company.name || ""}
@@ -132,7 +132,7 @@ export default function AdminEditCompanyPage({
             />
           </div>
 
-          <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
+          <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
             <PhotoManager
               companyId={company.id}
               photos={company.gbc_companies_photos || []}
@@ -142,7 +142,7 @@ export default function AdminEditCompanyPage({
             />
           </div>
 
-          <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
+          <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
             <BrochureManager
               companyId={company.id}
               companyName={company.name || ""}

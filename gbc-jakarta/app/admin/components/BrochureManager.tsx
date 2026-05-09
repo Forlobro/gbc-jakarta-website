@@ -94,7 +94,7 @@ export default function BrochureManager({
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+        <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <i className="far fa-file-pdf text-accent" /> Company Brochure (PDF)
         </h3>
         <p className="text-slate-500 text-xs mt-1">
@@ -104,14 +104,14 @@ export default function BrochureManager({
       </div>
 
       {/* Current Brochure Status */}
-      <div className="flex items-center gap-4 p-4 bg-slate-900/50 border border-slate-700 rounded-xl">
-        <div className="w-12 h-12 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center shrink-0">
-          <i className="far fa-file-pdf text-red-400 text-xl" />
+      <div className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-200 rounded-xl shadow-sm">
+        <div className="w-12 h-12 bg-red-50 border border-red-100 rounded-xl flex items-center justify-center shrink-0">
+          <i className="far fa-file-pdf text-red-600 text-xl" />
         </div>
         <div className="flex-1 min-w-0">
           {brochureUrl ? (
             <>
-              <p className="text-white text-sm font-medium truncate">
+              <p className="text-slate-900 text-sm font-medium truncate">
                 {companyName} — Brochure
               </p>
               <a
@@ -125,8 +125,8 @@ export default function BrochureManager({
             </>
           ) : (
             <>
-              <p className="text-slate-400 text-sm">Belum ada brosur</p>
-              <p className="text-slate-600 text-xs">
+              <p className="text-slate-500 text-sm">Belum ada brosur</p>
+              <p className="text-slate-500 text-xs">
                 Upload file PDF di bawah
               </p>
             </>
@@ -146,7 +146,7 @@ export default function BrochureManager({
         <button
           onClick={() => fileInputRef.current?.click()}
           type="button"
-          className="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors cursor-pointer disabled:opacity-50"
+          className="px-4 py-2 bg-white border border-slate-200 shadow-sm text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors cursor-pointer disabled:opacity-50"
           disabled={uploading || deleting}
         >
           <i className="far fa-folder-open mr-2" />
@@ -178,7 +178,7 @@ export default function BrochureManager({
           <button
             onClick={clearSelected}
             type="button"
-            className="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors cursor-pointer"
+            className="px-4 py-2 bg-white border border-slate-200 shadow-sm text-slate-500 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors cursor-pointer"
             disabled={uploading}
           >
             Batal
@@ -189,7 +189,7 @@ export default function BrochureManager({
           <button
             onClick={deleteBrochure}
             type="button"
-            className="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg text-sm font-medium hover:bg-red-500/20 transition-colors cursor-pointer disabled:opacity-50"
+            className="px-4 py-2 bg-red-50 text-red-600 border border-red-100 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors cursor-pointer disabled:opacity-50"
             disabled={uploading || deleting}
           >
             {deleting ? (
@@ -207,7 +207,7 @@ export default function BrochureManager({
         )}
       </div>
 
-      <p className="text-slate-600 text-xs">PDF only — maksimal 20MB.</p>
+      <p className="text-slate-500 text-xs">PDF only — maksimal 20MB.</p>
 
       <input
         ref={fileInputRef}

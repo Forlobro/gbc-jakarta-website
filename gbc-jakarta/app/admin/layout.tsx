@@ -16,10 +16,10 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#0f172a]">
+    <div className="min-h-screen bg-slate-50">
       <AdminSidebar />
-      <main className="ml-64 min-h-screen">
-        <div className="p-8">{children}</div>
+      <main className="md:ml-64 min-h-screen pt-16 md:pt-0">
+        <div className="p-4 md:p-8">{children}</div>
       </main>
     </div>
   );

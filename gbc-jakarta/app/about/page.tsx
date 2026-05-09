@@ -1,12 +1,11 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useTranslation } from "../lib/LanguageContext";
 import ScrollReveal from "../components/ScrollReveal";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const GYEONGGI_STATS = [
   { value: "527 Triliun KRW", label: "Total produksi regional (#1 Korea, 25.4%)", labelEn: "Total regional output (#1 Korea, 25.4%)",  color: "text-[#f59e0b]" },
@@ -82,7 +81,6 @@ const TIMELINE = [
   },
 ];
 
-// ─── Shared decorative background ─────────────────────────────────────────────
 function SectionBg({ flip = false }: { flip?: boolean }) {
   return (
     <>
@@ -112,19 +110,63 @@ function VideoEmbed({ srcId, srcEn, captionId, captionEn }: {
   const { language } = useTranslation();
   const src     = language === "id" ? srcId     : srcEn;
   const caption = language === "id" ? captionId : captionEn;
+  
+  const isMp4 = src?.endsWith(".mp4");
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!isMp4 || !videoRef.current) return;
+
+    const videoEl = videoRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Video is in the viewport
+            videoEl.play().catch(() => {
+              // Autoplay may be blocked by browser policies
+            });
+          } else {
+            // Video is out of the viewport
+            videoEl.pause();
+          }
+        });
+      },
+      { threshold: 0.5 } // Play when at least 50% is visible
+    );
+
+    observer.observe(videoEl);
+
+    return () => {
+      if (videoEl) observer.unobserve(videoEl);
+    };
+  }, [isMp4, src]);
 
   return (
     <div className="max-w-4xl mx-auto mb-16">
-      <div className="rounded-2xl overflow-hidden shadow-xl">
+      <div className="rounded-2xl overflow-hidden shadow-xl bg-black">
         <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-          <iframe
-            key={src}
-            className="absolute inset-0 w-full h-full"
-            src={src}
-            title={caption}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          {isMp4 ? (
+            <video
+              ref={videoRef}
+              key={src}
+              className="absolute inset-0 w-full h-full object-cover"
+              controls
+              muted // Required for reliable autoplay in modern browsers
+              playsInline
+              src={src}
+              title={caption}
+            />
+          ) : (
+            <iframe
+              key={src}
+              className="absolute inset-0 w-full h-full"
+              src={src}
+              title={caption}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
         </div>
       </div>
       <p className="text-center text-sm text-text-light mt-3">{caption}</p>
@@ -132,7 +174,6 @@ function VideoEmbed({ srcId, srcEn, captionId, captionEn }: {
   );
 }
 
-// ─── 1. Hero / Page Banner ────────────────────────────────────────────────────
 function AboutHero() {
   const { language } = useTranslation();
   const isId = language === "id";
@@ -207,7 +248,6 @@ function AboutHero() {
   );
 }
 
-// ─── 2. Global Network ────────────────────────────────────────────────────────
 function GlobalNetworkSection() {
   const { language } = useTranslation();
   const isId = language === "id";
@@ -236,8 +276,8 @@ function GlobalNetworkSection() {
 
         <ScrollReveal>
           <VideoEmbed
-            srcId="https://www.youtube.com/embed/E722_8UgqHY"
-            srcEn="https://www.youtube.com/embed/viTmdnYlmQo"
+            srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBC_ID || ""}
+            srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBC_EN || ""}
             captionId="Video perkenalan jaringan GBC global (Indonesia)"
             captionEn="Video perkenalan jaringan GBC global (English)"
           />
@@ -259,7 +299,6 @@ function GlobalNetworkSection() {
   );
 }
 
-// ─── 3. GBSA Section ──────────────────────────────────────────────────────────
 function GBSASection() {
   const { language } = useTranslation();
   const isId = language === "id";
@@ -291,8 +330,8 @@ function GBSASection() {
         {/* Video */}
         <ScrollReveal>
           <VideoEmbed
-            srcId="https://www.youtube.com/embed/xm02usuSO6Q"
-            srcEn="https://www.youtube.com/embed/xm02usuSO6Q"
+            srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
+            srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
             captionId="Video perkenalan GBSA (English — versi Indonesia dalam proses)"
             captionEn="Video introduction of GBSA (English)"
           />
@@ -338,7 +377,6 @@ function GBSASection() {
   );
 }
 
-// ─── 4. Gyeonggi-do Section ───────────────────────────────────────────────────
 function GyeonggiSection() {
   const { language } = useTranslation();
   const isId = language === "id";
@@ -370,8 +408,8 @@ function GyeonggiSection() {
         {/* Video */}
         <ScrollReveal>
           <VideoEmbed
-            srcId="https://www.youtube.com/embed/TIx-GWhA8d8"
-            srcEn="https://www.youtube.com/embed/TIx-GWhA8d8"
+            srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GYEONGGIDO || ""}
+            srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GYEONGGIDO || ""}
             captionId="Video perkenalan Gyeonggi-do"
             captionEn="Video introduction of Gyeonggi-do"
           />
@@ -412,7 +450,6 @@ function GyeonggiSection() {
   );
 }
 
-// ─── 4. Timeline ──────────────────────────────────────────────────────────────
 function TimelineSection() {
   const { language } = useTranslation();
   const isId = language === "id";
@@ -484,7 +521,6 @@ function TimelineSection() {
   );
 }
 
-// ─── Page export ──────────────────────────────────────────────────────────────
 export default function AboutPage() {
   return (
     <main>
