@@ -40,18 +40,18 @@ export default function AdminNewCompanyPage() {
       <div className="mb-8">
         <Link
           href="/admin/companies"
-          className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm mb-4 transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm mb-4 transition-colors"
         >
           <i className="fas fa-arrow-left" /> Back to Companies
         </Link>
-        <h1 className="text-2xl font-bold text-white">Add New Company</h1>
-        <p className="text-slate-400 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-slate-900">Add New Company</h1>
+        <p className="text-slate-500 text-sm mt-1">
           Create a new company entry. You can add photos after saving.
         </p>
       </div>
 
       {/* Form */}
-      <div className="max-w-2xl bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur-sm">
+      <div className="max-w-2xl bg-white border border-slate-200 rounded-2xl p-4 sm:p-8 shadow-sm">
         <CompanyForm
           onSubmit={handleSubmit}
           submitLabel="Create Company"

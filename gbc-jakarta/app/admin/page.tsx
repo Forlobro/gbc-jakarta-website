@@ -26,8 +26,8 @@ export default function AdminDashboard() {
     <div>
       {/* Header */}
       <div className="mb-8" >
-        <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-        <p className="text-slate-400 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+        <p className="text-slate-500 text-sm mt-1">
           Welcome back! Here&#39;s an overview of your data.
         </p>
       </div>
@@ -72,24 +72,24 @@ export default function AdminDashboard() {
         ].map((stat) => (
           <div
             key={stat.label}
-            className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm"
+            className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm"
           >
             <div className="flex items-center justify-between mb-4">
               <div
-                className={`w-11 h-11 bg-linear-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-lg`}
+                className={`w-11 h-11 bg-linear-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-md`}
               >
                 <i className={`${stat.icon} text-white text-sm`} />
               </div>
             </div>
-            <p className="text-2xl font-bold text-white">{stat.value}</p>
-            <p className="text-slate-400 text-sm mt-0.5">{stat.label}</p>
+            <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+            <p className="text-slate-500 text-sm mt-0.5">{stat.label}</p>
           </div>
         ))}
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm">
-        <h2 className="text-lg font-bold text-white mb-4">Quick Actions</h2>
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <h2 className="text-lg font-bold text-slate-900 mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
           <Link
             href="/admin/companies/new"
@@ -114,8 +114,8 @@ export default function AdminDashboard() {
 
       {/* Recent Companies */}
       {!loading && companies.length > 0 && (
-        <div className="mt-8 bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm">
-          <h2 className="text-lg font-bold text-white mb-4">
+        <div className="mt-8 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <h2 className="text-lg font-bold text-slate-900 mb-4">
             Recently Added Companies
           </h2>
           <div className="space-y-3">
@@ -123,14 +123,14 @@ export default function AdminDashboard() {
               <Link
                 key={company.id}
                 href={`/admin/companies/${company.id}/edit`}
-                className="flex items-center justify-between p-4 bg-slate-900/50 rounded-xl hover:bg-slate-700/50 transition-colors group"
+                className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors group"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center text-slate-300 font-bold text-xs">
+                  <div className="w-10 h-10 bg-slate-200 rounded-lg flex items-center justify-center text-slate-600 font-bold text-xs">
                     {(company.name || "?").charAt(0)}
                   </div>
                   <div>
-                    <p className="text-white text-sm font-medium">
+                    <p className="text-slate-900 text-sm font-medium">
                       {company.name}
                     </p>
                     <p className="text-slate-500 text-xs">{company.category}</p>
@@ -140,7 +140,7 @@ export default function AdminDashboard() {
                   <span className="text-slate-500">
                     {company.gbc_companies_photos?.length || 0} photos
                   </span>
-                  <i className="fas fa-chevron-right text-slate-600 group-hover:text-slate-400 transition-colors" />
+                  <i className="fas fa-chevron-right text-slate-400 group-hover:text-slate-600 transition-colors" />
                 </div>
               </Link>
             ))}

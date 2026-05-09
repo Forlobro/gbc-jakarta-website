@@ -172,7 +172,7 @@ export default function PhotoManager({
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+        <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <i className="far fa-images text-accent" />
           {title}
           <span className="text-slate-500 text-sm font-normal ml-1">
@@ -188,7 +188,7 @@ export default function PhotoManager({
           {photos.map((photo) => (
             <div
               key={photo.id}
-              className="group relative rounded-xl overflow-hidden bg-slate-800 border border-slate-700 aspect-4/3"
+              className="group relative rounded-xl overflow-hidden bg-slate-100 border border-slate-200 aspect-4/3"
             >
               {photo.photo_url && (
                 <Image
@@ -243,18 +243,18 @@ export default function PhotoManager({
         className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-200 ${
           isDragOver
             ? "border-accent bg-accent/5 scale-[1.01]"
-            : "border-slate-700 hover:border-slate-500 bg-slate-800/20"
+            : "border-slate-300 hover:border-slate-400 bg-slate-50"
         }`}
       >
         <i
           className={`fas fa-cloud-upload-alt text-3xl mb-3 ${
-            isDragOver ? "text-accent" : "text-slate-600"
+            isDragOver ? "text-accent" : "text-slate-400"
           }`}
         />
-        <p className="text-slate-400 text-sm font-medium">
+        <p className="text-slate-600 text-sm font-medium">
           {isDragOver ? "Drop photos here" : "Click or drag & drop photos"}
         </p>
-        <p className="text-slate-600 text-xs mt-1">
+        <p className="text-slate-500 text-xs mt-1">
           JPG, PNG, WebP, GIF - up to 10MB each - multiple allowed
         </p>
         <input
@@ -273,21 +273,21 @@ export default function PhotoManager({
         <div className="space-y-3">
           {/* Queue header */}
           <div className="flex items-center justify-between">
-            <p className="text-slate-300 text-sm font-medium">
+            <p className="text-slate-700 text-sm font-medium">
               Upload Queue ({queue.length} file{queue.length !== 1 ? "s" : ""})
               {doneCount > 0 && (
-                <span className="text-emerald-400 ml-2">
+                <span className="text-emerald-600 ml-2">
                   . {doneCount} done
                 </span>
               )}
               {errorCount > 0 && (
-                <span className="text-red-400 ml-2">. {errorCount} failed</span>
+                <span className="text-red-600 ml-2">. {errorCount} failed</span>
               )}
             </p>
             {(doneCount > 0 || errorCount > 0) && (
               <button
                 onClick={clearDone}
-                className="text-slate-500 hover:text-slate-300 text-xs cursor-pointer transition-colors"
+                className="text-slate-500 hover:text-slate-900 text-xs cursor-pointer transition-colors"
               >
                 Clear finished
               </button>
@@ -299,10 +299,10 @@ export default function PhotoManager({
             {queue.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-3 p-3 bg-slate-800/50 rounded-xl border border-slate-700/50"
+                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 shadow-sm"
               >
                 {/* Thumbnail */}
-                <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-slate-700">
+                <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-slate-100">
                   <Image
                     src={item.previewUrl}
                     alt="Upload preview"
@@ -315,14 +315,14 @@ export default function PhotoManager({
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-white text-xs font-medium truncate">
+                  <p className="text-slate-900 text-xs font-medium truncate">
                     {item.file.name}
                   </p>
                   <p className="text-slate-500 text-xs">
                     {(item.file.size / 1024 / 1024).toFixed(1)} MB
                   </p>
                   {item.status === "error" && (
-                    <p className="text-red-400 text-xs mt-0.5">
+                    <p className="text-red-600 text-xs mt-0.5">
                       {item.errorMsg}
                     </p>
                   )}
@@ -340,12 +340,12 @@ export default function PhotoManager({
                     </span>
                   )}
                   {item.status === "done" && (
-                    <span className="text-emerald-400 text-xs flex items-center gap-1">
+                    <span className="text-emerald-600 text-xs flex items-center gap-1">
                       <i className="fas fa-check text-[10px]" /> Done
                     </span>
                   )}
                   {item.status === "error" && (
-                    <span className="text-red-400 text-xs flex items-center gap-1">
+                    <span className="text-red-600 text-xs flex items-center gap-1">
                       <i className="far fa-times text-[10px]" /> Failed
                     </span>
                   )}
@@ -355,7 +355,7 @@ export default function PhotoManager({
                 {(item.status === "pending" || item.status === "error") && (
                   <button
                     onClick={() => removeFromQueue(idx)}
-                    className="shrink-0 w-6 h-6 flex items-center justify-center text-slate-600 hover:text-red-400 transition-colors cursor-pointer"
+                    className="shrink-0 w-6 h-6 flex items-center justify-center text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
                   >
                     <i className="far fa-times text-xs" />
                   </button>
