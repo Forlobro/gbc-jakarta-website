@@ -20,25 +20,27 @@ export default function EventsPage() {
 
   const FEATURED_EVENTS = [
     {
-      id: 1,
-      tag: t("eventsF1Tag"),
-      title: t("eventsF1Title"),
-      date: t("eventsF1Date"),
-      location: t("eventsF1Location"),
-      description: t("eventsF1Desc"),
-      highlights: [t("eventsF1H1"), t("eventsF1H2"), t("eventsF1H3")],
-      image: "/images/ceremonial.png",
+      id: "upcoming",
+      tag: t("eventsUpcomingTag"),
+      title: t("eventsUpcomingTitle"),
+      date: t("eventsUpcomingDate"),
+      location: t("eventsUpcomingLocation"),
+      description: t("eventsUpcomingDesc"),
+      ctaLabel: t("eventsUpcomingCta"),
+      ctaHref: "/events/upcoming",
+      image: "/images/gbc-hero.jpeg",
       dark: true,
     },
     {
-      id: 2,
-      tag: t("eventsF2Tag"),
-      title: t("eventsF2Title"),
-      date: t("eventsF2Date"),
-      location: t("eventsF2Location"),
-      description: t("eventsF2Desc"),
-      highlights: [t("eventsF2H1"), t("eventsF2H2"), t("eventsF2H3")],
-      image: "/images/gedung.jpg",
+      id: "1",
+      tag: t("eventsLatestTag"),
+      title: t("eventsP1Title"),
+      date: t("eventsP1Date"),
+      location: t("eventsP1Location"),
+      description: t("eventsP1Desc"),
+      ctaLabel: t("eventsLatestCta"),
+      ctaHref: "/events/1",
+      image: "/images/ceremonial.png",
       dark: false,
     },
   ];
@@ -50,7 +52,7 @@ export default function EventsPage() {
       date: t("eventsP1Date"),
       location: t("eventsP1Location"),
       category: t("eventsP1Category"),
-      image: "/images/Suwon.jpg",
+      image: "/images/office-products.jpeg",
       description: t("eventsP1Desc"),
     },
     {
@@ -59,7 +61,7 @@ export default function EventsPage() {
       date: t("eventsP2Date"),
       location: t("eventsP2Location"),
       category: t("eventsP2Category"),
-      image: "/images/ceremonial.png",
+      image: "/images/office-conference.jpeg",
       description: t("eventsP2Desc"),
     },
     {
@@ -68,7 +70,7 @@ export default function EventsPage() {
       date: t("eventsP3Date"),
       location: t("eventsP3Location"),
       category: t("eventsP3Category"),
-      image: "/images/gedung.jpg",
+      image: "/images/gbc-hero.jpeg",
       description: t("eventsP3Desc"),
     },
     {
@@ -86,7 +88,7 @@ export default function EventsPage() {
       date: t("eventsP5Date"),
       location: t("eventsP5Location"),
       category: t("eventsP5Category"),
-      image: "/images/Suwon.jpg",
+      image: "/images/office-brochures.jpeg",
       description: t("eventsP5Desc"),
     },
     {
@@ -95,7 +97,7 @@ export default function EventsPage() {
       date: t("eventsP6Date"),
       location: t("eventsP6Location"),
       category: t("eventsP6Category"),
-      image: "/images/gedung.jpg",
+      image: "/images/office-display.jpeg",
       description: t("eventsP6Desc"),
     },
   ];
@@ -148,18 +150,17 @@ export default function EventsPage() {
           ))}
         </div>
         <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-          <ScrollReveal className="mb-14">
-            <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-3 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-              {t("eventsFeaturedLabel")}
-            </div>
-            <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-[1.2]">
-              {t("eventsFeaturedTitle")}
-            </h2>
-          </ScrollReveal>
-
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-16">
             {FEATURED_EVENTS.map((event, idx) => (
               <ScrollReveal key={event.id}>
+                <div className="mb-6">
+                  <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-2 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
+                    {t("eventsFeaturedLabel")}
+                  </div>
+                  <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-[1.2]">
+                    {event.tag}
+                  </h2>
+                </div>
                 <div
                   className={`grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-lg ${
                     idx % 2 === 1 ? "lg:[direction:rtl]" : ""
@@ -223,21 +224,16 @@ export default function EventsPage() {
                       {event.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-3">
-                      {event.highlights.map((h) => (
-                        <div
-                          key={h}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-full text-[0.82rem] font-semibold ${
-                            event.dark
-                              ? "bg-white/10 text-white"
-                              : "bg-primary/10 text-primary"
-                          }`}
-                        >
-                          <i className="far fa-check-circle text-accent text-xs" />
-                          {h}
-                        </div>
-                      ))}
-                    </div>
+                    <Link
+                      href={event.ctaHref}
+                      className={`inline-flex items-center gap-3 px-7 py-3.5 rounded-full font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 ${
+                        event.dark
+                          ? "bg-accent text-primary hover:bg-accent/90 shadow-[0_4px_20px_rgba(0,194,203,0.4)]"
+                          : "bg-accent text-primary hover:bg-accent/90 shadow-[0_4px_20px_rgba(0,194,203,0.4)]"
+                      }`}
+                    >
+                      {event.ctaLabel} <i className="fas fa-arrow-right text-xs" />
+                    </Link>
                   </div>
                 </div>
               </ScrollReveal>
