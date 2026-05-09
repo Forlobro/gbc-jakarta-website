@@ -3,8 +3,7 @@ export const translations = {
     // Navbar
     home: "Home",
     about: "About",
-    companies: "Companies",
-    team: "Director",
+    companies: "Partners",
     events: "Events",
     contact: "Contact",
     cta: "Get in Touch",
@@ -184,7 +183,7 @@ export const translations = {
 
     // Footer
     gyeonggi:
-      "Gyeonggi Business Center Jakarta - Your trusted partner for Gyeonggi-Indonesian business collaboration.",
+      "Gyeonggi Business Center Jakarta - Trusted partner for Gyeonggi-Indonesian business collaboration.",
     partnerships: "Partnership Dev",
     aboutUs: "About Us",
     gmsCompanies: "GMS Companies",
@@ -233,9 +232,8 @@ export const translations = {
     // Navbar
     home: "Beranda",
     about: "Tentang",
-    companies: "Perusahaan",
-    team: "Direktur",
-    events: "Events",
+    companies: "Mitra",
+    events: "Acara",
     contact: "Kontak",
     cta: "Hubungi Kami",
 
@@ -414,7 +412,7 @@ export const translations = {
 
     // Footer
     gyeonggi:
-      "Gyeonggi Business Center Jakarta - Mitra terpercaya Anda untuk kolaborasi bisnis Gyeonggi-Indonesia.",
+      "Gyeonggi Business Center Jakarta - Mitra terpercaya untuk kolaborasi bisnis Gyeonggi-Indonesia.",
     partnerships: "Kemitraan",
     aboutUs: "Tentang Kami",
     gmsCompanies: "Perusahaan GMS",

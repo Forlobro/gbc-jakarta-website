@@ -119,7 +119,7 @@ export default function AboutSection() {
           <ScrollReveal className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/ceremonial.png"
+                src="/images/gbc-hero.jpeg"
                 alt="GBC Jakarta Opening Ceremony"
                 width={800}
                 height={600}

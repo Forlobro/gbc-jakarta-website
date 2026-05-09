@@ -57,7 +57,6 @@ const GBSA_PILLARS = [
 
 const TIMELINE = [
   { year: "1997", text: "Pendirian yayasan pendukung UKM Gyeonggi",                                        textEn: "Establishment of Gyeonggi SME support foundation" },
-  { year: "2005", text: "GBC pertama dibuka di Mumbai, India. Penghargaan PM Korea",                        textEn: "First GBC opened in Mumbai, India. Korean PM Award" },
   { year: "2008", text: "GBC Kuala Lumpur — ekspansi pertama ke Asia Tenggara",                             textEn: "GBC Kuala Lumpur — first Southeast Asian expansion" },
   { year: "2010", text: "GBC Shanghai dibuka, cabang regional barat & selatan",                             textEn: "GBC Shanghai opened, western & southern regional branches" },
   { year: "2016", text: "GBC Guangzhou & Ho Chi Minh dibuka",                                               textEn: "GBC Guangzhou & Ho Chi Minh opened" },
@@ -71,8 +70,14 @@ const TIMELINE = [
   { year: "2020", text: "GBC Bangkok dibuka. Penghargaan Presiden Korea",                                   textEn: "GBC Bangkok opened. Korean Presidential Award" },
   {
     year: "2023",
-    text: "GBC Jakarta, Bengaluru, Tashkent dibuka. Digital GBC diluncurkan di 5 lokasi.",
-    textEn: "GBC Jakarta, Bengaluru, Tashkent opened. Digital GBC launched in 5 locations.",
+    text: "GBC Jakarta, dibuka. Digital GBC diluncurkan di 5 lokasi.",
+    textEn: "GBC Jakarta, opened. Digital GBC launched in 5 locations.",
+    highlight: true,
+  },
+  {
+    year: "2025",
+    text: "draft",
+    textEn: "draft",
     highlight: true,
   },
 ];
@@ -139,9 +144,7 @@ function AboutHero() {
 
           {/* Left: text */}
           <div>
-            <div className="inline-block text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-accent bg-accent/10 px-4 py-1.5 rounded-full mb-5">
-              {isId ? "Tentang Kami" : "About Us"}
-            </div>
+            
             <h1 className="font-display text-4xl md:text-[2.8rem] font-extrabold text-primary leading-[1.15] mb-5">
               {isId ? "Tentang GBC Jakarta" : "About GBC Jakarta"}
             </h1>
@@ -220,16 +223,14 @@ function GlobalNetworkSection() {
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-12">
-          <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
-            {isId ? "JARINGAN GLOBAL" : "GLOBAL NETWORK"}
-          </div>
+          
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-tight mb-3">
             GBC — Gyeonggi Business Center
           </h2>
           <p className="text-text-light text-lg text-justify">
             {isId
-              ? "Jaringan kantor perwakilan luar negeri GBSA di 14 negara dengan 19 kantor."
-              : "GBSA's overseas representative network in 14 countries with 19 offices."}
+              ? "Jaringan kantor perwakilan luar negeri GBSA di 21 negara dengan 28 kantor."
+              : "GBSA's overseas representative network in 21 countries with 28 offices."}
           </p>
         </ScrollReveal>
 
@@ -276,13 +277,11 @@ function GBSASection() {
 
         {/* Header */}
         <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">
-          <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
-            {isId ? "LEMBAGA INDUK" : "PARENT ORGANIZATION"}
-          </div>
+          
           <h2 className="font-display text-3xl md:text-[2.6rem] font-extrabold text-primary mb-3 leading-[1.2]">
             GBSA — Gyeonggido Business & Science Accelerator
           </h2>
-          <p className="text-text-light text-lg text-justify">
+          <p className="text-text-light text-lg text-center">
             {isId
               ? "Lembaga publik resmi milik Pemerintah Provinsi Gyeonggi yang menjadi induk dari seluruh jaringan GBC di dunia."
               : "Official public institution of Gyeonggi Provincial Government that oversees the entire global GBC network."}
@@ -334,31 +333,6 @@ function GBSASection() {
             </div>
           </div>
         </ScrollReveal>
-
-        {/* 4 Strategic Pillars */}
-        <ScrollReveal>
-          <p className="text-sm font-semibold text-text-light mb-5">
-            {isId ? "Empat pilar strategi GBSA" : "Four strategic pillars of GBSA"}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {GBSA_PILLARS.map((p) => (
-              <div key={p.num} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow duration-300">
-                <span className={`w-8 h-8 rounded-lg ${p.color} flex items-center justify-center text-white text-xs font-extrabold`}>
-                  {p.num}
-                </span>
-                <h4 className="text-sm font-bold text-text">{isId ? p.title : p.titleEn}</h4>
-                <ul className="flex flex-col gap-1">
-                  {(isId ? p.points : p.pointsEn).map((pt) => (
-                    <li key={pt} className="text-xs text-text-light leading-relaxed flex gap-1.5">
-                      <span className="mt-1 shrink-0 w-1 h-1 rounded-full bg-accent/60" />
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </ScrollReveal>
       </div>
     </section>
   );
@@ -382,13 +356,11 @@ function GyeonggiSection() {
 
         {/* Header */}
         <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">
-          <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
-            {isId ? "PEMERINTAH PROVINSI" : "PROVINCIAL GOVERNMENT"}
-          </div>
+
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
             Gyeonggi-do
           </h2>
-          <p className="text-text-light text-lg leading-[1.8] text-justify">
+          <p className="text-text-light text-lg leading-[1.8] text-center">
             {isId
               ? "Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang 25.4% total produksi nasional dan menjadi rumah bagi konglomerat global seperti Samsung Electronics & SK Hynix."
               : "The largest province in South Korea — the center of economy, innovation, and technology, contributing 25.4% of national output and home to global conglomerates like Samsung Electronics & SK Hynix."}
@@ -456,13 +428,10 @@ function TimelineSection() {
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="max-w-[600px] mx-auto text-center mb-14">
-          <div className="inline-block text-[0.8rem] font-semibold tracking-[0.1em] uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-4">
-            {isId ? "SEJARAH" : "HISTORY"}
-          </div>
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
-            {isId ? "Perjalanan GBSA & GBC (1997–2023)" : "GBSA & GBC Journey (1997–2023)"}
+            {isId ? "Perjalanan GBSA & GBC " : "GBSA & GBC Journey "} <br /> {isId ? "(1997–2023)" : "(1997–2023)"}
           </h2>
-          <p className="text-text-light text-lg text-justify">
+          <p className="text-text-light text-lg text-center">
             {isId
               ? "Kronologi lengkap dari pendirian awal hingga pembukaan GBC Jakarta."
               : "Complete chronology from founding to GBC Jakarta opening."}

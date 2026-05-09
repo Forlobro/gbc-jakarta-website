@@ -33,7 +33,7 @@ export default function Footer() {
                 className="w-8 h-8 bg-primary/8 rounded-lg flex items-center justify-center text-primary/60 hover:bg-accent hover:text-white transition-all duration-300">
                 <i className="fab fa-linkedin-in text-sm" />
               </a>
-              <a href="https://www.youtube.com/@gbcjakarta" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.youtube.com/@GBCJakarta-official" target="_blank" rel="noopener noreferrer"
                 className="w-8 h-8 bg-primary/8 rounded-lg flex items-center justify-center text-primary/60 hover:bg-accent hover:text-white transition-all duration-300">
                 <i className="fab fa-youtube text-sm" />
               </a>
@@ -68,7 +68,6 @@ export default function Footer() {
               {[
                 t("marketResearch"),
                 t("businessMatching"),
-                t("legalSupport"),
                 t("tradePromotion"),
                 t("partnerships"),
               ].map((item) => (

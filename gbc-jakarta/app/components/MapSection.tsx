@@ -48,7 +48,7 @@ export default function MapSection() {
             {t("mapTitle")}
           </h2>
           <p className="text-text-light text-lg">
-            DBS Tower Suite #905, Jl. Prof. Dr. Satrio Kav.3, Kuningan, South Jakarta 12940
+            DBS Tower Suite #905,<br /> Jl. Prof. Dr. Satrio Kav.3, Kuningan, South Jakarta 12940
           </p>
         </div>
 

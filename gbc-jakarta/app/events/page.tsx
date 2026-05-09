@@ -122,7 +122,7 @@ export default function EventsPage() {
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white leading-[1.15] mb-5">
               {t("eventsPageTitle").split("Korea")[0]}
-              <span className="text-accent">Korea</span>
+    
               {t("eventsPageTitle").split("Korea")[1]}
             </h1>
             <p className="text-white/70 text-lg leading-[1.8] text-justify">

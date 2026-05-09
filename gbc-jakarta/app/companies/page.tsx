@@ -176,7 +176,7 @@ export default function CompaniesPage() {
                     : "bg-white border-gray-200 text-text-light hover:border-accent hover:text-primary"
                 }`}
               >
-                {t("allYears")}
+                {t("all")}
               </button>
               {availableYears.map((year) => (
                 <button

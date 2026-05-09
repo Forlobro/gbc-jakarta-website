@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import { useTranslation } from "../lib/LanguageContext";
 import ScrollReveal from "./ScrollReveal";
+import Image from "next/image";
 
 export default function ContactSection() {
   const { t } = useTranslation();
@@ -106,7 +107,7 @@ export default function ContactSection() {
                   </h4>
                   <p className="text-[1.05rem] text-white">
                     DBS Tower Suite #905, Jl. Prof. Dr. Satrio Kav.3
-                    <br />
+                    
                     Kuningan, South Jakarta 12940
                   </p>
                 </div>
@@ -178,6 +179,34 @@ export default function ContactSection() {
               >
                 <i className="fab fa-youtube" />
               </a>
+            </div>
+
+            {/* Partner Logos */}
+
+            <div className="flex gap-4 mt-6">
+
+              <div className="w-[200px] h-[120px] bg-white/10 rounded-xl flex items-center justify-center text-white/40 text-xs">
+                <a href="https://english.gg.go.kr/" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
+                <Image src="/images/gyeonggi-logo.jpeg" alt="Logo 1" width={100} height={60} className="object-contain" />
+                </a>
+              </div>
+
+              <div className="w-[200px] h-[120px] bg-white/10 rounded-xl flex items-center justify-center text-white/40 text-xs">
+
+                <a href="https://www.gbsa.or.kr/en/index.do" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
+                <Image src="/images/gbsa-logo.jpeg" alt="Logo 2" width={100} height={60} className="object-contain" />
+                </a>
+
+              </div>
+
+              <div className="w-[200px] h-[120px] bg-white/10 rounded-xl flex items-center justify-center text-white/40 text-xs">
+
+                <a href="https://www.gfair.or.kr/home/kr/index.do" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
+                  <Image src="/images/g-fair-logo.jpg" alt="Logo 3" width={100} height={60} className="object-contain" />
+                </a>
+
+              </div>
+
             </div>
           </ScrollReveal>
 
