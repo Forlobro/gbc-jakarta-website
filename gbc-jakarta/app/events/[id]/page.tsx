@@ -1,25 +1,28 @@
-"use client";
+"use client"
 
-import { useState } from "react"; // used by EventGallery
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import { useTranslation } from "../../lib/LanguageContext";
-import { TranslationKey } from "../../lib/translations";
+import { useState } from "react"
+import { useParams } from "next/navigation"
+import Link from "next/link"
+import Navbar from "../../components/Navbar"
+import Footer from "../../components/Footer"
+import { useTranslation } from "../../lib/LanguageContext"
+import { TranslationKey } from "../../lib/translations"
 
 // ── Event Data ──────────────────────────────────────────────
-const EVENTS: Record<string, {
-  id: number;
-  tag: string;
-  titleKey: TranslationKey;
-  dateKey: TranslationKey;
-  locationKey: TranslationKey;
-  image: string;
-  descKey: TranslationKey;
-  detailsKey: TranslationKey;
-  video_url?: string;
-}> = {
+const EVENTS: Record<
+  string,
+  {
+    id: number
+    tag: string
+    titleKey: TranslationKey
+    dateKey: TranslationKey
+    locationKey: TranslationKey
+    image: string
+    descKey: TranslationKey
+    detailsKey: TranslationKey
+    video_url?: string
+  }
+> = {
   "1": {
     id: 1,
     tag: "Roadshow",
@@ -93,10 +96,12 @@ const GALLERY_PHOTOS = [
 ];
 
 function EventGallery({ title }: { title: string }) {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(0)
 
-  const prev = () => setCurrent((c) => (c === 0 ? GALLERY_PHOTOS.length - 1 : c - 1));
-  const next = () => setCurrent((c) => (c === GALLERY_PHOTOS.length - 1 ? 0 : c + 1));
+  const prev = () =>
+    setCurrent((c) => (c === 0 ? GALLERY_PHOTOS.length - 1 : c - 1))
+  const next = () =>
+    setCurrent((c) => (c === GALLERY_PHOTOS.length - 1 ? 0 : c + 1))
 
   return (
     <section className="py-16 bg-white relative">
@@ -107,12 +112,20 @@ function EventGallery({ title }: { title: string }) {
       {/* Blurred primary — bottom right */}
       <div className="absolute -bottom-20 -right-20 w-[350px] h-[350px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
       {/* Floating symbols */}
-      <div className="absolute top-10 right-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
-      <div className="absolute bottom-10 left-[5%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">◦</div>
+      <div className="absolute top-10 right-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">
+        +
+      </div>
+      <div className="absolute bottom-10 left-[5%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">
+        ◦
+      </div>
       {/* Decorative lines — right */}
       <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
         {[60, 40, 90, 50, 75, 35].map((w, i) => (
-          <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
+          <div
+            key={i}
+            className="h-[3px] bg-primary/15 rounded-full"
+            style={{ width: `${w}px` }}
+          />
         ))}
       </div>
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
@@ -121,7 +134,10 @@ function EventGallery({ title }: { title: string }) {
         </h2>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="rounded-2xl overflow-hidden" style={{ aspectRatio: "16/9" }}>
+          <div
+            className="rounded-2xl overflow-hidden"
+            style={{ aspectRatio: "16/9" }}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={current}
@@ -163,7 +179,7 @@ function EventGallery({ title }: { title: string }) {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 const TAG_COLORS: Record<string, string> = {
@@ -173,7 +189,7 @@ const TAG_COLORS: Record<string, string> = {
   Ceremony: "bg-purple-100 text-purple-700",
   Exhibition: "bg-orange-100 text-orange-700",
   Forum: "bg-red-100 text-red-700",
-};
+}
 
 export default function EventDetailPage() {
   const params = useParams();
@@ -186,21 +202,28 @@ export default function EventDetailPage() {
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <p className="text-text-light text-lg mb-4">{language === "id" ? "Event tidak ditemukan." : "Event not found."}</p>
-            <Link href="/events" className="text-accent font-semibold hover:underline">
+            <p className="text-text-light text-lg mb-4">
+              {language === "id"
+                ? "Event tidak ditemukan."
+                : "Event not found."}
+            </p>
+            <Link
+              href="/events"
+              className="text-accent font-semibold hover:underline"
+            >
               ← {t("backToEvents")}
             </Link>
           </div>
         </div>
         <Footer />
       </>
-    );
+    )
   }
 
-  const title = t(eventMeta.titleKey);
-  const date = t(eventMeta.dateKey);
-  const location = t(eventMeta.locationKey);
-  const details = t(eventMeta.detailsKey);
+  const title = t(eventMeta.titleKey)
+  const date = t(eventMeta.dateKey)
+  const location = t(eventMeta.locationKey)
+  const details = t(eventMeta.detailsKey)
 
   return (
     <>
@@ -257,12 +280,20 @@ export default function EventDetailPage() {
         {/* Blurred primary — bottom left */}
         <div className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
         {/* Floating symbols */}
-        <div className="absolute top-10 left-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
-        <div className="absolute bottom-10 right-[6%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
+        <div className="absolute top-10 left-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">
+          +
+        </div>
+        <div className="absolute bottom-10 right-[6%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">
+          ×
+        </div>
         {/* Decorative lines — left */}
         <div className="absolute left-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
           {[70, 45, 100, 50, 80, 40].map((w, i) => (
-            <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
+            <div
+              key={i}
+              className="h-[3px] bg-accent/20 rounded-full"
+              style={{ width: `${w}px` }}
+            />
           ))}
         </div>
         <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
@@ -281,13 +312,19 @@ export default function EventDetailPage() {
       {eventMeta.video_url && (
         <section className="py-16 bg-[#f8fafc] relative">
           {/* Dot pattern */}
-          <div className="absolute inset-y-0 left-0 w-32 pointer-events-none" style={{
-            backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
-            backgroundSize: "20px 20px",
-          }} />
+          <div
+            className="absolute inset-y-0 left-0 w-32 pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
+              backgroundSize: "20px 20px",
+            }}
+          />
           <div className="absolute -top-20 -left-20 w-[300px] h-[300px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
           <div className="absolute -bottom-20 -right-20 w-[300px] h-[300px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
-          <div className="absolute top-8 right-[7%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">◦</div>
+          <div className="absolute top-8 right-[7%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">
+            ◦
+          </div>
           <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
             <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
               {t("eventVideo")}
@@ -313,5 +350,5 @@ export default function EventDetailPage() {
 
       <Footer />
     </>
-  );
+  )
 }

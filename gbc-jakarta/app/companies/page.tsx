@@ -70,11 +70,6 @@ export default function CompaniesPage() {
       .finally(() => setLoading(false))
   }, [])
 
-  // Reset to page 1 whenever filters/search change
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [search, activeFilter, selectedYear])
-
   // Unique categories
   const categories = [
     "All",
@@ -158,7 +153,10 @@ export default function CompaniesPage() {
               <input
                 type="text"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value)
+                  setCurrentPage(1)
+                }}
                 placeholder={t("searchPlaceholder")}
                 className="w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-full text-sm focus:outline-none focus:border-accent transition-all"
               />
@@ -169,7 +167,10 @@ export default function CompaniesPage() {
           {!loading && availableYears.length > 0 && (
             <ScrollReveal className="flex justify-center gap-2 flex-wrap mb-6">
               <button
-                onClick={() => setSelectedYear(null)}
+                onClick={() => {
+                  setSelectedYear(null)
+                  setCurrentPage(1)
+                }}
                 className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
                   selectedYear === null
                     ? "bg-accent border-accent text-primary"
@@ -181,7 +182,10 @@ export default function CompaniesPage() {
               {availableYears.map((year) => (
                 <button
                   key={year}
-                  onClick={() => setSelectedYear(year)}
+                  onClick={() => {
+                    setSelectedYear(year)
+                    setCurrentPage(1)
+                  }}
                   className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
                     selectedYear === year
                       ? "bg-accent border-accent text-primary"
@@ -200,7 +204,10 @@ export default function CompaniesPage() {
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setActiveFilter(cat)}
+                  onClick={() => {
+                    setActiveFilter(cat)
+                    setCurrentPage(1)
+                  }}
                   className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
                     activeFilter === cat
                       ? "bg-primary border-primary text-white"
@@ -234,7 +241,10 @@ export default function CompaniesPage() {
               <p className="text-lg">{t("noCompaniesFound")}</p>
               {search && (
                 <button
-                  onClick={() => setSearch("")}
+                  onClick={() => {
+                    setSearch("")
+                    setCurrentPage(1)
+                  }}
                   className="mt-4 text-accent underline text-sm cursor-pointer"
                 >
                   {t("clearSearch")}
