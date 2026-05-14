@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import CompanyForm, { CompanyFormData } from "../../components/CompanyForm"
 
+export const dynamic = "force-dynamic"
+
 export default function AdminNewCompanyPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()

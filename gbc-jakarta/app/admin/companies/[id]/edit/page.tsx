@@ -9,6 +9,8 @@ import PhotoManager from "../../../components/PhotoManager"
 import BrochureManager from "../../../components/BrochureManager"
 import { GbcCompanyWithPhotos } from "../../../../lib/supabase"
 
+export const dynamic = "force-dynamic"
+
 export default function AdminEditCompanyPage({
   params,
 }: {

@@ -27,11 +27,12 @@ export interface GbcCompanyWithPhotos extends GbcCompany {
 }
 
 // Browser client (for client components)
+// Returns null during build/SSR when env vars are not available
 export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  )
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!url || !key) return null as never
+  return createBrowserClient(url, key)
 }
 
 // Simple server client (for API routes / server actions)
