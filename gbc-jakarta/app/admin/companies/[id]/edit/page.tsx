@@ -20,7 +20,6 @@ export default function AdminEditCompanyPage({
   const [company, setCompany] = useState<GbcCompanyWithPhotos | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [saved, setSaved] = useState(false)
   const router = useRouter()
 
   const fetchCompany = useCallback(() => {
@@ -43,7 +42,6 @@ export default function AdminEditCompanyPage({
 
   const handleSubmit = async (data: CompanyFormData) => {
     setSaving(true)
-    setSaved(false)
 
     try {
       const res = await fetch(`/api/admin/companies/${id}`, {
@@ -58,10 +56,7 @@ export default function AdminEditCompanyPage({
         return
       }
 
-      const updated = await res.json()
-      setCompany((prev) => (prev ? { ...prev, ...updated } : prev))
-      setSaved(true)
-      setTimeout(() => setSaved(false), 3000)
+      router.push("/admin")
     } catch {
       alert("Failed to update. Please try again.")
     } finally {
@@ -93,11 +88,6 @@ export default function AdminEditCompanyPage({
           <h1 className="text-2xl font-bold text-slate-900">
             Edit: {company.name}
           </h1>
-          {saved && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-sm font-medium">
-              <i className="fas fa-check" /> Saved!
-            </span>
-          )}
         </div>
       </div>
 

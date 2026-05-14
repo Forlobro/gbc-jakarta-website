@@ -7,11 +7,8 @@ import { createClient } from "../../lib/supabase";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: "fas fa-th-large" },
-  {
-    href: "/admin/companies",
-    label: "Companies",
-    icon: "far fa-building",
-  },
+  { href: "/admin/companies", label: "Companies", icon: "far fa-building" },
+  { href: "/admin/categories", label: "Categories", icon: "fas fa-tags" },
 ];
 
 export default function AdminSidebar() {

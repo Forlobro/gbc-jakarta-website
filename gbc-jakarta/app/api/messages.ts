@@ -54,6 +54,13 @@ const msg = {
     companyCreateSuccess: "Company created successfully",
     companyUpdateSuccess: "Company updated successfully",
     companyDeleteSuccess: "Company deleted successfully",
+
+    // Category CRUD
+    categoryNameRequired: "Category name is required",
+    categoryAlreadyExists: "A category with this name already exists",
+    categoryCreateSuccess: "Category created successfully",
+    categoryUpdateSuccess: "Category updated successfully",
+    categoryDeleteSuccess: "Category deleted successfully",
   },
 
   id: {
@@ -99,6 +106,13 @@ const msg = {
     companyCreateSuccess: "Perusahaan berhasil dibuat",
     companyUpdateSuccess: "Perusahaan berhasil diperbarui",
     companyDeleteSuccess: "Perusahaan berhasil dihapus",
+
+    // Category CRUD
+    categoryNameRequired: "Nama kategori wajib diisi",
+    categoryAlreadyExists: "Kategori dengan nama ini sudah ada",
+    categoryCreateSuccess: "Kategori berhasil dibuat",
+    categoryUpdateSuccess: "Kategori berhasil diperbarui",
+    categoryDeleteSuccess: "Kategori berhasil dihapus",
   },
 } as const
 
