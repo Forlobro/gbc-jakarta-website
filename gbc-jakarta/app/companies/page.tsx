@@ -69,14 +69,6 @@ export default function CompaniesPage() {
         if (Array.isArray(data)) {
           setCompanies(data)
 
-          const years = Array.from(
-            new Set(
-              data.flatMap((company: GbcCompanyWithPhotos) =>
-                getCoveredYears(company),
-              ),
-            ),
-          ).sort((a, b) => a - b)
-
           setSelectedYear((prev) => prev ?? null)
         }
       })

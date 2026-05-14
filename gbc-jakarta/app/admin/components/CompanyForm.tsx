@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, FormEvent } from "react"
+import { useState, useEffect, FormEvent } from "react"
 
 export interface CompanyFormData {
   name: string
@@ -19,43 +19,10 @@ interface CompanyFormProps {
   loading?: boolean
 }
 
-const categories = [
-  "Industrial Equipment",
-  "Safety Equipment",
-  "Eco-Friendly",
-  "Lifestyle",
-  "Construction",
-  "Safety Tech",
-  "Industry",
-  "Crushing",
-  "Safety Technology",
-  "Eco-Friendly Technology",
-  "Industrial Safety",
-  "Animal Nutrition",
-  "Eco Fuel Technology",
-  "Healthcare Technology",
-  "Industrial Monitoring",
-  "Audio Technology",
-  "Beauty Products",
-  "Education Technology",
-  "Medical Beauty",
-  "Health Technology",
-  "Agriculture",
-  "Agriculture Technology",
-  "Eco Agriculture",
-  "Food Innovation",
-  "Food Products",
-  "Construction Technology",
-  "Industrial Pumps",
-  "Air Purification",
-  "Lifestyle Products",
-  "Gas Safety Technology",
-  "Packaging Equipment",
-  "Water Technology",
-  "Industrial Automation",
-  "Textile Technology",
-  "Industrial Sensors",
-]
+interface Category {
+  id: number
+  name: string
+}
 
 export default function CompanyForm({
   initialData,
@@ -70,6 +37,18 @@ export default function CompanyForm({
   const [startDate, setStartDate] = useState(initialData?.start_date || "")
   const [endDate, setEndDate] = useState(initialData?.end_date || "")
   const [linkVideo, setLinkVideo] = useState(initialData?.link_video || "")
+
+  const [categories, setCategories] = useState<Category[]>([])
+  const [categoriesLoading, setCategoriesLoading] = useState(true)
+
+  useEffect(() => {
+    fetch("/api/admin/categories")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setCategories(data)
+      })
+      .finally(() => setCategoriesLoading(false))
+  }, [])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -103,36 +82,52 @@ export default function CompanyForm({
 
       {/* Category */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Category <span className="text-red-400">*</span>
-        </label>
-        <div className="relative">
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-            className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all appearance-none cursor-pointer"
+        <div className="flex items-center justify-between mb-2">
+          <label className="block text-sm font-medium text-slate-700">
+            Category <span className="text-red-400">*</span>
+          </label>
+          <a
+            href="/admin/categories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-accent hover:underline flex items-center gap-1"
           >
-            <option value="">Select category...</option>
-            {categories.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-          <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none" />
+            <i className="fas fa-external-link-alt text-[10px]" /> Manage categories
+          </a>
         </div>
-        <p className="text-slate-500 text-xs mt-1.5">
-          Or type a custom category below
-        </p>
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          placeholder="Custom category..."
-          required
-          className="w-full mt-2 px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
-        />
+
+        {categoriesLoading ? (
+          <div className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-400 text-sm flex items-center gap-2">
+            <i className="fas fa-spinner fa-spin text-xs" /> Loading categories...
+          </div>
+        ) : (
+          <div className="relative">
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all appearance-none cursor-pointer"
+            >
+              <option value="">Select category...</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none" />
+          </div>
+        )}
+
+        {!categoriesLoading && categories.length === 0 && (
+          <p className="text-xs text-amber-600 mt-1.5 flex items-center gap-1">
+            <i className="fas fa-exclamation-triangle" />
+            No categories found.{" "}
+            <a href="/admin/categories" target="_blank" rel="noopener noreferrer" className="underline">
+              Add categories first.
+            </a>
+          </p>
+        )}
       </div>
 
       {/* Description (ID) */}
@@ -202,7 +197,6 @@ export default function CompanyForm({
           className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
         />
       </div>
-
 
       {/* Submit */}
       <button
