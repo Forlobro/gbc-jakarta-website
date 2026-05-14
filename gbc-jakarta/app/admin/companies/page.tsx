@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { GbcCompanyWithPhotos } from "../../lib/supabase"
 
+export const dynamic = "force-dynamic"
+
 export default function AdminCompaniesPage() {
   const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
   const [loading, setLoading] = useState(true)
