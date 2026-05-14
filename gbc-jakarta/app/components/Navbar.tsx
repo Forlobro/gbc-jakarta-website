@@ -53,7 +53,9 @@ export default function Navbar() {
             <li key={item.key}>
               <Link
                 href={item.href}
-                className={`w-[105px] text-center py-2 text-white text-[0.78rem] font-semibold tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 inline-block ${
+                className={`block text-center text-white text-[0.78rem] font-semibold tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 ${
+                  language === "id" ? "w-[105px] py-2 px-2" : "w-[105px] py-2 px-2.5"
+                } ${
                   idx === 0
                     ? "rounded-l-full"
                     : idx === NAV_ITEMS.length - 1
@@ -93,7 +95,7 @@ export default function Navbar() {
           {/* CTA Button — desktop only */}
           <Link
             href="/contact#contact"
-            className="hidden md:inline-block px-5 py-2 bg-accent text-primary rounded-[30px] font-semibold text-[0.78rem] transition-all duration-300 shadow-[0_4px_15px_rgba(0,194,203,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)]"
+            className="hidden md:inline-block w-[130px] text-center py-2 bg-accent text-primary rounded-[30px] font-semibold text-[0.78rem] transition-all duration-300 shadow-[0_4px_15px_rgba(0,194,203,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)]"
           >
             {t("cta")}
           </Link>

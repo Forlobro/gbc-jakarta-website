@@ -5,10 +5,10 @@ import ScrollReveal from "./ScrollReveal";
 
 export default function PartnersSection() {
   const buttons = [
-    { id: 1, href: "https://english.gg.go.kr/", alt: "Gyeonggi", src: "/images/gyeonggi-logo1.png", large: false },
-    { id: 2, href: "https://www.gbsa.or.kr/en/index.do", alt: "GBSA", src: "/images/GBSA transparent logo.png", large: true },
-    { id: 3, href: "https://www.gbcprime.com/buyer/index.do", alt: "GBC Prime", src: "/images/gbc-prime.png", large: true },
-    { id: 4, href: "https://www.gfair.or.kr/home/kr/index.do", alt: "G-Fair", src: "/images/g-fair-logo.jpg", large: true },
+    { id: 1, href: "https://english.gg.go.kr/", alt: "Gyeonggi", src: "/images/Gyeonggi do transparent logo.png", size: "gyeonggi" },
+    { id: 2, href: "https://www.gbsa.or.kr/en/index.do", alt: "GBSA", src: "/images/GBSA transparent logo.png", size: "gbsa" },
+    { id: 3, href: "https://www.gbcprime.com/buyer/index.do", alt: "GBC Prime", src: "/images/GBC prime transparent logo.png", size: "small" },
+    { id: 4, href: "https://www.gfair.or.kr/home/kr/index.do", alt: "G-Fair", src: "/images/G-fair korea transparent logo.png", size: "xlarge" },
   ];
 
   return (
@@ -41,9 +41,9 @@ export default function PartnersSection() {
                 <Image
                   src={item.src}
                   alt={item.alt}
-                  width={item.large ? 240 : 160}
-                  height={item.large ? 140 : 80}
-                  className={`object-contain w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300 ${item.large ? "max-h-[140px]" : "max-h-[80px]"}`}
+                  width={item.size === "gbsa" ? 340 : item.size === "gyeonggi" ? 240 : item.size === "xlarge" ? 310 : item.size === "large" ? 280 : item.size === "xsmall" ? 130 : 160}
+                  height={item.size === "gbsa" ? 285 : item.size === "gyeonggi" ? 180 : item.size === "xlarge" ? 190 : item.size === "large" ? 170 : item.size === "xsmall" ? 70 : 90}
+                  className={`object-contain w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300 ${item.size === "gbsa" ? "max-h-[285px]" : item.size === "gyeonggi" ? "max-h-[180px]" : item.size === "xlarge" ? "max-h-[190px]" : item.size === "large" ? "max-h-[170px]" : item.size === "xsmall" ? "max-h-[70px]" : "max-h-[90px]"}`}
                 />
               </a>
             ))}

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "GBC Jakarta, Korean business, Indonesia, Gyeonggi Province, B2B, trade, partnership",
   authors: [{ name: "GBC Jakarta" }],
   icons: {
-    icon: "/images/logo-square.jpg",
+    icon: "/images/favicon.ico",
   },
 };
 
