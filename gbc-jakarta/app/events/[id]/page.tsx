@@ -239,13 +239,6 @@ export default function EventDetailPage() {
         }}
       >
         <div className="max-w-[1400px] mx-auto px-[5%]">
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm mb-8 transition-colors"
-          >
-            <i className="fas fa-arrow-left" /> {t("backToEvents")}
-          </Link>
-
           <span
             className={`inline-block text-[0.75rem] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 ${
               TAG_COLORS[eventMeta.tag] ?? "bg-gray-100 text-gray-600"

@@ -1,19 +1,50 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { useTranslation } from "../lib/LanguageContext";
 import ScrollReveal from "./ScrollReveal";
-import Image from "next/image";
 
 export default function ContactSection() {
   const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    (e.target as HTMLFormElement).reset();
+    setSending(true);
+    setError("");
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      company: formData.get("company") as string,
+      message: formData.get("message") as string,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        form.reset();
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        const result = await res.json();
+        setError(result.error || "Failed to send message.");
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -248,15 +279,22 @@ export default function ContactSection() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-gradient-to-br from-primary to-primary-light text-white border-none rounded-lg text-sm font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(15,40,71,0.3)]"
+                  disabled={sending}
+                  className="w-full py-3 bg-gradient-to-br from-primary to-primary-light text-white border-none rounded-lg text-sm font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(15,40,71,0.3)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
-                  {t("sendBtn")}{" "}
-                  <i className="far fa-paper-plane ml-2" />
+                  {sending ? "Sending..." : t("sendBtn")}{" "}
+                  {!sending && <i className="far fa-paper-plane ml-2" />}
                 </button>
 
                 {submitted && (
                   <p className="mt-3 text-center text-accent font-semibold text-sm mb-20">
                     {t("contactSuccess")}
+                  </p>
+                )}
+
+                {error && (
+                  <p className="mt-3 text-center text-red-500 font-semibold text-sm">
+                    {error}
                   </p>
                 )}
               </form>

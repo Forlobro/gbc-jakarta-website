@@ -10,6 +10,19 @@ import { GbcCompanyWithPhotos } from "../lib/supabase"
 
 const PAGE_SIZE = 9
 
+const CATEGORY_TRANSLATIONS: Record<string, string> = {
+  "All": "Semua",
+  "Industrial Equipment": "Peralatan Industri",
+  "Industrial Safety": "Keselamatan Industri",
+  "Eco Agriculture": "Pertanian Ramah Lingkungan",
+  "Eco-Friendly Technology": "Teknologi Ramah Lingkungan",
+  "Industry": "Industri",
+  "Beauty & Lifestyle": "Kecantikan & Gaya Hidup",
+  "F&B": "Makanan & Minuman",
+  "Agriculture": "Pertanian",
+  "Safety & Environment": "Keselamatan & Lingkungan",
+}
+
 function getYear(dateValue: string | null | undefined): number | null {
   if (!dateValue) return null
   const match = dateValue.match(/^(\d{4})/)
@@ -64,7 +77,7 @@ export default function CompaniesPage() {
             ),
           ).sort((a, b) => a - b)
 
-          setSelectedYear((prev) => prev ?? years[0] ?? null)
+          setSelectedYear((prev) => prev ?? null)
         }
       })
       .finally(() => setLoading(false))
@@ -173,8 +186,8 @@ export default function CompaniesPage() {
                 }}
                 className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
                   selectedYear === null
-                    ? "bg-accent border-accent text-primary"
-                    : "bg-white border-gray-200 text-text-light hover:border-accent hover:text-primary"
+                    ? "bg-primary border-primary text-white"
+                    : "bg-white border-gray-200 text-text-light hover:border-primary hover:text-primary"
                 }`}
               >
                 {t("all")}
@@ -188,8 +201,8 @@ export default function CompaniesPage() {
                   }}
                   className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 ${
                     selectedYear === year
-                      ? "bg-accent border-accent text-primary"
-                      : "bg-white border-gray-200 text-text-light hover:border-accent hover:text-primary"
+                      ? "bg-primary border-primary text-white"
+                      : "bg-white border-gray-200 text-text-light hover:border-primary hover:text-primary"
                   }`}
                 >
                   {year}
@@ -214,7 +227,7 @@ export default function CompaniesPage() {
                       : "bg-white border-gray-200 text-text-light hover:border-primary hover:text-primary"
                   }`}
                 >
-                  {cat}
+                  {language === "id" ? (CATEGORY_TRANSLATIONS[cat] || cat) : cat}
                 </button>
               ))}
             </ScrollReveal>

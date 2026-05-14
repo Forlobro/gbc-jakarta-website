@@ -25,7 +25,7 @@ export default function Navbar() {
       >
         {/* Logo */}
         <div className="flex items-center gap-4 z-10">
-          <Link href="#home">
+          <Link href="/#home">
             <Image
               src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
               alt="GBSA"
@@ -35,7 +35,7 @@ export default function Navbar() {
               className="h-9 w-auto transition-transform duration-300 hover:scale-105"
             />
           </Link>
-          <Link href="#home">
+          <Link href="/#home">
             <Image
               src="/images/logo.jpg"
               alt="GBC Jakarta"
@@ -53,7 +53,7 @@ export default function Navbar() {
             <li key={item.key}>
               <Link
                 href={item.href}
-                className={`px-8 py-2 text-white text-[0.78rem] font-semibold tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 inline-block ${
+                className={`w-[105px] text-center py-2 text-white text-[0.78rem] font-semibold tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 inline-block ${
                   idx === 0
                     ? "rounded-l-full"
                     : idx === NAV_ITEMS.length - 1
@@ -98,14 +98,16 @@ export default function Navbar() {
             {t("cta")}
           </Link>
 
-          <Image
-            src="/images/gyeonggi-logo.jpeg"
-            alt="Gyeonggi-do"
-            width={80}
-            height={40}
-            priority={true}
-            className="hidden md:block h-9 w-auto mix-blend-multiply"
-          />
+            <Link href="/#home">
+            <Image
+              src="/images/gyeonggi-logo.jpeg"
+              alt="GBC Jakarta"
+              width={80}
+              height={20}
+              priority={true}
+              className="h-1 w-auto mix-blend-multiply transition-transform duration-300 hover:scale-105"
+            />
+          </Link>
 
           {/* Hamburger — mobile only */}
           <button
