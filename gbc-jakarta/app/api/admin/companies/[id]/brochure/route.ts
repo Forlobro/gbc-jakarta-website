@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../../lib/supabase"
+import { getLang, getMsg } from "../../../../../api/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -20,11 +21,13 @@ function extractStoragePath(publicUrl: string) {
 
 // POST /api/admin/companies/[id]/brochure — upload/replace PDF brochure
 export async function POST(request: NextRequest, { params }: RouteParams) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const { id } = await params
   const companyId = parseInt(id)
 
   if (Number.isNaN(companyId)) {
-    return NextResponse.json({ error: "Invalid company id" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidId }, { status: 400 })
   }
 
   const supabase = createServerClient()
@@ -32,21 +35,15 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   const file = formData.get("brochure") as File | null
 
   if (!file) {
-    return NextResponse.json({ error: "No file provided" }, { status: 400 })
+    return NextResponse.json({ error: m.noBrochureProvided }, { status: 400 })
   }
 
   if (file.type !== "application/pdf") {
-    return NextResponse.json(
-      { error: "File harus berupa PDF" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.brochureMustBePdf }, { status: 400 })
   }
 
   if (file.size > 20 * 1024 * 1024) {
-    return NextResponse.json(
-      { error: "Ukuran file PDF maksimal 20MB" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.brochureTooLarge }, { status: 400 })
   }
 
   const { data: company, error: companyError } = await supabase
@@ -56,10 +53,9 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     .single()
 
   if (companyError) {
-    return NextResponse.json({ error: companyError.message }, { status: 404 })
+    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
   }
 
-  // Store under pdf/<companyId>/ folder
   const fileName = `pdf/${companyId}/${Date.now()}-${Math.random().toString(36).slice(2)}.pdf`
 
   const { error: uploadError } = await supabase.storage
@@ -91,22 +87,26 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: updateError.message }, { status: 500 })
   }
 
-  // Remove old brochure from storage if it was in the pdf/ folder
   const oldPath = oldBrochureUrl ? extractStoragePath(oldBrochureUrl) : null
   if (oldPath && oldPath !== fileName && oldPath.startsWith("pdf/")) {
     await supabase.storage.from("gbc_companies_photos").remove([oldPath])
   }
 
-  return NextResponse.json({ link_brochure: newBrochureUrl }, { status: 201 })
+  return NextResponse.json(
+    { link_brochure: newBrochureUrl, message: m.brochureUploadSuccess },
+    { status: 201 },
+  )
 }
 
 // DELETE /api/admin/companies/[id]/brochure — remove brochure and clear link_brochure
-export async function DELETE(_request: NextRequest, { params }: RouteParams) {
+export async function DELETE(request: NextRequest, { params }: RouteParams) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const { id } = await params
   const companyId = parseInt(id)
 
   if (Number.isNaN(companyId)) {
-    return NextResponse.json({ error: "Invalid company id" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidId }, { status: 400 })
   }
 
   const supabase = createServerClient()
@@ -118,7 +118,7 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     .single()
 
   if (companyError) {
-    return NextResponse.json({ error: companyError.message }, { status: 404 })
+    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
   }
 
   const oldBrochureUrl = company.link_brochure
@@ -137,5 +137,5 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     await supabase.storage.from("gbc_companies_photos").remove([oldPath])
   }
 
-  return NextResponse.json({ success: true })
+  return NextResponse.json({ success: true, message: m.brochureDeleteSuccess })
 }

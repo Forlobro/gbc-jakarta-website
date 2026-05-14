@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../../lib/supabase"
+import { getLang, getMsg } from "../../../../../api/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -20,11 +21,13 @@ function extractStoragePath(publicUrl: string) {
 
 // POST /api/admin/companies/[id]/logo — upload/replace single logo
 export async function POST(request: NextRequest, { params }: RouteParams) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const { id } = await params
   const companyId = parseInt(id)
 
   if (Number.isNaN(companyId)) {
-    return NextResponse.json({ error: "Invalid company id" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidId }, { status: 400 })
   }
 
   const supabase = createServerClient()
@@ -32,21 +35,15 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   const logo = formData.get("logo") as File | null
 
   if (!logo) {
-    return NextResponse.json({ error: "No logo provided" }, { status: 400 })
+    return NextResponse.json({ error: m.noLogoProvided }, { status: 400 })
   }
 
-  if (!logo.type.startsWith("image/")) {
-    return NextResponse.json(
-      { error: "Logo must be an image" },
-      { status: 400 },
-    )
+  if (logo.type !== "image/png") {
+    return NextResponse.json({ error: m.logoMustBePng }, { status: 400 })
   }
 
   if (logo.size > 10 * 1024 * 1024) {
-    return NextResponse.json(
-      { error: "Logo max size is 10MB" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.logoTooLarge }, { status: 400 })
   }
 
   const { data: company, error: companyError } = await supabase
@@ -56,10 +53,10 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     .single()
 
   if (companyError) {
-    return NextResponse.json({ error: companyError.message }, { status: 404 })
+    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
   }
 
-  const ext = logo.name.split(".").pop()?.toLowerCase() || "jpg"
+  const ext = logo.name.split(".").pop()?.toLowerCase() || "png"
   const fileName = `${companyId}/logo/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
   const { error: uploadError } = await supabase.storage
@@ -96,16 +93,21 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     await supabase.storage.from("gbc_companies_photos").remove([oldPath])
   }
 
-  return NextResponse.json({ logo_url: newLogoUrl }, { status: 201 })
+  return NextResponse.json(
+    { logo_url: newLogoUrl, message: m.logoUploadSuccess },
+    { status: 201 },
+  )
 }
 
 // DELETE /api/admin/companies/[id]/logo — remove logo and clear logo_url
-export async function DELETE(_request: NextRequest, { params }: RouteParams) {
+export async function DELETE(request: NextRequest, { params }: RouteParams) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const { id } = await params
   const companyId = parseInt(id)
 
   if (Number.isNaN(companyId)) {
-    return NextResponse.json({ error: "Invalid company id" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidId }, { status: 400 })
   }
 
   const supabase = createServerClient()
@@ -117,7 +119,7 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     .single()
 
   if (companyError) {
-    return NextResponse.json({ error: companyError.message }, { status: 404 })
+    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
   }
 
   const oldLogoUrl = company.logo_url
@@ -136,5 +138,5 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     await supabase.storage.from("gbc_companies_photos").remove([oldPath])
   }
 
-  return NextResponse.json({ success: true })
+  return NextResponse.json({ success: true, message: m.logoDeleteSuccess })
 }

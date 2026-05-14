@@ -16,6 +16,9 @@ function getCompanyLogoText(name: string) {
   return safeName.split(" ").slice(0, 2).join(" ")
 }
 
+const ALLOWED_TYPES = ["image/png"]
+const ALLOWED_LABELS = "PNG"
+
 export default function LogoManager({
   companyId,
   companyName,
@@ -26,19 +29,26 @@ export default function LogoManager({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [fileError, setFileError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const currentPreview = previewUrl || logoUrl
 
   const handlePickFile = (file: File | null) => {
     if (!file) return
-    if (!file.type.startsWith("image/")) {
-      alert("File harus berupa gambar")
+    setFileError(null)
+
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      setFileError(
+        `Format tidak didukung. Logo hanya bisa diupload dalam format ${ALLOWED_LABELS}.`
+      )
+      if (fileInputRef.current) fileInputRef.current.value = ""
       return
     }
 
     if (file.size > 10 * 1024 * 1024) {
-      alert("Ukuran logo maksimal 10MB")
+      setFileError("Ukuran logo maksimal 10MB.")
+      if (fileInputRef.current) fileInputRef.current.value = ""
       return
     }
 
@@ -56,6 +66,7 @@ export default function LogoManager({
     }
     setSelectedFile(null)
     setPreviewUrl(null)
+    setFileError(null)
     if (fileInputRef.current) fileInputRef.current.value = ""
   }
 
@@ -74,14 +85,14 @@ export default function LogoManager({
 
       if (!res.ok) {
         const err = await res.json()
-        alert(`Upload logo gagal: ${err.error}`)
+        setFileError(`Upload logo gagal: ${err.error}`)
         return
       }
 
       clearSelected()
       onLogoChange()
     } catch {
-      alert("Upload logo gagal. Silakan coba lagi.")
+      setFileError("Upload logo gagal. Silakan coba lagi.")
     } finally {
       setUploading(false)
     }
@@ -99,14 +110,14 @@ export default function LogoManager({
 
       if (!res.ok) {
         const err = await res.json()
-        alert(`Hapus logo gagal: ${err.error}`)
+        setFileError(`Hapus logo gagal: ${err.error}`)
         return
       }
 
       clearSelected()
       onLogoChange()
     } catch {
-      alert("Hapus logo gagal. Silakan coba lagi.")
+      setFileError("Hapus logo gagal. Silakan coba lagi.")
     } finally {
       setDeleting(false)
     }
@@ -124,7 +135,7 @@ export default function LogoManager({
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 flex items-center justify-center">
+        <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
           {currentPreview ? (
             <Image
               src={currentPreview}
@@ -142,7 +153,7 @@ export default function LogoManager({
         </div>
 
         <div className="flex-1 space-y-3">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={() => fileInputRef.current?.click()}
               type="button"
@@ -175,16 +186,23 @@ export default function LogoManager({
             )}
           </div>
 
-          <p className="text-slate-500 text-xs">
-            JPG, PNG, WebP, GIF - maksimal 10MB.
-          </p>
+          {fileError ? (
+            <p className="text-red-500 text-xs flex items-start gap-1.5">
+              <i className="fas fa-exclamation-circle mt-0.5 shrink-0" />
+              {fileError}
+            </p>
+          ) : (
+            <p className="text-slate-500 text-xs">
+              {ALLOWED_LABELS} — maksimal 10MB.
+            </p>
+          )}
         </div>
       </div>
 
       <input
         ref={fileInputRef}
         type="file"
-        accept="image/*"
+        accept="image/png"
         className="hidden"
         onChange={(e) => handlePickFile(e.target.files?.[0] || null)}
       />

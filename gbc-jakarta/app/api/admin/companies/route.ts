@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../lib/supabase"
+import { getLang, getMsg } from "../../../api/messages"
 
 // GET /api/admin/companies — list all companies with photos
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const supabase = createServerClient()
 
-  // Fetch companies
   const { data: companies, error: companiesError } = await supabase
     .from("gbc_companies")
     .select("*")
@@ -13,15 +15,13 @@ export async function GET() {
 
   if (companiesError) {
     console.error("[GET /api/admin/companies] Supabase error:", companiesError)
-    return NextResponse.json({ error: companiesError.message }, { status: 500 })
+    return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
 
-  // Fetch all photos
   const { data: photos } = await supabase
     .from("gbc_companies_photos")
     .select("*")
 
-  // Merge manually
   const result = (companies ?? []).map((company) => ({
     ...company,
     gbc_companies_photos: (photos ?? []).filter(
@@ -34,6 +34,8 @@ export async function GET() {
 
 // POST /api/admin/companies — create new company
 export async function POST(request: NextRequest) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const supabase = createServerClient()
 
   let body
@@ -41,7 +43,7 @@ export async function POST(request: NextRequest) {
     body = await request.json()
   } catch (e) {
     console.error("[POST /api/admin/companies] JSON parse error:", e)
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidJson }, { status: 400 })
   }
 
   const { name, category, description_id, description_en, start_date, end_date, link_video } = body
@@ -68,39 +70,20 @@ export async function POST(request: NextRequest) {
       ? link_video.trim()
       : null
 
-  console.log("[POST /api/admin/companies] Inserting:", {
-    name: normalizedName,
-    category: normalizedCategory,
-    description_id: normalizedDescriptionId,
-    description_en: normalizedDescriptionEn,
-    start_date: normalizedStartDate,
-    end_date: normalizedEndDate,
-    link_video: normalizedLinkVideo,
-  })
-
   if (!normalizedName) {
-    return NextResponse.json(
-      { error: "Company name is required" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.nameRequired }, { status: 400 })
   }
 
   if (!normalizedCategory) {
-    return NextResponse.json({ error: "Category is required" }, { status: 400 })
+    return NextResponse.json({ error: m.categoryRequired }, { status: 400 })
   }
 
   if (normalizedStartDate && Number.isNaN(Date.parse(normalizedStartDate))) {
-    return NextResponse.json(
-      { error: "Invalid start_date format" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.invalidStartDate }, { status: 400 })
   }
 
   if (normalizedEndDate && Number.isNaN(Date.parse(normalizedEndDate))) {
-    return NextResponse.json(
-      { error: "Invalid end_date format" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.invalidEndDate }, { status: 400 })
   }
 
   if (
@@ -108,10 +91,7 @@ export async function POST(request: NextRequest) {
     normalizedEndDate &&
     normalizedStartDate > normalizedEndDate
   ) {
-    return NextResponse.json(
-      { error: "start_date cannot be later than end_date" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.startAfterEnd }, { status: 400 })
   }
 
   const { data, error } = await supabase
@@ -130,16 +110,11 @@ export async function POST(request: NextRequest) {
 
   if (error) {
     console.error("[POST /api/admin/companies] Supabase error:", error)
-    return NextResponse.json(
-      {
-        error: error.message,
-        code: error.code,
-        details: error.details,
-        hint: error.hint,
-      },
-      { status: 500 },
-    )
+    return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
 
-  return NextResponse.json(data, { status: 201 })
+  return NextResponse.json(
+    { ...data, message: m.companyCreateSuccess },
+    { status: 201 },
+  )
 }

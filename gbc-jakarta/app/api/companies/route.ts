@@ -1,8 +1,11 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../lib/supabase"
+import { getLang, getMsg } from "../../api/messages"
 
 // GET /api/companies — public, read all companies with photos
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const supabase = createServerClient()
 
   const { data: companies, error } = await supabase
@@ -11,7 +14,7 @@ export async function GET() {
     .order("id", { ascending: true })
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
 
   const { data: photos } = await supabase
