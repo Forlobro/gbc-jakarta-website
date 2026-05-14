@@ -278,15 +278,7 @@ export default function CompanyDetailPage() {
                       <i className="far fa-eye" />
                       {t("viewBrochure")}
                     </a>
-                    {/* Download — forces file save dialog */}
-                    <a
-                      href={company.link_brochure}
-                      download
-                      className="flex items-center justify-center gap-3 py-3.5 bg-accent/10 !text-primary border-2 border-accent/30 rounded-xl font-semibold transition-all duration-300 hover:bg-accent/20 hover:border-accent hover:-translate-y-0.5 text-[0.9rem]"
-                    >
-                      <i className="fas fa-download" />
-                      {t("downloadBrochure")}
-                    </a>
+
                   </div>
                 </div>
               )}

@@ -357,15 +357,15 @@ function GBSASection() {
 
             {/* Kanan: Misi & Visi */}
             <div className="flex flex-col gap-4">
-              <div className="bg-primary rounded-2xl px-7 py-6">
-                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/40 mb-2">{isId ? "Misi" : "Mission"}</p>
-                <p className="text-base font-bold text-white leading-snug">
+              <div className="bg-white rounded-2xl px-7 py-6 border-2 border-gray-200">
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-black/40 mb-2">{isId ? "Misi" : "Mission"}</p>
+                <p className="text-base font-bold text-black leading-snug">
                   Making Gyeonggi Province abound with growth opportunities
                 </p>
               </div>
-              <div className="bg-accent rounded-2xl px-7 py-6">
-                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/60 mb-2">{isId ? "Visi" : "Vision"}</p>
-                <p className="text-base font-bold text-white leading-snug">
+              <div className="bg-white rounded-2xl px-7 py-6 border-2 border-gray-200">
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-black/40 mb-2">{isId ? "Visi" : "Vision"}</p>
+                <p className="text-base font-bold text-black leading-snug">
                   GBSA — Partner for SMEs Innovation
                 </p>
               </div>
@@ -420,14 +420,14 @@ function GyeonggiSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
             {/* Stats panel */}
-            <div className="bg-primary rounded-2xl p-8 flex flex-col gap-4">
-              <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/40">
+            <div className="bg-white rounded-2xl p-8 flex flex-col gap-4 border-2 border-gray-200">
+              <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-gray-400">
                 {isId ? "GYEONGGI-DO DALAM ANGKA" : "GYEONGGI-DO IN NUMBERS"}
               </p>
               {GYEONGGI_STATS.map((s) => (
                 <div key={s.value} className="flex flex-col gap-0.5">
                   <span className={`text-xl font-extrabold leading-tight ${s.color}`}>{s.value}</span>
-                  <span className="text-xs text-white/50">{isId ? s.label : s.labelEn}</span>
+                  <span className="text-xs text-gray-500">{isId ? s.label : s.labelEn}</span>
                 </div>
               ))}
             </div>

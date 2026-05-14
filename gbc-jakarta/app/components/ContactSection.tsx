@@ -181,46 +181,20 @@ export default function ContactSection() {
               </a>
             </div>
 
-            {/* Partner Logos */}
 
-            <div className="flex gap-4 mt-6">
-
-              <div className="w-[200px] h-[120px] bg-white/10 rounded-xl flex items-center justify-center text-white/40 text-xs">
-                <a href="https://english.gg.go.kr/" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
-                <Image src="/images/gyeonggi-logo.jpeg" alt="Logo 1" width={100} height={60} className="object-contain" />
-                </a>
-              </div>
-
-              <div className="w-[200px] h-[120px] bg-white/10 rounded-xl flex items-center justify-center text-white/40 text-xs">
-
-                <a href="https://www.gbsa.or.kr/en/index.do" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
-                <Image src="/images/gbsa-logo.jpeg" alt="Logo 2" width={100} height={60} className="object-contain" />
-                </a>
-
-              </div>
-
-              <div className="w-[200px] h-[120px] bg-white/10 rounded-xl flex items-center justify-center text-white/40 text-xs">
-
-                <a href="https://www.gfair.or.kr/home/kr/index.do" target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
-                  <Image src="/images/g-fair-logo.jpg" alt="Logo 3" width={100} height={60} className="object-contain" />
-                </a>
-
-              </div>
-
-            </div>
           </ScrollReveal>
 
           {/* Contact Form */}
           <ScrollReveal>
-            <div className="bg-white rounded-3xl p-12 shadow-2xl">
-              <h3 className="font-display text-2xl font-bold text-text mb-8">
+            <div className="bg-white rounded-2xl px-8 pt-10 pb-8 shadow-2xl">
+              <h3 className="font-display text-xl font-bold text-text mb-5">
                 {t("sendMessage")}
               </h3>
 
               <form onSubmit={handleSubmit}>
                 {/* Name */}
-                <div className="mb-6">
-                  <label className="block text-[0.9rem] font-semibold text-text mb-2">
+                <div className="mb-[20px]">
+                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formName")}
                   </label>
                   <input
@@ -228,13 +202,13 @@ export default function ContactSection() {
                     name="name"
                     placeholder={t("namePlaceholder")}
                     required
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
                 </div>
 
                 {/* Email */}
-                <div className="mb-6">
-                  <label className="block text-[0.9rem] font-semibold text-text mb-2">
+                <div className="mb-[20px]">
+                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formEmail")}
                   </label>
                   <input
@@ -242,52 +216,55 @@ export default function ContactSection() {
                     name="email"
                     placeholder={t("emailPlaceholder")}
                     required
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
                 </div>
 
                 {/* Company */}
-                <div className="mb-6">
-                  <label className="block text-[0.9rem] font-semibold text-text mb-2">
+                <div className="mb-[20px]">
+                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formCompany")}
                   </label>
                   <input
                     type="text"
                     name="company"
                     placeholder={t("companyPlaceholder")}
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
                 </div>
 
                 {/* Message */}
-                <div className="mb-6">
-                  <label className="block text-[0.9rem] font-semibold text-text mb-2">
+                <div className="mb-[20px]">
+                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formMessage")}
                   </label>
                   <textarea
                     name="message"
                     placeholder={t("messagePlaceholder")}
                     required
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl text-base font-[inherit] transition-all duration-300 resize-y min-h-[120px] focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 resize-y min-h-[90px] focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-4 bg-gradient-to-br from-primary to-primary-light text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(15,40,71,0.3)]"
+                  className="w-full py-3 bg-gradient-to-br from-primary to-primary-light text-white border-none rounded-lg text-sm font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(15,40,71,0.3)]"
                 >
                   {t("sendBtn")}{" "}
                   <i className="far fa-paper-plane ml-2" />
                 </button>
 
                 {submitted && (
-                  <p className="mt-4 text-center text-accent font-semibold">
+                  <p className="mt-3 text-center text-accent font-semibold text-sm mb-20">
                     {t("contactSuccess")}
                   </p>
                 )}
               </form>
             </div>
           </ScrollReveal>
+          
+          
+          
         </div>
       </div>
     </section>

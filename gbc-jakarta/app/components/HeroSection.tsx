@@ -32,11 +32,11 @@ const HIGHLIGHT_BY_LANG: Record<string, string> = {
 
 const BG_IMAGES = [
   "/images/gbc-hero.jpeg",
-  "/images/ceremonial.png",
-  "/images/WhatsApp%20Image%202026-05-05%20at%2009.59.01.jpeg",
-  "/images/WhatsApp%20Image%202026-05-05%20at%2009.59.01%20(1).jpeg",
-  "/images/WhatsApp%20Image%202026-05-05%20at%2009.59.01%20(2).jpeg",
-  "/images/WhatsApp%20Image%202026-05-05%20at%2009.59.02.jpeg",
+  "/images/gbc-hero1.jpeg",
+  "/images/gbc-hero2.jpeg",
+  "/images/gbc-hero3.jpeg",
+  "/images/gbc-hero5.jpeg",
+  "/images/gbc-hero6.jpeg",
 ];
 
 export default function HeroSection() {
