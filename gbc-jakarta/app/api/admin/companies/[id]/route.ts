@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../lib/supabase"
+import { getLang, getMsg } from "../../../../api/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
 }
 
 // GET /api/admin/companies/[id]
-export async function GET(_request: NextRequest, { params }: RouteParams) {
+export async function GET(request: NextRequest, { params }: RouteParams) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const { id } = await params
   const supabase = createServerClient()
   const companyId = parseInt(id)
@@ -18,7 +21,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
     .single()
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 404 })
+    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
   }
 
   const { data: photos } = await supabase
@@ -34,19 +37,21 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
 // PUT /api/admin/companies/[id]
 export async function PUT(request: NextRequest, { params }: RouteParams) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const { id } = await params
   const supabase = createServerClient()
   const companyId = parseInt(id)
 
   if (Number.isNaN(companyId)) {
-    return NextResponse.json({ error: "Invalid company id" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidId }, { status: 400 })
   }
 
   let body
   try {
     body = await request.json()
   } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidJson }, { status: 400 })
   }
 
   const { name, category, description_id, description_en, start_date, end_date, link_video } = body
@@ -74,28 +79,19 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       : null
 
   if (!normalizedName) {
-    return NextResponse.json(
-      { error: "Company name is required" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.nameRequired }, { status: 400 })
   }
 
   if (!normalizedCategory) {
-    return NextResponse.json({ error: "Category is required" }, { status: 400 })
+    return NextResponse.json({ error: m.categoryRequired }, { status: 400 })
   }
 
   if (normalizedStartDate && Number.isNaN(Date.parse(normalizedStartDate))) {
-    return NextResponse.json(
-      { error: "Invalid start_date format" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.invalidStartDate }, { status: 400 })
   }
 
   if (normalizedEndDate && Number.isNaN(Date.parse(normalizedEndDate))) {
-    return NextResponse.json(
-      { error: "Invalid end_date format" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.invalidEndDate }, { status: 400 })
   }
 
   if (
@@ -103,10 +99,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     normalizedEndDate &&
     normalizedStartDate > normalizedEndDate
   ) {
-    return NextResponse.json(
-      { error: "start_date cannot be later than end_date" },
-      { status: 400 },
-    )
+    return NextResponse.json({ error: m.startAfterEnd }, { status: 400 })
   }
 
   const { data, error } = await supabase
@@ -128,17 +121,19 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  return NextResponse.json(data)
+  return NextResponse.json({ ...data, message: m.companyUpdateSuccess })
 }
 
 // DELETE /api/admin/companies/[id]
-export async function DELETE(_request: NextRequest, { params }: RouteParams) {
+export async function DELETE(request: NextRequest, { params }: RouteParams) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
   const { id } = await params
   const supabase = createServerClient()
   const companyId = parseInt(id)
 
   if (Number.isNaN(companyId)) {
-    return NextResponse.json({ error: "Invalid company id" }, { status: 400 })
+    return NextResponse.json({ error: m.invalidId }, { status: 400 })
   }
 
   // Delete logo from storage first
@@ -154,7 +149,6 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
       const path = url.pathname.split(
         "/storage/v1/object/public/gbc_companies_photos/",
       )[1]
-
       if (path) {
         await supabase.storage.from("gbc_companies_photos").remove([path])
       }
@@ -173,12 +167,16 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     const filePaths = photos
       .map((p) => {
         if (!p.photo_url) return null
-        // Extract path from full URL
-        const url = new URL(p.photo_url)
-        const path = url.pathname.split(
-          "/storage/v1/object/public/gbc_companies_photos/",
-        )[1]
-        return path || null
+        try {
+          const url = new URL(p.photo_url)
+          return (
+            url.pathname.split(
+              "/storage/v1/object/public/gbc_companies_photos/",
+            )[1] || null
+          )
+        } catch {
+          return null
+        }
       })
       .filter(Boolean) as string[]
 
@@ -203,5 +201,5 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  return NextResponse.json({ success: true })
+  return NextResponse.json({ success: true, message: m.companyDeleteSuccess })
 }

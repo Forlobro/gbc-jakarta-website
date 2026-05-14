@@ -273,7 +273,6 @@ export const translations = {
     contactViaGbc: "Contact via GBC",
     phoneLabel: "Phone",
     otherCompanies: "Other Companies You May Be Interested In",
-    locationKorea: "Gyeonggi-do, South Korea",
     brochureDesc:
       "Download our company brochure for detailed product information and specifications.",
     downloadBrochure: "Download Brochure",
@@ -556,7 +555,6 @@ export const translations = {
     contactViaGbc: "Hubungi via GBC",
     phoneLabel: "Telepon",
     otherCompanies: "Perusahaan Lain yang Mungkin Anda Minati",
-    locationKorea: "Gyeonggi-do, Korea Selatan",
     brochureDesc:
       "Unduh brosur perusahaan kami untuk informasi produk dan spesifikasi terperinci.",
     downloadBrochure: "Unduh Brosur",

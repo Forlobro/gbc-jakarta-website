@@ -269,21 +269,21 @@ export default function CompaniesPage() {
               {paginated.map((company) => (
                 <ScrollReveal key={company.id}>
                   <div className="bg-white rounded-[20px] p-8 transition-all duration-400 ease-in-out border border-gray-100 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-linear-to-r before:from-accent before:to-[#00a8b0] before:scale-x-0 before:transition-transform before:duration-400 hover:before:scale-x-100 h-full flex flex-col">
-                    {/* Photo or initials */}
-                    {company.gbc_companies_photos?.[0]?.photo_url ? (
-                      <div className="w-full h-44 rounded-2xl overflow-hidden mb-6 shrink-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {/* Logo full-width */}
+                    <div className="w-full h-44 rounded-2xl flex items-center justify-center mb-6 overflow-hidden shrink-0">
+                      {company.logo_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={company.gbc_companies_photos[0].photo_url}
+                          src={company.logo_url}
                           alt={company.name ?? ""}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain p-4"
                         />
-                      </div>
-                    ) : (
-                      <div className="w-20 h-20 bg-[#f9fafb] rounded-2xl flex items-center justify-center mb-6 font-display font-bold text-[0.75rem] text-primary text-center p-2 shrink-0">
-                        {(company.name ?? "?").split(" ").slice(0, 2).join(" ")}
-                      </div>
-                    )}
+                      ) : (
+                        <span className="font-display font-bold text-base text-primary text-center p-4 leading-tight">
+                          {(company.name ?? "?").split(" ").slice(0, 2).join(" ")}
+                        </span>
+                      )}
+                    </div>
 
                     <h4 className="text-lg font-bold text-text mb-2">
                       {company.name}

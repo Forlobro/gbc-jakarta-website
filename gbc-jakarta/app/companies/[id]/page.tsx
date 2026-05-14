@@ -146,22 +146,6 @@ export default function CompanyDetailPage() {
               <h1 className="font-display text-3xl md:text-5xl font-extrabold mb-3">
                 {company.name}
               </h1>
-              <div className="flex flex-wrap gap-6 justify-center md:justify-start text-sm opacity-75">
-                <span className="flex items-center gap-2">
-                  <i className="fas fa-map-marker-alt text-accent" />
-                  {t("locationKorea")}
-                </span>
-                <span className="flex items-center gap-2">
-                  <i className="far fa-calendar text-accent" />
-                  GMS Batch 1 (2025)
-                </span>
-                {company.category && (
-                  <span className="flex items-center gap-2">
-                    <i className="fas fa-industry text-accent" />
-                    {company.category}
-                  </span>
-                )}
-              </div>
             </div>
           </div>
         </div>

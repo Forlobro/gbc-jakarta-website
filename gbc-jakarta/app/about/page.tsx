@@ -22,38 +22,6 @@ const GYEONGGI_FACTS = [
   { icon: "fas fa-globe-asia", text: "Koridor ekonomi Asia Timur Laut — populasi 1.6 miliar dalam jangkauan",    textEn: "Northeast Asia economic corridor — 1.6 billion population within reach" },
 ];
 
-const GBSA_PILLARS = [
-  {
-    num: "01", color: "bg-blue-500",
-    title: "Promosi Industri Masa Depan",
-    titleEn: "Future Industry Promotion",
-    points: ["Semikonduktor, bioteknologi, mobilitas canggih", "Digitalisasi manufaktur tradisional (furnitur, tekstil)", "Dukungan energi baru & respons krisis iklim"],
-    pointsEn: ["Semiconductors, biotechnology, advanced mobility", "Digitalization of traditional manufacturing (furniture, textiles)", "New energy support & climate crisis response"],
-  },
-  {
-    num: "02", color: "bg-green-500",
-    title: "Ekosistem Inovasi Dinamis",
-    titleEn: "Dynamic Innovation Ecosystem",
-    points: ["Revitalisasi ekosistem startup inovatif", "Pengembangan Pangyo & Gwanggyo Techno Valley", "Sistem kolaborasi industri-akademik-penelitian"],
-    pointsEn: ["Revitalizing the innovative startup ecosystem", "Development of Pangyo & Gwanggyo Techno Valley", "Industry-academia-research collaboration system"],
-  },
-  {
-    num: "03", color: "bg-amber-500",
-    title: "Peningkatan Daya Saing Global",
-    titleEn: "Global Competitiveness Enhancement",
-    points: ["Menarik investasi 100 triliun KRW", "Fostering hidden champions & ekspor UKM", "Platform ekspor digital terintegrasi (GBCprime)"],
-    pointsEn: ["Attracting 100 trillion KRW in investment", "Fostering hidden champions & SME exports", "Integrated digital export platform (GBCprime)"],
-  },
-  {
-    num: "04", color: "bg-purple-500",
-    title: "Manajemen GBSA Kelas Dunia",
-    titleEn: "World-Class GBSA Management",
-    points: ["Kepemimpinan manajemen ESG", "Penguatan manajemen digital & AI", "Transparansi, keselamatan & integritas organisasi"],
-    pointsEn: ["ESG management leadership", "Strengthening digital & AI management", "Transparency, safety & organizational integrity"],
-  },
-];
-
-
 const TIMELINE = [
   { year: "1997", text: "Pendirian yayasan pendukung UKM Gyeonggi",                                        textEn: "Establishment of Gyeonggi SME support foundation" },
   { year: "2008", text: "GBC Kuala Lumpur — ekspansi pertama ke Asia Tenggara",                             textEn: "GBC Kuala Lumpur — first Southeast Asian expansion" },
@@ -118,27 +86,39 @@ function VideoEmbed({ srcId, srcEn, captionId, captionEn }: {
     if (!isMp4 || !videoRef.current) return;
 
     const videoEl = videoRef.current;
+
+    // Ensure video starts paused and muted (required for autoplay policy)
+    videoEl.pause();
+    videoEl.muted = true;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Video is in the viewport
+            videoEl.muted = true; // Always muted before play to satisfy autoplay policy
             videoEl.play().catch(() => {
-              // Autoplay may be blocked by browser policies
+              // Autoplay blocked — silently ignore
             });
           } else {
-            // Video is out of the viewport
             videoEl.pause();
           }
         });
       },
-      { threshold: 0.5 } // Play when at least 50% is visible
+      {
+        threshold: 0.5,
+        // Use the document root, not a scrolling ancestor, to avoid ScrollReveal interference
+        root: null,
+      }
     );
 
-    observer.observe(videoEl);
+    // Small delay so ScrollReveal animations settle before we start observing
+    const timer = setTimeout(() => {
+      observer.observe(videoEl);
+    }, 300);
 
     return () => {
-      if (videoEl) observer.unobserve(videoEl);
+      clearTimeout(timer);
+      observer.unobserve(videoEl);
     };
   }, [isMp4, src]);
 
@@ -152,8 +132,9 @@ function VideoEmbed({ srcId, srcEn, captionId, captionEn }: {
               key={src}
               className="absolute inset-0 w-full h-full object-cover"
               controls
-              muted // Required for reliable autoplay in modern browsers
+              muted
               playsInline
+              preload="metadata"
               src={src}
               title={caption}
             />
