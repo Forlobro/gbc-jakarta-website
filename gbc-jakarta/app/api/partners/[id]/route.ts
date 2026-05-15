@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../lib/supabase"
-import { getLang, getMsg } from "../../messages"
+import { getLang, getMsg } from "../../../lib/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>

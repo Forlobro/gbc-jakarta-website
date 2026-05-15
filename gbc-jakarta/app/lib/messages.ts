@@ -10,6 +10,12 @@ export function getLang(request: Request): ApiLang {
   return header.toLowerCase().startsWith("id") ? "id" : "en"
 }
 
+/** Client-side language detection — reads browser navigator.language */
+export function getClientLang(): ApiLang {
+  if (typeof navigator === "undefined") return "en"
+  return navigator.language.toLowerCase().startsWith("id") ? "id" : "en"
+}
+
 const msg = {
   en: {
     // Generic

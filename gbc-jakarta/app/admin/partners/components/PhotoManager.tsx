@@ -24,7 +24,6 @@ export default function PhotoManager({
   photos,
   onPhotosChange,
   title = "Gallery Photos",
-  description = "Upload supporting photos for the Partner gallery.",
 }: PhotoManagerProps) {
   const [queue, setQueue] = useState<FilePreview[]>([])
   const [deletingId, setDeletingId] = useState<number | null>(null)
@@ -160,7 +159,6 @@ export default function PhotoManager({
           {title}
           <span className="text-slate-500 text-sm font-normal ml-1">({photos.length} saved)</span>
         </h3>
-        <p className="text-slate-500 text-xs mt-1">{description}</p>
       </div>
 
       {/* Saved Photos Grid */}
@@ -270,7 +268,7 @@ export default function PhotoManager({
           </div>
 
           {/* File list */}
-          <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+          <div className="space-y-2 max-h-[40vh] overflow-y-auto pr-1">
             {queue.map((item, idx) => (
               <div
                 key={idx}

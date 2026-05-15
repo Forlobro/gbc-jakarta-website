@@ -53,7 +53,7 @@ export default function AdminNewPartnerPage() {
       </div>
 
       {/* Form */}
-      <div className="max-w-2xl bg-white border border-slate-200 rounded-2xl p-4 sm:p-8 shadow-sm">
+      <div className="max-w-2xl bg-white border border-slate-200 rounded-2xl p-4 sm:p-8 shadow-sm flex flex-col">
         <PartnerForm onSubmit={handleSubmit} submitLabel="Create Partner" loading={loading} />
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../lib/supabase"
-import { getLang, getMsg } from "../../../api/messages"
+import { getLang, getMsg } from "../../../lib/messages"
 
 // GET /api/admin/partners — list all companies with photos
 export async function GET(request: NextRequest) {

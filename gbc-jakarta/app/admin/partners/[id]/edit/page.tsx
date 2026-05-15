@@ -87,7 +87,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         {/* Partner Form */}
-        <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
+        <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8 flex flex-col">
           <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
             <i className="far fa-edit text-accent" /> Company Details
           </h2>
@@ -124,7 +124,6 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
               photos={company.gbc_companies_photos || []}
               onPhotosChange={fetchPartner}
               title="Gallery"
-              description="Upload foto pendukung untuk gallery partner."
             />
           </div>
 

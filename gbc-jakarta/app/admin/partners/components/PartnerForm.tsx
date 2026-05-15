@@ -61,7 +61,7 @@ export default function PartnerForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6 h-full">
       {/* Partner Name */}
       <div>
         <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -186,7 +186,7 @@ export default function PartnerForm({
       <button
         type="submit"
         disabled={loading || !name || !category}
-        className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 text-sm"
+        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 text-sm mt-auto"
       >
         {loading ? (
           <>

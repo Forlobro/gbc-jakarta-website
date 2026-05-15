@@ -1,6 +1,10 @@
 "use client"
 
 import { useRef, useState } from "react"
+import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
+import { getClientLang, getMsg } from "../../../lib/messages"
+
+const m = getMsg(getClientLang())
 
 interface BrochureManagerProps {
   companyId: number
@@ -23,11 +27,11 @@ export default function BrochureManager({
   const handlePickFile = (file: File | null) => {
     if (!file) return
     if (file.type !== "application/pdf") {
-      alert("File harus berupa PDF")
+      alert(m.brochureMustBePdf)
       return
     }
     if (file.size > 20 * 1024 * 1024) {
-      alert("Ukuran PDF maksimal 20MB")
+      alert(m.brochureTooLarge)
       return
     }
     setSelectedFile(file)
@@ -53,14 +57,14 @@ export default function BrochureManager({
 
       if (!res.ok) {
         const err = await res.json()
-        alert(`Upload brosur gagal: ${err.error}`)
+        alert(err.error)
         return
       }
 
       clearSelected()
       onBrochureChange()
     } catch {
-      alert("Upload brosur gagal. Silakan coba lagi.")
+      alert(m.serverError)
     } finally {
       setUploading(false)
     }
@@ -78,14 +82,14 @@ export default function BrochureManager({
 
       if (!res.ok) {
         const err = await res.json()
-        alert(`Hapus brosur gagal: ${err.error}`)
+        alert(err.error)
         return
       }
 
       clearSelected()
       onBrochureChange()
     } catch {
-      alert("Hapus brosur gagal. Silakan coba lagi.")
+      alert(m.serverError)
     } finally {
       setDeleting(false)
     }
@@ -97,10 +101,6 @@ export default function BrochureManager({
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <i className="far fa-file-pdf text-accent" /> Partner Brochure (PDF)
         </h3>
-        <p className="text-slate-500 text-xs mt-1">
-          Upload file PDF brosur perusahaan. File disimpan di storage folder{" "}
-          <code className="text-accent">pdf/{companyId}/</code>.
-        </p>
       </div>
 
       {/* Current Brochure Status */}
@@ -141,31 +141,27 @@ export default function BrochureManager({
 
       {/* Actions */}
       <div className="flex items-center gap-2 flex-wrap">
-        <button
+        <SelectFileButton
           onClick={() => fileInputRef.current?.click()}
-          type="button"
-          className="px-4 py-2 bg-white border border-slate-200 shadow-sm text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors cursor-pointer disabled:opacity-50"
           disabled={uploading || deleting}
-        >
-          <i className="far fa-folder-open mr-2" />
-          Pilih PDF
-        </button>
+          label="Select PDF"
+        />
 
         {selectedFile && (
           <button
             onClick={uploadBrochure}
             type="button"
-            className="px-4 py-2 bg-gradient-to-r from-accent to-[#00a8b0] text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all cursor-pointer disabled:opacity-50"
+            className="px-4 py-2 bg-gradient-to-r from-accent to-[#00a8b0] text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all cursor-pointer disabled:opacity-50 flex items-center gap-2"
             disabled={uploading || deleting}
           >
             {uploading ? (
               <>
-                <i className="fas fa-spinner fa-spin mr-2" />
+                <i className="fas fa-spinner fa-spin" />
                 Uploading...
               </>
             ) : (
               <>
-                <i className="fas fa-upload mr-2" />
+                <i className="fas fa-upload" />
                 Upload Brosur
               </>
             )}
@@ -184,28 +180,16 @@ export default function BrochureManager({
         )}
 
         {brochureUrl && !selectedFile && (
-          <button
+          <DeleteButton
             onClick={deleteBrochure}
-            type="button"
-            className="px-4 py-2 bg-red-50 text-red-600 border border-red-100 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors cursor-pointer disabled:opacity-50"
             disabled={uploading || deleting}
-          >
-            {deleting ? (
-              <>
-                <i className="fas fa-spinner fa-spin mr-2" />
-                Deleting...
-              </>
-            ) : (
-              <>
-                <i className="far fa-trash mr-2" />
-                Hapus Brosur
-              </>
-            )}
-          </button>
+            loading={deleting}
+            label="Delete Brochure"
+          />
         )}
       </div>
 
-      <p className="text-slate-500 text-xs">PDF only — maksimal 20MB.</p>
+      <p className="text-slate-500 text-xs">PDF only — Max 20MB.</p>
 
       <input
         ref={fileInputRef}

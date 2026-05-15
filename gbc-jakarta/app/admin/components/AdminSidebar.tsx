@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { createClient } from "../../lib/supabase"
@@ -29,8 +30,14 @@ export default function AdminSidebar() {
       {/* Mobile Header */}
       <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 z-40">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-[#00c2cb] to-[#00a8b0] rounded-lg flex items-center justify-center shadow-sm shadow-[#00c2cb]/10">
-            <i className="fas fa-cog text-white text-xs" />
+          <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+            <Image
+              src="/images/logo.jpg"
+              alt="GBC Jakarta"
+              width={40}
+              height={40}
+              className="w-full h-full object-cover"
+            />
           </div>
           <h2 className="text-slate-900 font-bold text-sm">GBC Jakarta</h2>
         </div>
@@ -59,8 +66,14 @@ export default function AdminSidebar() {
         {/* Brand */}
         <div className="p-6 border-b border-slate-200 hidden md:block">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#00c2cb] to-[#00a8b0] rounded-xl flex items-center justify-center shadow-lg shadow-[#00c2cb]/10">
-              <i className="fas fa-cog text-white text-sm" />
+            <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center">
+              <Image
+                src="/images/logo.jpg"
+                alt="GBC Jakarta"
+                width={50}
+                height={50}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <h2 className="text-slate-900 font-bold text-sm">GBC Jakarta</h2>
@@ -84,7 +97,7 @@ export default function AdminSidebar() {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? "bg-[#00c2cb] text-white shadow-sm shadow-[#00c2cb]/30"
+                    ? "bg-[#00c2cb] !text-white shadow-sm shadow-[#00c2cb]/30"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >

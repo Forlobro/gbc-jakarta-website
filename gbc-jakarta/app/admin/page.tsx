@@ -90,19 +90,19 @@ export default function AdminDashboard() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/admin/partners/new"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-linear-to-r from-accent to-[#00a8b0] !text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all"
           >
             <i className="fas fa-plus" /> Add Partner
           </Link>
           <Link
             href="/admin/partners"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] !text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
           >
             <i className="fas fa-list" /> Manage Partners
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] !text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
           >
             <i className="fas fa-external-link-alt" /> View Website
           </Link>
