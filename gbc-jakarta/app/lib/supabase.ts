@@ -26,6 +26,11 @@ export interface GbcCompanyWithPhotos extends GbcCompany {
   gbc_companies_photos: GbcCompanyPhoto[]
 }
 
+export interface GbcCompanyCategory {
+  id: number
+  name: string
+}
+
 // Browser client (for client components)
 // Returns null during build/SSR when env vars are not available
 export function createClient() {

@@ -1,10 +1,10 @@
 "use client"
 
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
-import MapSection from "../components/MapSection"
-import ContactSection from "../components/ContactSection"
-import PartnersSection from "../components/PartnersSection"
+import Navbar from "@/app/components/Navbar"
+import Footer from "@/app/components/Footer"
+import MapSection from "./components/MapSection"
+import ContactSection from "./components/ContactSection"
+import FamilySiteSection from "./components/FamilySiteSection"
 
 export default function ContactPage() {
   return (
@@ -13,7 +13,7 @@ export default function ContactPage() {
       <div className="pt-16">
         <MapSection />
         <ContactSection />
-        <PartnersSection />
+        <FamilySiteSection />
       </div>
       <Footer />
     </>

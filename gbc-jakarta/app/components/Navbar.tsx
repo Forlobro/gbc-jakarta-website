@@ -6,11 +6,11 @@ import Image from "next/image"
 import { useTranslation } from "../lib/LanguageContext"
 
 const NAV_ITEMS = [
-  { href: "/#home",      key: "home"      as const, color: "#1f478f" },
-  { href: "/about",      key: "about"     as const, color: "#694fb2" },
-  { href: "/companies",  key: "companies" as const, color: "#4daf7e" },
-  { href: "/events",     key: "events"    as const, color: "#f28c38" },
-  { href: "/contact#contact",    key: "contact"   as const, color: "#2b9fd2" },
+  { href: "/#home", key: "home" as const, color: "#1f478f" },
+  { href: "/about", key: "about" as const, color: "#694fb2" },
+  { href: "/partners", key: "partners" as const, color: "#4daf7e" },
+  { href: "/events", key: "events" as const, color: "#f28c38" },
+  { href: "/contact#contact", key: "contact" as const, color: "#2b9fd2" },
 ]
 
 export default function Navbar() {
@@ -59,8 +59,8 @@ export default function Navbar() {
                   idx === 0
                     ? "rounded-l-full"
                     : idx === NAV_ITEMS.length - 1
-                    ? "rounded-r-full"
-                    : ""
+                      ? "rounded-r-full"
+                      : ""
                 }`}
                 style={{ backgroundColor: item.color, color: "white" }}
               >
@@ -77,7 +77,9 @@ export default function Navbar() {
             <button
               onClick={() => setLanguage("id")}
               className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
-                language === "id" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
+                language === "id"
+                  ? "bg-primary text-white shadow-md"
+                  : "bg-transparent text-text-light"
               }`}
             >
               ID
@@ -85,7 +87,9 @@ export default function Navbar() {
             <button
               onClick={() => setLanguage("en")}
               className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
-                language === "en" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
+                language === "en"
+                  ? "bg-primary text-white shadow-md"
+                  : "bg-transparent text-text-light"
               }`}
             >
               EN
@@ -100,7 +104,7 @@ export default function Navbar() {
             {t("cta")}
           </Link>
 
-            <Link href="/#home">
+          <Link href="/#home">
             <Image
               src="/images/gyeonggi-logo.jpeg"
               alt="GBC Jakarta"
@@ -117,9 +121,15 @@ export default function Navbar() {
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
-            <span className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            <span
+              className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`}
+            />
+            <span
+              className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block h-[2px] w-5 bg-primary rounded-full transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
+            />
           </button>
         </div>
       </nav>

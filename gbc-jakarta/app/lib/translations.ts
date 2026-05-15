@@ -3,7 +3,7 @@ export const translations = {
     // Navbar
     home: "Home",
     about: "About",
-    companies: "Partners",
+    partners: "Partners",
     events: "Events",
     contact: "Contact",
     cta: "Get in Touch",
@@ -42,8 +42,7 @@ export const translations = {
 
     // Companies
     featured: "Featured Gyeonggi Partner",
-    discover:
-      "Discover innovative products and services from Gyeonggi Province's leading SMEs",
+    discover: "Discover innovative products and services from Gyeonggi Province's leading SMEs",
     all: "All",
     industrial: "Industrial",
     safetyEnvironment: "Safety & Environment",
@@ -72,8 +71,7 @@ export const translations = {
     // Company Videos Section
     companyVideosLabel: "Company Videos",
     companyVideosTitle: "Videos from GBC Jakarta Companies",
-    companyVideosDesc:
-      "Watch product and company profile videos from our partner Gyeonggi SMEs.",
+    companyVideosDesc: "Watch product and company profile videos from our partner Gyeonggi SMEs.",
 
     // Team / Director
     directorLabel: "Director General",
@@ -139,8 +137,7 @@ export const translations = {
     eventsPastTitle: "Events That Have Taken Place",
     // Featured Event 1
     eventsF1Tag: "International Exhibition",
-    eventsF1Title:
-      "Gyeonggi Pavilion at Indonesia International Exhibition 2024",
+    eventsF1Title: "Gyeonggi Pavilion at Indonesia International Exhibition 2024",
     eventsF1Date: "12–15 September 2024",
     eventsF1Location: "Jakarta International Expo, Kemayoran",
     eventsF1Desc:
@@ -201,7 +198,8 @@ export const translations = {
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, South Korea",
-    eventsUpcomingDesc: "GBC Jakarta is preparing an exciting upcoming event to bring Indonesian business representatives closer to Gyeonggi's leading SMEs. Stay tuned for more details on date, venue, and registration.",
+    eventsUpcomingDesc:
+      "GBC Jakarta is preparing an exciting upcoming event to bring Indonesian business representatives closer to Gyeonggi's leading SMEs. Stay tuned for more details on date, venue, and registration.",
     eventsUpcomingCta: "Learn More",
     eventsLatestTag: "Latest Event",
     eventsLatestCta: "View Details",
@@ -212,14 +210,16 @@ export const translations = {
     upcomingEventDate: "TBA 2025",
     upcomingEventLocation: "Gyeonggi-do, South Korea",
     upcomingEventAboutTitle: "About This Event",
-    upcomingEventAboutDesc: "GBC Jakarta is preparing a business networking event designed to create meaningful connections between Indonesian companies and Gyeonggi Province's most innovative SMEs. This event will bring together industry leaders, investors, and business decision-makers for an immersive experience in Gyeonggi's thriving business ecosystem.",
+    upcomingEventAboutDesc:
+      "GBC Jakarta is preparing a business networking event designed to create meaningful connections between Indonesian companies and Gyeonggi Province's most innovative SMEs. This event will bring together industry leaders, investors, and business decision-makers for an immersive experience in Gyeonggi's thriving business ecosystem.",
     upcomingEventExpectTitle: "What to Expect",
     upcomingEventPoint1: "Direct B2B meetings with Gyeonggi's leading companies",
     upcomingEventPoint2: "Factory visits and product demonstrations",
     upcomingEventPoint3: "Networking sessions with Korean government officials",
     upcomingEventPoint4: "Market briefings and business opportunity presentations",
     upcomingEventRegisterTitle: "Interested in Joining?",
-    upcomingEventRegisterDesc: "Spaces are limited. Contact GBC Jakarta to register your interest and receive updates as details are confirmed.",
+    upcomingEventRegisterDesc:
+      "Spaces are limited. Contact GBC Jakarta to register your interest and receive updates as details are confirmed.",
     upcomingEventRegisterCta: "Register Your Interest",
     upcomingEventDetailsLabel: "Event Details",
     upcomingEventDetailsTitle: "Mark Your Calendar",
@@ -231,7 +231,8 @@ export const translations = {
     upcomingEventDetailsLocationLabel: "Location",
     upcomingEventDetailsVenue: "Suwon Convention Center",
     upcomingEventDetailsVenueLabel: "Venue",
-    upcomingEventDetailsNote: "* Exact date, time, and venue will be confirmed soon. Register your interest to receive updates.",
+    upcomingEventDetailsNote:
+      "* Exact date, time, and venue will be confirmed soon. Register your interest to receive updates.",
 
     // Footer
     gyeonggi:
@@ -284,7 +285,7 @@ export const translations = {
     // Navbar
     home: "Beranda",
     about: "Tentang",
-    companies: "Mitra",
+    partners: "Mitra",
     events: "Acara",
     contact: "Kontak",
     cta: "Hubungi Kami",
@@ -323,8 +324,7 @@ export const translations = {
 
     // Companies
     featured: "Perusahaan Gyeonggi Unggulan",
-    discover:
-      "Temukan produk dan layanan inovatif dari UKM terkemuka Provinsi Gyeonggi",
+    discover: "Temukan produk dan layanan inovatif dari UKM terkemuka Provinsi Gyeonggi",
     all: "Semua",
     industrial: "Industri",
     safetyEnvironment: "Keselamatan & Lingkungan",
@@ -353,8 +353,7 @@ export const translations = {
     // Company Videos Section
     companyVideosLabel: "Video Perusahaan",
     companyVideosTitle: "Video dari Perusahaan GBC Jakarta",
-    companyVideosDesc:
-      "Tonton video profil produk dan perusahaan dari mitra UKM Gyeonggi kami.",
+    companyVideosDesc: "Tonton video profil produk dan perusahaan dari mitra UKM Gyeonggi kami.",
 
     // Team / Director
     directorLabel: "Direktur Utama",
@@ -420,8 +419,7 @@ export const translations = {
     eventsPastTitle: "Event yang Telah Berlangsung",
     // Featured Event 1
     eventsF1Tag: "Pameran Internasional",
-    eventsF1Title:
-      "Gyeonggi Pavilion di Indonesia International Exhibition 2024",
+    eventsF1Title: "Gyeonggi Pavilion di Indonesia International Exhibition 2024",
     eventsF1Date: "12–15 September 2024",
     eventsF1Location: "Jakarta International Expo, Kemayoran",
     eventsF1Desc:
@@ -482,7 +480,8 @@ export const translations = {
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, Korea Selatan",
-    eventsUpcomingDesc: "GBC Jakarta sedang mempersiapkan event menarik untuk mendekatkan perwakilan bisnis Indonesia dengan UKM terkemuka Gyeonggi. Pantau terus untuk informasi lebih lanjut mengenai tanggal, lokasi, dan pendaftaran.",
+    eventsUpcomingDesc:
+      "GBC Jakarta sedang mempersiapkan event menarik untuk mendekatkan perwakilan bisnis Indonesia dengan UKM terkemuka Gyeonggi. Pantau terus untuk informasi lebih lanjut mengenai tanggal, lokasi, dan pendaftaran.",
     eventsUpcomingCta: "Pelajari Lebih Lanjut",
     eventsLatestTag: "Event Terbaru",
     eventsLatestCta: "Lihat Detail",
@@ -493,14 +492,16 @@ export const translations = {
     upcomingEventDate: "TBA 2025",
     upcomingEventLocation: "Gyeonggi-do, Korea Selatan",
     upcomingEventAboutTitle: "Tentang Event Ini",
-    upcomingEventAboutDesc: "GBC Jakarta sedang mempersiapkan event networking bisnis yang dirancang untuk menciptakan koneksi bermakna antara perusahaan Indonesia dan UKM paling inovatif Provinsi Gyeonggi. Event ini akan mempertemukan para pemimpin industri, investor, dan pengambil keputusan bisnis untuk pengalaman mendalam di ekosistem bisnis Gyeonggi yang berkembang pesat.",
+    upcomingEventAboutDesc:
+      "GBC Jakarta sedang mempersiapkan event networking bisnis yang dirancang untuk menciptakan koneksi bermakna antara perusahaan Indonesia dan UKM paling inovatif Provinsi Gyeonggi. Event ini akan mempertemukan para pemimpin industri, investor, dan pengambil keputusan bisnis untuk pengalaman mendalam di ekosistem bisnis Gyeonggi yang berkembang pesat.",
     upcomingEventExpectTitle: "Yang Akan Anda Dapatkan",
     upcomingEventPoint1: "Pertemuan B2B langsung dengan perusahaan terkemuka Gyeonggi",
     upcomingEventPoint2: "Kunjungan pabrik dan demonstrasi produk",
     upcomingEventPoint3: "Sesi networking dengan pejabat pemerintah Korea",
     upcomingEventPoint4: "Briefing pasar dan presentasi peluang bisnis",
     upcomingEventRegisterTitle: "Tertarik untuk Bergabung?",
-    upcomingEventRegisterDesc: "Tempat terbatas. Hubungi GBC Jakarta untuk mendaftarkan minat Anda dan menerima pembaruan saat detail dikonfirmasi.",
+    upcomingEventRegisterDesc:
+      "Tempat terbatas. Hubungi GBC Jakarta untuk mendaftarkan minat Anda dan menerima pembaruan saat detail dikonfirmasi.",
     upcomingEventRegisterCta: "Daftarkan Minat Anda",
     upcomingEventDetailsLabel: "Detail Event",
     upcomingEventDetailsTitle: "Catat Tanggalnya",
@@ -512,7 +513,8 @@ export const translations = {
     upcomingEventDetailsLocationLabel: "Lokasi",
     upcomingEventDetailsVenue: "Suwon Convention Center",
     upcomingEventDetailsVenueLabel: "Venue",
-    upcomingEventDetailsNote: "* Tanggal, waktu, dan venue pasti akan segera dikonfirmasi. Daftarkan minat Anda untuk mendapat informasi terbaru.",
+    upcomingEventDetailsNote:
+      "* Tanggal, waktu, dan venue pasti akan segera dikonfirmasi. Daftarkan minat Anda untuk mendapat informasi terbaru.",
 
     // Footer
     gyeonggi:
@@ -526,8 +528,7 @@ export const translations = {
     footerCopyright: "© 2026 GBC Jakarta. Hak cipta dilindungi.",
 
     // Contact Section
-    contactSuccess:
-      "Terima kasih atas pesan Anda! Kami akan menghubungi Anda segera.",
+    contactSuccess: "Terima kasih atas pesan Anda! Kami akan menghubungi Anda segera.",
     contactEmail: "Email",
     contactPhone: "Telepon",
     namePlaceholder: "John Doe",
@@ -555,8 +556,7 @@ export const translations = {
     contactViaGbc: "Hubungi via GBC",
     phoneLabel: "Telepon",
     otherCompanies: "Perusahaan Lain yang Mungkin Anda Minati",
-    brochureDesc:
-      "Unduh brosur perusahaan kami untuk informasi produk dan spesifikasi terperinci.",
+    brochureDesc: "Unduh brosur perusahaan kami untuk informasi produk dan spesifikasi terperinci.",
     downloadBrochure: "Unduh Brosur",
     viewBrochure: "Lihat Brosur",
     websiteLabel: "Website",

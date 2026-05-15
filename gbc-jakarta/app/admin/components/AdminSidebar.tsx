@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
-import { createClient } from "../../lib/supabase";
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import { useState } from "react"
+import { createClient } from "../../lib/supabase"
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: "fas fa-th-large" },
-  { href: "/admin/companies", label: "Companies", icon: "far fa-building" },
-  { href: "/admin/categories", label: "Categories", icon: "fas fa-tags" },
-];
+  { href: "/admin/partners", label: "Partners", icon: "far fa-building" },
+  { href: "/admin/partners-categories", label: "Categories", icon: "fas fa-tags" },
+]
 
 export default function AdminSidebar() {
-  const pathname = usePathname();
-  const router = useRouter();
+  const pathname = usePathname()
+  const router = useRouter()
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleSignOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/admin/login");
-    router.refresh();
-  };
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push("/admin/login")
+    router.refresh()
+  }
 
   return (
     <>
@@ -75,7 +75,7 @@ export default function AdminSidebar() {
             const isActive =
               item.href === "/admin"
                 ? pathname === "/admin"
-                : pathname.startsWith(item.href);
+                : pathname === item.href || pathname.startsWith(item.href + "/")
 
             return (
               <Link
@@ -91,7 +91,7 @@ export default function AdminSidebar() {
                 <i className={`${item.icon} w-5 text-center`} />
                 {item.label}
               </Link>
-            );
+            )
           })}
         </nav>
 
@@ -114,5 +114,5 @@ export default function AdminSidebar() {
         </div>
       </aside>
     </>
-  );
+  )
 }

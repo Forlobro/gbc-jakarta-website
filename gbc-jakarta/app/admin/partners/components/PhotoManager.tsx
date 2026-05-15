@@ -1,0 +1,362 @@
+"use client"
+
+import { useState, useRef, useCallback } from "react"
+import Image from "next/image"
+import { GbcCompanyPhoto } from "@/app/lib/supabase"
+
+interface PhotoManagerProps {
+  companyId: number
+  photos: GbcCompanyPhoto[]
+  onPhotosChange: () => void
+  title?: string
+  description?: string
+}
+
+interface FilePreview {
+  file: File
+  previewUrl: string
+  status: "pending" | "uploading" | "done" | "error"
+  errorMsg?: string
+}
+
+export default function PhotoManager({
+  companyId,
+  photos,
+  onPhotosChange,
+  title = "Gallery Photos",
+  description = "Upload supporting photos for the Partner gallery.",
+}: PhotoManagerProps) {
+  const [queue, setQueue] = useState<FilePreview[]>([])
+  const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [isDragOver, setIsDragOver] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Add files to queue (from input or drop)
+  const addFiles = useCallback((files: File[]) => {
+    const imageFiles = files.filter((f) => f.type.startsWith("image/"))
+    const newPreviews: FilePreview[] = imageFiles.map((f) => ({
+      file: f,
+      previewUrl: URL.createObjectURL(f),
+      status: "pending",
+    }))
+
+    setQueue((prev) => [...prev, ...newPreviews])
+  }, [])
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    addFiles(Array.from(e.target.files || []))
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragOver(false)
+    addFiles(Array.from(e.dataTransfer.files))
+  }
+
+  const removeFromQueue = (index: number) => {
+    setQueue((prev) => {
+      URL.revokeObjectURL(prev[index].previewUrl)
+      return prev.filter((_, i) => i !== index)
+    })
+  }
+
+  const uploadOneFile = async (idx: number) => {
+    const fileItem = queue[idx]
+    if (!fileItem) return
+
+    setQueue((prev) => prev.map((item, i) => (i === idx ? { ...item, status: "uploading" } : item)))
+
+    const formData = new FormData()
+    formData.append("photos", fileItem.file)
+
+    try {
+      const res = await fetch(`/api/admin/partners/${companyId}/photos`, {
+        method: "POST",
+        body: formData,
+      })
+
+      const data = await res.json()
+      console.log("[PhotoManager] upload response:", res.status, data)
+
+      if (!res.ok || (data.errors?.length > 0 && !data.uploaded?.length)) {
+        const errMsg = data.errors?.[0] || data.error || `Upload failed (${res.status})`
+        setQueue((prev) =>
+          prev.map((item, i) =>
+            i === idx ? { ...item, status: "error", errorMsg: errMsg } : item,
+          ),
+        )
+      } else {
+        setQueue((prev) => prev.map((item, i) => (i === idx ? { ...item, status: "done" } : item)))
+        onPhotosChange()
+      }
+    } catch {
+      setQueue((prev) =>
+        prev.map((item, i) =>
+          i === idx ? { ...item, status: "error", errorMsg: "Network error" } : item,
+        ),
+      )
+    }
+  }
+
+  // Upload all pending files
+  const handleUploadAll = async () => {
+    const pendingIdx = queue
+      .map((item, i) => (item.status === "pending" ? i : -1))
+      .filter((i) => i !== -1)
+
+    if (pendingIdx.length === 0) return
+
+    // Upload one-by-one for per-file status
+    for (const idx of pendingIdx) {
+      await uploadOneFile(idx)
+    }
+  }
+
+  // Clear queue items that are done or errored
+  const clearDone = () => {
+    setQueue((prev) => {
+      prev
+        .filter((i) => i.status === "done" || i.status === "error")
+        .forEach((i) => URL.revokeObjectURL(i.previewUrl))
+      return prev.filter((i) => i.status === "pending" || i.status === "uploading")
+    })
+  }
+
+  const handleDelete = async (photoId: number) => {
+    if (!confirm("Delete this photo? This cannot be undone.")) return
+    setDeletingId(photoId)
+
+    try {
+      const res = await fetch(`/api/admin/partners/${companyId}/photos?photoId=${photoId}`, {
+        method: "DELETE",
+      })
+
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || "Delete failed")
+      }
+
+      onPhotosChange()
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : "Delete failed. Please try again."
+      alert(msg)
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
+  const pendingCount = queue.filter((i) => i.status === "pending").length
+  const uploadingCount = queue.filter((i) => i.status === "uploading").length
+  const doneCount = queue.filter((i) => i.status === "done").length
+  const errorCount = queue.filter((i) => i.status === "error").length
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i className="far fa-images text-accent" />
+          {title}
+          <span className="text-slate-500 text-sm font-normal ml-1">({photos.length} saved)</span>
+        </h3>
+        <p className="text-slate-500 text-xs mt-1">{description}</p>
+      </div>
+
+      {/* Saved Photos Grid */}
+      {photos.length > 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {photos.map((photo) => (
+            <div
+              key={photo.id}
+              className="group relative rounded-xl overflow-hidden bg-slate-100 border border-slate-200 aspect-4/3"
+            >
+              {photo.photo_url && (
+                <Image
+                  src={photo.photo_url}
+                  alt="Partner gallery photo"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2">
+                {photo.photo_url && (
+                  <a
+                    href={photo.photo_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors"
+                    title="View full size"
+                  >
+                    <i className="fas fa-external-link-alt text-sm" />
+                  </a>
+                )}
+                <button
+                  onClick={() => handleDelete(photo.id)}
+                  disabled={deletingId === photo.id}
+                  className="p-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 cursor-pointer"
+                  title="Delete photo"
+                >
+                  {deletingId === photo.id ? (
+                    <i className="fas fa-spinner fa-spin text-sm" />
+                  ) : (
+                    <i className="far fa-trash-alt text-sm" />
+                  )}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-slate-500 text-sm">No gallery photos saved yet.</p>
+      )}
+
+      {/* Drag & Drop Upload Area */}
+      <div
+        onDragOver={(e) => {
+          e.preventDefault()
+          setIsDragOver(true)
+        }}
+        onDragLeave={() => setIsDragOver(false)}
+        onDrop={handleDrop}
+        onClick={() => fileInputRef.current?.click()}
+        className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-200 ${
+          isDragOver
+            ? "border-accent bg-accent/5 scale-[1.01]"
+            : "border-slate-300 hover:border-slate-400 bg-slate-50"
+        }`}
+      >
+        <i
+          className={`fas fa-cloud-upload-alt text-3xl mb-3 ${
+            isDragOver ? "text-accent" : "text-slate-400"
+          }`}
+        />
+        <p className="text-slate-600 text-sm font-medium">
+          {isDragOver ? "Drop photos here" : "Click or drag & drop photos"}
+        </p>
+        <p className="text-slate-500 text-xs mt-1">
+          JPG, PNG, WebP, GIF - up to 10MB each - multiple allowed
+        </p>
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={handleFileInput}
+          onClick={(e) => e.stopPropagation()}
+          className="hidden"
+        />
+      </div>
+
+      {/* Upload Queue */}
+      {queue.length > 0 && (
+        <div className="space-y-3">
+          {/* Queue header */}
+          <div className="flex items-center justify-between">
+            <p className="text-slate-700 text-sm font-medium">
+              Upload Queue ({queue.length} file{queue.length !== 1 ? "s" : ""})
+              {doneCount > 0 && <span className="text-emerald-600 ml-2">. {doneCount} done</span>}
+              {errorCount > 0 && <span className="text-red-600 ml-2">. {errorCount} failed</span>}
+            </p>
+            {(doneCount > 0 || errorCount > 0) && (
+              <button
+                onClick={clearDone}
+                className="text-slate-500 hover:text-slate-900 text-xs cursor-pointer transition-colors"
+              >
+                Clear finished
+              </button>
+            )}
+          </div>
+
+          {/* File list */}
+          <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+            {queue.map((item, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 shadow-sm"
+              >
+                {/* Thumbnail */}
+                <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-slate-100">
+                  <Image
+                    src={item.previewUrl}
+                    alt="Upload preview"
+                    width={48}
+                    height={48}
+                    unoptimized
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-slate-900 text-xs font-medium truncate">{item.file.name}</p>
+                  <p className="text-slate-500 text-xs">
+                    {(item.file.size / 1024 / 1024).toFixed(1)} MB
+                  </p>
+                  {item.status === "error" && (
+                    <p className="text-red-600 text-xs mt-0.5">{item.errorMsg}</p>
+                  )}
+                </div>
+
+                {/* Status badge */}
+                <div className="shrink-0">
+                  {item.status === "pending" && (
+                    <span className="text-slate-500 text-xs">Pending</span>
+                  )}
+                  {item.status === "uploading" && (
+                    <span className="text-accent text-xs flex items-center gap-1">
+                      <i className="fas fa-spinner fa-spin text-[10px]" /> Uploading...
+                    </span>
+                  )}
+                  {item.status === "done" && (
+                    <span className="text-emerald-600 text-xs flex items-center gap-1">
+                      <i className="fas fa-check text-[10px]" /> Done
+                    </span>
+                  )}
+                  {item.status === "error" && (
+                    <span className="text-red-600 text-xs flex items-center gap-1">
+                      <i className="far fa-times text-[10px]" /> Failed
+                    </span>
+                  )}
+                </div>
+
+                {/* Remove from queue (only pending/error) */}
+                {(item.status === "pending" || item.status === "error") && (
+                  <button
+                    onClick={() => removeFromQueue(idx)}
+                    className="shrink-0 w-6 h-6 flex items-center justify-center text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
+                  >
+                    <i className="far fa-times text-xs" />
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Upload button */}
+          {pendingCount > 0 && (
+            <button
+              onClick={handleUploadAll}
+              disabled={uploadingCount > 0}
+              className="w-full py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white font-semibold rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-accent/25 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
+            >
+              {uploadingCount > 0 ? (
+                <>
+                  <i className="fas fa-spinner fa-spin" />
+                  Uploading {uploadingCount} of {pendingCount + uploadingCount}
+                  ...
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-cloud-upload-alt" />
+                  Upload {pendingCount} photo{pendingCount !== 1 ? "s" : ""}
+                </>
+              )}
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}

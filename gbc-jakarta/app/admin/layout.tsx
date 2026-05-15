@@ -1,18 +1,14 @@
-"use client";
+"use client"
 
-import { usePathname } from "next/navigation";
-import AdminSidebar from "./components/AdminSidebar";
+import { usePathname } from "next/navigation"
+import AdminSidebar from "./components/AdminSidebar"
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
-  const isLoginPage = pathname === "/admin/login";
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const isLoginPage = pathname === "/admin/login"
 
   if (isLoginPage) {
-    return <>{children}</>;
+    return <>{children}</>
   }
 
   return (
@@ -22,5 +18,5 @@ export default function AdminLayout({
         <div className="p-4 md:p-8">{children}</div>
       </main>
     </div>
-  );
+  )
 }

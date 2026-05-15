@@ -1,32 +1,89 @@
-"use client";
+"use client"
 
-import { useRef, useEffect } from "react";
-import Image from "next/image";
-import { useTranslation } from "../lib/LanguageContext";
-import ScrollReveal from "../components/ScrollReveal";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { useRef, useEffect } from "react"
+import Image from "next/image"
+import { useTranslation } from "../lib/LanguageContext"
+import ScrollReveal from "../components/ScrollReveal"
+import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 
 const GYEONGGI_STATS = [
-  { value: "527 Triliun KRW", label: "Total produksi regional (#1 Korea, 25.4%)", labelEn: "Total regional output (#1 Korea, 25.4%)",  color: "text-[#f59e0b]" },
-  { value: "13.6 Juta",       label: "Total populasi (26.4% total Korea)",         labelEn: "Total population (26.4% of Korea)",       color: "text-[#60a5fa]" },
-  { value: "1.84 Juta UKM",   label: "UKM terdaftar (25.3% nasional)",             labelEn: "Registered SMEs (25.3% national)",        color: "text-[#a78bfa]" },
-  { value: "470 Triliun KRW", label: "Total belanja R&D (50.5% nasional)",         labelEn: "Total R&D spending (50.5% national)",     color: "text-[#34d399]" },
-  { value: "250,652",          label: "Tenaga R&D (33.5% nasional Korea)",          labelEn: "R&D workforce (33.5% of Korea)",          color: "text-[#f472b6]" },
-];
+  {
+    value: "527 Triliun KRW",
+    label: "Total produksi regional (#1 Korea, 25.4%)",
+    labelEn: "Total regional output (#1 Korea, 25.4%)",
+    color: "text-[#f59e0b]",
+  },
+  {
+    value: "13.6 Juta",
+    label: "Total populasi (26.4% total Korea)",
+    labelEn: "Total population (26.4% of Korea)",
+    color: "text-[#60a5fa]",
+  },
+  {
+    value: "1.84 Juta UKM",
+    label: "UKM terdaftar (25.3% nasional)",
+    labelEn: "Registered SMEs (25.3% national)",
+    color: "text-[#a78bfa]",
+  },
+  {
+    value: "470 Triliun KRW",
+    label: "Total belanja R&D (50.5% nasional)",
+    labelEn: "Total R&D spending (50.5% national)",
+    color: "text-[#34d399]",
+  },
+  {
+    value: "250,652",
+    label: "Tenaga R&D (33.5% nasional Korea)",
+    labelEn: "R&D workforce (33.5% of Korea)",
+    color: "text-[#f472b6]",
+  },
+]
 
 const GYEONGGI_FACTS = [
-  { icon: "fas fa-microchip",  text: "Pusat industri semikonduktor Korea — home to Samsung Electronics, SK Hynix", textEn: "Korea's semiconductor industry hub — home to Samsung Electronics, SK Hynix" },
-  { icon: "fas fa-flask",      text: "Hub bio & healthcare terbesar di Asia Tenggara Korea",                       textEn: "Korea's largest bio & healthcare hub in Northeast Asia" },
-  { icon: "fas fa-chart-line", text: "Menyumbang 60% lapangan kerja nasional Korea",                              textEn: "Contributes 60% of Korea's national employment" },
-  { icon: "fas fa-globe-asia", text: "Koridor ekonomi Asia Timur Laut — populasi 1.6 miliar dalam jangkauan",    textEn: "Northeast Asia economic corridor — 1.6 billion population within reach" },
-];
+  {
+    icon: "fas fa-microchip",
+    text: "Pusat industri semikonduktor Korea — home to Samsung Electronics, SK Hynix",
+    textEn: "Korea's semiconductor industry hub — home to Samsung Electronics, SK Hynix",
+  },
+  {
+    icon: "fas fa-flask",
+    text: "Hub bio & healthcare terbesar di Asia Tenggara Korea",
+    textEn: "Korea's largest bio & healthcare hub in Northeast Asia",
+  },
+  {
+    icon: "fas fa-chart-line",
+    text: "Menyumbang 60% lapangan kerja nasional Korea",
+    textEn: "Contributes 60% of Korea's national employment",
+  },
+  {
+    icon: "fas fa-globe-asia",
+    text: "Koridor ekonomi Asia Timur Laut — populasi 1.6 miliar dalam jangkauan",
+    textEn: "Northeast Asia economic corridor — 1.6 billion population within reach",
+  },
+]
 
 const TIMELINE = [
-  { year: "1997", text: "Pendirian yayasan pendukung UKM Gyeonggi",                                        textEn: "Establishment of Gyeonggi SME support foundation" },
-  { year: "2008", text: "GBC Kuala Lumpur — ekspansi pertama ke Asia Tenggara",                             textEn: "GBC Kuala Lumpur — first Southeast Asian expansion" },
-  { year: "2010", text: "GBC Shanghai dibuka, cabang regional barat & selatan",                             textEn: "GBC Shanghai opened, western & southern regional branches" },
-  { year: "2016", text: "GBC Guangzhou & Ho Chi Minh dibuka",                                               textEn: "GBC Guangzhou & Ho Chi Minh opened" },
+  {
+    year: "1997",
+    text: "Pendirian yayasan pendukung UKM Gyeonggi",
+    textEn: "Establishment of Gyeonggi SME support foundation",
+  },
+  {
+    year: "2008",
+    text: "GBC Kuala Lumpur — ekspansi pertama ke Asia Tenggara",
+    textEn: "GBC Kuala Lumpur — first Southeast Asian expansion",
+  },
+  {
+    year: "2010",
+    text: "GBC Shanghai dibuka, cabang regional barat & selatan",
+    textEn: "GBC Shanghai opened, western & southern regional branches",
+  },
+  {
+    year: "2016",
+    text: "GBC Guangzhou & Ho Chi Minh dibuka",
+    textEn: "GBC Guangzhou & Ho Chi Minh opened",
+  },
   {
     year: "2017",
     text: "GBSA resmi diluncurkan sebagai lembaga terintegrasi",
@@ -34,7 +91,11 @@ const TIMELINE = [
     note: "Integrasi Small and Medium Business Center + Science Technology Promotion Agency",
     noteEn: "Integration of Small and Medium Business Center + Science Technology Promotion Agency",
   },
-  { year: "2020", text: "GBC Bangkok dibuka. Penghargaan Presiden Korea",                                   textEn: "GBC Bangkok opened. Korean Presidential Award" },
+  {
+    year: "2020",
+    text: "GBC Bangkok dibuka. Penghargaan Presiden Korea",
+    textEn: "GBC Bangkok opened. Korean Presidential Award",
+  },
   {
     year: "2023",
     text: "GBC Jakarta, dibuka. Digital GBC diluncurkan di 5 lokasi.",
@@ -47,7 +108,7 @@ const TIMELINE = [
     textEn: "draft",
     highlight: true,
   },
-];
+]
 
 function SectionBg({ flip = false }: { flip?: boolean }) {
   return (
@@ -59,68 +120,85 @@ function SectionBg({ flip = false }: { flip?: boolean }) {
           backgroundSize: "26px 26px",
         }}
       />
-      <div className={`absolute ${flip ? "-top-32 -right-32" : "-top-32 -left-32"} w-[500px] h-[500px] rounded-full bg-accent/10 blur-2xl pointer-events-none`} />
-      <div className={`absolute ${flip ? "-bottom-32 -left-32" : "-bottom-32 -right-32"} w-[500px] h-[500px] rounded-full bg-primary/8 blur-2xl pointer-events-none`} />
-      <div className={`absolute ${flip ? "-top-20 -right-20" : "-top-20 -left-20"} w-[380px] h-[380px] rounded-full border-[55px] border-accent/10 pointer-events-none`} />
-      <div className={`absolute ${flip ? "-bottom-20 -left-20" : "-bottom-20 -right-20"} w-[340px] h-[340px] rounded-full border-[45px] border-primary/8 pointer-events-none`} />
-      <div className="absolute top-16 right-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">+</div>
-      <div className="absolute bottom-24 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">×</div>
+      <div
+        className={`absolute ${flip ? "-top-32 -right-32" : "-top-32 -left-32"} w-[500px] h-[500px] rounded-full bg-accent/10 blur-2xl pointer-events-none`}
+      />
+      <div
+        className={`absolute ${flip ? "-bottom-32 -left-32" : "-bottom-32 -right-32"} w-[500px] h-[500px] rounded-full bg-primary/8 blur-2xl pointer-events-none`}
+      />
+      <div
+        className={`absolute ${flip ? "-top-20 -right-20" : "-top-20 -left-20"} w-[380px] h-[380px] rounded-full border-[55px] border-accent/10 pointer-events-none`}
+      />
+      <div
+        className={`absolute ${flip ? "-bottom-20 -left-20" : "-bottom-20 -right-20"} w-[340px] h-[340px] rounded-full border-[45px] border-primary/8 pointer-events-none`}
+      />
+      <div className="absolute top-16 right-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">
+        +
+      </div>
+      <div className="absolute bottom-24 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">
+        ×
+      </div>
     </>
-  );
+  )
 }
 
-function VideoEmbed({ srcId, srcEn, captionId, captionEn }: {
-  srcId: string;
-  srcEn: string;
-  captionId: string;
-  captionEn: string;
+function VideoEmbed({
+  srcId,
+  srcEn,
+  captionId,
+  captionEn,
+}: {
+  srcId: string
+  srcEn: string
+  captionId: string
+  captionEn: string
 }) {
-  const { language } = useTranslation();
-  const src     = language === "id" ? srcId     : srcEn;
-  const caption = language === "id" ? captionId : captionEn;
-  
-  const isMp4 = src?.endsWith(".mp4");
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const { language } = useTranslation()
+  const src = language === "id" ? srcId : srcEn
+  const caption = language === "id" ? captionId : captionEn
+
+  const isMp4 = src?.endsWith(".mp4")
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    if (!isMp4 || !videoRef.current) return;
+    if (!isMp4 || !videoRef.current) return
 
-    const videoEl = videoRef.current;
+    const videoEl = videoRef.current
 
     // Ensure video starts paused and muted (required for autoplay policy)
-    videoEl.pause();
-    videoEl.muted = true;
+    videoEl.pause()
+    videoEl.muted = true
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            videoEl.muted = true; // Always muted before play to satisfy autoplay policy
+            videoEl.muted = true // Always muted before play to satisfy autoplay policy
             videoEl.play().catch(() => {
               // Autoplay blocked — silently ignore
-            });
+            })
           } else {
-            videoEl.pause();
+            videoEl.pause()
           }
-        });
+        })
       },
       {
         threshold: 0.5,
         // Use the document root, not a scrolling ancestor, to avoid ScrollReveal interference
         root: null,
-      }
-    );
+      },
+    )
 
     // Small delay so ScrollReveal animations settle before we start observing
     const timer = setTimeout(() => {
-      observer.observe(videoEl);
-    }, 300);
+      observer.observe(videoEl)
+    }, 300)
 
     return () => {
-      clearTimeout(timer);
-      observer.unobserve(videoEl);
-    };
-  }, [isMp4, src]);
+      clearTimeout(timer)
+      observer.unobserve(videoEl)
+    }
+  }, [isMp4, src])
 
   return (
     <div className="max-w-4xl mx-auto mb-16">
@@ -152,21 +230,19 @@ function VideoEmbed({ srcId, srcEn, captionId, captionEn }: {
       </div>
       <p className="text-center text-sm text-text-light mt-3">{caption}</p>
     </div>
-  );
+  )
 }
 
 function AboutHero() {
-  const { language } = useTranslation();
-  const isId = language === "id";
+  const { language } = useTranslation()
+  const isId = language === "id"
 
   return (
     <section className="relative bg-white pt-32 pb-16" id="about-intro">
       <div className="max-w-[1200px] mx-auto px-[5%]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
           {/* Left: text */}
           <div>
-            
             <h1 className="font-display text-4xl md:text-[2.8rem] font-extrabold text-primary leading-[1.15] mb-5">
               {isId ? "Tentang GBC Jakarta" : "About GBC Jakarta"}
             </h1>
@@ -195,7 +271,9 @@ function AboutHero() {
                   className="w-auto object-contain mix-blend-multiply"
                   style={{ height: "60px" }}
                 />
-                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">Gyeonggi-do</span>
+                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">
+                  Gyeonggi-do
+                </span>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <Image
@@ -206,7 +284,9 @@ function AboutHero() {
                   className="w-auto object-contain"
                   style={{ height: "50px" }}
                 />
-                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">GBSA</span>
+                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">
+                  GBSA
+                </span>
               </div>
             </div>
 
@@ -219,23 +299,29 @@ function AboutHero() {
                 height={70}
                 className="h-16 w-auto object-contain mix-blend-multiply"
               />
-              <span className="text-[0.68rem] font-semibold text-primary/50 tracking-wide uppercase">GBC Jakarta</span>
+              <span className="text-[0.68rem] font-semibold text-primary/50 tracking-wide uppercase">
+                GBC Jakarta
+              </span>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 function GlobalNetworkSection() {
-  const { language } = useTranslation();
-  const isId = language === "id";
+  const { language } = useTranslation()
+  const isId = language === "id"
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden" id="global-network">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+        <svg
+          viewBox="0 0 1440 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full"
+        >
           <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
         </svg>
       </div>
@@ -244,7 +330,6 @@ function GlobalNetworkSection() {
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-12">
-          
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-tight mb-3">
             GBC — Gyeonggi Business Center
           </h2>
@@ -277,16 +362,21 @@ function GlobalNetworkSection() {
         </ScrollReveal>
       </div>
     </section>
-  );
+  )
 }
 
 function GBSASection() {
-  const { language } = useTranslation();
-  const isId = language === "id";
+  const { language } = useTranslation()
+  const isId = language === "id"
   return (
     <section className="py-24 bg-white relative overflow-hidden" id="gbsa">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+        <svg
+          viewBox="0 0 1440 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full"
+        >
           <path d="M0,30 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="#f9fafb" />
         </svg>
       </div>
@@ -294,10 +384,8 @@ function GBSASection() {
       <SectionBg />
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
-
         {/* Header */}
         <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">
-          
           <h2 className="font-display text-3xl md:text-[2.6rem] font-extrabold text-primary mb-3 leading-[1.2]">
             GBSA — Gyeonggido Business & Science Accelerator
           </h2>
@@ -321,7 +409,6 @@ function GBSASection() {
         {/* Description + Misi/Visi — 2 kolom */}
         <ScrollReveal>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-14">
-
             {/* Kiri: deskripsi */}
             <div>
               <p className="text-text-light text-base leading-[1.9] mb-4 text-justify">
@@ -339,13 +426,17 @@ function GBSASection() {
             {/* Kanan: Misi & Visi */}
             <div className="flex flex-col gap-4">
               <div className="bg-white rounded-2xl px-7 py-6 border-2 border-gray-200">
-                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-black/40 mb-2">{isId ? "Misi" : "Mission"}</p>
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-black/40 mb-2">
+                  {isId ? "Misi" : "Mission"}
+                </p>
                 <p className="text-base font-bold text-black leading-snug">
                   Making Gyeonggi Province abound with growth opportunities
                 </p>
               </div>
               <div className="bg-white rounded-2xl px-7 py-6 border-2 border-gray-200">
-                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-black/40 mb-2">{isId ? "Visi" : "Vision"}</p>
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-black/40 mb-2">
+                  {isId ? "Visi" : "Vision"}
+                </p>
                 <p className="text-base font-bold text-black leading-snug">
                   GBSA — Partner for SMEs Innovation
                 </p>
@@ -355,16 +446,21 @@ function GBSASection() {
         </ScrollReveal>
       </div>
     </section>
-  );
+  )
 }
 
 function GyeonggiSection() {
-  const { language } = useTranslation();
-  const isId = language === "id";
+  const { language } = useTranslation()
+  const isId = language === "id"
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden" id="gyeonggi">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+        <svg
+          viewBox="0 0 1440 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full"
+        >
           <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
         </svg>
       </div>
@@ -372,10 +468,8 @@ function GyeonggiSection() {
       <SectionBg flip />
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
-
         {/* Header */}
         <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">
-
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
             Gyeonggi-do
           </h2>
@@ -399,7 +493,6 @@ function GyeonggiSection() {
         {/* Stats + Facts */}
         <ScrollReveal>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
             {/* Stats panel */}
             <div className="bg-white rounded-2xl p-8 flex flex-col gap-4 border-2 border-gray-200">
               <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-gray-400">
@@ -407,7 +500,9 @@ function GyeonggiSection() {
               </p>
               {GYEONGGI_STATS.map((s) => (
                 <div key={s.value} className="flex flex-col gap-0.5">
-                  <span className={`text-xl font-extrabold leading-tight ${s.color}`}>{s.value}</span>
+                  <span className={`text-xl font-extrabold leading-tight ${s.color}`}>
+                    {s.value}
+                  </span>
                   <span className="text-xs text-gray-500">{isId ? s.label : s.labelEn}</span>
                 </div>
               ))}
@@ -416,7 +511,10 @@ function GyeonggiSection() {
             {/* Facts */}
             <div className="flex flex-col gap-4 justify-center">
               {GYEONGGI_FACTS.map((f) => (
-                <div key={f.text} className="flex items-start gap-4 bg-white rounded-xl px-5 py-4 border border-gray-100 shadow-sm">
+                <div
+                  key={f.text}
+                  className="flex items-start gap-4 bg-white rounded-xl px-5 py-4 border border-gray-100 shadow-sm"
+                >
                   <div className="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0">
                     <i className={f.icon} />
                   </div>
@@ -428,16 +526,21 @@ function GyeonggiSection() {
         </ScrollReveal>
       </div>
     </section>
-  );
+  )
 }
 
 function TimelineSection() {
-  const { language } = useTranslation();
-  const isId = language === "id";
+  const { language } = useTranslation()
+  const isId = language === "id"
   return (
     <section className="py-24 bg-[#f8fafc] relative overflow-hidden" id="history">
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+        <svg
+          viewBox="0 0 1440 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full"
+        >
           <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
         </svg>
       </div>
@@ -447,7 +550,8 @@ function TimelineSection() {
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="max-w-[600px] mx-auto text-center mb-14">
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
-            {isId ? "Perjalanan GBSA & GBC " : "GBSA & GBC Journey "} <br /> {isId ? "(1997–2023)" : "(1997–2023)"}
+            {isId ? "Perjalanan GBSA & GBC " : "GBSA & GBC Journey "} <br />{" "}
+            {isId ? "(1997–2023)" : "(1997–2023)"}
           </h2>
           <p className="text-text-light text-lg text-center">
             {isId
@@ -464,9 +568,7 @@ function TimelineSection() {
               <div
                 key={item.year}
                 className={`relative mb-8 last:mb-0 ${
-                  item.highlight
-                    ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-2"
-                    : ""
+                  item.highlight ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-2" : ""
                 }`}
               >
                 <div
@@ -477,10 +579,14 @@ function TimelineSection() {
                   }`}
                 />
                 <div className="flex flex-col gap-1">
-                  <span className={`text-sm font-extrabold tracking-wide ${item.highlight ? "text-amber-600" : "text-primary"}`}>
+                  <span
+                    className={`text-sm font-extrabold tracking-wide ${item.highlight ? "text-amber-600" : "text-primary"}`}
+                  >
                     {item.year}
                   </span>
-                  <span className="text-[0.95rem] text-text leading-relaxed">{isId ? item.text : item.textEn}</span>
+                  <span className="text-[0.95rem] text-text leading-relaxed">
+                    {isId ? item.text : item.textEn}
+                  </span>
                   {item.note && (
                     <span className="text-xs text-text-light italic mt-0.5">
                       {isId ? item.note : ((item as { noteEn?: string }).noteEn ?? item.note)}
@@ -499,7 +605,7 @@ function TimelineSection() {
         </ScrollReveal>
       </div>
     </section>
-  );
+  )
 }
 
 export default function AboutPage() {
@@ -513,5 +619,5 @@ export default function AboutPage() {
       <TimelineSection />
       <Footer />
     </main>
-  );
+  )
 }

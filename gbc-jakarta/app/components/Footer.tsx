@@ -39,8 +39,12 @@ export default function Footer() {
               >
                 <i className="fab fa-linkedin-in text-sm" />
               </a>
-              <a href="https://www.youtube.com/@GBCJakarta-official" target="_blank" rel="noopener noreferrer"
-                className="w-8 h-8 bg-primary/8 rounded-lg flex items-center justify-center text-primary/60 hover:bg-accent hover:text-white transition-all duration-300">
+              <a
+                href="https://www.youtube.com/@GBCJakarta-official"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-primary/8 rounded-lg flex items-center justify-center text-primary/60 hover:bg-accent hover:text-white transition-all duration-300"
+              >
                 <i className="fab fa-youtube text-sm" />
               </a>
             </div>
@@ -48,9 +52,7 @@ export default function Footer() {
 
           {/* Col 2: Address + Contact */}
           <div>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">
-              {t("officeAddress")}
-            </h4>
+            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("officeAddress")}</h4>
             <p className="text-primary/60 text-[0.82rem] leading-[1.8] mb-5">
               DBS Tower Suite #905,
               <br />
@@ -58,16 +60,11 @@ export default function Footer() {
               <br />
               Kuningan, South Jakarta 12940
             </p>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">
-              {t("footerContact")}
-            </h4>
+            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerContact")}</h4>
             <ul className="space-y-2.5">
               <li className="flex items-center gap-2.5 text-primary/60 text-[0.82rem]">
                 <i className="fas fa-phone text-accent text-[0.7rem] w-3" />
-                <a
-                  href="tel:+622139712135"
-                  className="hover:text-accent transition-colors"
-                >
+                <a href="tel:+622139712135" className="hover:text-accent transition-colors">
                   +62 21 3971 2135
                 </a>
               </li>
@@ -85,9 +82,7 @@ export default function Footer() {
 
           {/* Col 3: Services */}
           <div>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">
-              {t("footerServices")}
-            </h4>
+            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerServices")}</h4>
             <ul className="space-y-2.5">
               {[
                 t("marketResearch"),
@@ -95,10 +90,7 @@ export default function Footer() {
                 t("tradePromotion"),
                 t("partnerships"),
               ].map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-2 text-primary/60 text-[0.82rem]"
-                >
+                <li key={item} className="flex items-center gap-2 text-primary/60 text-[0.82rem]">
                   <span className="text-accent">•</span>
                   {item}
                 </li>
@@ -109,13 +101,9 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-primary/10 pt-5 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-primary/40 text-[0.72rem]">
-            {t("footerCopyright")}
-          </p>
+          <p className="text-primary/40 text-[0.72rem]">{t("footerCopyright")}</p>
           <div className="flex items-center gap-5">
-            <span className="text-primary/40 text-[0.72rem]">
-              {t("footerSupportedBy")}
-            </span>
+            <span className="text-primary/40 text-[0.72rem]">{t("footerSupportedBy")}</span>
             <Image
               src="/images/gbsa-logo.jpeg"
               alt="GBSA"

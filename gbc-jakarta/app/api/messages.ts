@@ -36,10 +36,8 @@ const msg = {
     noPhotosProvided: "No photos provided",
     photoNotImage: (name: string) => `${name}: File is not an image`,
     photoTooLarge: (name: string) => `${name}: File size exceeds 10 MB`,
-    photoUploadFailed: (name: string, detail: string) =>
-      `${name}: Upload failed — ${detail}`,
-    photoDbError: (name: string, detail: string) =>
-      `${name}: Database error — ${detail}`,
+    photoUploadFailed: (name: string, detail: string) => `${name}: Upload failed — ${detail}`,
+    photoDbError: (name: string, detail: string) => `${name}: Database error — ${detail}`,
     photoIdRequired: "photoId is required",
     photoDeleteSuccess: "Photo deleted successfully",
 
@@ -88,10 +86,8 @@ const msg = {
     noPhotosProvided: "Tidak ada foto yang dikirim",
     photoNotImage: (name: string) => `${name}: File bukan gambar`,
     photoTooLarge: (name: string) => `${name}: Ukuran file melebihi 10 MB`,
-    photoUploadFailed: (name: string, detail: string) =>
-      `${name}: Upload gagal — ${detail}`,
-    photoDbError: (name: string, detail: string) =>
-      `${name}: Kesalahan database — ${detail}`,
+    photoUploadFailed: (name: string, detail: string) => `${name}: Upload gagal — ${detail}`,
+    photoDbError: (name: string, detail: string) => `${name}: Kesalahan database — ${detail}`,
     photoIdRequired: "photoId wajib disertakan",
     photoDeleteSuccess: "Foto berhasil dihapus",
 
