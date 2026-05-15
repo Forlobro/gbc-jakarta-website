@@ -31,7 +31,7 @@ export default function AboutSection() {
   ]
 
   return (
-    <section className="py-36 bg-white relative" id="about">
+    <section className="min-h-screen py-36 bg-white relative" id="about">
       {/* Wave divider top — matches Video gray-50 bg */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg

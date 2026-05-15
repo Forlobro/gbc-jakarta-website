@@ -7,17 +7,15 @@ import { useTranslation } from "@/app/lib/LanguageContext"
 const directors = [
   {
     name: "Shin Ho Jin",
-    role: "Director General",
-    roleId: "Direktur Utama",
     photo: "/images/GBC Director Jakarta.png",
   },
 ]
 
-export default function TeamSection() {
+export default function DirectorSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="py-36 bg-white relative" id="team">
+    <section className="min-h-screen py-36 bg-white relative" id="team">
       {/* Wave divider top */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg
@@ -123,7 +121,7 @@ export default function TeamSection() {
 
                   {/* Name tag */}
                   <div className="relative z-[1] flex items-center gap-3 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-md">
-                    <span className="text-text-light text-sm">{director.roleId}</span>
+                    <span className="text-text-light text-sm">{t("directorLabel")}</span>
                     <span className="text-gray-300 font-light">|</span>
                     <span className="font-bold text-text text-sm">{director.name}</span>
                   </div>

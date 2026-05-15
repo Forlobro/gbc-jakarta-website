@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="bg-white text-primary pt-4 pb-3 border-t border-gray-100">
       <div className="max-w-[1400px] mx-auto px-[5%]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-3 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-10 mb-3 items-center">
           {/* Col 1: Logo + Desc + Social */}
           <div>
             <Image
@@ -50,52 +50,59 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Col 2: Address + Contact */}
-          <div>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("officeAddress")}</h4>
-            <p className="text-primary/60 text-[0.82rem] leading-[1.8] mb-5">
-              DBS Tower Suite #905,
-              <br />
-              Jl. Prof. Dr. Satrio Kav.3,
-              <br />
-              Kuningan, South Jakarta 12940
-            </p>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerContact")}</h4>
-            <ul className="space-y-2.5">
-              <li className="flex items-center gap-2.5 text-primary/60 text-[0.82rem]">
-                <i className="fas fa-phone text-accent text-[0.7rem] w-3" />
-                <a href="tel:+622139712135" className="hover:text-accent transition-colors">
-                  +62 21 3971 2135
-                </a>
-              </li>
-              <li className="flex items-center gap-2.5 text-primary/60 text-[0.82rem]">
-                <i className="far fa-envelope text-accent text-[0.7rem] w-3" />
-                <a
-                  href="mailto:chat.gbcjkt@gmail.com"
-                  className="hover:text-accent transition-colors"
-                >
-                  chat.gbcjkt@gmail.com
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Col 2-4: Services, Address, Contact — evenly spaced */}
+          <div className="flex justify-between gap-6 items-start self-center">
+            {/* Services */}
+            <div>
+              <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerServices")}</h4>
+              <ul className="space-y-2.5">
+                {[
+                  t("marketResearch"),
+                  t("businessMatching"),
+                  t("tradePromotion"),
+                  t("partnerships"),
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-primary/60 text-[0.82rem]">
+                    <span className="text-accent">•</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Col 3: Services */}
-          <div>
-            <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerServices")}</h4>
-            <ul className="space-y-2.5">
-              {[
-                t("marketResearch"),
-                t("businessMatching"),
-                t("tradePromotion"),
-                t("partnerships"),
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2 text-primary/60 text-[0.82rem]">
-                  <span className="text-accent">•</span>
-                  {item}
+            {/* Address */}
+            <div>
+              <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("officeAddress")}</h4>
+              <p className="text-primary/60 text-[0.82rem] leading-[1.8]">
+                DBS Tower Suite #905,
+                <br />
+                Jl. Prof. Dr. Satrio Kav.3,
+                <br />
+                Kuningan, South Jakarta 12940
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-primary font-bold text-[0.95rem] mb-3">{t("footerContact")}</h4>
+              <ul className="space-y-2.5">
+                <li className="flex items-center gap-2.5 text-primary/60 text-[0.82rem]">
+                  <i className="fas fa-phone text-accent text-[0.7rem] w-3" />
+                  <a href="tel:+622139712135" className="hover:text-accent transition-colors">
+                    +62 21 3971 2135
+                  </a>
                 </li>
-              ))}
-            </ul>
+                <li className="flex items-center gap-2.5 text-primary/60 text-[0.82rem]">
+                  <i className="far fa-envelope text-accent text-[0.7rem] w-3" />
+                  <a
+                    href="mailto:chat.gbcjkt@gmail.com"
+                    className="hover:text-accent transition-colors"
+                  >
+                    chat.gbcjkt@gmail.com
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 

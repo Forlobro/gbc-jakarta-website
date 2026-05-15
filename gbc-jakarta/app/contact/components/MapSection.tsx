@@ -6,7 +6,7 @@ export default function MapSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="py-36 bg-[#f8fafc] relative" id="location">
+    <section className="min-h-screen py-36 bg-[#f8fafc] relative" id="location">
       {/* Wave divider top — matches Team white bg */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg

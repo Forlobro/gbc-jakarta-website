@@ -49,7 +49,7 @@ export default function ContactSection() {
 
   return (
     <section
-      className="py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative"
+      className="min-h-screen py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative"
       id="contact"
     >
       {/* Wave divider top */}

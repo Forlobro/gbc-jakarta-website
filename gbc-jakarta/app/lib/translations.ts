@@ -279,6 +279,62 @@ export const translations = {
     downloadBrochure: "Download Brochure",
     viewBrochure: "View Brochure",
     websiteLabel: "Website",
+
+    // About page
+    aboutPageTitle: "About GBC Jakarta",
+    aboutPageDesc1:
+      "GBC Jakarta (Gyeonggi Business Center Jakarta) is the official representative office of Gyeonggi Business & Science Accelerator (GBSA) — a government agency of Gyeonggi Province, South Korea — dedicated to facilitating Korean business expansion into the Indonesian market.",
+    aboutPageDesc2:
+      "We serve as a bridge between Gyeonggi's dynamic innovation ecosystem and the growing business opportunities in Indonesia, providing tangible support for Korean SMEs looking to grow in Southeast Asia.",
+    globalNetworkDesc: "GBSA's overseas representative network in 21 countries with 28 offices.",
+    globalNetworkVideoCaption: "GBC Global Network Introduction Video (English)",
+    gbsaDesc:
+      "Official public institution of Gyeonggi Provincial Government that oversees the entire global GBC network.",
+    gbsaDesc1:
+      "GBSA (경기도경제과학진흥원) is an official public institution of Gyeonggi Provincial Government, South Korea. Launched in January 2017 as the integration of the Small and Medium Business Center and Science Technology Promotion Agency.",
+    gbsaDesc2:
+      "GBSA serves as a trusted partner for SMEs across the entire business cycle — from startup, commercialization, investment, and export, to science and technology R&D — with the goal of making Gyeonggi Province a global hub of growth opportunities.",
+    gbsaMission: "Mission",
+    gbsaVision: "Vision",
+    gbsaVideoCaption: "Video introduction of GBSA (English)",
+    gyeonggiDesc:
+      "The largest province in South Korea — the center of economy, innovation, and technology, contributing 25.4% of national output and home to global conglomerates like Samsung Electronics & SK Hynix.",
+    gyeonggiInNumbers: "GYEONGGI-DO IN NUMBERS",
+    gyeonggiVideoCaption: "Video introduction of Gyeonggi-do",
+    timelineTitle: "GBSA & GBC Journey",
+    timelineSubtitle: "(1997–2023)",
+    timelineDesc: "Complete chronology from founding to GBC Jakarta opening.",
+    timelineFootnote: "Full timeline: 20 milestones · Source: GBSA Brochure 2023",
+    aboutNavAbout: "About GBC",
+    aboutNavNetwork: "GBC Network",
+    aboutNavGbsa: "GBSA",
+    aboutNavGyeonggi: "Gyeonggi-do",
+    aboutNavHistory: "History",
+
+    // Gyeonggi stats
+    gyeonggiStat1: "Total regional output (#1 Korea, 25.4%)",
+    gyeonggiStat2: "Total population (26.4% of Korea)",
+    gyeonggiStat3: "Registered SMEs (25.3% national)",
+    gyeonggiStat4: "Total R&D spending (50.5% national)",
+    gyeonggiStat5: "R&D workforce (33.5% of Korea)",
+
+    // Gyeonggi facts
+    gyeonggiFact1: "Korea's semiconductor industry hub — home to Samsung Electronics, SK Hynix",
+    gyeonggiFact2: "Korea's largest bio & healthcare hub in Northeast Asia",
+    gyeonggiFact3: "Contributes 60% of Korea's national employment",
+    gyeonggiFact4: "Northeast Asia economic corridor — 1.6 billion population within reach",
+
+    // Timeline entries
+    timeline1997: "Establishment of Gyeonggi SME support foundation",
+    timeline2008: "GBC Kuala Lumpur — first Southeast Asian expansion",
+    timeline2010: "GBC Shanghai opened, western & southern regional branches",
+    timeline2016: "GBC Guangzhou & Ho Chi Minh opened",
+    timeline2017: "GBSA officially launched as an integrated institution",
+    timeline2017Note:
+      "Integration of Small and Medium Business Center + Science Technology Promotion Agency",
+    timeline2020: "GBC Bangkok opened. Korean Presidential Award",
+    timeline2023: "GBC Jakarta, opened. Digital GBC launched in 5 locations.",
+    timeline2025: "draft",
   },
 
   id: {
@@ -560,6 +616,62 @@ export const translations = {
     downloadBrochure: "Unduh Brosur",
     viewBrochure: "Lihat Brosur",
     websiteLabel: "Website",
+
+    // About page
+    aboutPageTitle: "Tentang GBC Jakarta",
+    aboutPageDesc1:
+      "GBC Jakarta (Gyeonggi Business Center Jakarta) adalah kantor perwakilan resmi dari Gyeonggi Business & Science Accelerator (GBSA) — lembaga pemerintah Provinsi Gyeonggi, Korea Selatan — yang berdedikasi memfasilitasi ekspansi bisnis perusahaan Korea ke pasar Indonesia.",
+    aboutPageDesc2:
+      "Kami hadir sebagai jembatan antara ekosistem inovasi Gyeonggi yang dinamis dengan peluang bisnis yang terus berkembang di Indonesia, memberikan dukungan nyata bagi UKM Korea yang ingin tumbuh di Asia Tenggara.",
+    globalNetworkDesc: "Jaringan kantor perwakilan luar negeri GBSA di 21 negara dengan 28 kantor.",
+    globalNetworkVideoCaption: "Video perkenalan jaringan GBC global (Indonesia)",
+    gbsaDesc:
+      "Lembaga publik resmi milik Pemerintah Provinsi Gyeonggi yang menjadi induk dari seluruh jaringan GBC di dunia.",
+    gbsaDesc1:
+      "GBSA (경기도경제과학진흥원) adalah lembaga publik resmi milik Pemerintah Provinsi Gyeonggi, Korea Selatan. Diluncurkan pada Januari 2017 sebagai hasil integrasi Small and Medium Business Center dan Science Technology Promotion Agency.",
+    gbsaDesc2:
+      "GBSA hadir sebagai mitra terpercaya bagi UKM di seluruh siklus bisnis — mulai dari startup, komersialisasi, investasi, ekspor, hingga R&D sains dan teknologi — dengan tujuan menjadikan Provinsi Gyeonggi sebagai pusat peluang pertumbuhan dunia.",
+    gbsaMission: "Misi",
+    gbsaVision: "Visi",
+    gbsaVideoCaption: "Video perkenalan GBSA (English — versi Indonesia dalam proses)",
+    gyeonggiDesc:
+      "Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang 25.4% total produksi nasional dan menjadi rumah bagi konglomerat global seperti Samsung Electronics & SK Hynix.",
+    gyeonggiInNumbers: "GYEONGGI-DO DALAM ANGKA",
+    gyeonggiVideoCaption: "Video perkenalan Gyeonggi-do",
+    timelineTitle: "Perjalanan GBSA & GBC",
+    timelineSubtitle: "(1997–2023)",
+    timelineDesc: "Kronologi lengkap dari pendirian awal hingga pembukaan GBC Jakarta.",
+    timelineFootnote: "Timeline lengkap: 20 milestone · Sumber: GBSA Brochure 2023",
+    aboutNavAbout: "Tentang GBC",
+    aboutNavNetwork: "Jaringan GBC",
+    aboutNavGbsa: "GBSA",
+    aboutNavGyeonggi: "Gyeonggi-do",
+    aboutNavHistory: "Sejarah",
+
+    // Gyeonggi stats
+    gyeonggiStat1: "Total produksi regional (#1 Korea, 25.4%)",
+    gyeonggiStat2: "Total populasi (26.4% total Korea)",
+    gyeonggiStat3: "UKM terdaftar (25.3% nasional)",
+    gyeonggiStat4: "Total belanja R&D (50.5% nasional)",
+    gyeonggiStat5: "Tenaga R&D (33.5% nasional Korea)",
+
+    // Gyeonggi facts
+    gyeonggiFact1: "Pusat industri semikonduktor Korea — home to Samsung Electronics, SK Hynix",
+    gyeonggiFact2: "Hub bio & healthcare terbesar di Asia Tenggara Korea",
+    gyeonggiFact3: "Menyumbang 60% lapangan kerja nasional Korea",
+    gyeonggiFact4: "Koridor ekonomi Asia Timur Laut — populasi 1.6 miliar dalam jangkauan",
+
+    // Timeline entries
+    timeline1997: "Pendirian yayasan pendukung UKM Gyeonggi",
+    timeline2008: "GBC Kuala Lumpur — ekspansi pertama ke Asia Tenggara",
+    timeline2010: "GBC Shanghai dibuka, cabang regional barat & selatan",
+    timeline2016: "GBC Guangzhou & Ho Chi Minh dibuka",
+    timeline2017: "GBSA resmi diluncurkan sebagai lembaga terintegrasi",
+    timeline2017Note:
+      "Integrasi Small and Medium Business Center + Science Technology Promotion Agency",
+    timeline2020: "GBC Bangkok dibuka. Penghargaan Presiden Korea",
+    timeline2023: "GBC Jakarta, dibuka. Digital GBC diluncurkan di 5 lokasi.",
+    timeline2025: "draft",
   },
 } as const
 

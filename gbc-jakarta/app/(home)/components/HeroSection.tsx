@@ -58,7 +58,7 @@ export default function HeroSection() {
   const next = () => setCurrent((c) => (c === BG_IMAGES.length - 1 ? 0 : c + 1))
 
   return (
-    <section className="min-h-[80vh] relative flex items-center overflow-hidden" id="home">
+    <section className="min-h-screen relative flex items-center overflow-hidden" id="home">
       {/* Background Images (fade transition) */}
       {BG_IMAGES.map((src, i) => (
         <div

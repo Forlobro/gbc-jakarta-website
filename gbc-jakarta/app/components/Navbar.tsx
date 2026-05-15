@@ -1,21 +1,34 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { useTranslation } from "../lib/LanguageContext"
 
 const NAV_ITEMS = [
-  { href: "/#home", key: "home" as const, color: "#1f478f" },
+  { href: "/", key: "home" as const, color: "#1f478f" },
   { href: "/about", key: "about" as const, color: "#694fb2" },
   { href: "/partners", key: "partners" as const, color: "#4daf7e" },
   { href: "/events", key: "events" as const, color: "#f28c38" },
-  { href: "/contact#contact", key: "contact" as const, color: "#2b9fd2" },
+  { href: "/contact", key: "contact" as const, color: "#2b9fd2" },
 ]
 
 export default function Navbar() {
   const { language, setLanguage, t } = useTranslation()
   const [menuOpen, setMenuOpen] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleCtaClick = () => {
+    setMenuOpen(false)
+    if (pathname === "/contact") {
+      // Already on contact page — scroll directly
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+    } else {
+      router.push("/contact#contact")
+    }
+  }
 
   return (
     <>
@@ -97,12 +110,12 @@ export default function Navbar() {
           </div>
 
           {/* CTA Button — desktop only */}
-          <Link
-            href="/contact#contact"
-            className="hidden md:inline-block w-[130px] text-center py-2 bg-accent text-primary rounded-[30px] font-semibold text-[0.78rem] transition-all duration-300 shadow-[0_4px_15px_rgba(0,194,203,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)]"
+          <button
+            onClick={handleCtaClick}
+            className="hidden md:inline-block w-[130px] text-center py-2 bg-accent text-primary rounded-[30px] font-semibold text-[0.78rem] transition-all duration-300 shadow-[0_4px_15px_rgba(0,194,203,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)] cursor-pointer"
           >
             {t("cta")}
-          </Link>
+          </button>
 
           <Link href="/#home">
             <Image
@@ -187,13 +200,12 @@ export default function Navbar() {
 
           {/* Drawer footer */}
           <div className="px-6 py-5 border-t border-gray-100 flex flex-col gap-3">
-            <Link
-              href="/contact"
-              onClick={() => setMenuOpen(false)}
-              className="w-full text-center px-5 py-2.5 bg-accent text-primary rounded-[30px] font-semibold text-[0.85rem] shadow-[0_4px_15px_rgba(0,194,203,0.3)]"
+            <button
+              onClick={handleCtaClick}
+              className="w-full text-center px-5 py-2.5 bg-accent text-primary rounded-[30px] font-semibold text-[0.85rem] shadow-[0_4px_15px_rgba(0,194,203,0.3)] cursor-pointer"
             >
               {t("cta")}
-            </Link>
+            </button>
             <div className="flex items-center justify-center gap-2">
               <Image
                 src="/images/gyeonggi-logo.jpeg"

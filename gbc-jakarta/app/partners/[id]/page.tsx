@@ -105,7 +105,7 @@ export default function PartnerDetailPage() {
       <Navbar />
 
       {/* Partner Hero */}
-      <section className="pt-40 pb-20 bg-linear-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
+      <section className="pt-30 pb-20 bg-linear-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
@@ -148,7 +148,7 @@ export default function PartnerDetailPage() {
       </section>
 
       {/* Partner Content */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="max-w-350 mx-auto px-[5%]">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
             {/* Main Content */}
