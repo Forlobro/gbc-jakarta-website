@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import ScrollReveal from "../components/ScrollReveal";
-import { useTranslation } from "../lib/LanguageContext";
+import Link from "next/link"
+import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
+import ScrollReveal from "../components/ScrollReveal"
+import { useTranslation } from "../lib/LanguageContext"
 
 const CATEGORY_COLORS: Record<string, string> = {
   Roadshow: "bg-blue-100 text-blue-700",
@@ -13,10 +13,10 @@ const CATEGORY_COLORS: Record<string, string> = {
   Ceremony: "bg-purple-100 text-purple-700",
   Exhibition: "bg-orange-100 text-orange-700",
   Forum: "bg-red-100 text-red-700",
-};
+}
 
 export default function EventsPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const FEATURED_EVENTS = [
     {
@@ -43,7 +43,7 @@ export default function EventsPage() {
       image: "/images/ceremonial.png",
       dark: false,
     },
-  ];
+  ]
 
   const PAST_EVENTS = [
     {
@@ -100,7 +100,7 @@ export default function EventsPage() {
       image: "/images/office-display.jpeg",
       description: t("eventsP6Desc"),
     },
-  ];
+  ]
 
   return (
     <>
@@ -124,7 +124,7 @@ export default function EventsPage() {
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white leading-[1.15] mb-5">
               {t("eventsPageTitle").split("Korea")[0]}
-    
+
               {t("eventsPageTitle").split("Korea")[1]}
             </h1>
             <p className="text-white/70 text-lg leading-[1.8] text-justify">
@@ -141,12 +141,20 @@ export default function EventsPage() {
         {/* Circle outline — top right */}
         <div className="absolute -top-16 -right-16 w-[320px] h-[320px] rounded-full border-[45px] border-accent/10 pointer-events-none" />
         {/* Floating symbols */}
-        <div className="absolute top-12 left-[7%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
-        <div className="absolute bottom-12 right-[7%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
+        <div className="absolute top-12 left-[7%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">
+          +
+        </div>
+        <div className="absolute bottom-12 right-[7%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">
+          ×
+        </div>
         {/* Decorative lines — left side */}
         <div className="absolute left-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
           {[80, 50, 110, 40, 90, 60].map((w, i) => (
-            <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
+            <div
+              key={i}
+              className="h-[3px] bg-accent/20 rounded-full"
+              style={{ width: `${w}px` }}
+            />
           ))}
         </div>
         <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
@@ -185,9 +193,7 @@ export default function EventsPage() {
                   >
                     <span
                       className={`inline-block text-[0.75rem] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 w-fit ${
-                        event.dark
-                          ? "bg-accent/20 text-accent"
-                          : "bg-primary/10 text-primary"
+                        event.dark ? "bg-accent/20 text-accent" : "bg-primary/10 text-primary"
                       }`}
                     >
                       {event.tag}
@@ -251,17 +257,29 @@ export default function EventsPage() {
         {/* Blurred accent — bottom right */}
         <div className="absolute -bottom-28 -right-28 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
         {/* Dot pattern — right strip */}
-        <div className="absolute inset-y-0 right-0 w-32 pointer-events-none" style={{
-          backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.15) 1.5px, transparent 1.5px)",
-          backgroundSize: "20px 20px",
-        }} />
+        <div
+          className="absolute inset-y-0 right-0 w-32 pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(0,194,203,0.15) 1.5px, transparent 1.5px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
         {/* Floating symbols */}
-        <div className="absolute top-16 right-[8%] text-accent/12 text-8xl font-bold pointer-events-none select-none leading-none">+</div>
-        <div className="absolute bottom-20 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">◦</div>
+        <div className="absolute top-16 right-[8%] text-accent/12 text-8xl font-bold pointer-events-none select-none leading-none">
+          +
+        </div>
+        <div className="absolute bottom-20 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">
+          ◦
+        </div>
         {/* Decorative lines — right side */}
         <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
           {[70, 45, 95, 55, 80, 35].map((w, i) => (
-            <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
+            <div
+              key={i}
+              className="h-[3px] bg-primary/15 rounded-full"
+              style={{ width: `${w}px` }}
+            />
           ))}
         </div>
         <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
@@ -287,8 +305,7 @@ export default function EventsPage() {
                       <div className="absolute inset-0 bg-primary/30" />
                       <span
                         className={`absolute top-4 left-4 text-[0.72rem] font-bold px-3 py-1 rounded-full ${
-                          CATEGORY_COLORS[event.category] ??
-                          "bg-gray-100 text-gray-600"
+                          CATEGORY_COLORS[event.category] ?? "bg-gray-100 text-gray-600"
                         }`}
                       >
                         {event.category}
@@ -323,5 +340,5 @@ export default function EventsPage() {
 
       <Footer />
     </>
-  );
+  )
 }

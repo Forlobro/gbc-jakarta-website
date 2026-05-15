@@ -1,37 +1,37 @@
-"use client";
+"use client"
 
-import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "../../lib/supabase";
+import { useState, FormEvent } from "react"
+import { useRouter } from "next/navigation"
+import { createClient } from "../../lib/supabase"
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic"
 export default function AdminLoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+    e.preventDefault()
+    setError("")
+    setLoading(true)
 
-    const supabase = createClient();
+    const supabase = createClient()
     const { error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
-    });
+    })
 
     if (authError) {
-      setError(authError.message);
-      setLoading(false);
-      return;
+      setError(authError.message)
+      setLoading(false)
+      return
     }
 
-    router.push("/admin");
-    router.refresh();
-  };
+    router.push("/admin")
+    router.refresh()
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 flex items-center justify-center px-4">
@@ -52,9 +52,7 @@ export default function AdminLoginPage() {
             <i className="fas fa-shield-alt text-white text-2xl" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">GBC Jakarta Admin</h1>
-          <p className="text-slate-500 mt-1 text-sm">
-            Sign in to manage companies
-          </p>
+          <p className="text-slate-500 mt-1 text-sm">Sign in to manage companies</p>
         </div>
 
         {/* Form Card */}
@@ -62,9 +60,7 @@ export default function AdminLoginPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Email Address
-              </label>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
               <div className="relative">
                 <i className="far fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
                 <input
@@ -80,9 +76,7 @@ export default function AdminLoginPage() {
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Password
-              </label>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
               <div className="relative">
                 <i className="far fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
                 <input
@@ -121,10 +115,8 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-slate-500 text-xs mt-6">
-          &copy; 2026 GBC Jakarta CMS
-        </p>
+        <p className="text-center text-slate-500 text-xs mt-6">&copy; 2026 GBC Jakarta CMS</p>
       </div>
     </div>
-  );
+  )
 }

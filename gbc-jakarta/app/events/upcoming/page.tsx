@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import ScrollReveal from "../../components/ScrollReveal";
-import { useTranslation } from "../../lib/LanguageContext";
+import Link from "next/link"
+import Navbar from "../../components/Navbar"
+import Footer from "../../components/Footer"
+import ScrollReveal from "../../components/ScrollReveal"
+import { useTranslation } from "../../lib/LanguageContext"
 
 export default function UpcomingEventPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const EXPECT_POINTS = [
     { icon: "far fa-handshake", text: t("upcomingEventPoint1") },
     { icon: "far fa-building", text: t("upcomingEventPoint2") },
     { icon: "far fa-comments", text: t("upcomingEventPoint3") },
     { icon: "far fa-lightbulb", text: t("upcomingEventPoint4") },
-  ];
+  ]
 
   return (
     <>
@@ -64,10 +64,16 @@ export default function UpcomingEventPage() {
       <section className="py-20 bg-white relative">
         <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
         <div className="absolute -top-12 -right-12 w-[280px] h-[280px] rounded-full border-[40px] border-accent/10 pointer-events-none" />
-        <div className="absolute top-10 left-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
+        <div className="absolute top-10 left-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">
+          +
+        </div>
         <div className="absolute left-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
           {[70, 45, 100, 50, 80, 40].map((w, i) => (
-            <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
+            <div
+              key={i}
+              className="h-[3px] bg-accent/20 rounded-full"
+              style={{ width: `${w}px` }}
+            />
           ))}
         </div>
 
@@ -92,10 +98,16 @@ export default function UpcomingEventPage() {
       <section className="py-20 bg-[#f8fafc] relative">
         <div className="absolute -bottom-28 -left-28 w-[400px] h-[400px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
         <div className="absolute -bottom-16 -right-16 w-[300px] h-[300px] rounded-full border-[40px] border-accent/10 pointer-events-none" />
-        <div className="absolute bottom-10 right-[6%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">×</div>
+        <div className="absolute bottom-10 right-[6%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">
+          ×
+        </div>
         <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
           {[65, 40, 95, 55, 80, 38].map((w, i) => (
-            <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
+            <div
+              key={i}
+              className="h-[3px] bg-primary/15 rounded-full"
+              style={{ width: `${w}px` }}
+            />
           ))}
         </div>
 
@@ -130,10 +142,16 @@ export default function UpcomingEventPage() {
       <section className="py-20 bg-white relative">
         <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
-        <div className="absolute top-10 right-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">+</div>
+        <div className="absolute top-10 right-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">
+          +
+        </div>
         <div className="absolute right-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
           {[65, 40, 95, 55, 80, 38].map((w, i) => (
-            <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
+            <div
+              key={i}
+              className="h-[3px] bg-accent/20 rounded-full"
+              style={{ width: `${w}px` }}
+            />
           ))}
         </div>
 
@@ -149,21 +167,65 @@ export default function UpcomingEventPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1000px] mx-auto items-stretch">
             {[
-              { bg: "bg-primary", iconBg: "bg-white/10", iconColor: "text-accent", labelColor: "text-white/60", textColor: "text-white", icon: "far fa-calendar-alt", label: t("upcomingEventDetailsDateLabel"), value: t("upcomingEventDetailsDate") },
-              { bg: "bg-accent", iconBg: "bg-primary/20", iconColor: "text-primary", labelColor: "text-primary/60", textColor: "text-primary", icon: "far fa-clock", label: t("upcomingEventDetailsTimeLabel"), value: t("upcomingEventDetailsTime") },
-              { bg: "bg-primary", iconBg: "bg-white/10", iconColor: "text-accent", labelColor: "text-white/60", textColor: "text-white", icon: "fas fa-map-marker-alt", label: t("upcomingEventDetailsLocationLabel"), value: t("upcomingEventDetailsLocation") },
-              { bg: "bg-primary", iconBg: "bg-white/10", iconColor: "text-accent", labelColor: "text-white/60", textColor: "text-white", icon: "far fa-building", label: t("upcomingEventDetailsVenueLabel"), value: t("upcomingEventDetailsVenue") },
+              {
+                bg: "bg-primary",
+                iconBg: "bg-white/10",
+                iconColor: "text-accent",
+                labelColor: "text-white/60",
+                textColor: "text-white",
+                icon: "far fa-calendar-alt",
+                label: t("upcomingEventDetailsDateLabel"),
+                value: t("upcomingEventDetailsDate"),
+              },
+              {
+                bg: "bg-accent",
+                iconBg: "bg-primary/20",
+                iconColor: "text-primary",
+                labelColor: "text-primary/60",
+                textColor: "text-primary",
+                icon: "far fa-clock",
+                label: t("upcomingEventDetailsTimeLabel"),
+                value: t("upcomingEventDetailsTime"),
+              },
+              {
+                bg: "bg-primary",
+                iconBg: "bg-white/10",
+                iconColor: "text-accent",
+                labelColor: "text-white/60",
+                textColor: "text-white",
+                icon: "fas fa-map-marker-alt",
+                label: t("upcomingEventDetailsLocationLabel"),
+                value: t("upcomingEventDetailsLocation"),
+              },
+              {
+                bg: "bg-primary",
+                iconBg: "bg-white/10",
+                iconColor: "text-accent",
+                labelColor: "text-white/60",
+                textColor: "text-white",
+                icon: "far fa-building",
+                label: t("upcomingEventDetailsVenueLabel"),
+                value: t("upcomingEventDetailsVenue"),
+              },
             ].map((card, i) => (
               <ScrollReveal key={i} className="h-full">
-                <div className={`${card.bg} rounded-3xl p-8 text-center flex flex-col items-center justify-center gap-4 shadow-lg h-full min-h-[200px]`}>
-                  <div className={`w-14 h-14 ${card.iconBg} rounded-2xl flex items-center justify-center ${card.iconColor} text-2xl shrink-0`}>
+                <div
+                  className={`${card.bg} rounded-3xl p-8 text-center flex flex-col items-center justify-center gap-4 shadow-lg h-full min-h-[200px]`}
+                >
+                  <div
+                    className={`w-14 h-14 ${card.iconBg} rounded-2xl flex items-center justify-center ${card.iconColor} text-2xl shrink-0`}
+                  >
                     <i className={card.icon} />
                   </div>
                   <div>
-                    <p className={`${card.labelColor} text-[0.75rem] font-semibold uppercase tracking-widest mb-2`}>
+                    <p
+                      className={`${card.labelColor} text-[0.75rem] font-semibold uppercase tracking-widest mb-2`}
+                    >
                       {card.label}
                     </p>
-                    <p className={`${card.textColor} font-display font-extrabold text-xl leading-tight`}>
+                    <p
+                      className={`${card.textColor} font-display font-extrabold text-xl leading-tight`}
+                    >
                       {card.value}
                     </p>
                   </div>
@@ -187,10 +249,14 @@ export default function UpcomingEventPage() {
               "radial-gradient(circle at 80% 20%, rgba(0,194,203,0.15) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 40%)",
           }}
         />
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)",
-          backgroundSize: "28px 28px",
-        }} />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
 
         <div className="max-w-[1400px] mx-auto px-[5%] relative z-[1]">
           <ScrollReveal className="text-center max-w-[650px] mx-auto">
@@ -225,5 +291,5 @@ export default function UpcomingEventPage() {
 
       <Footer />
     </>
-  );
+  )
 }

@@ -11,7 +11,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/admin/companies")
+    fetch("/api/admin/partners")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setCompanies(data)
@@ -19,15 +19,12 @@ export default function AdminDashboard() {
       .finally(() => setLoading(false))
   }, [])
 
-  const totalPhotos = companies.reduce(
-    (acc, c) => acc + (c.gbc_companies_photos?.length || 0),
-    0,
-  )
+  const totalPhotos = companies.reduce((acc, c) => acc + (c.gbc_companies_photos?.length || 0), 0)
 
   return (
     <div>
       {/* Header */}
-      <div className="mb-8" >
+      <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
         <p className="text-slate-500 text-sm mt-1">
           Welcome back! Here&#39;s an overview of your data.
@@ -51,9 +48,7 @@ export default function AdminDashboard() {
           },
           {
             label: "Categories",
-            value: loading
-              ? "—"
-              : new Set(companies.map((c) => c.category).filter(Boolean)).size,
+            value: loading ? "—" : new Set(companies.map((c) => c.category).filter(Boolean)).size,
             icon: "fas fa-tags",
             color: "from-violet-500 to-violet-600",
           },
@@ -94,20 +89,20 @@ export default function AdminDashboard() {
         <h2 className="text-lg font-bold text-slate-900 mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/admin/companies/new"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all"
+            href="/admin/partners/new"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-linear-to-r from-accent to-[#00a8b0] !text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all"
           >
-            <i className="fas fa-plus" /> Add Company
+            <i className="fas fa-plus" /> Add Partner
           </Link>
           <Link
-            href="/admin/companies"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
+            href="/admin/partners"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] !text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
           >
-            <i className="fas fa-list" /> Manage Companies
+            <i className="fas fa-list" /> Manage Partners
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] !text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
           >
             <i className="fas fa-external-link-alt" /> View Website
           </Link>
@@ -117,14 +112,12 @@ export default function AdminDashboard() {
       {/* Recent Companies */}
       {!loading && companies.length > 0 && (
         <div className="mt-8 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">
-            Recently Added Companies
-          </h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Recently Added Companies</h2>
           <div className="space-y-3">
             {companies.slice(0, 5).map((company) => (
               <Link
                 key={company.id}
-                href={`/admin/companies/${company.id}/edit`}
+                href={`/admin/partners/${company.id}/edit`}
                 className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors group"
               >
                 <div className="flex items-center gap-4">
@@ -132,9 +125,7 @@ export default function AdminDashboard() {
                     {(company.name || "?").charAt(0)}
                   </div>
                   <div>
-                    <p className="text-slate-900 text-sm font-medium">
-                      {company.name}
-                    </p>
+                    <p className="text-slate-900 text-sm font-medium">{company.name}</p>
                     <p className="text-slate-500 text-xs">{company.category}</p>
                   </div>
                 </div>

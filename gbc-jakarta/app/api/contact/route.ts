@@ -1,16 +1,13 @@
-import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { NextResponse } from "next/server"
+import nodemailer from "nodemailer"
 
 export async function POST(request: Request) {
   try {
-    const { name, email, company, message } = await request.json();
+    const { name, email, company, message } = await request.json()
 
     // Validate required fields
     if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: "Name, email, and message are required." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Name, email, and message are required." }, { status: 400 })
     }
 
     // Create transporter using SMTP
@@ -20,7 +17,7 @@ export async function POST(request: Request) {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
-    });
+    })
 
     // Send email
     await transporter.sendMail({
@@ -49,14 +46,14 @@ export async function POST(request: Request) {
           </tr>
         </table>
       `,
-    });
+    })
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Contact form error:", error);
+    console.error("Contact form error:", error)
     return NextResponse.json(
       { error: "Failed to send message. Please try again later." },
-      { status: 500 }
-    );
+      { status: 500 },
+    )
   }
 }

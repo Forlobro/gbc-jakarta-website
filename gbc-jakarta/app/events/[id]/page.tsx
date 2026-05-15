@@ -84,7 +84,7 @@ const EVENTS: Record<
     descKey: "eventsP6Desc",
     detailsKey: "eventsP6Details",
   },
-};
+}
 
 const GALLERY_PHOTOS = [
   "/images/ceremonial.png",
@@ -93,15 +93,13 @@ const GALLERY_PHOTOS = [
   "/images/gbc-hero.jpeg",
   "/images/office-brochures.jpeg",
   "/images/office-display.jpeg",
-];
+]
 
 function EventGallery({ title }: { title: string }) {
   const [current, setCurrent] = useState(0)
 
-  const prev = () =>
-    setCurrent((c) => (c === 0 ? GALLERY_PHOTOS.length - 1 : c - 1))
-  const next = () =>
-    setCurrent((c) => (c === GALLERY_PHOTOS.length - 1 ? 0 : c + 1))
+  const prev = () => setCurrent((c) => (c === 0 ? GALLERY_PHOTOS.length - 1 : c - 1))
+  const next = () => setCurrent((c) => (c === GALLERY_PHOTOS.length - 1 ? 0 : c + 1))
 
   return (
     <section className="py-16 bg-white relative">
@@ -121,11 +119,7 @@ function EventGallery({ title }: { title: string }) {
       {/* Decorative lines — right */}
       <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
         {[60, 40, 90, 50, 75, 35].map((w, i) => (
-          <div
-            key={i}
-            className="h-[3px] bg-primary/15 rounded-full"
-            style={{ width: `${w}px` }}
-          />
+          <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
         ))}
       </div>
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
@@ -134,10 +128,7 @@ function EventGallery({ title }: { title: string }) {
         </h2>
 
         <div className="relative max-w-4xl mx-auto">
-          <div
-            className="rounded-2xl overflow-hidden"
-            style={{ aspectRatio: "16/9" }}
-          >
+          <div className="rounded-2xl overflow-hidden" style={{ aspectRatio: "16/9" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={current}
@@ -192,10 +183,10 @@ const TAG_COLORS: Record<string, string> = {
 }
 
 export default function EventDetailPage() {
-  const params = useParams();
-  const id = params.id as string;
-  const { t, language } = useTranslation();
-  const eventMeta = EVENTS[id];
+  const params = useParams()
+  const id = params.id as string
+  const { t, language } = useTranslation()
+  const eventMeta = EVENTS[id]
   if (!eventMeta) {
     return (
       <>
@@ -203,14 +194,9 @@ export default function EventDetailPage() {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <p className="text-text-light text-lg mb-4">
-              {language === "id"
-                ? "Event tidak ditemukan."
-                : "Event not found."}
+              {language === "id" ? "Event tidak ditemukan." : "Event not found."}
             </p>
-            <Link
-              href="/events"
-              className="text-accent font-semibold hover:underline"
-            >
+            <Link href="/events" className="text-accent font-semibold hover:underline">
               ← {t("backToEvents")}
             </Link>
           </div>
@@ -294,9 +280,7 @@ export default function EventDetailPage() {
             <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
               {t("aboutThisEvent")}
             </h2>
-            <p className="text-text-light text-[1rem] leading-[1.9] text-justify">
-              {details}
-            </p>
+            <p className="text-text-light text-[1rem] leading-[1.9] text-justify">{details}</p>
           </div>
         </div>
       </section>
@@ -339,7 +323,6 @@ export default function EventDetailPage() {
 
       {/* ── Event Gallery (only event 1) ── */}
       {id === "1" && <EventGallery title={t("eventGallery")} />}
-
 
       <Footer />
     </>

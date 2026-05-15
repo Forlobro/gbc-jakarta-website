@@ -98,6 +98,10 @@ a {
   text-decoration: none;
   color: inherit;
 }
+/* Allow Tailwind text color utilities to override color: inherit on <a> */
+a[class*="text-"] {
+  color: revert-layer;
+}
 ul {
   list-style: none;
 }
