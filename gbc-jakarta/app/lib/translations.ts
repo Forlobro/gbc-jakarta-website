@@ -132,8 +132,9 @@ export const translations = {
     eventsPageDesc:
       "GBC Jakarta actively organizes and participates in various business events, trade exhibitions, and partnership forums to connect Gyeonggi companies with strategic partners in Indonesia.",
     eventsFeaturedLabel: "Featured Events",
+    eventsLatestLabel: "Latest Events",
     eventsFeaturedTitle: "GBC Jakarta Featured Events",
-    eventsPastLabel: "Past Events",
+    eventsPastLabel: "Recent Highlight",
     eventsPastTitle: "Events That Have Taken Place",
     // Featured Event 1
     eventsF1Tag: "International Exhibition",
@@ -194,18 +195,18 @@ export const translations = {
       "High-level industry forum discussing bilateral trade opportunities between Gyeonggi Province and Indonesia.",
 
     // Featured Events (new: upcoming + latest)
-    eventsUpcomingTag: "Upcoming Event",
+    eventsUpcomingTag: "Upcoming Events",
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, South Korea",
     eventsUpcomingDesc:
       "GBC Jakarta is preparing an exciting upcoming event to bring Indonesian business representatives closer to Gyeonggi's leading SMEs. Stay tuned for more details on date, venue, and registration.",
     eventsUpcomingCta: "Learn More",
-    eventsLatestTag: "Latest Event",
+    eventsLatestTag: "Recent Highlight",
     eventsLatestCta: "View Details",
 
     // Upcoming Event detail page
-    upcomingEventBadge: "Upcoming Event",
+    upcomingEventBadge: "Upcoming Events",
     upcomingEventTitle: "GBC Jakarta Business Networking 2025",
     upcomingEventDate: "TBA 2025",
     upcomingEventLocation: "Gyeonggi-do, South Korea",
@@ -470,6 +471,7 @@ export const translations = {
     eventsPageDesc:
       "GBC Jakarta secara aktif menyelenggarakan dan berpartisipasi dalam berbagai event bisnis, pameran dagang, dan forum kemitraan untuk mempertemukan perusahaan Gyeonggi dengan mitra strategis di Indonesia.",
     eventsFeaturedLabel: "Featured Events",
+    eventsLatestLabel: "Latest Events",
     eventsFeaturedTitle: "Event Unggulan GBC Jakarta",
     eventsPastLabel: "Past Events",
     eventsPastTitle: "Event yang Telah Berlangsung",
@@ -532,18 +534,18 @@ export const translations = {
       "Forum tingkat tinggi yang membahas peluang perdagangan bilateral antara Provinsi Gyeonggi dan Indonesia.",
 
     // Featured Events (new: upcoming + latest)
-    eventsUpcomingTag: "Upcoming Event",
+    eventsUpcomingTag: "Upcoming Events",
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, Korea Selatan",
     eventsUpcomingDesc:
       "GBC Jakarta sedang mempersiapkan event menarik untuk mendekatkan perwakilan bisnis Indonesia dengan UKM terkemuka Gyeonggi. Pantau terus untuk informasi lebih lanjut mengenai tanggal, lokasi, dan pendaftaran.",
     eventsUpcomingCta: "Pelajari Lebih Lanjut",
-    eventsLatestTag: "Event Terbaru",
+    eventsLatestTag: "Recent Highlight",
     eventsLatestCta: "Lihat Detail",
 
     // Upcoming Event detail page
-    upcomingEventBadge: "Upcoming Event",
+    upcomingEventBadge: "Upcoming Events",
     upcomingEventTitle: "GBC Jakarta Business Networking 2025",
     upcomingEventDate: "TBA 2025",
     upcomingEventLocation: "Gyeonggi-do, Korea Selatan",

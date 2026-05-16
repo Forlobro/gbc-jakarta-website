@@ -186,7 +186,7 @@ export default function PartnerForm({
       <button
         type="submit"
         disabled={loading || !name || !category}
-        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 text-sm mt-auto"
+        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-linear-to-r from-accent to-[#00a8b0] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 text-sm mt-auto cursor-pointer"
       >
         {loading ? (
           <>

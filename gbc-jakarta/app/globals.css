@@ -93,6 +93,21 @@ body {
   background: var(--color-primary-light);
 }
 
+/* Admin table horizontal scrollbar */
+.admin-table-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.admin-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-table-scroll::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border-radius: 999px;
+}
+.admin-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: #0f172a;
+}
+
 /* Reset */
 a {
   text-decoration: none;
