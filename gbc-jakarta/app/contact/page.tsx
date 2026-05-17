@@ -32,8 +32,8 @@ export default function ContactPage() {
     <>
       <Navbar />
       <ContactDotNav />
-      <MapSection />
       <ContactSection />
+      <MapSection />
       <div className="min-h-screen flex flex-col">
         <FamilySiteSection />
         <Footer />

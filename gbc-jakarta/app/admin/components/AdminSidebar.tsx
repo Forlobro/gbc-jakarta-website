@@ -10,6 +10,7 @@ const navItems = [
   { href: "/admin", label: "Dashboard", icon: "fas fa-th-large" },
   { href: "/admin/partners", label: "Partners", icon: "far fa-building" },
   { href: "/admin/partners-categories", label: "Categories", icon: "fas fa-tags" },
+  { href: "/admin/events", label: "Events", icon: "far fa-calendar" },
 ]
 
 export default function AdminSidebar() {

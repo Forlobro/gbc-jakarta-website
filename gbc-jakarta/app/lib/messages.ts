@@ -65,6 +65,22 @@ const msg = {
     categoryCreateSuccess: "Category created successfully",
     categoryUpdateSuccess: "Category updated successfully",
     categoryDeleteSuccess: "Category deleted successfully",
+
+    // Event validation
+    eventTitleRequired: "Event title is required",
+    eventLocationRequired: "Event location is required",
+    eventVenueRequired: "Event venue is required",
+    eventDescriptionRequired: "Event description is required",
+    eventStatusRequired: "Event status is required",
+    eventNotFound: "Event not found",
+
+    // Event CRUD
+    eventCreateSuccess: "Event created successfully",
+    eventUpdateSuccess: "Event updated successfully",
+    eventDeleteSuccess: "Event deleted successfully",
+
+    // Event photos
+    eventPhotoDeleteSuccess: "Event photo deleted successfully",
   },
 
   id: {
@@ -115,6 +131,22 @@ const msg = {
     categoryCreateSuccess: "Kategori berhasil dibuat",
     categoryUpdateSuccess: "Kategori berhasil diperbarui",
     categoryDeleteSuccess: "Kategori berhasil dihapus",
+
+    // Event validation
+    eventTitleRequired: "Judul event wajib diisi",
+    eventLocationRequired: "Lokasi event wajib diisi",
+    eventVenueRequired: "Venue event wajib diisi",
+    eventDescriptionRequired: "Deskripsi event wajib diisi",
+    eventStatusRequired: "Status event wajib diisi",
+    eventNotFound: "Event tidak ditemukan",
+
+    // Event CRUD
+    eventCreateSuccess: "Event berhasil dibuat",
+    eventUpdateSuccess: "Event berhasil diperbarui",
+    eventDeleteSuccess: "Event berhasil dihapus",
+
+    // Event photos
+    eventPhotoDeleteSuccess: "Foto event berhasil dihapus",
   },
 } as const
 

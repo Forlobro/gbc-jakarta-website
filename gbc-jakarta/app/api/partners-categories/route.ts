@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { createServerClient } from "../../lib/supabase"
+import { createServerClient } from "../../lib/supabase.server"
 
 // GET /api/partners-categories — public, read all categories
 export async function GET() {

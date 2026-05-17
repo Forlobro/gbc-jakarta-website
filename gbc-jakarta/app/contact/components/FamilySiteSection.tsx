@@ -2,6 +2,8 @@
 
 import Image from "next/image"
 import ScrollReveal from "@/app/components/ScrollReveal"
+import SectionBadge from "@/app/components/SectionBadge"
+import DotPattern from "@/app/components/DotPattern"
 
 export default function FamilySiteSection() {
   const buttons = [
@@ -37,9 +39,12 @@ export default function FamilySiteSection() {
 
   return (
     <section
-      className="flex-1 py-20 bg-gradient-to-b from-[#f0f7ff] to-white relative overflow-hidden"
+      className="flex-1 py-20 relative overflow-hidden"
       id="family-site"
     >
+      {/* Dot pattern */}
+      <DotPattern />
+
       {/* Subtle decorative elements */}
       <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-accent/5 blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-primary/5 blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
@@ -47,9 +52,7 @@ export default function FamilySiteSection() {
       <div className="max-w-[1400px] mx-auto px-[5%]">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block after:content-[''] after:w-10 after:h-0.5 after:bg-accent after:block">
-              Family Site
-            </div>
+            <SectionBadge centered>Family Site</SectionBadge>
           </div>
         </ScrollReveal>
 
@@ -93,7 +96,8 @@ export default function FamilySiteSection() {
                               ? 70
                               : 90
                   }
-                  className={`object-contain w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300 ${item.size === "gbsa" ? "max-h-[285px]" : item.size === "gyeonggi" ? "max-h-[180px]" : item.size === "xlarge" ? "max-h-[190px]" : item.size === "large" ? "max-h-[170px]" : item.size === "xsmall" ? "max-h-[70px]" : "max-h-[90px]"}`}
+                  style={{ width: "auto", height: "auto" }}
+                  className={`object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 ${item.size === "gbsa" ? "max-h-[285px]" : item.size === "gyeonggi" ? "max-h-[180px]" : item.size === "xlarge" ? "max-h-[190px]" : item.size === "large" ? "max-h-[170px]" : item.size === "xsmall" ? "max-h-[70px]" : "max-h-[90px]"}`}
                 />
               </a>
             ))}

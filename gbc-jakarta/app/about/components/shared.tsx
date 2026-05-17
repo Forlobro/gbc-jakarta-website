@@ -7,13 +7,6 @@ export function SectionBg({ flip = false }: { flip?: boolean }) {
   return (
     <>
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
-      <div
         className={`absolute ${flip ? "-top-32 -right-32" : "-top-32 -left-32"} w-[500px] h-[500px] rounded-full bg-accent/10 blur-2xl pointer-events-none`}
       />
       <div

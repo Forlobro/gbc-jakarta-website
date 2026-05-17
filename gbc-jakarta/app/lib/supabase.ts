@@ -1,5 +1,4 @@
 import { createBrowserClient } from "@supabase/ssr"
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 
 // Types matching Supabase tables
 export interface GbcCompany {
@@ -8,8 +7,8 @@ export interface GbcCompany {
   category: string
   description_id: string | null
   description_en: string | null
-  start_date: string | null
-  end_date: string | null
+  start_date: string
+  end_date: string
   link_video: string | null
   link_brochure: string | null
   logo_url: string | null
@@ -31,6 +30,35 @@ export interface GbcCompanyCategory {
   name: string
 }
 
+export interface GbcEvent {
+  id: number
+  title: string
+  location: string
+  venue: string
+  description_en: string
+  description_id: string
+  status: "upcoming" | "accomplished"
+  is_published: boolean
+  link_video_1: string | null
+  link_video_2: string | null
+  event_start: string | null
+  event_end: string | null
+  created_at: string | null
+  created_by: string | null
+  updated_at: string | null
+  updated_by: string | null
+}
+
+export interface GbcEventPhoto {
+  id: number
+  photo_url: string
+  gbc_event_id: number
+}
+
+export interface GbcEventWithPhotos extends GbcEvent {
+  gbc_events_photos: GbcEventPhoto[]
+}
+
 // Browser client (for client components)
 // Returns null during build/SSR when env vars are not available
 export function createClient() {
@@ -38,13 +66,4 @@ export function createClient() {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   if (!url || !key) return null as never
   return createBrowserClient(url, key)
-}
-
-// Simple server client (for API routes / server actions)
-// Uses Service Role Key to bypass RLS — only runs server-side
-export function createServerClient() {
-  return createSupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  )
 }

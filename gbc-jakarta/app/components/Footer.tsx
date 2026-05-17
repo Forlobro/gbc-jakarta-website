@@ -116,16 +116,16 @@ export default function Footer() {
               alt="GBSA"
               width={70}
               height={20}
-              style={{ width: "auto" }}
-              className="h-[14px] w-auto mix-blend-multiply opacity-70 hover:opacity-100 transition-opacity"
+              style={{ width: "auto", height: "14px" }}
+              className="mix-blend-multiply opacity-70 hover:opacity-100 transition-opacity"
             />
             <Image
               src="/images/gyeonggi-logo.jpeg"
               alt="Gyeonggi-do"
               width={70}
               height={20}
-              style={{ width: "auto" }}
-              className="h-[14px] w-auto mix-blend-multiply opacity-70 hover:opacity-100 transition-opacity"
+              style={{ width: "auto", height: "14px" }}
+              className="mix-blend-multiply opacity-70 hover:opacity-100 transition-opacity"
             />
           </div>
         </div>

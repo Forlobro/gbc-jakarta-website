@@ -8,8 +8,8 @@ export default function ContactDotNav() {
   const [active, setActive] = useState("location")
 
   const sections = [
-    { id: "location", label: t("mapLabel") },
     { id: "contact", label: t("contactLabel") },
+    { id: "location", label: t("mapLabel") },
     { id: "family-site", label: "Family Site" },
   ]
 
