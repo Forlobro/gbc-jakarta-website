@@ -36,7 +36,9 @@ export default function EventForm({
   const [venue, setVenue] = useState(initialData?.venue || "")
   const [descriptionEn, setDescriptionEn] = useState(initialData?.description_en || "")
   const [descriptionId, setDescriptionId] = useState(initialData?.description_id || "")
-  const [status, setStatus] = useState<"upcoming" | "accomplished">(initialData?.status || "upcoming")
+  const [status, setStatus] = useState<"upcoming" | "accomplished">(
+    initialData?.status || "upcoming",
+  )
   const [isPublished, setIsPublished] = useState(initialData?.is_published ?? false)
   const [linkVideo1, setLinkVideo1] = useState(initialData?.link_video_1 || "")
   const [linkVideo2, setLinkVideo2] = useState(initialData?.link_video_2 || "")

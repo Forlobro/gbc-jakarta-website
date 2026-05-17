@@ -1,105 +1,40 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
 import { useTranslation } from "../../lib/LanguageContext"
-import { TranslationKey } from "../../lib/translations"
+import type { GbcEventWithPhotos } from "../../lib/supabase"
+import HeroDecor from "../../components/HeroDecor"
+import EventDetailsSection from "../components/EventDetailsSection"
+import EventRegisterSection from "../components/EventRegisterSection"
 
-// ── Event Data ──────────────────────────────────────────────
-const EVENTS: Record<
-  string,
-  {
-    id: number
-    tag: string
-    titleKey: TranslationKey
-    dateKey: TranslationKey
-    locationKey: TranslationKey
-    image: string
-    descKey: TranslationKey
-    detailsKey: TranslationKey
-    video_url?: string
-  }
-> = {
-  "1": {
-    id: 1,
-    tag: "Roadshow",
-    titleKey: "eventsP1Title",
-    dateKey: "eventsP1Date",
-    locationKey: "eventsP1Location",
-    image: "/images/office-products.jpeg",
-    descKey: "eventsP1Desc",
-    detailsKey: "eventsP1Details",
-    video_url: "https://www.youtube.com/embed/J4aWZjyJ3A4",
-  },
-  "2": {
-    id: 2,
-    tag: "B2B Matching",
-    titleKey: "eventsP2Title",
-    dateKey: "eventsP2Date",
-    locationKey: "eventsP2Location",
-    image: "/images/office-conference.jpeg",
-    descKey: "eventsP2Desc",
-    detailsKey: "eventsP2Details",
-  },
-  "3": {
-    id: 3,
-    tag: "Trade Mission",
-    titleKey: "eventsP3Title",
-    dateKey: "eventsP3Date",
-    locationKey: "eventsP3Location",
-    image: "/images/gbc-hero.jpeg",
-    descKey: "eventsP3Desc",
-    detailsKey: "eventsP3Details",
-  },
-  "4": {
-    id: 4,
-    tag: "Ceremony",
-    titleKey: "eventsP4Title",
-    dateKey: "eventsP4Date",
-    locationKey: "eventsP4Location",
-    image: "/images/ceremonial.png",
-    descKey: "eventsP4Desc",
-    detailsKey: "eventsP4Details",
-  },
-  "5": {
-    id: 5,
-    tag: "Exhibition",
-    titleKey: "eventsP5Title",
-    dateKey: "eventsP5Date",
-    locationKey: "eventsP5Location",
-    image: "/images/office-brochures.jpeg",
-    descKey: "eventsP5Desc",
-    detailsKey: "eventsP5Details",
-  },
-  "6": {
-    id: 6,
-    tag: "Forum",
-    titleKey: "eventsP6Title",
-    dateKey: "eventsP6Date",
-    locationKey: "eventsP6Location",
-    image: "/images/office-display.jpeg",
-    descKey: "eventsP6Desc",
-    detailsKey: "eventsP6Details",
-  },
+function formatDate(dateStr: string | null): string {
+  if (!dateStr) return "—"
+  return new Date(dateStr).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })
 }
 
-const GALLERY_PHOTOS = [
-  "/images/ceremonial.png",
-  "/images/office-products.jpeg",
-  "/images/office-conference.jpeg",
-  "/images/gbc-hero.jpeg",
-  "/images/office-brochures.jpeg",
-  "/images/office-display.jpeg",
-]
+function formatTime(dateStr: string | null): string {
+  if (!dateStr) return "—"
+  const d = new Date(dateStr)
+  const hh = String(d.getHours()).padStart(2, "0")
+  const mm = String(d.getMinutes()).padStart(2, "0")
+  return `${hh}:${mm} WIB`
+}
 
-function EventGallery({ title }: { title: string }) {
+function EventGallery({ photos, title }: { photos: string[]; title: string }) {
   const [current, setCurrent] = useState(0)
 
-  const prev = () => setCurrent((c) => (c === 0 ? GALLERY_PHOTOS.length - 1 : c - 1))
-  const next = () => setCurrent((c) => (c === GALLERY_PHOTOS.length - 1 ? 0 : c + 1))
+  if (photos.length === 0) return null
+
+  const prev = () => setCurrent((c) => (c === 0 ? photos.length - 1 : c - 1))
+  const next = () => setCurrent((c) => (c === photos.length - 1 ? 0 : c + 1))
 
   return (
     <section className="py-16 bg-white relative">
@@ -132,7 +67,7 @@ function EventGallery({ title }: { title: string }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={current}
-              src={GALLERY_PHOTOS[current]}
+              src={photos[current]}
               alt={`Gallery ${current + 1}`}
               className="w-full h-full object-cover"
             />
@@ -153,7 +88,7 @@ function EventGallery({ title }: { title: string }) {
           </button>
 
           <div className="flex justify-center gap-2 mt-5">
-            {GALLERY_PHOTOS.map((_, i) => (
+            {photos.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
@@ -165,7 +100,7 @@ function EventGallery({ title }: { title: string }) {
           </div>
 
           <p className="text-center text-text-muted text-sm mt-3">
-            {current + 1} / {GALLERY_PHOTOS.length}
+            {current + 1} / {photos.length}
           </p>
         </div>
       </div>
@@ -173,21 +108,79 @@ function EventGallery({ title }: { title: string }) {
   )
 }
 
-const TAG_COLORS: Record<string, string> = {
-  Roadshow: "bg-blue-100 text-blue-700",
-  "B2B Matching": "bg-cyan-100 text-cyan-700",
-  "Trade Mission": "bg-green-100 text-green-700",
-  Ceremony: "bg-purple-100 text-purple-700",
-  Exhibition: "bg-orange-100 text-orange-700",
-  Forum: "bg-red-100 text-red-700",
+function LoadingSkeleton() {
+  return (
+    <>
+      <Navbar />
+      <div className="animate-pulse">
+        {/* Hero skeleton */}
+        <div className="pt-36 pb-20 bg-gray-800">
+          <div className="max-w-[1400px] mx-auto px-[5%]">
+            <div className="h-4 w-24 bg-gray-600 rounded-full mb-4" />
+            <div className="h-10 w-2/3 bg-gray-600 rounded mb-6" />
+            <div className="flex gap-6">
+              <div className="h-4 w-32 bg-gray-600 rounded" />
+              <div className="h-4 w-40 bg-gray-600 rounded" />
+            </div>
+          </div>
+        </div>
+        {/* Content skeleton */}
+        <div className="py-16 bg-white">
+          <div className="max-w-[1400px] mx-auto px-[5%]">
+            <div className="max-w-[800px] flex flex-col gap-3">
+              <div className="h-7 w-48 bg-gray-200 rounded mb-2" />
+              <div className="h-4 w-full bg-gray-200 rounded" />
+              <div className="h-4 w-full bg-gray-200 rounded" />
+              <div className="h-4 w-5/6 bg-gray-200 rounded" />
+              <div className="h-4 w-4/5 bg-gray-200 rounded" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  )
 }
 
 export default function EventDetailPage() {
   const params = useParams()
   const id = params.id as string
   const { t, language } = useTranslation()
-  const eventMeta = EVENTS[id]
-  if (!eventMeta) {
+
+  const [event, setEvent] = useState<GbcEventWithPhotos | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
+
+  useEffect(() => {
+    async function fetchEvent() {
+      setLoading(true)
+      setNotFound(false)
+      try {
+        const res = await fetch(`/api/events/${id}`, {
+          headers: { "Accept-Language": language === "id" ? "id" : "en" },
+        })
+        if (res.status === 404) {
+          setNotFound(true)
+          return
+        }
+        if (!res.ok) {
+          setNotFound(true)
+          return
+        }
+        const data: GbcEventWithPhotos = await res.json()
+        setEvent(data)
+      } catch {
+        setNotFound(true)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchEvent()
+  }, [id, language])
+
+  if (loading) return <LoadingSkeleton />
+
+  if (notFound || !event) {
     return (
       <>
         <Navbar />
@@ -206,31 +199,36 @@ export default function EventDetailPage() {
     )
   }
 
-  const title = t(eventMeta.titleKey)
-  const date = t(eventMeta.dateKey)
-  const location = t(eventMeta.locationKey)
-  const details = t(eventMeta.detailsKey)
+  const title = event.title
+  const date = formatDate(event.event_start)
+  const time = formatTime(event.event_start)
+  const location = event.location
+  const description =
+    language === "id"
+      ? event.description_id || event.description_en
+      : event.description_en || event.description_id
+
+  const galleryPhotos = event.gbc_events_photos.map((p) => p.photo_url).filter(Boolean) as string[]
+
+  const isUpcoming = event.status === "upcoming"
+
+  const expectPoints = [
+    { icon: "far fa-handshake", text: t("upcomingEventPoint1") },
+    { icon: "far fa-building", text: t("upcomingEventPoint2") },
+    { icon: "far fa-comments", text: t("upcomingEventPoint3") },
+    { icon: "far fa-lightbulb", text: t("upcomingEventPoint4") },
+  ]
 
   return (
     <>
       <Navbar />
 
-      {/* ── Hero Banner ── */}
-      <section
-        className="pt-36 pb-20 relative overflow-hidden"
-        style={{
-          backgroundImage: `linear-gradient(rgba(15,40,71,0.85), rgba(15,40,71,0.85)), url('${eventMeta.image}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="max-w-[1400px] mx-auto px-[5%]">
-          <span
-            className={`inline-block text-[0.75rem] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 ${
-              TAG_COLORS[eventMeta.tag] ?? "bg-gray-100 text-gray-600"
-            }`}
-          >
-            {eventMeta.tag}
+      {/* ── Event Hero ── */}
+      <section className="pt-36 pb-20 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
+        <HeroDecor />
+        <div className="max-w-[1400px] mx-auto px-[5%] relative z-10">
+          <span className="inline-block text-[0.75rem] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 bg-accent/20 text-accent">
+            {event.venue}
           </span>
 
           <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white leading-[1.15] mb-6 max-w-[750px]">
@@ -250,7 +248,7 @@ export default function EventDetailPage() {
         </div>
       </section>
 
-      {/* ── Event Detail ── */}
+      {/* ── Event Detail (description) ── */}
       <section className="py-16 bg-white relative">
         {/* Blurred accent — top right */}
         <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
@@ -280,13 +278,13 @@ export default function EventDetailPage() {
             <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
               {t("aboutThisEvent")}
             </h2>
-            <p className="text-text-light text-[1rem] leading-[1.9] text-justify">{details}</p>
+            <p className="text-text-light text-[1rem] leading-[1.9] text-justify">{description}</p>
           </div>
         </div>
       </section>
 
-      {/* ── Event Video ── */}
-      {eventMeta.video_url && (
+      {/* ── Event Video 1 ── */}
+      {event.link_video_1 && (
         <section className="py-16 bg-[#f8fafc] relative">
           {/* Dot pattern */}
           <div
@@ -309,7 +307,7 @@ export default function EventDetailPage() {
             <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
               <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                 <iframe
-                  src={eventMeta.video_url}
+                  src={event.link_video_1}
                   className="absolute inset-0 w-full h-full"
                   title={title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -321,8 +319,47 @@ export default function EventDetailPage() {
         </section>
       )}
 
-      {/* ── Event Gallery (only event 1) ── */}
-      {id === "1" && <EventGallery title={t("eventGallery")} />}
+      {/* ── Event Video 2 ── */}
+      {event.link_video_2 && (
+        <section className="py-16 bg-white relative">
+          <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
+            <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                <iframe
+                  src={event.link_video_2}
+                  className="absolute inset-0 w-full h-full"
+                  title={`${title} — Video 2`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Event Gallery ── */}
+      {galleryPhotos.length > 0 && (
+        <EventGallery photos={galleryPhotos} title={t("eventGallery")} />
+      )}
+
+      {/* ── Upcoming-only sections ── */}
+      {isUpcoming && (
+        <>
+          <EventDetailsSection
+            date={date}
+            time={time}
+            location={location}
+            venue={event.venue}
+            note={t("upcomingEventDetailsNote")}
+          />
+          <EventRegisterSection
+            title={t("upcomingEventRegisterTitle")}
+            description={t("upcomingEventRegisterDesc")}
+            ctaLabel={t("upcomingEventRegisterCta")}
+          />
+        </>
+      )}
 
       <Footer />
     </>

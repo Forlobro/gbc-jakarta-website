@@ -1,16 +1,16 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useTranslation } from "@/app/lib/LanguageContext"
+import { useTranslation } from "../../lib/LanguageContext"
 
-export default function ContactDotNav() {
+export default function EventsDotNav() {
   const { t } = useTranslation()
-  const [active, setActive] = useState("location")
+  const [active, setActive] = useState("events-header")
 
   const sections = [
-    { id: "contact", label: t("contactLabel") },
-    { id: "location", label: t("mapLabel") },
-    { id: "family-site", label: "Family Site" },
+    { id: "events-header", label: t("eventsPageBadge") },
+    { id: "events-featured", label: t("eventsFeaturedTag") },
+    { id: "events-past", label: t("eventsPastTag") },
   ]
 
   useEffect(() => {

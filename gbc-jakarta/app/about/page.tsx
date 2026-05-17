@@ -8,17 +8,21 @@ import GlobalNetworkSection from "./components/GlobalNetworkSection"
 import GBSASection from "./components/GBSASection"
 import GyeonggiSection from "./components/GyeonggiSection"
 import TimelineSection from "./components/TimelineSection"
+import DotPattern from "../components/DotPattern"
 
 export default function AboutPage() {
   return (
     <main>
       <Navbar />
       <AboutDotNav />
-      <AboutHero />
-      <GlobalNetworkSection />
-      <GBSASection />
-      <GyeonggiSection />
-      <TimelineSection />
+      <main className="relative">
+        <DotPattern />
+        <AboutHero />
+        <GlobalNetworkSection />
+        <GBSASection />
+        <GyeonggiSection />
+        <TimelineSection />
+      </main>
       <Footer />
     </main>
   )

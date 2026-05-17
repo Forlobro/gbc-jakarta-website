@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import ScrollReveal from "@/app/components/ScrollReveal"
+import SectionBadge from "@/app/components/SectionBadge"
 import { useTranslation } from "@/app/lib/LanguageContext"
 
 const directors = [
@@ -17,16 +18,6 @@ export default function DirectorSection() {
   return (
     <section className="min-h-screen py-36 bg-white relative" id="team">
       {/* Wave divider top */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-        >
-          <path d="M0,0 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="#f8fafc" />
-        </svg>
-      </div>
 
       {/* Dot pattern */}
       <div
@@ -74,9 +65,7 @@ export default function DirectorSection() {
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-20">
-          <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-            {t("directorLabel")}
-          </div>
+          <SectionBadge centered>{t("directorLabel")}</SectionBadge>
           <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-6 leading-[1.2]">
             Shin Ho Jin
           </h2>

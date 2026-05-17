@@ -1,0 +1,32 @@
+import { NextRequest, NextResponse } from "next/server"
+import { createServerClient } from "../../lib/supabase.server"
+import { getLang, getMsg } from "../../lib/messages"
+
+// GET /api/events — public, all published events with photos, ordered by event_start desc
+export async function GET(request: NextRequest) {
+  const lang = getLang(request)
+  const m = getMsg(lang)
+  const supabase = createServerClient()
+
+  const { data: events, error } = await supabase
+    .from("gbc_events")
+    .select("*")
+    .eq("is_published", true)
+    .order("event_start", { ascending: false })
+
+  if (error) {
+    console.error("[GET /api/events] Supabase error:", error)
+    return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
+  }
+
+  console.log(`[GET /api/events] Found ${events?.length ?? 0} published events`)
+
+  const { data: photos } = await supabase.from("gbc_events_photos").select("*")
+
+  const result = (events ?? []).map((event) => ({
+    ...event,
+    gbc_events_photos: (photos ?? []).filter((p) => p.gbc_event_id === event.id),
+  }))
+
+  return NextResponse.json(result)
+}

@@ -8,7 +8,7 @@ export default function AboutHero() {
 
   return (
     <section
-      className="min-h-screen relative bg-white pt-32 pb-16 flex items-center"
+      className="min-h-screen relative pt-32 pb-16 flex items-center"
       id="about-intro"
     >
       <div className="max-w-[1200px] mx-auto px-[5%]">

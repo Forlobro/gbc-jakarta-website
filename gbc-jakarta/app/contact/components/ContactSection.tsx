@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { useTranslation } from "@/app/lib/LanguageContext"
 import ScrollReveal from "@/app/components/ScrollReveal"
+import PageBadge from "@/app/components/PageBadge"
+import DotPattern from "@/app/components/DotPattern"
 
 export default function ContactSection() {
   const { t } = useTranslation()
@@ -52,15 +54,16 @@ export default function ContactSection() {
       className="min-h-screen py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative"
       id="contact"
     >
-      {/* Wave divider top */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none">
+      {/* Wave divider bottom */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
         <svg
           viewBox="0 0 1440 70"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
+          className="w-full block"
+          preserveAspectRatio="none"
         >
-          <path d="M0,40 C360,0 1080,70 1440,20 L1440,0 L0,0 Z" fill="#f8fafc" />
+          <path d="M0,30 C360,70 1080,0 1440,50 L1440,70 L0,70 Z" fill="#f0f7ff" />
         </svg>
       </div>
 
@@ -73,24 +76,11 @@ export default function ContactSection() {
         }}
       />
 
-      {/* Grid dot pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.1) 1.5px, transparent 1.5px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      {/* Large blurred accent — bottom right */}
-      <div className="absolute -bottom-40 -right-40 w-[700px] h-[700px] rounded-full bg-accent/15 blur-2xl pointer-events-none" />
-
-      {/* Bold circle outline — bottom right */}
-      <div className="absolute -bottom-28 -right-28 w-[550px] h-[550px] rounded-full border-[60px] border-white/8 pointer-events-none" />
+      {/* Dot pattern */}
+      <DotPattern variant="dark" />
 
       {/* Second circle outline — bottom right */}
-      <div className="absolute -bottom-10 -right-10 w-[300px] h-[300px] rounded-full border-[35px] border-accent/12 pointer-events-none" />
+      <div className="absolute -bottom-0 -right-10 w-[300px] h-[300px] rounded-full border-[35px] border-accent/12 pointer-events-none" />
 
       {/* Large blurred — top left */}
       <div className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full bg-white/5 blur-2xl pointer-events-none" />
@@ -134,9 +124,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-[1]">
           {/* Contact Content */}
           <ScrollReveal className="text-white">
-            <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-              {t("contactLabel")}
-            </div>
+            <PageBadge>{t("contactLabel")}</PageBadge>
 
             <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-white mb-6 leading-[1.2]">
               {t("contactTitle")}

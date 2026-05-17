@@ -104,7 +104,6 @@ export const translations = {
     formEmail: "Email Address",
     formCompany: "Company",
     formMessage: "Message",
-    viewDetail: "View Detail",
 
     // Event Detail Page
     backToEvents: "Back to Events",
@@ -131,10 +130,11 @@ export const translations = {
     eventsPageTitle: "Connecting Gyeonggi & Indonesia Through Events",
     eventsPageDesc:
       "GBC Jakarta actively organizes and participates in various business events, trade exhibitions, and partnership forums to connect Gyeonggi companies with strategic partners in Indonesia.",
-    eventsFeaturedLabel: "Featured Events",
-    eventsLatestLabel: "Latest Events",
-    eventsFeaturedTitle: "GBC Jakarta Featured Events",
-    eventsPastLabel: "Recent Highlight",
+    eventsFeaturedTag: "Featured Events",
+    eventsLatestTag: "Latest Event",
+    eventsPastTag: "Past Events",
+    eventsStatusUpcomingBadge: "Upcoming",
+    eventsStatusAccomplishedBadge: "Accomplished",
     eventsPastTitle: "Events That Have Taken Place",
     // Featured Event 1
     eventsF1Tag: "International Exhibition",
@@ -160,7 +160,6 @@ export const translations = {
     eventsP1Title: "Gyeonggi–Indonesia SmartCity Roadshow 2024",
     eventsP1Date: "16 May 2024",
     eventsP1Location: "Sheraton Grand Jakarta",
-    eventsP1Category: "Roadshow",
     eventsP1Desc:
       "Connecting Gyeonggi and Indonesian companies through SmartCity & ICT innovation excellence.",
     eventsP2Title: "B2B Business Matching Session — Q1 2024",
@@ -195,18 +194,17 @@ export const translations = {
       "High-level industry forum discussing bilateral trade opportunities between Gyeonggi Province and Indonesia.",
 
     // Featured Events (new: upcoming + latest)
-    eventsUpcomingTag: "Upcoming Events",
+    eventsUpcomingLabel: "Upcoming Events",
+    eventsLatestLabel: "Recent Highlight",
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, South Korea",
     eventsUpcomingDesc:
       "GBC Jakarta is preparing an exciting upcoming event to bring Indonesian business representatives closer to Gyeonggi's leading SMEs. Stay tuned for more details on date, venue, and registration.",
     eventsUpcomingCta: "Learn More",
-    eventsLatestTag: "Recent Highlight",
     eventsLatestCta: "View Details",
 
     // Upcoming Event detail page
-    upcomingEventBadge: "Upcoming Events",
     upcomingEventTitle: "GBC Jakarta Business Networking 2025",
     upcomingEventDate: "TBA 2025",
     upcomingEventLocation: "Gyeonggi-do, South Korea",
@@ -257,7 +255,6 @@ export const translations = {
 
     // Companies page
     searchPlaceholder: "Search companies...",
-    allYears: "All Years",
     noCompaniesFound: "No companies found.",
     clearSearch: "Clear search",
     showing: "Showing",
@@ -274,7 +271,7 @@ export const translations = {
     galleryLabel: "Gallery",
     contactViaGbc: "Contact via GBC",
     phoneLabel: "Phone",
-    otherCompanies: "Other Companies You May Be Interested In",
+    otherCompanies: "Other Partners You May Be Interested In",
     brochureDesc:
       "Download our company brochure for detailed product information and specifications.",
     downloadBrochure: "Download Brochure",
@@ -443,7 +440,6 @@ export const translations = {
     formEmail: "Alamat Email",
     formCompany: "Perusahaan",
     formMessage: "Pesan",
-    viewDetail: "Lihat Detail",
 
     // Event Detail Page
     backToEvents: "Kembali ke Events",
@@ -470,11 +466,10 @@ export const translations = {
     eventsPageTitle: "Menghubungkan Gyeonggi & Indonesia Melalui Events",
     eventsPageDesc:
       "GBC Jakarta secara aktif menyelenggarakan dan berpartisipasi dalam berbagai event bisnis, pameran dagang, dan forum kemitraan untuk mempertemukan perusahaan Gyeonggi dengan mitra strategis di Indonesia.",
-    eventsFeaturedLabel: "Featured Events",
-    eventsLatestLabel: "Latest Events",
-    eventsFeaturedTitle: "Event Unggulan GBC Jakarta",
-    eventsPastLabel: "Past Events",
-    eventsPastTitle: "Event yang Telah Berlangsung",
+    eventsFeaturedTag: "Agenda Utama",
+    eventsLatestTag: "Kegiatan Terkini",
+    eventsPastTag: "Arsip Kegiatan",
+    eventsPastTitle: "Kegiatan yang Telah Berlangsung",
     // Featured Event 1
     eventsF1Tag: "Pameran Internasional",
     eventsF1Title: "Gyeonggi Pavilion di Indonesia International Exhibition 2024",
@@ -499,7 +494,6 @@ export const translations = {
     eventsP1Title: "Gyeonggi–Indonesia SmartCity Roadshow 2024",
     eventsP1Date: "16 Mei 2024",
     eventsP1Location: "Sheraton Grand Jakarta",
-    eventsP1Category: "Roadshow",
     eventsP1Desc:
       "Menghubungkan perusahaan Gyeonggi dan Indonesia melalui keunggulan inovasi SmartCity & ICT.",
     eventsP2Title: "Sesi B2B Business Matching — Q1 2024",
@@ -534,18 +528,17 @@ export const translations = {
       "Forum tingkat tinggi yang membahas peluang perdagangan bilateral antara Provinsi Gyeonggi dan Indonesia.",
 
     // Featured Events (new: upcoming + latest)
-    eventsUpcomingTag: "Upcoming Events",
+    eventsUpcomingLabel: "Segera Hadir",
+    eventsLatestLabel: "Baru Saja Berakhir",
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, Korea Selatan",
     eventsUpcomingDesc:
       "GBC Jakarta sedang mempersiapkan event menarik untuk mendekatkan perwakilan bisnis Indonesia dengan UKM terkemuka Gyeonggi. Pantau terus untuk informasi lebih lanjut mengenai tanggal, lokasi, dan pendaftaran.",
     eventsUpcomingCta: "Pelajari Lebih Lanjut",
-    eventsLatestTag: "Recent Highlight",
     eventsLatestCta: "Lihat Detail",
 
     // Upcoming Event detail page
-    upcomingEventBadge: "Upcoming Events",
     upcomingEventTitle: "GBC Jakarta Business Networking 2025",
     upcomingEventDate: "TBA 2025",
     upcomingEventLocation: "Gyeonggi-do, Korea Selatan",
@@ -596,7 +589,6 @@ export const translations = {
 
     // Companies page
     searchPlaceholder: "Cari perusahaan...",
-    allYears: "Semua Tahun",
     noCompaniesFound: "Perusahaan tidak ditemukan.",
     clearSearch: "Hapus pencarian",
     showing: "Menampilkan",
@@ -613,7 +605,7 @@ export const translations = {
     galleryLabel: "Galeri",
     contactViaGbc: "Hubungi via GBC",
     phoneLabel: "Telepon",
-    otherCompanies: "Perusahaan Lain yang Mungkin Anda Minati",
+    otherCompanies: "Mitra Lain yang Mungkin Anda Minati",
     brochureDesc: "Unduh brosur perusahaan kami untuk informasi produk dan spesifikasi terperinci.",
     downloadBrochure: "Unduh Brosur",
     viewBrochure: "Lihat Brosur",

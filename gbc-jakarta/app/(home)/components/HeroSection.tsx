@@ -124,7 +124,7 @@ export default function HeroSection() {
             >
               <Link
                 href="/#about"
-                className="px-8 py-4 rounded-full font-semibold text-base inline-flex items-center gap-3 transition-all duration-400 bg-transparent text-white border-2 border-white/30 hover:bg-white/10 hover:border-white/50"
+                className="px-8 py-4 rounded-full font-semibold text-accent inline-flex items-center gap-3 transition-all duration-400 bg-accent/20 border-2 border-accent/30 hover:bg-accent hover:text-primary hover:border-accent hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)]"
               >
                 <span>{t("learn")}</span>
                 <i className="fas fa-arrow-right" />

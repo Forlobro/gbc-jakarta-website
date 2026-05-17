@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useTranslation } from "@/app/lib/LanguageContext"
 import ScrollReveal from "@/app/components/ScrollReveal"
+import SectionBadge from "@/app/components/SectionBadge"
 
 export default function AboutSection() {
   const { t } = useTranslation()
@@ -59,12 +60,6 @@ export default function AboutSection() {
       {/* Second circle outline inside — top left */}
       <div className="absolute -top-16 -left-16 w-[350px] h-[350px] rounded-full border-[30px] border-primary/8 pointer-events-none" />
 
-      {/* Large blurred cyan blob — bottom right */}
-      <div className="absolute -bottom-32 -right-32 w-[550px] h-[550px] rounded-full bg-accent/10 blur-2xl pointer-events-none" />
-
-      {/* Bold circle outline — bottom right */}
-      <div className="absolute -bottom-20 -right-20 w-[380px] h-[380px] rounded-full border-[50px] border-accent/8 pointer-events-none" />
-
       {/* Blurred primary blob — top right */}
       <div className="absolute -top-16 right-[15%] w-[300px] h-[300px] rounded-full bg-primary/8 blur-3xl pointer-events-none" />
 
@@ -90,9 +85,7 @@ export default function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           {/* Content */}
           <ScrollReveal>
-            <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-              {t("aboutLabel")}
-            </div>
+            <SectionBadge>{t("aboutLabel")}</SectionBadge>
 
             <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-6 leading-[1.2]">
               {t("aboutTitle")}

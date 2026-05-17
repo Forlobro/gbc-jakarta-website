@@ -9,8 +9,8 @@ import { useTranslation } from "../lib/LanguageContext"
 const NAV_ITEMS = [
   { href: "/", key: "home" as const, color: "#1f478f" },
   { href: "/about", key: "about" as const, color: "#694fb2" },
-  { href: "/partners", key: "partners" as const, color: "#4daf7e" },
-  { href: "/events", key: "events" as const, color: "#f28c38" },
+  { href: "/events", key: "events" as const, color: "#4daf7e" },
+  { href: "/partners", key: "partners" as const, color: "#f28c38" },
   { href: "/contact", key: "contact" as const, color: "#2b9fd2" },
 ]
 
@@ -112,7 +112,7 @@ export default function Navbar() {
           {/* CTA Button — desktop only */}
           <button
             onClick={handleCtaClick}
-            className="hidden md:inline-block w-[130px] text-center py-2 bg-accent text-primary rounded-[30px] font-semibold text-[0.78rem] transition-all duration-300 shadow-[0_4px_15px_rgba(0,194,203,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)] cursor-pointer"
+            className="hidden md:inline-block w-[130px] text-center py-1 bg-accent text-accent rounded-full font-semibold text-[0.78rem] transition-all duration-400 bg-accent/20 border-2 border-accent/30 hover:bg-accent hover:text-primary hover:border-accent hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)] cursor-pointer"
           >
             {t("cta")}
           </button>
@@ -123,7 +123,8 @@ export default function Navbar() {
               alt="GBC Jakarta"
               width={80}
               height={20}
-              priority={true}
+              priority
+              loading="eager"
               className="h-1 w-auto mix-blend-multiply transition-transform duration-300 hover:scale-105"
             />
           </Link>

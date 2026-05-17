@@ -6,31 +6,36 @@ interface RouteParams {
   params: Promise<{ id: string }>
 }
 
-// GET /api/partners/[id] — public, single company with photos
+// GET /api/events/[id] — public, single published event with photos
 export async function GET(request: NextRequest, { params }: RouteParams) {
   const lang = getLang(request)
   const m = getMsg(lang)
   const { id } = await params
   const supabase = createServerClient()
-  const companyId = parseInt(id)
+  const eventId = parseInt(id)
 
-  const { data: company, error } = await supabase
-    .from("gbc_companies")
+  if (isNaN(eventId)) {
+    return NextResponse.json({ error: m.eventNotFound }, { status: 404 })
+  }
+
+  const { data: event, error } = await supabase
+    .from("gbc_events")
     .select("*")
-    .eq("id", companyId)
+    .eq("id", eventId)
+    .eq("is_published", true)
     .single()
 
-  if (error || !company) {
-    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
+  if (error || !event) {
+    return NextResponse.json({ error: m.eventNotFound }, { status: 404 })
   }
 
   const { data: photos } = await supabase
-    .from("gbc_companies_photos")
+    .from("gbc_events_photos")
     .select("*")
-    .eq("gbc_company_id", companyId)
+    .eq("gbc_event_id", eventId)
 
   return NextResponse.json({
-    ...company,
-    gbc_companies_photos: photos ?? [],
+    ...event,
+    gbc_events_photos: photos ?? [],
   })
 }

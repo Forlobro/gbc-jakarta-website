@@ -9,18 +9,7 @@ export default function GlobalNetworkSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-24 bg-gray-50 relative overflow-hidden" id="global-network">
-      <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-        >
-          <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
-        </svg>
-      </div>
-
+    <section className="min-h-screen py-24 relative overflow-hidden" id="global-network">
       <SectionBg flip />
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">

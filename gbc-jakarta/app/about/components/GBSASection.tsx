@@ -8,18 +8,7 @@ export default function GBSASection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-24 bg-white relative overflow-hidden" id="gbsa">
-      <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-        >
-          <path d="M0,30 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="#f9fafb" />
-        </svg>
-      </div>
-
+    <section className="min-h-screen py-24 relative overflow-hidden" id="gbsa">
       <SectionBg />
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">

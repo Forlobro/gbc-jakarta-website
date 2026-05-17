@@ -1,44 +1,22 @@
 "use client"
 
 import { useTranslation } from "@/app/lib/LanguageContext"
+import SectionBadge from "@/app/components/SectionBadge"
+import DotPattern from "@/app/components/DotPattern"
 
 export default function MapSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-36 bg-[#f8fafc] relative" id="location">
-      {/* Wave divider top — matches Team white bg */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-        >
-          <path d="M0,20 C360,60 1080,0 1440,35 L1440,0 L0,0 Z" fill="white" />
-        </svg>
-      </div>
-
+    <section className="min-h-screen py-36 bg-gradient-to-b from-[#f0f7ff] to-white relative" id="location">
       {/* Dot pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.12) 1.5px, transparent 1.5px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
+      <DotPattern />
 
       {/* Blurred accent — top left */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
 
-      {/* Blurred primary — bottom right */}
-      <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />
-
       {/* Circle outline — top left */}
       <div className="absolute -top-20 -left-20 w-[360px] h-[360px] rounded-full border-[50px] border-accent/10 pointer-events-none" />
-
-      {/* Circle outline — bottom right */}
-      <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full border-[50px] border-primary/8 pointer-events-none" />
 
       {/* Floating symbols */}
       <div className="absolute top-16 right-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">
@@ -50,10 +28,8 @@ export default function MapSection() {
 
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
-        <div className="text-center max-w-[600px] mx-auto mb-14">
-          <div className="inline-flex items-center gap-3 text-accent font-semibold text-[0.9rem] tracking-[0.1em] uppercase mb-4 before:content-[''] before:w-10 before:h-0.5 before:bg-accent before:block">
-            {t("mapLabel")}
-          </div>
+        <div className="text-center max-w-[600px] mx-auto mb-8">
+          <SectionBadge centered>{t("mapLabel")}</SectionBadge>
           <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-4 leading-[1.2]">
             {t("mapTitle")}
           </h2>

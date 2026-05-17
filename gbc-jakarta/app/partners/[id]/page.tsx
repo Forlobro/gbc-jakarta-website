@@ -8,6 +8,9 @@ import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
 import { GbcCompanyWithPhotos } from "../../lib/supabase"
 import { useTranslation } from "../../lib/LanguageContext"
+import PageBadge from "../../components/PageBadge"
+import SectionBadge from "@/app/components/SectionBadge"
+import HeroDecor from "../../components/HeroDecor"
 
 function getEmbedUrl(url: string | null | undefined): string | null {
   if (!url) return null
@@ -105,15 +108,9 @@ export default function PartnerDetailPage() {
       <Navbar />
 
       {/* Partner Hero */}
-      <section className="pt-30 pb-20 bg-linear-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 80% 20%, rgba(0, 194, 203, 0.1) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 40%)",
-          }}
-        />
-        <div className="max-w-350 mx-auto px-[5%] relative z-1">
+      <section className="pt-40 pb-20 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
+        <HeroDecor />
+        <div className="max-w-350 mx-auto px-[5%] relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-12">
             {/* Logo / First Photo */}
             <div className="w-35 h-35 bg-white rounded-3xl flex items-center justify-center p-4 shadow-2xl shrink-0 overflow-hidden">
@@ -134,11 +131,7 @@ export default function PartnerDetailPage() {
 
             {/* Text */}
             <div className="text-white text-center md:text-left">
-              {company.category && (
-                <span className="inline-block bg-accent/20 border border-accent/40 text-accent px-5 py-2 rounded-full text-[0.85rem] font-semibold mb-4">
-                  {company.category}
-                </span>
-              )}
+              {company.category && <PageBadge>{company.category}</PageBadge>}
               <h1 className="font-display text-3xl md:text-5xl font-extrabold mb-3">
                 {company.name}
               </h1>
@@ -156,9 +149,7 @@ export default function PartnerDetailPage() {
               {/* Video */}
               {getEmbedUrl(company.link_video) && (
                 <div className="mb-12">
-                  <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="far fa-play-circle text-accent" /> {t("videoProfile")}
-                  </h2>
+                  <SectionBadge>{t("videoProfile")}</SectionBadge>
                   <div className="rounded-3xl overflow-hidden shadow-xl">
                     <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                       <iframe
@@ -176,9 +167,7 @@ export default function PartnerDetailPage() {
               {/* Description */}
               {(company.description_id || company.description_en) && (
                 <div className="mb-12">
-                  <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="far fa-building text-accent" /> {t("aboutCompany")}
-                  </h2>
+                  <SectionBadge>{t("aboutCompany")}</SectionBadge>
                   <div className="text-text-light text-[1.05rem] leading-[1.9] whitespace-pre-line">
                     {language === "en"
                       ? company.description_en || company.description_id
@@ -190,12 +179,9 @@ export default function PartnerDetailPage() {
               {/* Photo Gallery */}
               {photos.length > 0 && (
                 <div className="mb-12">
-                  <h2 className="font-display text-2xl font-bold text-primary mb-6 pb-3 border-b-2 border-gray-100 flex items-center gap-3">
-                    <i className="far fa-images text-accent" /> {t("galleryLabel")}
-                    <span className="text-base font-normal text-text-muted">
-                      ({photos.length} photos)
-                    </span>
-                  </h2>
+                  <SectionBadge>
+                    {t("galleryLabel")} ({photos.length} photos)
+                  </SectionBadge>
 
                   {/* Main Photo */}
                   <div className="rounded-3xl overflow-hidden shadow-xl mb-4 aspect-video relative">
