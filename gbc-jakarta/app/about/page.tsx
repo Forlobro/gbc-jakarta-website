@@ -8,15 +8,15 @@ import GlobalNetworkSection from "./components/GlobalNetworkSection"
 import GBSASection from "./components/GBSASection"
 import GyeonggiSection from "./components/GyeonggiSection"
 import TimelineSection from "./components/TimelineSection"
-import DotPattern from "../components/DotPattern"
+import AboutPageDecor from "./components/AboutPageDecor"
 
 export default function AboutPage() {
   return (
-    <main>
+    <>
       <Navbar />
       <AboutDotNav />
-      <main className="relative">
-        <DotPattern />
+      <main className="relative bg-white overflow-hidden">
+        <AboutPageDecor />
         <AboutHero />
         <GlobalNetworkSection />
         <GBSASection />
@@ -24,6 +24,6 @@ export default function AboutPage() {
         <TimelineSection />
       </main>
       <Footer />
-    </main>
+    </>
   )
 }

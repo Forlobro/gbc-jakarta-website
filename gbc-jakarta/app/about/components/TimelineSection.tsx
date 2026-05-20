@@ -2,7 +2,6 @@
 
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
-import { SectionBg } from "./shared"
 
 const TIMELINE = [
   { year: "1997", key: "timeline1997" as const },
@@ -20,8 +19,6 @@ export default function TimelineSection() {
 
   return (
     <section className="py-24 relative overflow-hidden" id="history">
-      <SectionBg flip />
-
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="max-w-[600px] mx-auto text-center mb-14">
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">

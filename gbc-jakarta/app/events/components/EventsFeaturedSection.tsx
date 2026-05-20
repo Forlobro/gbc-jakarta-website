@@ -5,9 +5,7 @@ import Link from "next/link"
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
 import SectionBadge from "../../components/SectionBadge"
-import SectionDecor from "../../components/SectionDecor"
 import StatusBadge from "../../components/StatusBadge"
-import DotPattern from "../../components/DotPattern"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
 
 const FALLBACK_IMAGE = "/images/gbc-hero.jpeg"
@@ -97,19 +95,6 @@ export default function EventsFeaturedSection() {
 
   return (
     <section className="py-24 relative" id="events-featured">
-      <DotPattern />
-      {/* Wave divider top — matches header gradient */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-        >
-          <path d="M0,30 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="white" />
-        </svg>
-      </div>
-      <SectionDecor symbols lines />
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {loading ? (
           <FeaturedSkeleton />

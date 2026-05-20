@@ -7,6 +7,7 @@ import MapSection from "./components/MapSection"
 import ContactSection from "./components/ContactSection"
 import FamilySiteSection from "./components/FamilySiteSection"
 import ContactDotNav from "./components/ContactDotNav"
+import ContactPageDecor from "./components/ContactPageDecor"
 
 export default function ContactPage() {
   useEffect(() => {
@@ -33,11 +34,14 @@ export default function ContactPage() {
       <Navbar />
       <ContactDotNav />
       <ContactSection />
-      <MapSection />
-      <div className="min-h-screen flex flex-col">
-        <FamilySiteSection />
-        <Footer />
-      </div>
+      <main className="relative bg-white overflow-hidden">
+        <ContactPageDecor />
+        <MapSection />
+        <div className="min-h-screen flex flex-col">
+          <FamilySiteSection />
+          <Footer />
+        </div>
+      </main>
     </>
   )
 }

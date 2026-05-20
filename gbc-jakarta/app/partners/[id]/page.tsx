@@ -11,6 +11,8 @@ import { useTranslation } from "../../lib/LanguageContext"
 import PageBadge from "../../components/PageBadge"
 import SectionBadge from "@/app/components/SectionBadge"
 import HeroDecor from "../../components/HeroDecor"
+import EventDetailPageDecor from "../../events/components/EventDetailPageDecor"
+import ContentCard from "../../components/ContentCard"
 
 function getEmbedUrl(url: string | null | undefined): string | null {
   if (!url) return null
@@ -141,197 +143,179 @@ export default function PartnerDetailPage() {
       </section>
 
       {/* Partner Content */}
-      <section className="py-10 bg-white">
-        <div className="max-w-350 mx-auto px-[5%]">
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
-            {/* Main Content */}
-            <div>
-              {/* Video */}
-              {getEmbedUrl(company.link_video) && (
-                <div className="mb-12">
-                  <SectionBadge>{t("videoProfile")}</SectionBadge>
-                  <div className="rounded-3xl overflow-hidden shadow-xl">
-                    <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-                      <iframe
-                        src={getEmbedUrl(company.link_video)!}
-                        className="absolute inset-0 w-full h-full"
-                        title={`${company.name} video`}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+      <main className="relative bg-white overflow-hidden">
+        <EventDetailPageDecor />
+
+        <section className="py-10">
+          <div className="max-w-350 mx-auto px-[5%]">
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
+              {/* Main Content */}
+              <div>
+                {/* Video */}
+                {getEmbedUrl(company.link_video) && (
+                  <div className="mb-12">
+                    <SectionBadge>{t("videoProfile")}</SectionBadge>
+                    <div className="rounded-3xl overflow-hidden shadow-xl">
+                      <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                        <iframe
+                          src={getEmbedUrl(company.link_video)!}
+                          className="absolute inset-0 w-full h-full"
+                          title={`${company.name} video`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Description */}
+                {(company.description_id || company.description_en) && (
+                  <div className="mb-12">
+                    <SectionBadge>{t("aboutCompany")}</SectionBadge>
+                    <div className="text-text-light text-[1.05rem] leading-[1.9] whitespace-pre-line">
+                      {language === "en"
+                        ? company.description_en || company.description_id
+                        : company.description_id || company.description_en}
+                    </div>
+                  </div>
+                )}
+
+                {/* Photo Gallery */}
+                {photos.length > 0 && (
+                  <div className="mb-12">
+                    <SectionBadge>
+                      {t("galleryLabel")} ({photos.length} photos)
+                    </SectionBadge>
+
+                    {/* Main Photo */}
+                    <div className="rounded-3xl overflow-hidden shadow-xl mb-4 aspect-video relative">
+                      <Image
+                        src={photos[activePhoto].photo_url ?? ""}
+                        alt={`${company.name} photo ${activePhoto + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 66vw"
                       />
                     </div>
+
+                    {/* Thumbnails */}
+                    {photos.length > 1 && (
+                      <div className="flex gap-3 flex-wrap">
+                        {photos.map((photo, idx) => (
+                          <button
+                            key={photo.id}
+                            onClick={() => setActivePhoto(idx)}
+                            className={`w-20 h-16 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+                              idx === activePhoto
+                                ? "border-accent scale-105"
+                                : "border-transparent opacity-60 hover:opacity-100"
+                            }`}
+                          >
+                            <Image
+                              src={photo.photo_url ?? ""}
+                              alt={`Thumbnail ${idx + 1}`}
+                              width={80}
+                              height={64}
+                              className="w-full h-full object-cover"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
-              {/* Description */}
-              {(company.description_id || company.description_en) && (
-                <div className="mb-12">
-                  <SectionBadge>{t("aboutCompany")}</SectionBadge>
-                  <div className="text-text-light text-[1.05rem] leading-[1.9] whitespace-pre-line">
-                    {language === "en"
-                      ? company.description_en || company.description_id
-                      : company.description_id || company.description_en}
-                  </div>
-                </div>
-              )}
-
-              {/* Photo Gallery */}
-              {photos.length > 0 && (
-                <div className="mb-12">
-                  <SectionBadge>
-                    {t("galleryLabel")} ({photos.length} photos)
-                  </SectionBadge>
-
-                  {/* Main Photo */}
-                  <div className="rounded-3xl overflow-hidden shadow-xl mb-4 aspect-video relative">
-                    <Image
-                      src={photos[activePhoto].photo_url ?? ""}
-                      alt={`${company.name} photo ${activePhoto + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 66vw"
-                    />
-                  </div>
-
-                  {/* Thumbnails */}
-                  {photos.length > 1 && (
-                    <div className="flex gap-3 flex-wrap">
-                      {photos.map((photo, idx) => (
-                        <button
-                          key={photo.id}
-                          onClick={() => setActivePhoto(idx)}
-                          className={`w-20 h-16 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
-                            idx === activePhoto
-                              ? "border-accent scale-105"
-                              : "border-transparent opacity-60 hover:opacity-100"
-                          }`}
-                        >
-                          <Image
-                            src={photo.photo_url ?? ""}
-                            alt={`Thumbnail ${idx + 1}`}
-                            width={80}
-                            height={64}
-                            className="w-full h-full object-cover"
-                          />
-                        </button>
-                      ))}
+              {/* Sidebar */}
+              <div className="lg:sticky lg:top-25 lg:self-start space-y-6">
+                {/* Brochure Card */}
+                {company.link_brochure && (
+                  <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+                    <h3 className="font-display text-lg font-bold text-primary mb-4 flex items-center gap-2">
+                      <i className="far fa-file-pdf text-red-500" /> {t("brochure")}
+                    </h3>
+                    <p className="text-[0.9rem] text-text-light mb-6 text-justify">
+                      {t("brochureDesc")}
+                    </p>
+                    <div className="flex flex-col gap-3">
+                      {/* Preview — opens native browser PDF viewer in new tab */}
+                      <a
+                        href={company.link_brochure}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-3 py-3.5 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5 text-[0.9rem]"
+                      >
+                        <i className="far fa-eye" />
+                        {t("viewBrochure")}
+                      </a>
                     </div>
-                  )}
-                </div>
-              )}
-            </div>
+                  </div>
+                )}
 
-            {/* Sidebar */}
-            <div className="lg:sticky lg:top-25 lg:self-start space-y-6">
-              {/* Brochure Card */}
-              {company.link_brochure && (
+                {/* Contact Card */}
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-                  <h3 className="font-display text-lg font-bold text-primary mb-4 flex items-center gap-2">
-                    <i className="far fa-file-pdf text-red-500" /> {t("brochure")}
+                  <h3 className="font-display text-lg font-bold text-primary mb-6 flex items-center gap-2">
+                    <i className="far fa-address-card text-accent" /> {t("contactViaGbc")}
                   </h3>
-                  <p className="text-[0.9rem] text-text-light mb-6 text-justify">
-                    {t("brochureDesc")}
-                  </p>
+                  <div className="flex flex-col gap-4 mb-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0">
+                        <i className="fas fa-phone" />
+                      </div>
+                      <div>
+                        <label className="block text-[0.75rem] text-text-muted uppercase tracking-[0.05em] mb-0.5">
+                          {t("phoneLabel")}
+                        </label>
+                        <span className="text-[0.95rem] text-text font-medium">
+                          +62 21 3971 2135
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                   <div className="flex flex-col gap-3">
-                    {/* Preview — opens native browser PDF viewer in new tab */}
                     <a
-                      href={company.link_brochure}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-3 py-3.5 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5 text-[0.9rem]"
+                      href="mailto:chat.gbcjkt@gmail.com"
+                      className="flex items-center justify-center gap-3 py-4 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5"
                     >
-                      <i className="far fa-eye" />
-                      {t("viewBrochure")}
+                      <i className="far fa-envelope" /> chat.gbcjkt@gmail.com
                     </a>
                   </div>
-                </div>
-              )}
-
-              {/* Contact Card */}
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-                <h3 className="font-display text-lg font-bold text-primary mb-6 flex items-center gap-2">
-                  <i className="far fa-address-card text-accent" /> {t("contactViaGbc")}
-                </h3>
-                <div className="flex flex-col gap-4 mb-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent shrink-0">
-                      <i className="fas fa-phone" />
-                    </div>
-                    <div>
-                      <label className="block text-[0.75rem] text-text-muted uppercase tracking-[0.05em] mb-0.5">
-                        {t("phoneLabel")}
-                      </label>
-                      <span className="text-[0.95rem] text-text font-medium">+62 21 3971 2135</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <a
-                    href="mailto:chat.gbcjkt@gmail.com"
-                    className="flex items-center justify-center gap-3 py-4 bg-primary !text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#1a3d6e] hover:-translate-y-0.5"
-                  >
-                    <i className="far fa-envelope" /> chat.gbcjkt@gmail.com
-                  </a>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Related Companies */}
-      {related.length > 0 && (
-        <section className="py-20 bg-[#f9fafb]">
-          <div className="max-w-350 mx-auto px-[5%]">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-primary text-center mb-12">
-              {t("otherCompanies")}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((c) => (
-                <div
-                  key={c.id}
-                  className="bg-white rounded-[20px] p-8 transition-all duration-400 border border-gray-100 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
-                >
-                  <div className="w-20 h-20 bg-[#f9fafb] rounded-2xl flex items-center justify-center mb-6 overflow-hidden">
-                    {c.logo_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={c.logo_url}
-                        alt={c.name ?? ""}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <span className="font-display font-bold text-[0.75rem] text-primary text-center p-2 leading-tight">
-                        {getCompanyLogoText(c.name)}
-                      </span>
-                    )}
-                  </div>
-                  <h4 className="text-lg font-bold text-text mb-2">{c.name}</h4>
-                  {c.category && (
-                    <span className="inline-block bg-accent/10 text-primary-light px-3.5 py-1.5 rounded-[20px] text-[0.75rem] font-semibold mb-4">
-                      {c.category}
-                    </span>
-                  )}
-                  {(c.description_en || c.description_id) && (
-                    <p className="text-[0.9rem] text-text-light leading-[1.7] mb-6 line-clamp-2 text-justify">
-                      {language === "en"
-                        ? c.description_en || c.description_id
-                        : c.description_id || c.description_en}
-                    </p>
-                  )}
-                  <Link
-                    href={`/partners/${c.id}`}
-                    className="inline-flex items-center gap-2 text-primary font-semibold text-[0.9rem] transition-all duration-300 hover:gap-3"
-                  >
-                    {t("viewDetails")} <i className="fas fa-arrow-right" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
         </section>
-      )}
+
+        {/* Related Companies */}
+        {related.length > 0 && (
+          <section className="py-20 relative z-[2]">
+            <div className="max-w-350 mx-auto px-[5%]">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-primary text-center mb-12">
+                {t("otherCompanies")}
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {related.map((c) => (
+                  <ContentCard
+                    key={c.id}
+                    href={`/partners/${c.id}`}
+                    logoUrl={c.logo_url}
+                    logoFallback={getCompanyLogoText(c.name)}
+                    title={c.name}
+                    badge={c.category || undefined}
+                    description={
+                      language === "en"
+                        ? c.description_en || c.description_id || undefined
+                        : c.description_id || c.description_en || undefined
+                    }
+                    ctaLabel={t("viewDetails")}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
 
       <Footer />
     </>

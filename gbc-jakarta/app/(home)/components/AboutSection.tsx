@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import Image from "next/image"
 import { useTranslation } from "@/app/lib/LanguageContext"
 import ScrollReveal from "@/app/components/ScrollReveal"
@@ -27,7 +28,7 @@ export default function AboutSection() {
   ]
 
   return (
-    <section className="min-h-screen py-36 bg-white relative" id="about">
+    <section className="min-h-screen py-36 relative" id="about">
       {/* Wave divider top — matches Video gray-50 bg */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none">
         <svg
@@ -38,42 +39,6 @@ export default function AboutSection() {
         >
           <path d="M0,30 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="#f9fafb" />
         </svg>
-      </div>
-
-      {/* Dot pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
-
-      {/* Large circle outline — top left */}
-      <div className="absolute -top-40 -left-40 w-[650px] h-[650px] rounded-full border-[60px] border-accent/10 pointer-events-none" />
-
-      {/* Second circle outline inside — top left */}
-      <div className="absolute -top-16 -left-16 w-[350px] h-[350px] rounded-full border-[30px] border-primary/8 pointer-events-none" />
-
-      {/* Blurred primary blob — top right */}
-      <div className="absolute -top-16 right-[15%] w-[300px] h-[300px] rounded-full bg-primary/8 blur-3xl pointer-events-none" />
-
-      {/* Floating symbols */}
-      <div className="absolute top-16 right-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">
-        +
-      </div>
-      <div className="absolute bottom-24 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">
-        ×
-      </div>
-      <div className="absolute top-1/2 left-[2%] text-accent/12 text-5xl font-bold pointer-events-none select-none leading-none">
-        ◦
-      </div>
-
-      {/* Decorative lines — left side */}
-      <div className="absolute left-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
-        {[70, 110, 50, 90, 60, 100].map((w, i) => (
-          <div key={i} className="h-[3px] bg-accent/20 rounded-full" style={{ width: `${w}px` }} />
-        ))}
       </div>
 
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
@@ -112,17 +77,20 @@ export default function AboutSection() {
 
         {/* Features Grid — full width below */}
         <ScrollReveal>
-          <div className="flex flex-col sm:flex-row justify-between gap-6 mt-16 border-t border-gray-200 pt-10">
-            {features.map((feature) => (
-              <div key={feature.title} className="flex items-start gap-4">
-                <div className="w-[50px] h-[50px] bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center text-accent text-xl shrink-0">
-                  <i className={feature.icon} />
+          <div className="flex flex-col sm:flex-row justify-between gap-6 mt-16 pt-10">
+            {features.map((feature, idx) => (
+              <React.Fragment key={feature.title}>
+                {idx > 0 && <div className="hidden sm:block w-px self-stretch bg-gray-200" />}
+                <div className="flex items-start gap-4 flex-1 p-4 rounded-2xl transition-all duration-300 hover:bg-accent/5 hover:-translate-y-0.5 cursor-default">
+                  <div className="w-[50px] h-[50px] bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center text-accent text-xl shrink-0 transition-all duration-300 group-[]:hover:scale-110">
+                    <i className={feature.icon} />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-text mb-1">{feature.title}</h4>
+                    <p className="text-[0.9rem] text-text-light m-0 text-justify">{feature.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-base font-bold text-text mb-1">{feature.title}</h4>
-                  <p className="text-[0.9rem] text-text-light m-0 text-justify">{feature.desc}</p>
-                </div>
-              </div>
+              </React.Fragment>
             ))}
           </div>
         </ScrollReveal>

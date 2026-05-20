@@ -3,31 +3,6 @@
 import { useRef, useEffect } from "react"
 import { useTranslation } from "../../lib/LanguageContext"
 
-export function SectionBg({ flip = false }: { flip?: boolean }) {
-  return (
-    <>
-      <div
-        className={`absolute ${flip ? "-top-32 -right-32" : "-top-32 -left-32"} w-[500px] h-[500px] rounded-full bg-accent/10 blur-2xl pointer-events-none`}
-      />
-      <div
-        className={`absolute ${flip ? "-bottom-32 -left-32" : "-bottom-32 -right-32"} w-[500px] h-[500px] rounded-full bg-primary/8 blur-2xl pointer-events-none`}
-      />
-      <div
-        className={`absolute ${flip ? "-top-20 -right-20" : "-top-20 -left-20"} w-[380px] h-[380px] rounded-full border-[55px] border-accent/10 pointer-events-none`}
-      />
-      <div
-        className={`absolute ${flip ? "-bottom-20 -left-20" : "-bottom-20 -right-20"} w-[340px] h-[340px] rounded-full border-[45px] border-primary/8 pointer-events-none`}
-      />
-      <div className="absolute top-16 right-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">
-        +
-      </div>
-      <div className="absolute bottom-24 left-[5%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">
-        ×
-      </div>
-    </>
-  )
-}
-
 export function VideoEmbed({
   srcId,
   srcEn,

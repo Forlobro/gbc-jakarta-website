@@ -2,15 +2,13 @@
 
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
-import { SectionBg, VideoEmbed } from "./shared"
+import { VideoEmbed } from "./shared"
 
 export default function GBSASection() {
   const { t } = useTranslation()
 
   return (
     <section className="min-h-screen py-24 relative overflow-hidden" id="gbsa">
-      <SectionBg />
-
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">

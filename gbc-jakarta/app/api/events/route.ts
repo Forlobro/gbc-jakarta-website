@@ -6,27 +6,33 @@ import { getLang, getMsg } from "../../lib/messages"
 export async function GET(request: NextRequest) {
   const lang = getLang(request)
   const m = getMsg(lang)
-  const supabase = createServerClient()
 
-  const { data: events, error } = await supabase
-    .from("gbc_events")
-    .select("*")
-    .eq("is_published", true)
-    .order("event_start", { ascending: false })
+  try {
+    const supabase = createServerClient()
 
-  if (error) {
-    console.error("[GET /api/events] Supabase error:", error)
-    return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
+    const { data: events, error } = await supabase
+      .from("gbc_events")
+      .select("*")
+      .eq("is_published", true)
+      .order("event_start", { ascending: false })
+
+    if (error) {
+      console.error("[GET /api/events] Supabase error:", error)
+      return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
+    }
+
+    console.log(`[GET /api/events] Found ${events?.length ?? 0} published events`)
+
+    const { data: photos } = await supabase.from("gbc_events_photos").select("*")
+
+    const result = (events ?? []).map((event) => ({
+      ...event,
+      gbc_events_photos: (photos ?? []).filter((p) => p.gbc_event_id === event.id),
+    }))
+
+    return NextResponse.json(result)
+  } catch (err) {
+    console.error("[GET /api/events] Unexpected error:", err)
+    return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
-
-  console.log(`[GET /api/events] Found ${events?.length ?? 0} published events`)
-
-  const { data: photos } = await supabase.from("gbc_events_photos").select("*")
-
-  const result = (events ?? []).map((event) => ({
-    ...event,
-    gbc_events_photos: (photos ?? []).filter((p) => p.gbc_event_id === event.id),
-  }))
-
-  return NextResponse.json(result)
 }

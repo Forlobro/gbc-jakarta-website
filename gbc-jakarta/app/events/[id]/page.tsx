@@ -8,6 +8,7 @@ import Footer from "../../components/Footer"
 import { useTranslation } from "../../lib/LanguageContext"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
 import HeroDecor from "../../components/HeroDecor"
+import EventDetailPageDecor from "../components/EventDetailPageDecor"
 import EventDetailsSection from "../components/EventDetailsSection"
 import EventRegisterSection from "../components/EventRegisterSection"
 
@@ -37,26 +38,7 @@ function EventGallery({ photos, title }: { photos: string[]; title: string }) {
   const next = () => setCurrent((c) => (c === photos.length - 1 ? 0 : c + 1))
 
   return (
-    <section className="py-16 bg-white relative">
-      {/* Blurred accent — top left */}
-      <div className="absolute -top-24 -left-24 w-[380px] h-[380px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
-      {/* Circle outline — bottom right */}
-      <div className="absolute -bottom-16 -right-16 w-[300px] h-[300px] rounded-full border-[40px] border-primary/8 pointer-events-none" />
-      {/* Blurred primary — bottom right */}
-      <div className="absolute -bottom-20 -right-20 w-[350px] h-[350px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
-      {/* Floating symbols */}
-      <div className="absolute top-10 right-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">
-        +
-      </div>
-      <div className="absolute bottom-10 left-[5%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">
-        ◦
-      </div>
-      {/* Decorative lines — right */}
-      <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
-        {[60, 40, 90, 50, 75, 35].map((w, i) => (
-          <div key={i} className="h-[3px] bg-primary/15 rounded-full" style={{ width: `${w}px` }} />
-        ))}
-      </div>
+    <section className="py-16 relative">
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
           {title}
@@ -212,13 +194,6 @@ export default function EventDetailPage() {
 
   const isUpcoming = event.status === "upcoming"
 
-  const expectPoints = [
-    { icon: "far fa-handshake", text: t("upcomingEventPoint1") },
-    { icon: "far fa-building", text: t("upcomingEventPoint2") },
-    { icon: "far fa-comments", text: t("upcomingEventPoint3") },
-    { icon: "far fa-lightbulb", text: t("upcomingEventPoint4") },
-  ]
-
   return (
     <>
       <Navbar />
@@ -249,117 +224,86 @@ export default function EventDetailPage() {
       </section>
 
       {/* ── Event Detail (description) ── */}
-      <section className="py-16 bg-white relative">
-        {/* Blurred accent — top right */}
-        <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
-        {/* Circle outline — top right */}
-        <div className="absolute -top-12 -right-12 w-[280px] h-[280px] rounded-full border-[40px] border-accent/10 pointer-events-none" />
-        {/* Blurred primary — bottom left */}
-        <div className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
-        {/* Floating symbols */}
-        <div className="absolute top-10 left-[6%] text-accent/12 text-7xl font-bold pointer-events-none select-none leading-none">
-          +
-        </div>
-        <div className="absolute bottom-10 right-[6%] text-primary/8 text-6xl font-bold pointer-events-none select-none leading-none">
-          ×
-        </div>
-        {/* Decorative lines — left */}
-        <div className="absolute left-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
-          {[70, 45, 100, 50, 80, 40].map((w, i) => (
-            <div
-              key={i}
-              className="h-[3px] bg-accent/20 rounded-full"
-              style={{ width: `${w}px` }}
+      <main className="relative bg-white overflow-hidden">
+        <EventDetailPageDecor />
+
+        <section className="py-16 relative">
+          <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
+            <div className="max-w-[800px]">
+              <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
+                {t("aboutThisEvent")}
+              </h2>
+              <p className="text-text-light text-[1rem] leading-[1.9] text-justify">
+                {description}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Event Video 1 ── */}
+        {event.link_video_1 && (
+          <section className="py-16 relative">
+            <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
+              <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
+                {t("eventVideo")}
+              </h2>
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                  <iframe
+                    src={event.link_video_1}
+                    className="absolute inset-0 w-full h-full"
+                    title={title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Event Video 2 ── */}
+        {event.link_video_2 && (
+          <section className="py-16 relative">
+            <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                  <iframe
+                    src={event.link_video_2}
+                    className="absolute inset-0 w-full h-full"
+                    title={`${title} — Video 2`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Event Gallery ── */}
+        {galleryPhotos.length > 0 && (
+          <EventGallery photos={galleryPhotos} title={t("eventGallery")} />
+        )}
+
+        {/* ── Upcoming-only sections ── */}
+        {isUpcoming && (
+          <>
+            <EventDetailsSection
+              date={date}
+              time={time}
+              location={location}
+              venue={event.venue}
+              note={t("upcomingEventDetailsNote")}
             />
-          ))}
-        </div>
-        <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-          <div className="max-w-[800px]">
-            <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
-              {t("aboutThisEvent")}
-            </h2>
-            <p className="text-text-light text-[1rem] leading-[1.9] text-justify">{description}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Event Video 1 ── */}
-      {event.link_video_1 && (
-        <section className="py-16 bg-[#f8fafc] relative">
-          {/* Dot pattern */}
-          <div
-            className="absolute inset-y-0 left-0 w-32 pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, rgba(0,194,203,0.18) 1.5px, transparent 1.5px)",
-              backgroundSize: "20px 20px",
-            }}
-          />
-          <div className="absolute -top-20 -left-20 w-[300px] h-[300px] rounded-full bg-primary/6 blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-20 -right-20 w-[300px] h-[300px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
-          <div className="absolute top-8 right-[7%] text-primary/8 text-7xl font-bold pointer-events-none select-none leading-none">
-            ◦
-          </div>
-          <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-            <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
-              {t("eventVideo")}
-            </h2>
-            <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
-              <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-                <iframe
-                  src={event.link_video_1}
-                  className="absolute inset-0 w-full h-full"
-                  title={title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── Event Video 2 ── */}
-      {event.link_video_2 && (
-        <section className="py-16 bg-white relative">
-          <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-            <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
-              <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-                <iframe
-                  src={event.link_video_2}
-                  className="absolute inset-0 w-full h-full"
-                  title={`${title} — Video 2`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── Event Gallery ── */}
-      {galleryPhotos.length > 0 && (
-        <EventGallery photos={galleryPhotos} title={t("eventGallery")} />
-      )}
-
-      {/* ── Upcoming-only sections ── */}
-      {isUpcoming && (
-        <>
-          <EventDetailsSection
-            date={date}
-            time={time}
-            location={location}
-            venue={event.venue}
-            note={t("upcomingEventDetailsNote")}
-          />
-          <EventRegisterSection
-            title={t("upcomingEventRegisterTitle")}
-            description={t("upcomingEventRegisterDesc")}
-            ctaLabel={t("upcomingEventRegisterCta")}
-          />
-        </>
-      )}
+            <EventRegisterSection
+              title={t("upcomingEventRegisterTitle")}
+              description={t("upcomingEventRegisterDesc")}
+              ctaLabel={t("upcomingEventRegisterCta")}
+            />
+          </>
+        )}
+      </main>
 
       <Footer />
     </>

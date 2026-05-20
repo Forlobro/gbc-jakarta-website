@@ -10,27 +10,33 @@ interface RouteParams {
 export async function GET(request: NextRequest, { params }: RouteParams) {
   const lang = getLang(request)
   const m = getMsg(lang)
-  const { id } = await params
-  const supabase = createServerClient()
-  const companyId = parseInt(id)
 
-  const { data: company, error } = await supabase
-    .from("gbc_companies")
-    .select("*")
-    .eq("id", companyId)
-    .single()
+  try {
+    const { id } = await params
+    const supabase = createServerClient()
+    const companyId = parseInt(id)
 
-  if (error || !company) {
-    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
+    const { data: company, error } = await supabase
+      .from("gbc_companies")
+      .select("*")
+      .eq("id", companyId)
+      .single()
+
+    if (error || !company) {
+      return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
+    }
+
+    const { data: photos } = await supabase
+      .from("gbc_companies_photos")
+      .select("*")
+      .eq("gbc_company_id", companyId)
+
+    return NextResponse.json({
+      ...company,
+      gbc_companies_photos: photos ?? [],
+    })
+  } catch (err) {
+    console.error("[GET /api/partners/[id]] Unexpected error:", err)
+    return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
-
-  const { data: photos } = await supabase
-    .from("gbc_companies_photos")
-    .select("*")
-    .eq("gbc_company_id", companyId)
-
-  return NextResponse.json({
-    ...company,
-    gbc_companies_photos: photos ?? [],
-  })
 }

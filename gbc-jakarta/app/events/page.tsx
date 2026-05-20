@@ -6,6 +6,7 @@ import EventsHeaderSection from "./components/EventsHeaderSection"
 import EventsFeaturedSection from "./components/EventsFeaturedSection"
 import EventsPastSection from "./components/EventsPastSection"
 import EventsDotNav from "./components/EventsDotNav"
+import EventsPageDecor from "./components/EventsPageDecor"
 
 export default function EventsPage() {
   return (
@@ -13,8 +14,11 @@ export default function EventsPage() {
       <Navbar />
       <EventsDotNav />
       <EventsHeaderSection />
-      <EventsFeaturedSection />
-      <EventsPastSection />
+      <main className="relative bg-white overflow-hidden">
+        <EventsPageDecor />
+        <EventsFeaturedSection />
+        <EventsPastSection />
+      </main>
       <Footer />
     </>
   )
