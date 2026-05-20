@@ -54,6 +54,9 @@ export default function ContactSection() {
       className="min-h-screen py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative"
       id="contact"
     >
+      {/* Dot pattern */}
+      <DotPattern variant="dark" />
+
       {/* Wave divider bottom */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
         <svg
@@ -76,45 +79,43 @@ export default function ContactSection() {
         }}
       />
 
-      {/* Dot pattern */}
-      <DotPattern variant="dark" />
-
-      {/* Second circle outline — bottom right */}
-      <div className="absolute -bottom-0 -right-10 w-[300px] h-[300px] rounded-full border-[35px] border-accent/12 pointer-events-none" />
+      {/* Circle outline — bottom right */}
+      <div className="absolute -bottom-0 -right-4 w-[160px] h-[160px] sm:-right-6 sm:w-[220px] sm:h-[220px] md:-right-10 md:w-[300px] md:h-[300px] rounded-full border-[18px] sm:border-[25px] md:border-[35px] border-accent/12 pointer-events-none" />
 
       {/* Large blurred — top left */}
-      <div className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full bg-white/5 blur-2xl pointer-events-none" />
+      <div className="absolute -top-16 -left-16 w-[280px] h-[280px] sm:-top-24 sm:-left-24 sm:w-[400px] sm:h-[400px] md:-top-32 md:-left-32 md:w-[550px] md:h-[550px] rounded-full bg-white/5 blur-2xl pointer-events-none" />
 
-      {/* Bold circle outline — top left */}
-      <div className="absolute -top-20 -left-20 w-[380px] h-[380px] rounded-full border-[50px] border-accent/12 pointer-events-none" />
+      {/* Circle outline — top left */}
+      <div className="absolute -top-10 -left-10 w-[200px] h-[200px] sm:-top-14 sm:-left-14 sm:w-[280px] sm:h-[280px] md:-top-20 md:-left-20 md:w-[380px] md:h-[380px] rounded-full border-[25px] sm:border-[35px] md:border-[50px] border-accent/12 pointer-events-none" />
 
       {/* Floating symbols */}
-      <div className="absolute top-16 right-[12%] text-white/10 text-9xl font-bold pointer-events-none select-none leading-none">
+      <div className="absolute top-10 right-[8%] sm:top-14 sm:right-[10%] md:top-16 md:right-[12%] text-white/10 text-6xl sm:text-7xl md:text-9xl font-bold pointer-events-none select-none leading-none">
         +
       </div>
-      <div className="absolute bottom-16 left-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">
+      <div className="absolute bottom-14 left-[6%] sm:bottom-16 sm:left-[7%] md:left-[8%] text-accent/15 text-5xl sm:text-6xl md:text-8xl font-bold pointer-events-none select-none leading-none">
         ×
       </div>
-      <div className="absolute top-1/2 left-[2%] text-white/8 text-6xl pointer-events-none select-none leading-none">
+      <div className="absolute top-1/2 left-[2%] text-white/8 text-4xl sm:text-5xl md:text-6xl pointer-events-none select-none leading-none hidden sm:block">
         ◦
-      </div>
-      <div className="absolute top-[25%] right-[4%] text-accent/12 text-5xl font-bold pointer-events-none select-none leading-none">
-        +
       </div>
 
       {/* Decorative lines — left */}
-      <div className="absolute left-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
-        {[80, 120, 60, 100, 50, 90, 70].map((w, i) => (
-          <div key={i} className="h-[3px] bg-white/12 rounded-full" style={{ width: `${w}px` }} />
+      <div className="absolute left-[3%] top-1/3 flex flex-col gap-2 sm:gap-3 pointer-events-none hidden lg:flex">
+        {[70, 100, 50, 85, 45, 75].map((w, i) => (
+          <div
+            key={i}
+            className="h-[2px] md:h-[3px] bg-white/12 rounded-full"
+            style={{ width: `${w}px` }}
+          />
         ))}
       </div>
 
       {/* Decorative lines — right */}
-      <div className="absolute right-[3%] top-1/3 flex flex-col gap-3 pointer-events-none">
-        {[70, 100, 50, 85, 45, 75].map((w, i) => (
+      <div className="absolute right-[3%] top-1/3 flex flex-col gap-2 sm:gap-3 pointer-events-none hidden lg:flex">
+        {[60, 90, 45, 75, 40, 65].map((w, i) => (
           <div
             key={i}
-            className="h-[3px] bg-accent/20 rounded-full ml-auto"
+            className="h-[2px] md:h-[3px] bg-accent/18 rounded-full ml-auto"
             style={{ width: `${w}px` }}
           />
         ))}

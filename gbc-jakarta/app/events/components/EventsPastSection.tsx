@@ -4,12 +4,10 @@ import { useEffect, useMemo, useState } from "react"
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
 import SectionBadge from "../../components/SectionBadge"
-import SectionDecor from "../../components/SectionDecor"
 import ContentCard from "../../components/ContentCard"
 import SearchBar from "../../components/SearchBar"
 import FilterPills from "../../components/FilterPills"
 import Pagination from "../../components/Pagination"
-import DotPattern from "../../components/DotPattern"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
 
 const PAGE_SIZE = 9
@@ -83,7 +81,7 @@ export default function EventsPastSection() {
           .map((e) => (e.event_start ? new Date(e.event_start).getFullYear().toString() : null))
           .filter(Boolean) as string[],
       ),
-    ).sort((a, b) => Number(b) - Number(a))
+    ).sort((a, b) => Number(a) - Number(b))
 
     return [{ key: "all", label: t("all") }, ...years.map((y) => ({ key: y, label: y }))]
   }, [allEvents, t])
@@ -116,8 +114,6 @@ export default function EventsPastSection() {
 
   return (
     <section className="py-24 relative" id="events-past">
-      <DotPattern />
-      <SectionDecor variant="primary" />
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-14">
           <SectionBadge centered>{t("eventsPastTag")}</SectionBadge>

@@ -16,52 +16,7 @@ export default function DirectorSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-36 bg-white relative" id="team">
-      {/* Wave divider top */}
-
-      {/* Dot pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(15,40,71,0.06) 1.5px, transparent 1.5px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
-
-      {/* Large blurred accent — bottom left */}
-      <div className="absolute -bottom-40 -left-40 w-[650px] h-[650px] rounded-full bg-accent/10 blur-2xl pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 w-[420px] h-[420px] rounded-full border-[55px] border-accent/10 pointer-events-none" />
-
-      {/* Large blurred primary — top right */}
-      <div className="absolute -top-32 -right-32 w-[550px] h-[550px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />
-      <div className="absolute -top-20 -right-20 w-[380px] h-[380px] rounded-full border-[50px] border-primary/8 pointer-events-none" />
-
-      {/* Floating symbols */}
-      <div className="absolute top-20 left-[6%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">
-        ×
-      </div>
-      <div className="absolute bottom-16 right-[8%] text-primary/10 text-7xl font-bold pointer-events-none select-none leading-none">
-        +
-      </div>
-
-      {/* Decorative lines — left */}
-      <div className="absolute left-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
-        {[90, 55, 120, 45, 100, 60, 80].map((w, i) => (
-          <div key={i} className="h-[3px] bg-accent/25 rounded-full" style={{ width: `${w}px` }} />
-        ))}
-      </div>
-
-      {/* Decorative lines — right */}
-      <div className="absolute right-[3%] top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none">
-        {[70, 100, 50, 90, 40, 80].map((w, i) => (
-          <div
-            key={i}
-            className="h-[3px] bg-primary/12 rounded-full ml-auto"
-            style={{ width: `${w}px` }}
-          />
-        ))}
-      </div>
-
+    <section className="min-h-screen py-36 relative" id="team">
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-20">

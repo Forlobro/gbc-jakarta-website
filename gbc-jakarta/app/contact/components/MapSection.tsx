@@ -2,33 +2,12 @@
 
 import { useTranslation } from "@/app/lib/LanguageContext"
 import SectionBadge from "@/app/components/SectionBadge"
-import DotPattern from "@/app/components/DotPattern"
 
 export default function MapSection() {
   const { t } = useTranslation()
 
   return (
-    <section
-      className="min-h-screen py-36 bg-gradient-to-b from-[#f0f7ff] to-white relative"
-      id="location"
-    >
-      {/* Dot pattern */}
-      <DotPattern />
-
-      {/* Blurred accent — top left */}
-      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-accent/8 blur-2xl pointer-events-none" />
-
-      {/* Circle outline — top left */}
-      <div className="absolute -top-20 -left-20 w-[360px] h-[360px] rounded-full border-[50px] border-accent/10 pointer-events-none" />
-
-      {/* Floating symbols */}
-      <div className="absolute top-16 right-[8%] text-accent/15 text-8xl font-bold pointer-events-none select-none leading-none">
-        +
-      </div>
-      <div className="absolute bottom-16 left-[6%] text-primary/10 text-7xl font-bold pointer-events-none select-none leading-none">
-        ×
-      </div>
-
+    <section className="min-h-screen py-36 relative" id="location">
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <div className="text-center max-w-[600px] mx-auto mb-8">

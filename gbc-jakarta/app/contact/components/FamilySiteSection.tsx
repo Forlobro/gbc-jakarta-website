@@ -3,7 +3,6 @@
 import Image from "next/image"
 import ScrollReveal from "@/app/components/ScrollReveal"
 import SectionBadge from "@/app/components/SectionBadge"
-import DotPattern from "@/app/components/DotPattern"
 
 export default function FamilySiteSection() {
   const buttons = [
@@ -39,13 +38,6 @@ export default function FamilySiteSection() {
 
   return (
     <section className="flex-1 py-20 relative overflow-hidden" id="family-site">
-      {/* Dot pattern */}
-      <DotPattern />
-
-      {/* Subtle decorative elements */}
-      <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-accent/5 blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-primary/5 blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
-
       <div className="max-w-[1400px] mx-auto px-[5%]">
         <ScrollReveal>
           <div className="text-center mb-12">
