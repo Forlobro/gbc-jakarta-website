@@ -225,7 +225,7 @@ export default function ContactSection() {
 
               <form onSubmit={handleSubmit}>
                 {/* Name */}
-                <div className="mb-[20px]">
+                <div className="mb-[25px]">
                   <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formName")}
                   </label>
@@ -239,7 +239,7 @@ export default function ContactSection() {
                 </div>
 
                 {/* Email */}
-                <div className="mb-[20px]">
+                <div className="mb-[25px]">
                   <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formEmail")}
                   </label>
@@ -253,7 +253,7 @@ export default function ContactSection() {
                 </div>
 
                 {/* Company */}
-                <div className="mb-[20px]">
+                <div className="mb-[30px]">
                   <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formCompany")}
                   </label>
@@ -266,7 +266,7 @@ export default function ContactSection() {
                 </div>
 
                 {/* Message */}
-                <div className="mb-[20px]">
+                <div className="mb-[30px]">
                   <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
                     {t("formMessage")}
                   </label>

@@ -20,11 +20,6 @@ export default function AboutSection() {
       desc: t("connectWithLocalDistributors"),
     },
     {
-      icon: "fas fa-file-signature",
-      title: t("legalSupport"),
-      desc: t("businessRegistrationGuidance"),
-    },
-    {
       icon: "fas fa-bullhorn",
       title: t("tradePromotion"),
       desc: t("tradeShowsExhibitions"),
@@ -97,21 +92,6 @@ export default function AboutSection() {
             <p className="text-text-light text-lg leading-[1.9] mb-8 text-justify">
               {t("aboutDescription2")}
             </p>
-
-            {/* Features Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
-              {features.map((feature) => (
-                <div key={feature.title} className="flex items-start gap-4">
-                  <div className="w-[50px] h-[50px] bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center text-accent text-xl shrink-0">
-                    <i className={feature.icon} />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-text mb-1">{feature.title}</h4>
-                    <p className="text-[0.9rem] text-text-light m-0 text-justify">{feature.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </ScrollReveal>
 
           {/* Image */}
@@ -129,6 +109,23 @@ export default function AboutSection() {
             <div className="absolute w-[200px] h-[200px] border-[3px] border-accent rounded-3xl -top-[30px] -right-[30px] -z-[1]" />
           </ScrollReveal>
         </div>
+
+        {/* Features Grid — full width below */}
+        <ScrollReveal>
+          <div className="flex flex-col sm:flex-row justify-between gap-6 mt-16 border-t border-gray-200 pt-10">
+            {features.map((feature) => (
+              <div key={feature.title} className="flex items-start gap-4">
+                <div className="w-[50px] h-[50px] bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center text-accent text-xl shrink-0">
+                  <i className={feature.icon} />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-text mb-1">{feature.title}</h4>
+                  <p className="text-[0.9rem] text-text-light m-0 text-justify">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )
