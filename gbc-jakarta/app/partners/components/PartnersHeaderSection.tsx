@@ -56,7 +56,7 @@ export default function PartnersHeaderSection() {
 
       <div className="max-w-350 mx-auto px-[5%] relative z-[2] w-full">
         {/* Title + Search */}
-        <ScrollReveal className="text-center max-w-175 mx-auto mb-6">
+        <ScrollReveal className="text-center max-w-180 mx-auto mb-6">
           <SectionBadge centered>GMS Program</SectionBadge>
           <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-4 leading-[1.2]">
             {t("featured")}

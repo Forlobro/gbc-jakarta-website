@@ -6,7 +6,7 @@ import { SectionBg, VideoEmbed } from "./shared"
 
 const GYEONGGI_STATS = [
   {
-    value: "527 Triliun KRW",
+    value: "350 Milliar USD",
     labelKey: "gyeonggiStat1" as const,
     color: "text-[#f59e0b]",
   },
@@ -21,7 +21,7 @@ const GYEONGGI_STATS = [
     color: "text-[#a78bfa]",
   },
   {
-    value: "470 Triliun KRW",
+    value: "312 Milliar USD",
     labelKey: "gyeonggiStat4" as const,
     color: "text-[#34d399]",
   },

@@ -138,12 +138,12 @@ export default function HeroSection() {
             style={{ animation: "fadeInUp 0.8s ease 0.4s forwards" }}
           >
             {/* Stats Card */}
-            <div className="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-3xl p-10 relative overflow-hidden">
+            <div className="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-3xl p-5 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-[#00a8b0]" />
               <div className="grid grid-cols-2 gap-8">
                 {[
-                  { target: 40, suffix: "+", label: t("partnerCompanies") },
-                  { target: 5, suffix: "", label: t("industrySectors") },
+                  { target: 50, suffix: "+", label: t("partnerCompanies") },
+                  { target: 562.518, suffix: "", label: t("partnerExport") },
                   { target: 100, suffix: "+", label: t("businessMatches") },
                   { target: 2023, suffix: "", label: t("established") },
                 ].map((stat) => (

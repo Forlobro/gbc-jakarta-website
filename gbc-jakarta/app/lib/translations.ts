@@ -20,7 +20,7 @@ export const translations = {
 
     // Stats
     partnerCompanies: "Partner Companies",
-    industrySectors: "Industry Sectors",
+    partnerExport: "Partner Export value 2024-2025",
     businessMatches: "Business Matches",
     established: "Established",
 
@@ -356,7 +356,7 @@ export const translations = {
 
     // Stats
     partnerCompanies: "Perusahaan Mitra",
-    industrySectors: "Sektor Industri",
+    partnerExport: "nilai ekspor mitra 2024-2025",
     businessMatches: "Kerja Sama Bisnis",
     established: "Didirikan",
 
