@@ -10,62 +10,74 @@ interface RouteParams {
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   const lang = getLang(request)
   const m = getMsg(lang)
-  const { id } = await params
-  const categoryId = parseInt(id)
 
-  if (Number.isNaN(categoryId)) {
-    return NextResponse.json({ error: m.invalidId }, { status: 400 })
-  }
-
-  let body
   try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json({ error: m.invalidJson }, { status: 400 })
-  }
+    const { id } = await params
+    const categoryId = parseInt(id)
 
-  const name = typeof body.name === "string" ? body.name.trim() : ""
-  if (!name) {
-    return NextResponse.json({ error: m.categoryNameRequired }, { status: 400 })
-  }
-
-  const supabase = createServerClient()
-
-  const { data, error } = await supabase
-    .from("gbc_companies_categories")
-    .update({ name })
-    .eq("id", categoryId)
-    .select()
-    .single()
-
-  if (error) {
-    if (error.code === "23505") {
-      return NextResponse.json({ error: m.categoryAlreadyExists }, { status: 409 })
+    if (Number.isNaN(categoryId)) {
+      return NextResponse.json({ error: m.invalidId }, { status: 400 })
     }
+
+    let body
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ error: m.invalidJson }, { status: 400 })
+    }
+
+    const name = typeof body.name === "string" ? body.name.trim() : ""
+    if (!name) {
+      return NextResponse.json({ error: m.categoryNameRequired }, { status: 400 })
+    }
+
+    const supabase = createServerClient()
+
+    const { data, error } = await supabase
+      .from("gbc_companies_categories")
+      .update({ name })
+      .eq("id", categoryId)
+      .select()
+      .single()
+
+    if (error) {
+      if (error.code === "23505") {
+        return NextResponse.json({ error: m.categoryAlreadyExists }, { status: 409 })
+      }
+      return NextResponse.json({ error: m.serverError }, { status: 500 })
+    }
+
+    return NextResponse.json({ ...data, message: m.categoryUpdateSuccess })
+  } catch (err) {
+    console.error("[PUT /api/admin/partners-categories/[id]] Unexpected error:", err)
     return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
-
-  return NextResponse.json({ ...data, message: m.categoryUpdateSuccess })
 }
 
 // DELETE /api/admin/partners-categories/[id]
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   const lang = getLang(request)
   const m = getMsg(lang)
-  const { id } = await params
-  const categoryId = parseInt(id)
 
-  if (Number.isNaN(categoryId)) {
-    return NextResponse.json({ error: m.invalidId }, { status: 400 })
-  }
+  try {
+    const { id } = await params
+    const categoryId = parseInt(id)
 
-  const supabase = createServerClient()
+    if (Number.isNaN(categoryId)) {
+      return NextResponse.json({ error: m.invalidId }, { status: 400 })
+    }
 
-  const { error } = await supabase.from("gbc_companies_categories").delete().eq("id", categoryId)
+    const supabase = createServerClient()
 
-  if (error) {
+    const { error } = await supabase.from("gbc_companies_categories").delete().eq("id", categoryId)
+
+    if (error) {
+      return NextResponse.json({ error: m.serverError }, { status: 500 })
+    }
+
+    return NextResponse.json({ success: true, message: m.categoryDeleteSuccess })
+  } catch (err) {
+    console.error("[DELETE /api/admin/partners-categories/[id]] Unexpected error:", err)
     return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
-
-  return NextResponse.json({ success: true, message: m.categoryDeleteSuccess })
 }

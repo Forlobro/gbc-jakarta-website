@@ -6,52 +6,64 @@ import { getLang, getMsg } from "../../../lib/messages"
 export async function GET(request: NextRequest) {
   const lang = getLang(request)
   const m = getMsg(lang)
-  const supabase = createServerClient()
 
-  const { data, error } = await supabase
-    .from("gbc_companies_categories")
-    .select("*")
-    .order("name", { ascending: true })
+  try {
+    const supabase = createServerClient()
 
-  if (error) {
-    console.error("[GET /api/admin/partners-categories]", error)
-    return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
+    const { data, error } = await supabase
+      .from("gbc_companies_categories")
+      .select("*")
+      .order("name", { ascending: true })
+
+    if (error) {
+      console.error("[GET /api/admin/partners-categories]", error)
+      return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json(data ?? [])
+  } catch (err) {
+    console.error("[GET /api/admin/partners-categories] Unexpected error:", err)
+    return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
-
-  return NextResponse.json(data ?? [])
 }
 
 // POST /api/admin/partners-categories
 export async function POST(request: NextRequest) {
   const lang = getLang(request)
   const m = getMsg(lang)
-  const supabase = createServerClient()
 
-  let body
   try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json({ error: m.invalidJson }, { status: 400 })
-  }
+    const supabase = createServerClient()
 
-  const name = typeof body.name === "string" ? body.name.trim() : ""
-  if (!name) {
-    return NextResponse.json({ error: m.categoryNameRequired }, { status: 400 })
-  }
-
-  const { data, error } = await supabase
-    .from("gbc_companies_categories")
-    .insert({ name })
-    .select()
-    .single()
-
-  if (error) {
-    if (error.code === "23505") {
-      return NextResponse.json({ error: m.categoryAlreadyExists }, { status: 409 })
+    let body
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ error: m.invalidJson }, { status: 400 })
     }
-    console.error("[POST /api/admin/partners-categories]", error)
-    return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
-  }
 
-  return NextResponse.json({ ...data, message: m.categoryCreateSuccess }, { status: 201 })
+    const name = typeof body.name === "string" ? body.name.trim() : ""
+    if (!name) {
+      return NextResponse.json({ error: m.categoryNameRequired }, { status: 400 })
+    }
+
+    const { data, error } = await supabase
+      .from("gbc_companies_categories")
+      .insert({ name })
+      .select()
+      .single()
+
+    if (error) {
+      if (error.code === "23505") {
+        return NextResponse.json({ error: m.categoryAlreadyExists }, { status: 409 })
+      }
+      console.error("[POST /api/admin/partners-categories]", error)
+      return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json({ ...data, message: m.categoryCreateSuccess }, { status: 201 })
+  } catch (err) {
+    console.error("[POST /api/admin/partners-categories] Unexpected error:", err)
+    return NextResponse.json({ error: m.serverError }, { status: 500 })
+  }
 }

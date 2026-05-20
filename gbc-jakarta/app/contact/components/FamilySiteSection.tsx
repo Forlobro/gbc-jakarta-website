@@ -38,10 +38,7 @@ export default function FamilySiteSection() {
   ]
 
   return (
-    <section
-      className="flex-1 py-20 relative overflow-hidden"
-      id="family-site"
-    >
+    <section className="flex-1 py-20 relative overflow-hidden" id="family-site">
       {/* Dot pattern */}
       <DotPattern />
 

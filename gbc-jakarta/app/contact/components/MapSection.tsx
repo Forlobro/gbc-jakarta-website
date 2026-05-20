@@ -8,7 +8,10 @@ export default function MapSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-36 bg-gradient-to-b from-[#f0f7ff] to-white relative" id="location">
+    <section
+      className="min-h-screen py-36 bg-gradient-to-b from-[#f0f7ff] to-white relative"
+      id="location"
+    >
       {/* Dot pattern */}
       <DotPattern />
 

@@ -6,23 +6,29 @@ import { getLang, getMsg } from "../../lib/messages"
 export async function GET(request: NextRequest) {
   const lang = getLang(request)
   const m = getMsg(lang)
-  const supabase = createServerClient()
 
-  const { data: companies, error } = await supabase
-    .from("gbc_companies")
-    .select("*")
-    .order("id", { ascending: true })
+  try {
+    const supabase = createServerClient()
 
-  if (error) {
+    const { data: companies, error } = await supabase
+      .from("gbc_companies")
+      .select("*")
+      .order("id", { ascending: true })
+
+    if (error) {
+      return NextResponse.json({ error: m.serverError }, { status: 500 })
+    }
+
+    const { data: photos } = await supabase.from("gbc_companies_photos").select("*")
+
+    const result = (companies ?? []).map((company) => ({
+      ...company,
+      gbc_companies_photos: (photos ?? []).filter((p) => p.gbc_company_id === company.id),
+    }))
+
+    return NextResponse.json(result)
+  } catch (err) {
+    console.error("[GET /api/partners] Unexpected error:", err)
     return NextResponse.json({ error: m.serverError }, { status: 500 })
   }
-
-  const { data: photos } = await supabase.from("gbc_companies_photos").select("*")
-
-  const result = (companies ?? []).map((company) => ({
-    ...company,
-    gbc_companies_photos: (photos ?? []).filter((p) => p.gbc_company_id === company.id),
-  }))
-
-  return NextResponse.json(result)
 }
