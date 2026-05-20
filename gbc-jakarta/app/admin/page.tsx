@@ -35,7 +35,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {[
           {
-            label: "Total Companies",
+            label: "Total Partners",
             value: loading ? "—" : companies.length,
             icon: "far fa-building",
             color: "from-blue-500 to-blue-600",
@@ -112,7 +112,7 @@ export default function AdminDashboard() {
       {/* Recent Companies */}
       {!loading && companies.length > 0 && (
         <div className="mt-8 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">Recently Added Companies</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Recently Added Partners</h2>
           <div className="space-y-3">
             {companies.slice(0, 5).map((company) => (
               <Link

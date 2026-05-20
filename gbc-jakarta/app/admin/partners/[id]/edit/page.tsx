@@ -78,7 +78,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
           href="/admin/partners"
           className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm mb-4 transition-colors"
         >
-          <i className="fas fa-arrow-left" /> Back to Companies
+          <i className="fas fa-arrow-left" /> Back to Partners
         </Link>
         <div className="flex items-center gap-4">
           <h1 className="text-2xl font-bold text-slate-900">Edit: {company.name}</h1>
@@ -89,7 +89,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
         {/* Partner Form */}
         <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8 flex flex-col">
           <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-            <i className="far fa-edit text-accent" /> Company Details
+            <i className="far fa-edit text-accent" /> Partners Details
           </h2>
           <PartnerForm
             initialData={{
