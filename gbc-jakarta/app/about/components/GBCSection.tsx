@@ -3,9 +3,9 @@
 import Image from "next/image"
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
-import { VideoEmbed } from "./shared"
+import { VideoEmbed } from "./VideoEmbed"
 
-export default function GlobalNetworkSection() {
+export default function GBCSection() {
   const { t } = useTranslation()
 
   return (

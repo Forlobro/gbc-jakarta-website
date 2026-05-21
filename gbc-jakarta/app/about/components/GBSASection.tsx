@@ -2,7 +2,7 @@
 
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
-import { VideoEmbed } from "./shared"
+import { VideoEmbed } from "./VideoEmbed"
 
 export default function GBSASection() {
   const { t } = useTranslation()

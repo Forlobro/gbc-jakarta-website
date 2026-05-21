@@ -304,9 +304,6 @@ export const translations = {
     timelineDesc: "Complete chronology from founding to GBC Jakarta opening.",
     timelineFootnote: "Full timeline: 20 milestones · Source: GBSA Brochure 2023",
     aboutNavAbout: "About GBC",
-    aboutNavNetwork: "GBC Network",
-    aboutNavGbsa: "GBSA",
-    aboutNavGyeonggi: "Gyeonggi-do",
     aboutNavHistory: "History",
 
     // Gyeonggi stats
@@ -637,9 +634,6 @@ export const translations = {
     timelineDesc: "Kronologi lengkap dari pendirian awal hingga pembukaan GBC Jakarta.",
     timelineFootnote: "Timeline lengkap: 20 milestone · Sumber: GBSA Brochure 2023",
     aboutNavAbout: "Tentang GBC",
-    aboutNavNetwork: "Jaringan GBC",
-    aboutNavGbsa: "GBSA",
-    aboutNavGyeonggi: "Gyeonggi-do",
     aboutNavHistory: "Sejarah",
 
     // Gyeonggi stats
