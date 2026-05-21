@@ -9,9 +9,9 @@ export default function AboutDotNav() {
 
   const sections = [
     { id: "about-intro", label: t("aboutNavAbout") },
-    { id: "global-network", label: t("aboutNavNetwork") },
-    { id: "gbsa", label: t("aboutNavGbsa") },
-    { id: "gyeonggi", label: t("aboutNavGyeonggi") },
+    { id: "gbc", label: "GBC" },
+    { id: "gbsa", label: "GBSA" },
+    { id: "gyeonggi", label: "Gyeonggi-do" },
     { id: "history", label: t("aboutNavHistory") },
   ]
 
