@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
 import { useTranslation } from "@/app/lib/LanguageContext"
 
 function CountUp({ target, duration = 3000 }: { target: number; duration?: number }) {
@@ -54,9 +53,6 @@ export default function HeroSection() {
     return () => clearInterval(timer)
   }, [])
 
-  const prev = () => setCurrent((c) => (c === 0 ? BG_IMAGES.length - 1 : c - 1))
-  const next = () => setCurrent((c) => (c === BG_IMAGES.length - 1 ? 0 : c + 1))
-
   return (
     <section className="min-h-screen relative flex items-center overflow-hidden" id="home">
       {/* Background Images (fade transition) */}
@@ -94,12 +90,12 @@ export default function HeroSection() {
       />
 
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2] w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-[67px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-24 lg:py-[67px]">
           {/* Hero Text */}
           <div className="text-white text-center lg:text-left">
             {/* Title */}
             <h1
-              className="font-display text-4xl md:text-5xl lg:text-[4rem] font-extrabold leading-[1.1] mb-6 opacity-0"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-extrabold leading-[1.1] mb-5 opacity-0"
               style={{ animation: "fadeInUp 0.8s ease 0.1s forwards" }}
             >
               {titleParts[0]}
@@ -111,25 +107,12 @@ export default function HeroSection() {
 
             {/* Description */}
             <p
-              className="text-xl opacity-0 mb-10 max-w-[500px] leading-[1.8] mx-auto lg:mx-0"
+              className="text-base sm:text-lg md:text-xl opacity-0 mb-8 md:mb-10 max-w-[500px] leading-[1.8] mx-auto lg:mx-0"
               style={{ animation: "fadeInUp 0.8s ease 0.2s forwards" }}
             >
               {t("heroDesc")}
             </p>
 
-            {/* Button — only Learn More */}
-            <div
-              className="flex gap-4 opacity-0 justify-center lg:justify-start"
-              style={{ animation: "fadeInUp 0.8s ease 0.3s forwards" }}
-            >
-              <Link
-                href="/#about"
-                className="px-8 py-4 rounded-full font-semibold text-accent inline-flex items-center gap-3 transition-all duration-400 bg-accent/20 border-2 border-accent/30 hover:bg-accent hover:text-primary hover:border-accent hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)]"
-              >
-                <span>{t("learn")}</span>
-                <i className="fas fa-arrow-right" />
-              </Link>
-            </div>
           </div>
 
           {/* Hero Visual */}
@@ -140,22 +123,22 @@ export default function HeroSection() {
             {/* Stats Card */}
             <div className="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-3xl p-5 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-[#00a8b0]" />
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-4 sm:gap-8">
                 {[
-                  { target: 50, suffix: "+", label: t("partnerCompanies") },
-                  { target: 562.518, suffix: "", label: t("partnerExport") },
-                  { target: 100, suffix: "+", label: t("businessMatches") },
-                  { target: 2023, suffix: "", label: t("established") },
+                  { target: 50, suffix: "+", prefix: "", label: t("partnerCompanies") },
+                  { target: 562.518, suffix: "", prefix: "$", label: t("partnerExport") },
+                  { target: 999, suffix: "+", prefix: "", label: t("businessMatches") },
+                  { target: 2023, suffix: "", prefix: "", label: t("established") },
                 ].map((stat) => (
                   <div
                     key={stat.label}
-                    className="text-center p-6 bg-white/5 rounded-2xl transition-all duration-300 hover:bg-white/10 hover:-translate-y-[5px]"
+                    className="text-center p-4 sm:p-6 bg-white/5 rounded-2xl transition-all duration-300 hover:bg-white/10 hover:-translate-y-[5px]"
                   >
-                    <span className="font-display text-5xl font-extrabold text-accent block leading-none mb-2">
-                      <CountUp target={stat.target} />
+                    <span className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-accent block leading-none mb-2">
+                      {stat.prefix}<CountUp target={stat.target} />
                       {stat.suffix}
                     </span>
-                    <span className="text-white/70 text-[0.9rem] font-medium">{stat.label}</span>
+                    <span className="text-white/70 text-[0.75rem] sm:text-[0.9rem] font-medium">{stat.label}</span>
                   </div>
                 ))}
               </div>
@@ -164,37 +147,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Slider Controls */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[3] flex items-center gap-6">
-        {/* Prev */}
-        <button
-          onClick={prev}
-          className="w-12 h-12 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition-all duration-300"
-        >
-          <i className="fas fa-chevron-left text-base" />
-        </button>
-
-        {/* Dots */}
-        <div className="flex gap-3">
-          {BG_IMAGES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`h-3 rounded-full transition-all duration-300 ${
-                i === current ? "bg-accent w-10" : "bg-white/50 w-3"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Next */}
-        <button
-          onClick={next}
-          className="w-12 h-12 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition-all duration-300"
-        >
-          <i className="fas fa-chevron-right text-base" />
-        </button>
-      </div>
     </section>
   )
 }

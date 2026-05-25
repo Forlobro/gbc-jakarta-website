@@ -27,6 +27,7 @@ interface ContentCardProps {
   logoUrl?: string | null
   logoFallback?: string
   badge?: string
+  year?: string | number
   meta?: ContentCardMeta[]
   title: string
   description?: string
@@ -39,6 +40,7 @@ export default function ContentCard({
   logoUrl,
   logoFallback,
   badge,
+  year,
   meta,
   title,
   description,
@@ -71,10 +73,19 @@ export default function ContentCard({
             </div>
           )}
 
-          {badge && (
-            <span className="absolute top-4 left-4 text-[0.72rem] font-bold px-3 py-1 rounded-full bg-gray-100 text-primary">
-              {badge}
-            </span>
+          {(year || badge) && (
+            <div className="absolute top-4 left-4 flex items-center gap-2">
+              {year && (
+                <span className="text-[0.72rem] font-bold px-3 py-1 rounded-full bg-gray-100 text-primary">
+                  {year}
+                </span>
+              )}
+              {badge && (
+                <span className="text-[0.72rem] font-bold px-3 py-1 rounded-full bg-gray-100 text-primary">
+                  {badge}
+                </span>
+              )}
+            </div>
           )}
         </div>
 

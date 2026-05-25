@@ -7,9 +7,9 @@ export default function AboutHero() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen relative pt-32 pb-16 flex items-center" id="about-intro">
+    <section className="relative pt-24 pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16 flex items-center" id="about-intro">
       <div className="max-w-[1200px] mx-auto px-[5%]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left: text */}
           <div>
             <h1 className="font-display text-4xl md:text-[2.8rem] font-extrabold text-primary leading-[1.15] mb-5">

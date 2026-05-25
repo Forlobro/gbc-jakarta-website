@@ -38,30 +38,34 @@ export default function Navbar() {
       >
         {/* Logo */}
         <div className="flex items-center gap-4 z-10">
-          <Link href="/#home">
+          {/* GBSA logo — desktop only */}
+          <Link href="/#home" className="hidden lg:block">
             <Image
               src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
               alt="GBSA"
               width={80}
               height={40}
               priority={true}
-              className="h-9 w-auto transition-transform duration-300 hover:scale-105"
+              style={{ height: "36px", width: "auto" }}
+              className="transition-transform duration-300 hover:scale-105"
             />
           </Link>
+          {/* GBC Jakarta logo — always visible */}
           <Link href="/#home">
             <Image
               src="/images/logo.jpg"
               alt="GBC Jakarta"
-              width={40}
-              height={10}
+              width={120}
+              height={40}
               priority={true}
-              className="h-1 w-auto mix-blend-multiply transition-transform duration-300 hover:scale-105"
+              style={{ height: "36px", width: "auto", maxWidth: "110px" }}
+              className="mix-blend-multiply transition-transform duration-300 hover:scale-105"
             />
           </Link>
         </div>
 
         {/* Nav Links — desktop */}
-        <ul className="hidden md:flex">
+        <ul className="hidden lg:flex">
           {NAV_ITEMS.map((item, idx) => (
             <li key={item.key}>
               <Link
@@ -85,8 +89,8 @@ export default function Navbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-3">
-          {/* Language Toggle */}
-          <div className="flex bg-gray-100 rounded-[30px] p-0.5">
+          {/* Language Toggle — desktop only */}
+          <div className="hidden lg:flex bg-gray-100 rounded-[30px] p-0.5">
             <button
               onClick={() => setLanguage("id")}
               className={`px-3 py-1 border-none rounded-[20px] cursor-pointer text-[0.75rem] font-semibold transition-all duration-300 ${
@@ -112,26 +116,28 @@ export default function Navbar() {
           {/* CTA Button — desktop only */}
           <button
             onClick={handleCtaClick}
-            className="hidden md:inline-block w-[130px] text-center py-1 bg-accent text-accent rounded-full font-semibold text-[0.78rem] transition-all duration-400 bg-accent/20 border-2 border-accent/30 hover:bg-accent hover:text-primary hover:border-accent hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)] cursor-pointer"
+            className="hidden lg:inline-block w-[130px] text-center py-1 bg-accent text-accent rounded-full font-semibold text-[0.78rem] transition-all duration-400 bg-accent/20 border-2 border-accent/30 hover:bg-accent hover:text-primary hover:border-accent hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,194,203,0.3)] cursor-pointer"
           >
             {t("cta")}
           </button>
 
-          <Link href="/#home">
+          {/* Gyeonggi logo — desktop only */}
+          <Link href="/#home" className="hidden lg:block">
             <Image
               src="/images/gyeonggi-logo.jpeg"
-              alt="GBC Jakarta"
+              alt="Gyeonggi-do"
               width={80}
               height={20}
               priority
               loading="eager"
-              className="h-1 w-auto mix-blend-multiply transition-transform duration-300 hover:scale-105"
+              style={{ height: "32px", width: "auto" }}
+              className="mix-blend-multiply transition-transform duration-300 hover:scale-105"
             />
           </Link>
 
-          {/* Hamburger — mobile only */}
+          {/* Hamburger — mobile/tablet only */}
           <button
-            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px] rounded-lg hover:bg-gray-100 transition-colors"
+            className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px] rounded-lg hover:bg-gray-100 transition-colors"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
@@ -150,7 +156,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed inset-0 z-[999] md:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-[999] lg:hidden transition-all duration-300 ${
           menuOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
@@ -200,20 +206,50 @@ export default function Navbar() {
           </nav>
 
           {/* Drawer footer */}
-          <div className="px-6 py-5 border-t border-gray-100 flex flex-col gap-3">
+          <div className="px-6 py-5 border-t border-gray-100 flex flex-col gap-4">
             <button
               onClick={handleCtaClick}
               className="w-full text-center px-5 py-2.5 bg-accent text-primary rounded-[30px] font-semibold text-[0.85rem] shadow-[0_4px_15px_rgba(0,194,203,0.3)] cursor-pointer"
             >
               {t("cta")}
             </button>
-            <div className="flex items-center justify-center gap-2">
+
+            {/* Language Toggle */}
+            <div className="flex justify-center bg-gray-100 rounded-[30px] p-0.5 w-fit mx-auto">
+              <button
+                onClick={() => setLanguage("id")}
+                className={`px-4 py-1.5 border-none rounded-[20px] cursor-pointer text-[0.8rem] font-semibold transition-all duration-300 ${
+                  language === "id" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
+                }`}
+              >
+                ID
+              </button>
+              <button
+                onClick={() => setLanguage("en")}
+                className={`px-4 py-1.5 border-none rounded-[20px] cursor-pointer text-[0.8rem] font-semibold transition-all duration-300 ${
+                  language === "en" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
+                }`}
+              >
+                EN
+              </button>
+            </div>
+
+            {/* Logos */}
+            <div className="flex flex-col items-center gap-3 pt-1">
+              <Image
+                src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
+                alt="GBSA"
+                width={70}
+                height={35}
+                style={{ height: "32px", width: "auto" }}
+              />
               <Image
                 src="/images/gyeonggi-logo.jpeg"
                 alt="Gyeonggi-do"
                 width={70}
                 height={35}
-                className="h-7 w-auto mix-blend-multiply"
+                style={{ height: "28px", width: "auto" }}
+                className="mix-blend-multiply"
               />
             </div>
           </div>

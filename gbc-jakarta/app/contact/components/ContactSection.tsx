@@ -11,6 +11,20 @@ export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState("")
+  const [copiedPhone, setCopiedPhone] = useState(false)
+  const [copiedEmail, setCopiedEmail] = useState(false)
+
+  const copyPhone = () => {
+    navigator.clipboard.writeText("+622139712135")
+    setCopiedPhone(true)
+    setTimeout(() => setCopiedPhone(false), 2000)
+  }
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("chat.gbcjkt@gmail.com")
+    setCopiedEmail(true)
+    setTimeout(() => setCopiedEmail(false), 2000)
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -51,7 +65,7 @@ export default function ContactSection() {
 
   return (
     <section
-      className="min-h-screen py-36 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative"
+      className="py-16 md:py-24 lg:py-32 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative"
       id="contact"
     >
       {/* Dot pattern */}
@@ -159,12 +173,15 @@ export default function ContactSection() {
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
                     {t("contactEmail")}
                   </h4>
-                  <a
-                    href="mailto:chat.gbcjkt@gmail.com"
-                    className="text-[1.05rem] text-white hover:text-accent transition-colors"
+                  <button
+                    onClick={copyEmail}
+                    className="group text-[1.05rem] text-white hover:text-accent transition-colors flex items-center gap-2"
                   >
                     chat.gbcjkt@gmail.com
-                  </a>
+                    <span className="text-[0.7rem] font-semibold px-2 py-0.5 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      {copiedEmail ? "Tersalin!" : "Salin"}
+                    </span>
+                  </button>
                 </div>
               </div>
 
@@ -177,11 +194,34 @@ export default function ContactSection() {
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
                     {t("contactPhone")}
                   </h4>
-                  <a
-                    href="tel:+622139712135"
-                    className="text-[1.05rem] text-white hover:text-accent transition-colors"
+                  <button
+                    onClick={copyPhone}
+                    className="group text-[1.05rem] text-white hover:text-accent transition-colors flex items-center gap-2"
                   >
                     +62 21 3971 2135
+                    <span className="text-[0.7rem] font-semibold px-2 py-0.5 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      {copiedPhone ? "Tersalin!" : "Salin"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              {/* WhatsApp */}
+              <div className="flex gap-5 items-start">
+                <div className="w-[55px] h-[55px] bg-white/10 rounded-[14px] flex items-center justify-center text-2xl text-accent shrink-0">
+                  <i className="fab fa-whatsapp" />
+                </div>
+                <div>
+                  <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
+                    WhatsApp
+                  </h4>
+                  <a
+                    href="https://wa.me/628111300313?text=Halo%20Tim%20GBC%20Jakarta%2C%0A%0ASaya%20ingin%20mengetahui%20lebih%20lanjut%20mengenai%20%5Btopik%5D.%0A%0ANama%3A%20%0APerusahaan%2FInstitusi%3A%20"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[1.05rem] text-white hover:text-accent transition-colors"
+                  >
+                    +62 8111-300-313
                   </a>
                 </div>
               </div>

@@ -38,8 +38,9 @@ function FeaturedSkeleton() {
 export default function EventsFeaturedSection() {
   const { t, language } = useTranslation()
   const [upcomingEvents, setUpcomingEvents] = useState<GbcEventWithPhotos[]>([])
-  const [latestEvent, setLatestEvent] = useState<GbcEventWithPhotos | null>(null)
+  const [accomplishedEvents, setAccomplishedEvents] = useState<GbcEventWithPhotos[]>([])
   const [loading, setLoading] = useState(true)
+  const [sliderIndex, setSliderIndex] = useState(0)
 
   useEffect(() => {
     async function fetchEvents() {
@@ -48,7 +49,6 @@ export default function EventsFeaturedSection() {
         if (!res.ok) return
         const data: GbcEventWithPhotos[] = await res.json()
 
-        // Upcoming: status === "upcoming", sorted by event_start ascending (nearest first), max 3
         const upcoming = data
           .filter((e) => e.status === "upcoming")
           .sort((a, b) => {
@@ -58,19 +58,18 @@ export default function EventsFeaturedSection() {
           })
           .slice(0, 3)
 
-        // Latest: status === "accomplished", sorted by event_start ascending (oldest first), take 1
         const accomplished = data
           .filter((e) => e.status === "accomplished")
           .sort((a, b) => {
             if (!a.event_start) return 1
             if (!b.event_start) return -1
-            return new Date(a.event_start).getTime() - new Date(b.event_start).getTime()
+            return new Date(b.event_start).getTime() - new Date(a.event_start).getTime()
           })
 
         setUpcomingEvents(upcoming)
-        setLatestEvent(accomplished[0] ?? null)
+        setAccomplishedEvents(accomplished)
       } catch {
-        // silently fail — sections will be hidden
+        // silently fail
       } finally {
         setLoading(false)
       }
@@ -78,10 +77,13 @@ export default function EventsFeaturedSection() {
     fetchEvents()
   }, [])
 
-  const hasUpcoming = upcomingEvents.length > 0
-  const hasLatest = latestEvent !== null
+  const prevSlide = () => setSliderIndex((i) => Math.max(0, i - 1))
+  const nextSlide = () => setSliderIndex((i) => Math.min(accomplishedEvents.length - 1, i + 1))
 
-  if (!loading && !hasUpcoming && !hasLatest) return null
+  const hasUpcoming = upcomingEvents.length > 0
+  const hasAccomplished = accomplishedEvents.length > 0
+
+  if (!loading && !hasUpcoming && !hasAccomplished) return null
 
   return (
     <section className="py-24 relative" id="events-featured">
@@ -98,7 +100,6 @@ export default function EventsFeaturedSection() {
                 return (
                   <ScrollReveal key={event.id}>
                     <div className="mb-6">
-                      <SectionBadge>{t("eventsFeaturedTag")}</SectionBadge>
                       <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-[1.2]">
                         {t("eventsUpcomingLabel")}
                       </h2>
@@ -116,7 +117,7 @@ export default function EventsFeaturedSection() {
 
                       {/* Content */}
                       <div
-                        className="p-10 flex flex-col justify-center"
+                        className="p-6 sm:p-8 md:p-10 flex flex-col justify-center"
                         style={{ backgroundColor: "#0f2847", direction: "ltr" }}
                       >
                         <StatusBadge dark>{event.status}</StatusBadge>
@@ -152,64 +153,73 @@ export default function EventsFeaturedSection() {
                 )
               })}
 
-            {/* Latest accomplished event */}
-            {hasLatest &&
-              (() => {
-                const event = latestEvent!
-                const image = event.gbc_events_photos[0]?.photo_url ?? FALLBACK_IMAGE
-                const description = language === "id" ? event.description_id : event.description_en
-                return (
-                  <ScrollReveal key={event.id}>
-                    <div className="mb-6">
-                      <SectionBadge>{t("eventsLatestTag")}</SectionBadge>
+            {/* Recent Highlights slider */}
+            {hasAccomplished && (() => {
+              const event = accomplishedEvents[sliderIndex]
+              const image = event.gbc_events_photos[0]?.photo_url ?? FALLBACK_IMAGE
+              const description = language === "id" ? event.description_id : event.description_en
+              return (
+                <ScrollReveal key={event.id}>
+                  <div className="mb-6 flex items-end justify-between flex-wrap gap-4">
+                    <div>
                       <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-[1.2]">
                         {t("eventsLatestLabel")}
                       </h2>
                     </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-lg lg:[direction:rtl]">
-                      {/* Image */}
-                      <div
-                        className="h-64 lg:h-auto min-h-[280px] bg-cover bg-center"
-                        style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
-                      />
-
-                      {/* Content */}
-                      <div
-                        className="p-10 flex flex-col justify-center"
-                        style={{ backgroundColor: "#f8fafc", direction: "ltr" }}
-                      >
-                        <StatusBadge dark={false}>{event.status}</StatusBadge>
-
-                        <h3 className="font-display text-2xl font-extrabold leading-[1.3] mb-3 text-primary">
-                          {event.title}
-                        </h3>
-
-                        <div className="flex flex-col gap-1 text-[0.85rem] mb-5 text-text-light">
-                          <span>
-                            <i className="far fa-calendar-alt mr-2" />
-                            {formatDate(event.event_start)}
-                          </span>
-                          <span>
-                            <i className="fas fa-map-marker-alt mr-2" />
-                            {event.location}
-                          </span>
-                        </div>
-
-                        <p className="text-[0.95rem] leading-[1.8] mb-7 text-justify text-text-light">
-                          {description}
-                        </p>
-
-                        <Link
-                          href={`/events/${event.id}`}
-                          className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:gap-3 text-primary"
+                    {accomplishedEvents.length > 1 && (
+                      <div className="flex items-center gap-3 pb-1">
+                        <button
+                          onClick={prevSlide}
+                          disabled={sliderIndex === 0}
+                          className="w-11 h-11 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
                         >
-                          {t("eventsLatestCta")} <i className="fas fa-arrow-right text-xs" />
-                        </Link>
+                          <i className="fas fa-chevron-left text-sm" />
+                        </button>
+                        <span className="text-sm text-text-light font-medium">
+                          {sliderIndex + 1} / {accomplishedEvents.length}
+                        </span>
+                        <button
+                          onClick={nextSlide}
+                          disabled={sliderIndex === accomplishedEvents.length - 1}
+                          className="w-11 h-11 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
+                        >
+                          <i className="fas fa-chevron-right text-sm" />
+                        </button>
                       </div>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-lg lg:[direction:rtl] transition-all duration-500">
+                    <div
+                      className="h-56 sm:h-72 lg:h-auto lg:min-h-[520px] bg-cover bg-center"
+                      style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
+                    />
+                    <div
+                      className="p-6 sm:p-8 md:p-10 lg:p-14 flex flex-col justify-center"
+                      style={{ backgroundColor: "#f8fafc", direction: "ltr" }}
+                    >
+                      <StatusBadge dark={false}>{event.status}</StatusBadge>
+                      <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.3] mb-4 md:mb-5 text-primary">
+                        {event.title}
+                      </h3>
+                      <div className="flex flex-col gap-2 text-[1rem] mb-6 text-text-light">
+                        <span><i className="far fa-calendar-alt mr-2" />{formatDate(event.event_start)}</span>
+                        <span><i className="fas fa-map-marker-alt mr-2" />{event.location}</span>
+                      </div>
+                      <p className="text-[1.05rem] leading-[1.9] mb-8 text-justify text-text-light">
+                        {description}
+                      </p>
+                      <Link
+                        href={`/events/${event.id}`}
+                        className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:gap-3 text-primary"
+                      >
+                        {t("eventsLatestCta")} <i className="fas fa-arrow-right text-xs" />
+                      </Link>
                     </div>
-                  </ScrollReveal>
-                )
-              })()}
+                  </div>
+                </ScrollReveal>
+              )
+            })()}
           </div>
         )}
       </div>

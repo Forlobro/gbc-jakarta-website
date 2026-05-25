@@ -10,7 +10,7 @@ export default function GBCSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-24 relative overflow-hidden" id="global-network">
+    <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden" id="global-network">
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-12">
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-tight mb-3">
@@ -33,7 +33,7 @@ export default function GBCSection() {
         <ScrollReveal>
           <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 md:p-10">
             <Image
-              src="/images/gbc.png"
+              src="/images/gbc_map (1).svg"
               alt="GBC Network Map — 19 lokasi di 14 negara"
               width={1200}
               height={800}
