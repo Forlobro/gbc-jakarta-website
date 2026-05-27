@@ -3,6 +3,7 @@
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
 import { VideoEmbed } from "./VideoEmbed"
+import { VideoProvider } from "./VideoContext"
 
 const GYEONGGI_STATS = [
   {
@@ -55,12 +56,14 @@ export default function GyeonggiSection() {
 
         {/* Video */}
         <ScrollReveal>
-          <VideoEmbed
-            srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GYEONGGIDO || ""}
-            srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GYEONGGIDO || ""}
-            captionId={t("gyeonggiVideoCaption")}
-            captionEn={t("gyeonggiVideoCaption")}
-          />
+          <VideoProvider>
+            <VideoEmbed
+              srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GYEONGGIDO || ""}
+              srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GYEONGGIDO || ""}
+              captionId={t("gyeonggiVideoCaption")}
+              captionEn={t("gyeonggiVideoCaption")}
+            />
+          </VideoProvider>
         </ScrollReveal>
 
         {/* Stats + Facts */}

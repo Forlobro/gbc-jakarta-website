@@ -1,27 +1,42 @@
 "use client"
 
-import { useRef, useEffect, useLayoutEffect, useState } from "react"
+import { useRef, useEffect, useLayoutEffect, useState, useCallback } from "react"
 import { useTranslation } from "../../lib/LanguageContext"
+import { useVideoContext } from "./VideoContext"
 
 export function VideoEmbed({
   srcId,
   srcEn,
   captionId,
   captionEn,
+  posterSrc
 }: {
   srcId: string
   srcEn: string
   captionId: string
   captionEn: string
+  posterSrc?: string
 }) {
   const { language } = useTranslation()
   const src = language === "id" ? srcId : srcEn
   const caption = language === "id" ? captionId : captionEn
+  const poster = posterSrc
 
   const isMp4 = src?.endsWith(".mp4")
   const videoRef = useRef<HTMLVideoElement>(null)
+
+  // Shared state dari context — sama untuk semua instance
+  const { hasPlayedOnce, isMuted, markAsPlayed, updateMuteState } = useVideoContext()
+
+  const [isPlaying, setIsPlaying] = useState(false)
   const [showMutedBadge, setShowMutedBadge] = useState(false)
   const badgeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const showBadgeBriefly = useCallback(() => {
+    setShowMutedBadge(true)
+    if (badgeTimerRef.current) clearTimeout(badgeTimerRef.current)
+    badgeTimerRef.current = setTimeout(() => setShowMutedBadge(false), 2500)
+  }, [])
 
   useLayoutEffect(() => {
     if (!isMp4 || !videoRef.current) return
@@ -29,7 +44,7 @@ export function VideoEmbed({
     videoEl.pause()
     videoEl.muted = true
     videoEl.currentTime = 0
-  }, [isMp4])
+  }, [isMp4, src])
 
   useEffect(() => {
     if (!isMp4 || !videoRef.current) return
@@ -39,18 +54,21 @@ export function VideoEmbed({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            videoEl.muted = true
-            videoEl.play().catch(() => {})
+            if (!hasPlayedOnce) {
+              videoEl.muted = true
+              updateMuteState(true)
+              markAsPlayed()
+              showBadgeBriefly()
+            } else {
+              videoEl.muted = isMuted
+              if (isMuted) showBadgeBriefly()
+            }
 
-            // Tampilkan badge saat video mulai play
-            setShowMutedBadge(true)
-            if (badgeTimerRef.current) clearTimeout(badgeTimerRef.current)
-            badgeTimerRef.current = setTimeout(() => {
-              setShowMutedBadge(false)
-            }, 2500)
+            videoEl.play().catch(() => {})
+            setIsPlaying(true)
           } else {
             videoEl.pause()
-            setShowMutedBadge(false)
+            setIsPlaying(false)
           }
         })
       },
@@ -63,7 +81,7 @@ export function VideoEmbed({
       observer.unobserve(videoEl)
       if (badgeTimerRef.current) clearTimeout(badgeTimerRef.current)
     }
-  }, [isMp4, src])
+  }, [isMp4, src, hasPlayedOnce, isMuted, markAsPlayed, updateMuteState, showBadgeBriefly])
 
   return (
     <div className="max-w-4xl mx-auto mb-16">
@@ -79,16 +97,23 @@ export function VideoEmbed({
                 muted
                 autoPlay={false}
                 playsInline
-                preload="metadata"
+                preload="none"
+                poster={poster}
                 src={src}
                 title={caption}
                 onLoadedMetadata={(e) => {
                   e.currentTarget.pause()
                   e.currentTarget.muted = true
                 }}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                onVolumeChange={(e) => {
+                  const muted = e.currentTarget.muted
+                  updateMuteState(muted)
+                  if (muted) showBadgeBriefly()
+                }}
               />
 
-              {/* Badge pasif — hanya informasi, bukan button */}
               <div
                 className={`
                   absolute top-3 right-3 z-10
@@ -98,7 +123,7 @@ export function VideoEmbed({
                   px-2.5 py-1.5 rounded-full
                   pointer-events-none
                   transition-opacity duration-500
-                  ${showMutedBadge ? "opacity-100" : "opacity-0"}
+                  ${showMutedBadge && isMuted && isPlaying ? "opacity-100" : "opacity-0"}
                 `}
               >
                 <svg

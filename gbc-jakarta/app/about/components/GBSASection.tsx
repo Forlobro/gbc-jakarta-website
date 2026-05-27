@@ -3,6 +3,7 @@
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
 import { VideoEmbed } from "./VideoEmbed"
+import { VideoProvider } from "./VideoContext"
 
 export default function GBSASection() {
   const { t } = useTranslation()
@@ -20,12 +21,14 @@ export default function GBSASection() {
 
         {/* Video */}
         <ScrollReveal>
-          <VideoEmbed
-            srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
-            srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
-            captionId={t("gbsaVideoCaption")}
-            captionEn={t("gbsaVideoCaption")}
-          />
+          <VideoProvider>
+            <VideoEmbed
+              srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
+              srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
+              captionId={t("gbsaVideoCaption")}
+              captionEn={t("gbsaVideoCaption")}
+            />
+          </VideoProvider>
         </ScrollReveal>
 
         {/* Description + Misi/Visi — 2 kolom */}

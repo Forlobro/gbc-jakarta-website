@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
 import { VideoEmbed } from "./VideoEmbed"
+import { VideoProvider } from "./VideoContext"
 
 export default function GBCSection() {
   const { t } = useTranslation()
@@ -19,12 +20,14 @@ export default function GBCSection() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <VideoEmbed
-            srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBC_ID || ""}
-            srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBC_EN || ""}
-            captionId={t("globalNetworkVideoCaption")}
-            captionEn={t("globalNetworkVideoCaption")}
-          />
+          <VideoProvider>
+            <VideoEmbed
+              srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBC_ID || ""}
+              srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBC_EN || ""}
+              captionId={t("globalNetworkVideoCaption")}
+              captionEn={t("globalNetworkVideoCaption")}
+            />
+          </VideoProvider>
         </ScrollReveal>
 
         <ScrollReveal>
