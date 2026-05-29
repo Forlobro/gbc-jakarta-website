@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import Image from "next/image"
 import { useTranslation } from "../lib/LanguageContext"
 
@@ -10,10 +9,8 @@ export default function Footer() {
   return (
     <footer className="bg-gray-50 border-t border-gray-200">
       <div className="max-w-[1400px] mx-auto px-[5%] pt-14 pb-8">
-
         {/* Main Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-
           {/* Col 1: Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Image
@@ -67,8 +64,10 @@ export default function Footer() {
               {t("officeAddress")}
             </h4>
             <address className="not-italic text-gray-500 text-[0.82rem] leading-[1.9]">
-              DBS Tower Suite #905,<br />
-              Jl. Prof. Dr. Satrio Kav.3,<br />
+              DBS Tower Suite #905,
+              <br />
+              Jl. Prof. Dr. Satrio Kav.3,
+              <br />
               Kuningan, South Jakarta 12940
             </address>
           </div>
@@ -136,7 +135,6 @@ export default function Footer() {
             />
           </div>
         </div>
-
       </div>
     </footer>
   )

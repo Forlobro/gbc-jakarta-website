@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { createServerClient } from "../../lib/supabase.server"
 import { msg } from "../../lib/messages"
 
 // GET /api/partners-categories — public, read all categories
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const supabase = createServerClient()
 

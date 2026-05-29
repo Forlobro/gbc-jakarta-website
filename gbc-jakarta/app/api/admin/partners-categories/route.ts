@@ -3,7 +3,7 @@ import { createServerClient } from "../../../lib/supabase.server"
 import { msg } from "../../../lib/messages"
 
 // GET /api/admin/partners-categories
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const supabase = createServerClient()
 

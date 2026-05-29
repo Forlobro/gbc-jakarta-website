@@ -4,7 +4,11 @@ import Link from "next/link"
 import ScrollReveal from "../../components/ScrollReveal"
 import { useTranslation } from "../../lib/LanguageContext"
 
-const FALLBACK_EMAIL = "mailto:chat.gbcjkt@gmail.com"
+const FALLBACK_GMAIL_URL =
+  "https://mail.google.com/mail/?view=cm" +
+  "&to=chat.gbcjkt@gmail.com" +
+  "&subject=Pendaftaran%20Minat%20Acara%20-%20GBC%20Jakarta" +
+  "&body=Halo%20Tim%20GBC%20Jakarta%2C%0A%0ASaya%20tertarik%20untuk%20mengikuti%20acara%20yang%20akan%20datang.%0A%0ANama%3A%20%0APerusahaan%2FInstitusi%3A%20%0ANomor%20HP%3A%20%0A%0ATerima%20kasih."
 
 interface EventRegisterSectionProps {
   title: string
@@ -21,7 +25,7 @@ export default function EventRegisterSection({
 }: EventRegisterSectionProps) {
   const { t } = useTranslation()
 
-  const href = registerLink || FALLBACK_EMAIL
+  const href = registerLink || FALLBACK_GMAIL_URL
   const isExternal = !href.startsWith("mailto:")
 
   return (
@@ -52,12 +56,14 @@ export default function EventRegisterSection({
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-4 leading-[1.2]">
             {title}
           </h2>
-          <p className="text-white/70 text-base md:text-lg mb-8 md:mb-10 text-justify">{description}</p>
+          <p className="text-white/70 text-base md:text-lg mb-8 md:mb-10 text-justify">
+            {description}
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://mail.google.com/mail/?view=cm&to=chat.gbcjkt@gmail.com&subject=Pendaftaran%20Minat%20Acara%20-%20GBC%20Jakarta&body=Halo%20Tim%20GBC%20Jakarta%2C%0A%0ASaya%20tertarik%20untuk%20mengikuti%20acara%20yang%20akan%20datang.%0A%0ANama%3A%20%0APerusahaan%2FInstitusi%3A%20%0ANomor%20HP%3A%20%0A%0ATerima%20kasih."
-              target="_blank"
-              rel="noopener noreferrer"
+              href={href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-accent text-primary rounded-full font-semibold text-[1rem] shadow-[0_4px_20px_rgba(0,194,203,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(0,194,203,0.5)]"
             >
               <i className={isExternal ? "fas fa-external-link-alt" : "far fa-envelope"} />

@@ -112,7 +112,6 @@ export default function HeroSection() {
             >
               {t("heroDesc")}
             </p>
-
           </div>
 
           {/* Hero Visual */}
@@ -135,10 +134,13 @@ export default function HeroSection() {
                     className="text-center p-4 sm:p-6 bg-white/5 rounded-2xl transition-all duration-300 hover:bg-white/10 hover:-translate-y-[5px]"
                   >
                     <span className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-accent block leading-none mb-2">
-                      {stat.prefix}<CountUp target={stat.target} />
+                      {stat.prefix}
+                      <CountUp target={stat.target} />
                       {stat.suffix}
                     </span>
-                    <span className="text-white/70 text-[0.75rem] sm:text-[0.9rem] font-medium">{stat.label}</span>
+                    <span className="text-white/70 text-[0.75rem] sm:text-[0.9rem] font-medium">
+                      {stat.label}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -146,7 +148,6 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-
     </section>
   )
 }

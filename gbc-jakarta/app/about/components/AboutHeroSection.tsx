@@ -7,7 +7,10 @@ export default function AboutHero() {
   const { t } = useTranslation()
 
   return (
-    <section className="relative pt-24 pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16 flex items-center" id="about-intro">
+    <section
+      className="relative pt-24 pb-10 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16 flex items-center"
+      id="about-intro"
+    >
       <div className="max-w-[1200px] mx-auto px-[5%]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left: text */}

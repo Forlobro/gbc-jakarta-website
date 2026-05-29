@@ -58,7 +58,6 @@ export default function TimelineSection() {
                 </div>
               </div>
             ))}
-
           </div>
         </ScrollReveal>
       </div>
