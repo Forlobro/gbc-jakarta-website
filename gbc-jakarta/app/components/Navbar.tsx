@@ -46,7 +46,7 @@ export default function Navbar() {
               width={80}
               height={40}
               priority={true}
-              style={{ height: "36px", width: "auto" }}
+              style={{ height: "25px", width: "auto" }}
               className="transition-transform duration-300 hover:scale-105"
             />
           </Link>
@@ -177,13 +177,13 @@ export default function Navbar() {
             <Image
               src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
               alt="GBSA"
-              width={70}
-              height={35}
+              width={40}
+              height={20}
               className="h-8 w-auto"
             />
             <button
               onClick={() => setMenuOpen(false)}
-              className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-primary"
+              className="w-8 h-6 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-primary"
               aria-label="Close menu"
             >
               <i className="fas fa-times text-sm" />

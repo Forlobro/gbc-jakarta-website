@@ -18,7 +18,7 @@ export default function TimelineSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="py-24 relative overflow-hidden" id="history">
+    <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden" id="history">
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="max-w-[600px] mx-auto text-center mb-14">
           <h2 className="font-display text-3xl md:text-[2.8rem] font-extrabold text-primary mb-3 leading-[1.2]">
@@ -34,16 +34,14 @@ export default function TimelineSection() {
             {TIMELINE.map((item) => (
               <div
                 key={item.year}
-                className={`relative mb-8 last:mb-0 ${
-                  item.highlight ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-2" : ""
-                }`}
+                className={`relative mb-8 last:mb-0 ${item.highlight ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-2" : ""
+                  }`}
               >
                 <div
-                  className={`absolute top-1.5 rounded-full border-2 border-white shadow ${
-                    item.highlight
+                  className={`absolute top-1.5 rounded-full border-2 border-white shadow ${item.highlight
                       ? "-left-[36px] w-4 h-4 bg-amber-400 shadow-amber-200"
                       : "-left-[28px] w-3 h-3 bg-gray-300"
-                  }`}
+                    }`}
                 />
                 <div className="flex flex-col gap-1">
                   <span

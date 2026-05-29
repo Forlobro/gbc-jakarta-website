@@ -37,11 +37,9 @@ export default function ContactPage() {
       <main className="relative bg-white overflow-hidden">
         <ContactPageDecor />
         <MapSection />
-        <div className="min-h-screen flex flex-col">
-          <FamilySiteSection />
-          <Footer />
-        </div>
+        <FamilySiteSection />
       </main>
+      <Footer />
     </>
   )
 }

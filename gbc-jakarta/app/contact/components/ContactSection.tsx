@@ -72,15 +72,15 @@ export default function ContactSection() {
       <DotPattern variant="dark" />
 
       {/* Wave divider bottom */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+      <div className="absolute bottom-[-2px] left-0 right-0 pointer-events-none">
         <svg
           viewBox="0 0 1440 70"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full block"
+          className="w-full block translate-y-[1px]"
           preserveAspectRatio="none"
         >
-          <path d="M0,30 C360,70 1080,0 1440,50 L1440,70 L0,70 Z" fill="#f0f7ff" />
+          <path d="M0,30 C360,70 1080,0 1440,50 L1440,70 L0,70 Z" fill="#ffffff" />
         </svg>
       </div>
 
@@ -261,13 +261,16 @@ export default function ContactSection() {
 
           {/* Contact Form */}
           <ScrollReveal>
-            <div className="bg-white rounded-2xl px-8 pt-10 pb-8 shadow-2xl">
-              <h3 className="font-display text-xl font-bold text-text mb-5">{t("sendMessage")}</h3>
+            <div className="bg-white rounded-2xl px-6 pt-5 pb-5 shadow-2xl h-[700px] flex flex-col box-border">
 
-              <form onSubmit={handleSubmit}>
+              <h3 className="font-display text-[25px] font-bold text-text mb-[14px]">
+                {t("sendMessage")}
+              </h3>
+
+              <form onSubmit={handleSubmit} className="flex flex-col flex-1 gap-[10px]">
                 {/* Name */}
-                <div className="mb-[25px]">
-                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
+                <div className="flex flex-col gap-[3px]">
+                  <label className="text-[15px] font-semibold text-text">
                     {t("formName")}
                   </label>
                   <input
@@ -275,13 +278,13 @@ export default function ContactSection() {
                     name="name"
                     placeholder={t("namePlaceholder")}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="w-full px-3 py-5 border-2 border-gray-200 rounded-lg text-[12.5px] font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(0,194,203,0.2)]"
                   />
                 </div>
 
                 {/* Email */}
-                <div className="mb-[25px]">
-                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
+                <div className="flex flex-col gap-[3px]">
+                  <label className="text-[15px] font-semibold text-text">
                     {t("formEmail")}
                   </label>
                   <input
@@ -289,53 +292,53 @@ export default function ContactSection() {
                     name="email"
                     placeholder={t("emailPlaceholder")}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="w-full px-3 py-5 border-2 border-gray-200 rounded-lg text-[15px] font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(0,194,203,0.2)]"
                   />
                 </div>
 
                 {/* Company */}
-                <div className="mb-[30px]">
-                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
+                <div className="flex flex-col gap-[3px]">
+                  <label className="text-[15px] font-semibold text-text">
                     {t("formPartner")}
                   </label>
                   <input
                     type="text"
                     name="company"
                     placeholder={t("partnerPlaceholder")}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="w-full px-3 py-5 border-2 border-gray-200 rounded-lg text-[15px] font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(0,194,203,0.2)]"
                   />
                 </div>
 
-                {/* Message */}
-                <div className="mb-[30px]">
-                  <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
+                {/* Message — flex-1 supaya mengisi sisa ruang */}
+                <div className="flex flex-col gap-[3px] flex-1">
+                  <label className="text-[15px] font-semibold text-text">
                     {t("formMessage")}
                   </label>
                   <textarea
                     name="message"
                     placeholder={t("messagePlaceholder")}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 resize-y min-h-[90px] focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
+                    className="flex-1 w-full px-3 py-5 border-2 border-gray-200 rounded-lg text-[15px] font-[inherit] transition-all duration-300 resize-none focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_rgba(0,194,203,0.2)]"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={sending}
-                  className="w-full py-3 bg-gradient-to-br from-primary to-primary-light text-white border-none rounded-lg text-sm font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(15,40,71,0.3)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="w-full py-2.5 bg-gradient-to-br from-primary to-primary-light text-white border-none rounded-lg text-[12.5px] font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(15,40,71,0.25)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
                   {sending ? "Sending..." : t("sendBtn")}{" "}
                   {!sending && <i className="far fa-paper-plane ml-2" />}
                 </button>
 
                 {submitted && (
-                  <p className="mt-3 text-center text-accent font-semibold text-sm mb-20">
+                  <p className="text-center text-accent font-semibold text-[12px]">
                     {t("contactSuccess")}
                   </p>
                 )}
 
                 {error && (
-                  <p className="mt-3 text-center text-red-500 font-semibold text-sm">{error}</p>
+                  <p className="text-center text-red-500 font-semibold text-[12px]">{error}</p>
                 )}
               </form>
             </div>

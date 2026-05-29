@@ -121,7 +121,7 @@ export default function PartnerDetailPage() {
         <div className="max-w-350 mx-auto px-[5%] relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-12">
             {/* Logo / First Photo */}
-            <div className="w-35 h-35 bg-white rounded-3xl flex items-center justify-center p-4 shadow-2xl shrink-0 overflow-hidden">
+            <div className="w-70 h-auto bg-white rounded-3xl flex items-center justify-center p-4 shadow-2xl shrink-0 overflow-hidden">
               {company.logo_url ? (
                 <Image
                   src={company.logo_url}

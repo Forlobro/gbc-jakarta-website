@@ -63,14 +63,14 @@ export default function AdminPartnersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Companies</h1>
-          <p className="text-slate-500 text-sm mt-1">Manage all registered companies</p>
+          <h1 className="text-2xl font-bold text-slate-900">Partners</h1>
+          <p className="text-slate-500 text-sm mt-1">Manage all registered partners</p>
         </div>
         <Link
           href="/admin/partners/new"
           className="inline-flex items-center gap-2 px-5 py-3 bg-linear-to-r from-accent to-[#00a8b0] !text-white rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent/25 transition-all hover:-translate-y-0.5 cursor-pointer"
         >
-          <i className="fas fa-plus" /> Add Company
+          <i className="fas fa-plus" /> Add Partner
         </Link>
       </div>
 
@@ -85,7 +85,7 @@ export default function AdminPartnersPage() {
               setSearch(e.target.value)
               setCurrentPage(1)
             }}
-            placeholder="Search companies..."
+            placeholder="Search Partners..."
             className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 shadow-sm transition-all"
           />
         </div>
@@ -97,13 +97,13 @@ export default function AdminPartnersPage() {
           {loading ? (
             <div className="p-12 text-center">
               <i className="fas fa-spinner fa-spin text-2xl text-accent mb-3" />
-              <p className="text-slate-500 text-sm">Loading companies...</p>
+              <p className="text-slate-500 text-sm">Loading Partners...</p>
             </div>
           ) : filtered.length === 0 ? (
             <div className="p-12 text-center">
               <i className="far fa-building text-4xl text-slate-300 mb-3" />
               <p className="text-slate-500 text-sm">
-                {search ? "No companies match your search" : "No companies yet"}
+                {search ? "No Partners match your search" : "No Partners yet"}
               </p>
               {!search && (
                 <Link
@@ -120,7 +120,7 @@ export default function AdminPartnersPage() {
                 <thead>
                   <tr className="border-b border-slate-200">
                     <th className="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                      Company
+                      Partner
                     </th>
                     <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                       Category

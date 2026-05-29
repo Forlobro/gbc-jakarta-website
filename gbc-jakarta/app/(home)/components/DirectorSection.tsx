@@ -16,7 +16,7 @@ export default function DirectorSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 relative" id="team">
+    <section className="pt-6 pb-16 md:pt-8 md:pb-24 lg:pt-10 lg:pb-32 relative" id="team">
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-20">

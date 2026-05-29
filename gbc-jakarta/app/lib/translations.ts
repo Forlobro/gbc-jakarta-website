@@ -108,9 +108,9 @@ export const translations = {
     // Event Detail Page
     backToEvents: "Back to Events",
     aboutThisEvent: "About This Event",
-    eventVideo: "Event Video",
+    eventVideo: "Video",
     eventGallery: "Event Gallery",
-    eventPoster: "Event Poster",
+    eventPoster: "Photos",
     exhibitorList: "Exhibitor List",
     brochure: "Brochure",
     eventsP1Details:
@@ -436,14 +436,15 @@ export const translations = {
     sendBtn: "Kirim Pesan",
     formName: "Nama Anda",
     formEmail: "Alamat Email",
+    formPartner: "Mitra / Perusahaan",
     formMessage: "Pesan",
 
     // Event Detail Page
     backToEvents: "Kembali ke Events",
     aboutThisEvent: "Tentang Event Ini",
-    eventVideo: "Video Event",
+    eventVideo: "Video",
     eventGallery: "Galeri Event",
-    eventPoster: "Poster Event",
+    eventPoster: "Foto",
     exhibitorList: "Daftar Peserta",
     brochure: "Brosur",
     eventsP1Details:
