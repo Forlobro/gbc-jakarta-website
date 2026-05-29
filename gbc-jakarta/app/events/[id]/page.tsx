@@ -135,7 +135,7 @@ export default function EventDetailPage() {
             {title}
           </h1>
 
-          <div className="flex flex-wrap gap-3 md:gap-6 text-white/70 text-[0.85rem] md:text-[0.9rem]">
+          <div className="flex flex-wrap gap-3 md:gap-6 text-white/70 text-sm md:text-[0.9rem]">
             <span className="flex items-center gap-2">
               <i className="fas fa-map-marker-alt text-accent" />
               {location}

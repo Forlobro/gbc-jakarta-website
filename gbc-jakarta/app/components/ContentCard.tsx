@@ -106,7 +106,7 @@ export default function ContentCard({
           <h4 className="font-bold text-text text-[1rem] leading-[1.4] mb-3">{title}</h4>
 
           {description && (
-            <p className="text-text-light text-[0.85rem] leading-[1.7] line-clamp-3 text-justify mb-4 flex-1">
+            <p className="text-text-light text-sm leading-[1.7] line-clamp-3 text-justify mb-4 flex-1">
               {description}
             </p>
           )}

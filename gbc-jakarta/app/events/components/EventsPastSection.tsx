@@ -119,7 +119,7 @@ export default function EventsPastSection() {
 
         {/* Search + Filter */}
         {!loading && allEvents.length > 0 && (
-          <div className="flex flex-col items-center gap-4 mb-10">
+          <div className="flex flex-col items-center gap-4 mb-10 w-full overflow-hidden">
             <SearchBar
               value={search}
               onChange={setSearch}
@@ -127,11 +127,13 @@ export default function EventsPastSection() {
               maxWidth="max-w-lg w-full"
             />
             {yearItems.length > 1 && (
-              <FilterPills
-                items={yearItems}
-                activeKey={activeYear}
-                onSelect={(key) => setActiveYear(key)}
-              />
+              <div className="w-full">
+                <FilterPills
+                  items={yearItems}
+                  activeKey={activeYear}
+                  onSelect={(key) => setActiveYear(key)}
+                />
+              </div>
             )}
           </div>
         )}
@@ -177,7 +179,9 @@ export default function EventsPastSection() {
                       logoUrl={photoUrl ? undefined : null}
                       logoFallback={event.title}
                       badge={event.status}
-                      year={event.event_start ? new Date(event.event_start).getFullYear() : undefined}
+                      year={
+                        event.event_start ? new Date(event.event_start).getFullYear() : undefined
+                      }
                       meta={[
                         { icon: "far fa-calendar-alt", text: formatDate(event.event_start) },
                         { icon: "fas fa-map-marker-alt", text: event.location },
@@ -199,8 +203,7 @@ export default function EventsPastSection() {
                 <>
                   {t("showing")}{" "}
                   <strong className="font-semibold text-text">{paginated.length}</strong> {t("of")}{" "}
-                  <strong className="font-semibold text-text">{yearTotal}</strong>{" "}
-                  {t("events")}
+                  <strong className="font-semibold text-text">{yearTotal}</strong> {t("events")}
                   {activeYear !== "all" && (
                     <span className="text-text-muted/70"> · {activeYear}</span>
                   )}

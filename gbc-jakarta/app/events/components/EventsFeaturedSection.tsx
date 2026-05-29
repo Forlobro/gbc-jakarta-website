@@ -126,7 +126,7 @@ export default function EventsFeaturedSection() {
                           {event.title}
                         </h3>
 
-                        <div className="flex flex-col gap-1 text-[0.85rem] mb-5 text-white/60">
+                        <div className="flex flex-col gap-1 text-sm mb-5 text-white/60">
                           <span>
                             <i className="far fa-calendar-alt mr-2" />
                             {formatDate(event.event_start)}
@@ -154,72 +154,79 @@ export default function EventsFeaturedSection() {
               })}
 
             {/* Recent Highlights slider */}
-            {hasAccomplished && (() => {
-              const event = accomplishedEvents[sliderIndex]
-              const image = event.gbc_events_photos[0]?.photo_url ?? FALLBACK_IMAGE
-              const description = language === "id" ? event.description_id : event.description_en
-              return (
-                <ScrollReveal key={event.id}>
-                  <div className="mb-6 flex items-end justify-between flex-wrap gap-4">
-                    <div>
-                      <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-[1.2]">
-                        {t("eventsLatestLabel")}
-                      </h2>
-                    </div>
-                    {accomplishedEvents.length > 1 && (
-                      <div className="flex items-center gap-3 pb-1">
-                        <button
-                          onClick={prevSlide}
-                          disabled={sliderIndex === 0}
-                          className="w-11 h-11 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
-                        >
-                          <i className="fas fa-chevron-left text-sm" />
-                        </button>
-                        <span className="text-sm text-text-light font-medium">
-                          {sliderIndex + 1} / {accomplishedEvents.length}
-                        </span>
-                        <button
-                          onClick={nextSlide}
-                          disabled={sliderIndex === accomplishedEvents.length - 1}
-                          className="w-11 h-11 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
-                        >
-                          <i className="fas fa-chevron-right text-sm" />
-                        </button>
+            {hasAccomplished &&
+              (() => {
+                const event = accomplishedEvents[sliderIndex]
+                const image = event.gbc_events_photos[0]?.photo_url ?? FALLBACK_IMAGE
+                const description = language === "id" ? event.description_id : event.description_en
+                return (
+                  <ScrollReveal key={event.id}>
+                    <div className="mb-6 flex items-end justify-between flex-wrap gap-4">
+                      <div>
+                        <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-[1.2]">
+                          {t("eventsLatestLabel")}
+                        </h2>
                       </div>
-                    )}
-                  </div>
+                      {accomplishedEvents.length > 1 && (
+                        <div className="flex items-center gap-3 pb-1">
+                          <button
+                            onClick={prevSlide}
+                            disabled={sliderIndex === 0}
+                            className="w-11 h-11 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
+                          >
+                            <i className="fas fa-chevron-left text-sm" />
+                          </button>
+                          <span className="text-sm text-text-light font-medium">
+                            {sliderIndex + 1} / {accomplishedEvents.length}
+                          </span>
+                          <button
+                            onClick={nextSlide}
+                            disabled={sliderIndex === accomplishedEvents.length - 1}
+                            className="w-11 h-11 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
+                          >
+                            <i className="fas fa-chevron-right text-sm" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-lg lg:[direction:rtl] transition-all duration-500">
-                    <div
-                      className="h-56 sm:h-72 lg:h-auto lg:min-h-[520px] bg-cover bg-center"
-                      style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
-                    />
-                    <div
-                      className="p-6 sm:p-8 md:p-10 lg:p-14 flex flex-col justify-center"
-                      style={{ backgroundColor: "#f8fafc", direction: "ltr" }}
-                    >
-                      <StatusBadge dark={false}>{event.status}</StatusBadge>
-                      <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.3] mb-4 md:mb-5 text-primary">
-                        {event.title}
-                      </h3>
-                      <div className="flex flex-col gap-2 text-[1rem] mb-6 text-text-light">
-                        <span><i className="far fa-calendar-alt mr-2" />{formatDate(event.event_start)}</span>
-                        <span><i className="fas fa-map-marker-alt mr-2" />{event.location}</span>
-                      </div>
-                      <p className="text-[1.05rem] leading-[1.9] mb-8 text-justify text-text-light">
-                        {description}
-                      </p>
-                      <Link
-                        href={`/events/${event.id}`}
-                        className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:gap-3 text-primary"
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-lg lg:[direction:rtl] transition-all duration-500">
+                      <div
+                        className="h-56 sm:h-72 lg:h-auto lg:min-h-[520px] bg-cover bg-center"
+                        style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
+                      />
+                      <div
+                        className="p-6 sm:p-8 md:p-10 lg:p-14 flex flex-col justify-center"
+                        style={{ backgroundColor: "#f8fafc", direction: "ltr" }}
                       >
-                        {t("eventsLatestCta")} <i className="fas fa-arrow-right text-xs" />
-                      </Link>
+                        <StatusBadge dark={false}>{event.status}</StatusBadge>
+                        <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-extrabold leading-[1.3] mb-4 md:mb-5 text-primary">
+                          {event.title}
+                        </h3>
+                        <div className="flex flex-col gap-2 text-[1rem] mb-6 text-text-light">
+                          <span>
+                            <i className="far fa-calendar-alt mr-2" />
+                            {formatDate(event.event_start)}
+                          </span>
+                          <span>
+                            <i className="fas fa-map-marker-alt mr-2" />
+                            {event.location}
+                          </span>
+                        </div>
+                        <p className="text-[1.05rem] leading-[1.9] mb-8 text-justify text-text-light">
+                          {description}
+                        </p>
+                        <Link
+                          href={`/events/${event.id}`}
+                          className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:gap-3 text-primary"
+                        >
+                          {t("eventsLatestCta")} <i className="fas fa-arrow-right text-xs" />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </ScrollReveal>
-              )
-            })()}
+                  </ScrollReveal>
+                )
+              })()}
           </div>
         )}
       </div>

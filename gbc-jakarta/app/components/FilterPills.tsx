@@ -1,6 +1,8 @@
 /**
- * FilterPills — horizontal pill button group for filtering.
- * Auto-detects layout: centered (≤5 items) or scrollable (>5 items).
+ * FilterPills — pill button group for filtering.
+ *
+ * Always scrollable horizontally so pills never wrap on any screen size.
+ * On wider screens where all pills fit, they appear centered naturally.
  *
  * Props:
  * - items: array of { key, label } for each pill
@@ -20,29 +22,23 @@ interface FilterPillsProps {
 }
 
 export default function FilterPills({ items, activeKey, onSelect }: FilterPillsProps) {
-  const isScrollable = items.length > 5
-
   return (
-    <div
-      className={`flex gap-2 pb-2 ${
-        isScrollable
-          ? "overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-          : "justify-center flex-wrap"
-      }`}
-    >
-      {items.map((item) => (
-        <button
-          key={item.key}
-          onClick={() => onSelect(item.key)}
-          className={`px-5 py-2.5 border-2 rounded-full text-[0.85rem] font-semibold cursor-pointer transition-all duration-300 shrink-0 ${
-            activeKey === item.key
-              ? "bg-primary border-primary text-white"
-              : "bg-white border-gray-200 text-text-light hover:border-primary hover:text-primary"
-          }`}
-        >
-          {item.label}
-        </button>
-      ))}
+    <div className="w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex justify-center gap-2 pb-2 min-w-max mx-auto px-1">
+        {items.map((item) => (
+          <button
+            key={item.key}
+            onClick={() => onSelect(item.key)}
+            className={`px-5 py-2.5 border-2 rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 whitespace-nowrap ${
+              activeKey === item.key
+                ? "bg-primary border-primary text-white"
+                : "bg-white border-gray-200 text-text-light hover:border-primary hover:text-primary"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

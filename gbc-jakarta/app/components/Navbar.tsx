@@ -209,7 +209,7 @@ export default function Navbar() {
           <div className="px-6 py-5 border-t border-gray-100 flex flex-col gap-4">
             <button
               onClick={handleCtaClick}
-              className="w-full text-center px-5 py-2.5 bg-accent text-primary rounded-[30px] font-semibold text-[0.85rem] shadow-[0_4px_15px_rgba(0,194,203,0.3)] cursor-pointer"
+              className="w-full text-center px-5 py-2.5 bg-accent text-primary rounded-[30px] font-semibold text-sm shadow-[0_4px_15px_rgba(0,194,203,0.3)] cursor-pointer"
             >
               {t("cta")}
             </button>
@@ -219,7 +219,9 @@ export default function Navbar() {
               <button
                 onClick={() => setLanguage("id")}
                 className={`px-4 py-1.5 border-none rounded-[20px] cursor-pointer text-[0.8rem] font-semibold transition-all duration-300 ${
-                  language === "id" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
+                  language === "id"
+                    ? "bg-primary text-white shadow-md"
+                    : "bg-transparent text-text-light"
                 }`}
               >
                 ID
@@ -227,7 +229,9 @@ export default function Navbar() {
               <button
                 onClick={() => setLanguage("en")}
                 className={`px-4 py-1.5 border-none rounded-[20px] cursor-pointer text-[0.8rem] font-semibold transition-all duration-300 ${
-                  language === "en" ? "bg-primary text-white shadow-md" : "bg-transparent text-text-light"
+                  language === "en"
+                    ? "bg-primary text-white shadow-md"
+                    : "bg-transparent text-text-light"
                 }`}
               >
                 EN

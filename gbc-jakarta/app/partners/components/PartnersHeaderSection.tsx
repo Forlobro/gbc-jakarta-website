@@ -47,7 +47,7 @@ export default function PartnersHeaderSection() {
 
         {/* Year Filter */}
         {!loading && availableYears.length > 0 && (
-          <div className="mb-4">
+          <div className="mb-4 w-full">
             <FilterPills
               items={[
                 { key: "__all__", label: t("all") },
@@ -64,17 +64,19 @@ export default function PartnersHeaderSection() {
 
         {/* Category Filter */}
         {!loading && categoryNames.length > 1 && (
-          <FilterPills
-            items={categoryNames.map((cat) => ({
-              key: cat,
-              label: cat === "All" ? t("all") : cat,
-            }))}
-            activeKey={activeFilter}
-            onSelect={(key) => {
-              setActiveFilter(key)
-              setCurrentPage(1)
-            }}
-          />
+          <div className="w-full">
+            <FilterPills
+              items={categoryNames.map((cat) => ({
+                key: cat,
+                label: cat === "All" ? t("all") : cat,
+              }))}
+              activeKey={activeFilter}
+              onSelect={(key) => {
+                setActiveFilter(key)
+                setCurrentPage(1)
+              }}
+            />
+          </div>
         )}
       </div>
     </section>
