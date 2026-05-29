@@ -178,7 +178,6 @@ export default function EventsPastSection() {
                       image={photoUrl}
                       logoUrl={photoUrl ? undefined : null}
                       logoFallback={event.title}
-                      badge={event.status}
                       year={
                         event.event_start ? new Date(event.event_start).getFullYear() : undefined
                       }
