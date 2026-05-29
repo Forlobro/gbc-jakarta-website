@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -36,7 +36,7 @@ export default function PartnerDetailPage() {
   const id = params.id as string
 
   const [company, setCompany] = useState<GbcCompanyWithPhotos | null>(null)
-  const [related, setRelated] = useState<GbcCompanyWithPhotos[]>([])
+  const [allPartners, setAllPartners] = useState<GbcCompanyWithPhotos[]>([])
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
 
@@ -59,15 +59,21 @@ export default function PartnerDetailPage() {
       })
       .finally(() => setLoading(false))
 
-    // Fetch related (all, then exclude current)
+    // Fetch all partners for related section
     fetch("/api/partners")
       .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setRelated(data.filter((c) => String(c.id) !== String(id)).slice(0, 3))
-        }
+      .then((data: GbcCompanyWithPhotos[]) => {
+        if (Array.isArray(data)) setAllPartners(data)
       })
   }, [id])
+
+  // same category first, fallback to any other partners
+  const related = useMemo(() => {
+    if (!company || allPartners.length === 0) return []
+    const others = allPartners.filter((c) => String(c.id) !== String(id))
+    const sameCategory = others.filter((c) => c.category === company.category)
+    return (sameCategory.length > 0 ? sameCategory : others).slice(0, 3)
+  }, [company, allPartners, id])
 
   if (loading) {
     return (
@@ -255,12 +261,14 @@ export default function PartnerDetailPage() {
           </div>
         </section>
 
-        {/* Related Companies */}
+        {/* Related Partners */}
         {related.length > 0 && (
           <section className="py-20 relative z-[2]">
             <div className="max-w-350 mx-auto px-[5%]">
               <h2 className="font-display text-2xl md:text-3xl font-bold text-primary text-center mb-12">
-                {t("otherCompanies")}
+                {related.some((c) => c.category === company.category)
+                  ? t("relatedPartners")
+                  : t("otherPartners")}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {related.map((c) => (
