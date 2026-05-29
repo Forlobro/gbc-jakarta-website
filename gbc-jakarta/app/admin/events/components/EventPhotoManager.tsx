@@ -4,6 +4,7 @@ import { useRef, useState } from "react"
 import Image from "next/image"
 import { GbcEventPhoto } from "../../../lib/supabase"
 import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
+import { uploadToStorage, makeStoragePath } from "../../../lib/supabase.upload"
 
 interface EventPhotoManagerProps {
   eventId: number
@@ -60,25 +61,28 @@ export default function EventPhotoManager({
     setError(null)
 
     try {
-      const formData = new FormData()
-      selectedFiles.forEach((f) => formData.append("photos", f))
+      for (const file of selectedFiles) {
+        const storagePath = makeStoragePath(`${eventId}/gallery`, file.name)
+        const { publicUrl } = await uploadToStorage("gbc_events_photos", storagePath, file)
 
-      const res = await fetch(`/api/admin/events/${eventId}/photos`, {
-        method: "POST",
-        body: formData,
-      })
+        const res = await fetch(`/api/admin/events/${eventId}/photos`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ photoUrl: publicUrl }),
+        })
 
-      const data = await res.json()
-      if (!res.ok) {
-        setError(data.errors?.join(", ") || data.error)
-        return
+        if (!res.ok) {
+          const data = await res.json()
+          setError(data.error || "Upload failed")
+          return
+        }
       }
 
       setSelectedFiles([])
       if (fileInputRef.current) fileInputRef.current.value = ""
       onPhotosChange()
-    } catch {
-      setError("Upload failed. Please try again.")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed. Please try again.")
     } finally {
       setUploading(false)
     }

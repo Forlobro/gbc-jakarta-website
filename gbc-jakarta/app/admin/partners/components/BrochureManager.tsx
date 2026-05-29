@@ -3,6 +3,9 @@
 import { useRef, useState } from "react"
 import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
 import { msg } from "../../../lib/messages"
+import { uploadToStorage, makeStoragePath } from "../../../lib/supabase.upload"
+
+const MAX_PDF_BYTES = 10 * 1024 * 1024 // 10 MB
 
 interface BrochureManagerProps {
   companyId: number
@@ -28,7 +31,7 @@ export default function BrochureManager({
       alert(msg.brochureMustBePdf)
       return
     }
-    if (file.size > 20 * 1024 * 1024) {
+    if (file.size > MAX_PDF_BYTES) {
       alert(msg.brochureTooLarge)
       return
     }
@@ -45,12 +48,15 @@ export default function BrochureManager({
     setUploading(true)
 
     try {
-      const formData = new FormData()
-      formData.append("brochure", selectedFile)
+      // 1. Upload directly to Supabase Storage (bypasses Vercel 4.5MB limit)
+      const storagePath = makeStoragePath(`pdf/${companyId}`, selectedFile.name)
+      const { publicUrl } = await uploadToStorage("gbc_companies_photos", storagePath, selectedFile)
 
+      // 2. Update DB via API route (tiny JSON payload)
       const res = await fetch(`/api/admin/partners/${companyId}/brochure`, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ brochureUrl: publicUrl, oldBrochureUrl: brochureUrl }),
       })
 
       if (!res.ok) {
@@ -61,8 +67,8 @@ export default function BrochureManager({
 
       clearSelected()
       onBrochureChange()
-    } catch {
-      alert(msg.serverError)
+    } catch (err) {
+      alert(err instanceof Error ? err.message : msg.serverError)
     } finally {
       setUploading(false)
     }
@@ -187,7 +193,7 @@ export default function BrochureManager({
         )}
       </div>
 
-      <p className="text-slate-500 text-xs">PDF only — Max 20MB.</p>
+      <p className="text-slate-500 text-xs">PDF only — Max 10 MB.</p>
 
       <input
         ref={fileInputRef}

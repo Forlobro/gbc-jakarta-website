@@ -3,6 +3,9 @@
 import { useRef, useState } from "react"
 import Image from "next/image"
 import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
+import { uploadToStorage, makeStoragePath } from "../../../lib/supabase.upload"
+
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024 // 5 MB
 
 interface ThumbnailManagerProps {
   eventId: number
@@ -28,8 +31,8 @@ export default function ThumbnailManager({
       setError("File must be an image")
       return
     }
-    if (file.size > 10 * 1024 * 1024) {
-      setError("File size must not exceed 10 MB")
+    if (file.size > MAX_IMAGE_BYTES) {
+      setError("File size must not exceed 5 MB")
       return
     }
     setError(null)
@@ -49,12 +52,13 @@ export default function ThumbnailManager({
     setError(null)
 
     try {
-      const formData = new FormData()
-      formData.append("thumbnail", selectedFile)
+      const storagePath = makeStoragePath(`thumbnails/${eventId}`, selectedFile.name)
+      const { publicUrl } = await uploadToStorage("gbc_events_photos", storagePath, selectedFile)
 
       const res = await fetch(`/api/admin/events/${eventId}/thumbnail`, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ thumbnailUrl: publicUrl, oldThumbnailUrl: thumbnailUrl }),
       })
 
       if (!res.ok) {
@@ -65,8 +69,8 @@ export default function ThumbnailManager({
 
       clearSelected()
       onThumbnailChange()
-    } catch {
-      setError("Upload failed. Please try again.")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed. Please try again.")
     } finally {
       setUploading(false)
     }
@@ -105,7 +109,7 @@ export default function ThumbnailManager({
           <i className="far fa-image text-accent" /> Event Thumbnail
         </h3>
         <p className="text-slate-500 text-xs mt-1">
-          Used as the card image in the public events list. Max 10 MB.
+          Used as the card image in the public events list. Max 5 MB.
         </p>
       </div>
 

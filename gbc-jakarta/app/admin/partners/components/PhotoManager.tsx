@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react"
 import Image from "next/image"
 import { GbcCompanyPhoto } from "@/app/lib/supabase"
+import { uploadToStorage, makeStoragePath } from "@/app/lib/supabase.upload"
 
 interface PhotoManagerProps {
   companyId: number
@@ -85,20 +86,24 @@ export default function PhotoManager({
 
     setQueue((prev) => prev.map((item, i) => (i === idx ? { ...item, status: "uploading" } : item)))
 
-    const formData = new FormData()
-    formData.append("photos", fileItem.file)
-
     try {
+      const storagePath = makeStoragePath(`${companyId}/gallery`, fileItem.file.name)
+      const { publicUrl } = await uploadToStorage(
+        "gbc_companies_photos",
+        storagePath,
+        fileItem.file,
+      )
+
       const res = await fetch(`/api/admin/partners/${companyId}/photos`, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ photoUrl: publicUrl }),
       })
 
       const data = await res.json()
-      console.log("[PhotoManager] upload response:", res.status, data)
 
-      if (!res.ok || (data.errors?.length > 0 && !data.uploaded?.length)) {
-        const errMsg = data.errors?.[0] || data.error || `Upload failed (${res.status})`
+      if (!res.ok) {
+        const errMsg = data.error || `Upload failed (${res.status})`
         setQueue((prev) =>
           prev.map((item, i) =>
             i === idx ? { ...item, status: "error", errorMsg: errMsg } : item,
@@ -108,11 +113,10 @@ export default function PhotoManager({
         setQueue((prev) => prev.map((item, i) => (i === idx ? { ...item, status: "done" } : item)))
         onPhotosChange()
       }
-    } catch {
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : "Upload failed"
       setQueue((prev) =>
-        prev.map((item, i) =>
-          i === idx ? { ...item, status: "error", errorMsg: "Network error" } : item,
-        ),
+        prev.map((item, i) => (i === idx ? { ...item, status: "error", errorMsg: errMsg } : item)),
       )
     }
   }

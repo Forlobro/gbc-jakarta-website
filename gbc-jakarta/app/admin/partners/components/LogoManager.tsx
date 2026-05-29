@@ -4,6 +4,11 @@ import { useRef, useState } from "react"
 import Image from "next/image"
 import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
 import { msg } from "../../../lib/messages"
+import { uploadToStorage, makeStoragePath } from "../../../lib/supabase.upload"
+
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024 // 5 MB
+const ALLOWED_TYPES = ["image/png"]
+const ALLOWED_LABELS = "PNG"
 
 interface LogoManagerProps {
   companyId: number
@@ -17,9 +22,6 @@ function getPartnerLogoText(name: string) {
   if (!safeName) return "?"
   return safeName.split(" ").slice(0, 2).join(" ")
 }
-
-const ALLOWED_TYPES = ["image/png"]
-const ALLOWED_LABELS = "PNG"
 
 export default function LogoManager({
   companyId,
@@ -46,24 +48,19 @@ export default function LogoManager({
       return
     }
 
-    if (file.size > 10 * 1024 * 1024) {
+    if (file.size > MAX_IMAGE_BYTES) {
       setFileError(msg.logoTooLarge)
       if (fileInputRef.current) fileInputRef.current.value = ""
       return
     }
 
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl)
-    }
-
+    if (previewUrl) URL.revokeObjectURL(previewUrl)
     setSelectedFile(file)
     setPreviewUrl(URL.createObjectURL(file))
   }
 
   const clearSelected = () => {
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl)
-    }
+    if (previewUrl) URL.revokeObjectURL(previewUrl)
     setSelectedFile(null)
     setPreviewUrl(null)
     setFileError(null)
@@ -75,12 +72,13 @@ export default function LogoManager({
     setUploading(true)
 
     try {
-      const formData = new FormData()
-      formData.append("logo", selectedFile)
+      const storagePath = makeStoragePath(`${companyId}/logo`, selectedFile.name)
+      const { publicUrl } = await uploadToStorage("gbc_companies_photos", storagePath, selectedFile)
 
       const res = await fetch(`/api/admin/partners/${companyId}/logo`, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ logoUrl: publicUrl, oldLogoUrl: logoUrl }),
       })
 
       if (!res.ok) {
@@ -91,8 +89,8 @@ export default function LogoManager({
 
       clearSelected()
       onLogoChange()
-    } catch {
-      setFileError(msg.serverError)
+    } catch (err) {
+      setFileError(err instanceof Error ? err.message : msg.serverError)
     } finally {
       setUploading(false)
     }
@@ -104,9 +102,7 @@ export default function LogoManager({
 
     setDeleting(true)
     try {
-      const res = await fetch(`/api/admin/partners/${companyId}/logo`, {
-        method: "DELETE",
-      })
+      const res = await fetch(`/api/admin/partners/${companyId}/logo`, { method: "DELETE" })
 
       if (!res.ok) {
         const err = await res.json()
@@ -195,7 +191,7 @@ export default function LogoManager({
               {fileError}
             </p>
           ) : (
-            <p className="text-slate-500 text-xs">{ALLOWED_LABELS} — Max 10MB.</p>
+            <p className="text-slate-500 text-xs">{ALLOWED_LABELS} — Max 5 MB.</p>
           )}
         </div>
       </div>

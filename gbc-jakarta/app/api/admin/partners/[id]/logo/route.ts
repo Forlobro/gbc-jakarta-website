@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../../lib/supabase.server"
 import { msg } from "../../../../../lib/messages"
 
+export const dynamic = "force-dynamic"
+
 interface RouteParams {
   params: Promise<{ id: string }>
 }
@@ -15,7 +17,7 @@ function extractStoragePath(publicUrl: string) {
   }
 }
 
-// POST /api/admin/partners/[id]/logo — upload/replace single logo
+// POST /api/admin/partners/[id]/logo
 export async function POST(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params
@@ -25,78 +27,45 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: msg.invalidId }, { status: 400 })
     }
 
-    const supabase = createServerClient()
-    const formData = await request.formData()
-    const logo = formData.get("logo") as File | null
+    let body: { logoUrl?: string; oldLogoUrl?: string }
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ error: msg.invalidJson }, { status: 400 })
+    }
 
-    if (!logo) {
+    const { logoUrl, oldLogoUrl } = body
+
+    if (!logoUrl) {
       return NextResponse.json({ error: msg.noLogoProvided }, { status: 400 })
     }
 
-    if (logo.type !== "image/png") {
-      return NextResponse.json({ error: msg.logoMustBePng }, { status: 400 })
-    }
-
-    if (logo.size > 5 * 1024 * 1024) {
-      return NextResponse.json({ error: msg.logoTooLarge }, { status: 400 })
-    }
-
-    const { data: company, error: companyError } = await supabase
-      .from("gbc_companies")
-      .select("logo_url")
-      .eq("id", partnerId)
-      .single()
-
-    if (companyError) {
-      return NextResponse.json({ error: msg.partnerNotFound }, { status: 404 })
-    }
-
-    const ext = logo.name.split(".").pop()?.toLowerCase() || "png"
-    const fileName = `${partnerId}/logo/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-
-    const { error: uploadError } = await supabase.storage
-      .from("gbc_companies_photos")
-      .upload(fileName, logo, {
-        contentType: logo.type,
-        cacheControl: "3600",
-        upsert: false,
-      })
-
-    if (uploadError) {
-      return NextResponse.json({ error: uploadError.message }, { status: 500 })
-    }
-
-    const { data: urlData } = supabase.storage.from("gbc_companies_photos").getPublicUrl(fileName)
-
-    const newLogoUrl = urlData.publicUrl
-    const oldLogoUrl = company.logo_url
+    const supabase = createServerClient()
 
     const { error: updateError } = await supabase
       .from("gbc_companies")
-      .update({ logo_url: newLogoUrl })
+      .update({ logo_url: logoUrl })
       .eq("id", partnerId)
 
     if (updateError) {
-      await supabase.storage.from("gbc_companies_photos").remove([fileName])
       return NextResponse.json({ error: updateError.message }, { status: 500 })
     }
 
-    const oldPath = oldLogoUrl ? extractStoragePath(oldLogoUrl) : null
-    if (oldPath && oldPath !== fileName) {
-      await supabase.storage.from("gbc_companies_photos").remove([oldPath])
+    if (oldLogoUrl) {
+      const oldPath = extractStoragePath(oldLogoUrl)
+      if (oldPath) {
+        await supabase.storage.from("gbc_companies_photos").remove([oldPath])
+      }
     }
 
-    return NextResponse.json(
-      { logo_url: newLogoUrl, message: msg.logoUploadSuccess },
-      { status: 201 },
-    )
+    return NextResponse.json({ logo_url: logoUrl, message: msg.logoUploadSuccess }, { status: 201 })
   } catch (err) {
-    console.error("[POST /api/admin/partners/[id]/logo] Unexpected error:", err)
+    console.error("[POST logo] Unexpected error:", err)
     return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
-// DELETE /api/admin/partners/[id]/logo — remove logo and clear logo_url
+// DELETE /api/admin/partners/[id]/logo
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params
@@ -136,7 +105,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ success: true, message: msg.logoDeleteSuccess })
   } catch (err) {
-    console.error("[DELETE /api/admin/partners/[id]/logo] Unexpected error:", err)
+    console.error("[DELETE logo] Unexpected error:", err)
     return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
