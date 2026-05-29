@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../lib/supabase.server"
 import { msg } from "../../lib/messages"
 
-// GET /api/events — public, all published events with photos, ordered by event_start desc
+// GET /api/events — public, all published events with photos
 export async function GET(request: NextRequest) {
   try {
     const supabase = createServerClient()
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
       .from("gbc_events")
       .select("*")
       .eq("is_published", true)
-      .order("event_start", { ascending: false })
+      .order("title", { ascending: true })
 
     if (error) {
       console.error("[GET /api/events] Supabase error:", error)

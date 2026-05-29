@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const { data: companies, error } = await supabase
       .from("gbc_companies")
       .select("*")
-      .order("id", { ascending: true })
+      .order("name", { ascending: true })
 
     if (error) {
       return NextResponse.json({ error: msg.serverError }, { status: 500 })
