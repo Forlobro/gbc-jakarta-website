@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../../lib/supabase.server"
 import { msg } from "../../../../../lib/messages"
 
+export const maxDuration = 60
+export const dynamic = "force-dynamic"
+
 interface RouteParams {
   params: Promise<{ id: string }>
 }
@@ -65,7 +68,6 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       console.error("[POST brochure] Upload error:", uploadError)
       return NextResponse.json({ error: uploadError.message }, { status: 500 })
     }
-
     const { data: urlData } = supabase.storage.from("gbc_companies_photos").getPublicUrl(fileName)
 
     const newBrochureUrl = urlData.publicUrl
@@ -93,7 +95,8 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     )
   } catch (err) {
     console.error("[POST brochure] Unexpected error:", err)
-    return NextResponse.json({ error: msg.serverError }, { status: 500 })
+    const message = err instanceof Error ? err.message : String(err)
+    return NextResponse.json({ error: msg.serverError, detail: message }, { status: 500 })
   }
 }
 
