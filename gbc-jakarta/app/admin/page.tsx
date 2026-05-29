@@ -95,10 +95,16 @@ export default function AdminDashboard() {
             <i className="fas fa-plus" /> Add Partner
           </Link>
           <Link
-            href="/admin/partners"
+            href="/admin/categories/new"
             className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] !text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
           >
-            <i className="fas fa-list" /> Manage Partners
+            <i className="fas fa-plus" /> Add Categories
+          </Link>
+          <Link
+            href="/admin/events/new"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#00c2cb] !text-white rounded-xl text-sm font-medium hover:bg-[#00a8b0] transition-colors"
+          >
+            <i className="fas fa-plus" /> Add Events
           </Link>
           <Link
             href="/"

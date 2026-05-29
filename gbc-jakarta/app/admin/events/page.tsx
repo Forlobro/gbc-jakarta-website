@@ -3,19 +3,11 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { GbcEventWithPhotos } from "../../lib/supabase"
+import { formatDateShort } from "../../lib/date"
 
 export const dynamic = "force-dynamic"
 
 const PAGE_SIZE = 8
-
-function formatDate(val: string | null | undefined) {
-  if (!val) return "-"
-  return new Date(val).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  })
-}
 
 export default function AdminEventsPage() {
   const [events, setEvents] = useState<GbcEventWithPhotos[]>([])
@@ -199,7 +191,7 @@ export default function AdminEventsPage() {
                       </td>
                       <td className="px-6 py-4">
                         <span className="text-slate-500 text-xs whitespace-nowrap">
-                          {formatDate(event.event_start)}
+                          {formatDateShort(event.event_start)}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-center">
@@ -231,7 +223,7 @@ export default function AdminEventsPage() {
                       </td>
                       <td className="px-6 py-4">
                         <span className="text-slate-500 text-xs whitespace-nowrap">
-                          {formatDate(event.created_at)}
+                          {formatDateShort(event.created_at)}
                         </span>
                       </td>
                       <td className="px-6 py-4">
@@ -241,7 +233,7 @@ export default function AdminEventsPage() {
                       </td>
                       <td className="px-6 py-4">
                         <span className="text-slate-500 text-xs whitespace-nowrap">
-                          {formatDate(event.updated_at)}
+                          {formatDateShort(event.updated_at)}
                         </span>
                       </td>
                       <td className="px-6 py-4">

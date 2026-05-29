@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import EventForm, { EventFormData } from "../../components/EventForm"
 import EventPhotoManager from "../../components/EventPhotoManager"
+import ThumbnailManager from "../../components/ThumbnailManager"
 import { GbcEventWithPhotos } from "../../../../lib/supabase"
 
 export const dynamic = "force-dynamic"
@@ -105,13 +106,25 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
           />
         </div>
 
-        {/* Photo Manager */}
-        <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
-          <EventPhotoManager
-            eventId={event.id}
-            photos={event.gbc_events_photos || []}
-            onPhotosChange={fetchEvent}
-          />
+        {/* Right column: Thumbnail + Photos */}
+        <div className="flex flex-col gap-8">
+          {/* Thumbnail Manager */}
+          <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
+            <ThumbnailManager
+              eventId={event.id}
+              thumbnailUrl={event.thumbnail_url}
+              onThumbnailChange={fetchEvent}
+            />
+          </div>
+
+          {/* Photo Manager */}
+          <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
+            <EventPhotoManager
+              eventId={event.id}
+              photos={event.gbc_events_photos || []}
+              onPhotosChange={fetchEvent}
+            />
+          </div>
         </div>
       </div>
     </div>

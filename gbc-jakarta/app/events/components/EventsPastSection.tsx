@@ -9,17 +9,9 @@ import SearchBar from "../../components/SearchBar"
 import FilterPills from "../../components/FilterPills"
 import Pagination from "../../components/Pagination"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
+import { formatDate } from "../../lib/date"
 
 const PAGE_SIZE = 9
-
-function formatDate(dateStr: string | null): string {
-  if (!dateStr) return "—"
-  return new Date(dateStr).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
-}
 
 function SkeletonCard() {
   return (
@@ -48,9 +40,7 @@ export default function EventsPastSection() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const res = await fetch("/api/events", {
-          headers: { "Accept-Language": language === "id" ? "id" : "en" },
-        })
+        const res = await fetch("/api/events")
         if (!res.ok) {
           console.error("[EventsPastSection] API error:", res.status, await res.text())
           return
@@ -71,14 +61,14 @@ export default function EventsPastSection() {
       }
     }
     fetchEvents()
-  }, [language])
+  }, [])
 
-  // Extract unique years from event_start
+  // Extract unique years from event_start — slice raw string to avoid UTC shift
   const yearItems = useMemo(() => {
     const years = Array.from(
       new Set(
         allEvents
-          .map((e) => (e.event_start ? new Date(e.event_start).getFullYear().toString() : null))
+          .map((e) => (e.event_start ? e.event_start.slice(0, 4) : null))
           .filter(Boolean) as string[],
       ),
     ).sort((a, b) => Number(a) - Number(b))
@@ -97,8 +87,7 @@ export default function EventsPastSection() {
         e.venue.toLowerCase().includes(q)
 
       const matchesYear =
-        activeYear === "all" ||
-        (e.event_start ? new Date(e.event_start).getFullYear().toString() === activeYear : false)
+        activeYear === "all" || (e.event_start ? e.event_start.slice(0, 4) === activeYear : false)
 
       return matchesSearch && matchesYear
     })
@@ -111,6 +100,12 @@ export default function EventsPastSection() {
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
   const paginated = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+
+  // Total events in the active year (ignoring search), for accurate count label
+  const yearTotal = useMemo(() => {
+    if (activeYear === "all") return allEvents.length
+    return allEvents.filter((e) => e.event_start && e.event_start.slice(0, 4) === activeYear).length
+  }, [allEvents, activeYear])
 
   return (
     <section className="py-24 relative" id="events-past">
@@ -169,7 +164,7 @@ export default function EventsPastSection() {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
               {paginated.map((event) => {
-                const photoUrl = event.gbc_events_photos[0]?.photo_url || undefined
+                const photoUrl = event.thumbnail_url || undefined
                 const description =
                   language === "id"
                     ? event.description_id || event.description_en
@@ -202,10 +197,12 @@ export default function EventsPastSection() {
               countLabel={
                 <>
                   {t("showing")}{" "}
-                  <strong className="font-semibold text-text">{paginated.length}</strong>{" "}
-                  {t("companiesOf")}{" "}
-                  <strong className="font-semibold text-text">{filtered.length}</strong>{" "}
-                  {language === "id" ? "acara" : "events"}
+                  <strong className="font-semibold text-text">{paginated.length}</strong> {t("of")}{" "}
+                  <strong className="font-semibold text-text">{yearTotal}</strong>{" "}
+                  {t("events")}
+                  {activeYear !== "all" && (
+                    <span className="text-text-muted/70"> · {activeYear}</span>
+                  )}
                 </>
               }
             />

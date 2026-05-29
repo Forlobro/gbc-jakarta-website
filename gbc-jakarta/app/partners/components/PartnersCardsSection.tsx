@@ -43,7 +43,7 @@ export default function PartnersCardsSection() {
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-text-light">
             <i className="far fa-building text-5xl mb-5 opacity-20" />
-            <p className="text-lg">{t("noCompaniesFound")}</p>
+            <p className="text-lg">{t("noPartnersFound")}</p>
             {search && (
               <button
                 onClick={() => {
@@ -86,20 +86,12 @@ export default function PartnersCardsSection() {
             onPageChange={setCurrentPage}
             countLabel={
               <>
-                {selectedYear && (
-                  <>
-                    <span className="font-semibold text-primary">{selectedYear}</span>
-                    {" • "}
-                  </>
-                )}
                 {t("showing")} <span className="font-semibold text-text">{paginated.length}</span>{" "}
-                {t("companiesOf")} <span className="font-semibold text-text">{categoryTotal}</span>{" "}
-                {t("companiesWord")}
+                {t("of")} <span className="font-semibold text-text">{categoryTotal}</span>{" "}
+                {t("partners")}
+                {selectedYear && <span className="text-text-muted/70"> · {selectedYear}</span>}
                 {activeFilter !== "All" && (
-                  <span className="text-text-muted/70">
-                    {" "}
-                    {t("companiesIn")} {activeFilter}
-                  </span>
+                  <span className="text-text-muted/70"> · {activeFilter}</span>
                 )}
               </>
             }

@@ -11,84 +11,10 @@ import HeroDecor from "../../components/HeroDecor"
 import EventDetailPageDecor from "../components/EventDetailPageDecor"
 import EventDetailsSection from "../components/EventDetailsSection"
 import EventRegisterSection from "../components/EventRegisterSection"
-
-function formatDate(dateStr: string | null): string {
-  if (!dateStr) return "—"
-  return new Date(dateStr).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
-}
-
-function formatTime(dateStr: string | null): string {
-  if (!dateStr) return "—"
-  const d = new Date(dateStr)
-  const hh = String(d.getHours()).padStart(2, "0")
-  const mm = String(d.getMinutes()).padStart(2, "0")
-  return `${hh}:${mm} WIB`
-}
-
-function EventGallery({ photos, title }: { photos: string[]; title: string }) {
-  const [current, setCurrent] = useState(0)
-
-  if (photos.length === 0) return null
-
-  const prev = () => setCurrent((c) => (c === 0 ? photos.length - 1 : c - 1))
-  const next = () => setCurrent((c) => (c === photos.length - 1 ? 0 : c + 1))
-
-  return (
-    <section className="py-16 relative">
-      <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-        <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
-          {title}
-        </h2>
-
-        <div className="relative max-w-4xl mx-auto">
-          <div className="rounded-2xl overflow-hidden" style={{ aspectRatio: "16/9" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              key={current}
-              src={photos[current]}
-              alt={`Gallery ${current + 1}`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <button
-            onClick={prev}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
-          >
-            <i className="fas fa-chevron-left text-sm" />
-          </button>
-
-          <button
-            onClick={next}
-            className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
-          >
-            <i className="fas fa-chevron-right text-sm" />
-          </button>
-
-          <div className="flex justify-center gap-2 mt-5">
-            {photos.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === current ? "bg-accent w-6" : "bg-gray-300 w-2"
-                }`}
-              />
-            ))}
-          </div>
-
-          <p className="text-center text-text-muted text-sm mt-3">
-            {current + 1} / {photos.length}
-          </p>
-        </div>
-      </div>
-    </section>
-  )
-}
+import PhotoGallery from "../../components/PhotoGallery"
+import PosterCarousel from "../../components/PosterCarousel"
+import { formatDate, formatTime } from "../../lib/date"
+import { toYouTubeEmbedUrl } from "../../lib/youtube"
 
 function LoadingSkeleton() {
   return (
@@ -138,9 +64,7 @@ export default function EventDetailPage() {
       setLoading(true)
       setNotFound(false)
       try {
-        const res = await fetch(`/api/events/${id}`, {
-          headers: { "Accept-Language": language === "id" ? "id" : "en" },
-        })
+        const res = await fetch(`/api/events/${id}`)
         if (res.status === 404) {
           setNotFound(true)
           return
@@ -158,7 +82,7 @@ export default function EventDetailPage() {
       }
     }
     fetchEvent()
-  }, [id, language])
+  }, [id])
 
   if (loading) return <LoadingSkeleton />
 
@@ -250,7 +174,7 @@ export default function EventDetailPage() {
               <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
                 <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                   <iframe
-                    src={event.link_video_1}
+                    src={toYouTubeEmbedUrl(event.link_video_1) ?? event.link_video_1}
                     className="absolute inset-0 w-full h-full"
                     title={title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -269,7 +193,7 @@ export default function EventDetailPage() {
               <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
                 <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                   <iframe
-                    src={event.link_video_2}
+                    src={toYouTubeEmbedUrl(event.link_video_2) ?? event.link_video_2}
                     className="absolute inset-0 w-full h-full"
                     title={`${title} — Video 2`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -281,9 +205,30 @@ export default function EventDetailPage() {
           </section>
         )}
 
-        {/* ── Event Gallery ── */}
-        {galleryPhotos.length > 0 && (
-          <EventGallery photos={galleryPhotos} title={t("eventGallery")} />
+        {/* ── Event Gallery (accomplished only) ── */}
+        {!isUpcoming && galleryPhotos.length > 0 && (
+          <section className="py-16 relative">
+            <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
+              <h2 className="font-display text-3xl font-extrabold text-primary mb-8 text-center">
+                {t("eventGallery")}
+              </h2>
+              <div className="max-w-4xl mx-auto">
+                <PhotoGallery photos={galleryPhotos} altPrefix={title} />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Event Posters (upcoming only) ── */}
+        {isUpcoming && galleryPhotos.length > 0 && (
+          <section className="py-16 relative">
+            <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
+              <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
+                {t("eventPoster")}
+              </h2>
+              <PosterCarousel photos={galleryPhotos} altPrefix={title} />
+            </div>
+          </section>
         )}
 
         {/* ── Upcoming-only sections ── */}
@@ -300,6 +245,7 @@ export default function EventDetailPage() {
               title={t("upcomingEventRegisterTitle")}
               description={t("upcomingEventRegisterDesc")}
               ctaLabel={t("upcomingEventRegisterCta")}
+              registerLink={event.link_form_register}
             />
           </>
         )}

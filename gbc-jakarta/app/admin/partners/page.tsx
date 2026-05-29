@@ -208,7 +208,7 @@ export default function AdminPartnersPage() {
           <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-slate-500 text-sm">
               Showing <span className="font-semibold text-slate-700">{paginated.length}</span> of{" "}
-              <span className="font-semibold text-slate-700">{filtered.length}</span> companies
+              <span className="font-semibold text-slate-700">{filtered.length}</span> partners
             </p>
 
             {totalPages > 1 && (

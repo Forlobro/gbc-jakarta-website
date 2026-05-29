@@ -102,7 +102,7 @@ export const translations = {
     sendBtn: "Send Message",
     formName: "Your Name",
     formEmail: "Email Address",
-    formCompany: "Company",
+    formPartner: "Partner",
     formMessage: "Message",
 
     // Event Detail Page
@@ -110,6 +110,7 @@ export const translations = {
     aboutThisEvent: "About This Event",
     eventVideo: "Event Video",
     eventGallery: "Event Gallery",
+    eventPoster: "Event Poster",
     exhibitorList: "Exhibitor List",
     brochure: "Brochure",
     eventsP1Details:
@@ -250,24 +251,23 @@ export const translations = {
     contactPhone: "Telephone",
     namePlaceholder: "John Doe",
     emailPlaceholder: "john@company.com",
-    companyPlaceholder: "Your Company Name",
+    partnerPlaceholder: "Your Partner Name",
     messagePlaceholder: "Tell us about your business needs...",
 
     // Companies page
-    searchPlaceholder: "Search companies...",
-    noCompaniesFound: "No companies found.",
+    searchPlaceholder: "Search partners...",
+    noPartnersFound: "No partners found.",
     clearSearch: "Clear search",
     showing: "Showing",
-    companiesOf: "of",
-    companiesWord: "companies",
-    companiesIn: "in",
+    of: "of",
+    in: "in",
 
     // Company detail page
-    companyNotFound: "Company Not Found",
-    companyNotFoundMsg: "The company you are looking for does not exist.",
-    backToCompanies: "Back to Companies",
+    partnerNotFound: "Partner Not Found",
+    partnerNotFoundMsg: "The partner you are looking for does not exist.",
+    backToPartners: "Back to Partners",
     videoProfile: "Video Profile",
-    aboutCompany: "About Company",
+    aboutPartner: "About Partner",
     galleryLabel: "Gallery",
     contactViaGbc: "Contact via GBC",
     phoneLabel: "Phone",
@@ -285,7 +285,7 @@ export const translations = {
     aboutPageDesc2:
       "We serve as a bridge between Gyeonggi's dynamic innovation ecosystem and the growing business opportunities in Indonesia, providing tangible support for Korean SMEs looking to grow in Southeast Asia.",
     globalNetworkDesc: "GBSA's overseas representative network in 21 countries with 28 offices.",
-    globalNetworkVideoCaption: "GBC Global Network Introduction Video (English)",
+    globalNetworkVideoCaption: "GBC Global Network Introduction Video",
     gbsaDesc:
       "Official public institution of Gyeonggi Provincial Government that oversees the entire global GBC network.",
     gbsaDesc1:
@@ -294,7 +294,7 @@ export const translations = {
       "GBSA serves as a trusted partner for SMEs across the entire business cycle — from startup, commercialization, investment, and export, to science and technology R&D — with the goal of making Gyeonggi Province a global hub of growth opportunities.",
     gbsaMission: "Mission",
     gbsaVision: "Vision",
-    gbsaVideoCaption: "Video introduction of GBSA (English)",
+    gbsaVideoCaption: "Video introduction of GBSA",
     gyeonggiDesc:
       "The largest province in South Korea — the center of economy, innovation, and technology, contributing 25.4% of national output and home to global conglomerates like Samsung Electronics & SK Hynix.",
     gyeonggiInNumbers: "GYEONGGI-DO IN NUMBERS",
@@ -435,7 +435,6 @@ export const translations = {
     sendBtn: "Kirim Pesan",
     formName: "Nama Anda",
     formEmail: "Alamat Email",
-    formCompany: "Perusahaan",
     formMessage: "Pesan",
 
     // Event Detail Page
@@ -443,6 +442,7 @@ export const translations = {
     aboutThisEvent: "Tentang Event Ini",
     eventVideo: "Video Event",
     eventGallery: "Galeri Event",
+    eventPoster: "Poster Event",
     exhibitorList: "Daftar Peserta",
     brochure: "Brosur",
     eventsP1Details:
@@ -581,24 +581,23 @@ export const translations = {
     contactPhone: "Telepon",
     namePlaceholder: "John Doe",
     emailPlaceholder: "john@perusahaan.com",
-    companyPlaceholder: "Nama Perusahaan Anda",
+    partnerPlaceholder: "Nama Mitra Anda",
     messagePlaceholder: "Ceritakan kebutuhan bisnis Anda...",
 
     // Companies page
     searchPlaceholder: "Cari perusahaan...",
-    noCompaniesFound: "Perusahaan tidak ditemukan.",
+    noPartnersFound: "Mitra tidak ditemukan.",
     clearSearch: "Hapus pencarian",
     showing: "Menampilkan",
-    companiesOf: "dari",
-    companiesWord: "perusahaan",
-    companiesIn: "di",
+    of: "dari",
+    in: "di",
 
     // Company detail page
-    companyNotFound: "Perusahaan Tidak Ditemukan",
-    companyNotFoundMsg: "Perusahaan yang Anda cari tidak ditemukan.",
-    backToCompanies: "Kembali ke Perusahaan",
+    partnerNotFound: "Mitra tidak ditemukan",
+    partnerNotFoundMsg: "Mitra yang Anda cari tidak ditemukan.",
+    backToPartners: "Kembali ke Mitra",
     videoProfile: "Profil Video",
-    aboutCompany: "Tentang Perusahaan",
+    aboutPartner: "Tentang Mitra",
     galleryLabel: "Galeri",
     contactViaGbc: "Hubungi via GBC",
     phoneLabel: "Telepon",
@@ -615,7 +614,7 @@ export const translations = {
     aboutPageDesc2:
       "Kami hadir sebagai jembatan antara ekosistem inovasi Gyeonggi yang dinamis dengan peluang bisnis yang terus berkembang di Indonesia, memberikan dukungan nyata bagi UKM Korea yang ingin tumbuh di Asia Tenggara.",
     globalNetworkDesc: "Jaringan kantor perwakilan luar negeri GBSA di 21 negara dengan 28 kantor.",
-    globalNetworkVideoCaption: "Video perkenalan jaringan GBC global (Indonesia)",
+    globalNetworkVideoCaption: "Video perkenalan jaringan GBC global",
     gbsaDesc:
       "Lembaga publik resmi milik Pemerintah Provinsi Gyeonggi yang menjadi induk dari seluruh jaringan GBC di dunia.",
     gbsaDesc1:
@@ -624,7 +623,7 @@ export const translations = {
       "GBSA hadir sebagai mitra terpercaya bagi UKM di seluruh siklus bisnis — mulai dari startup, komersialisasi, investasi, ekspor, hingga R&D sains dan teknologi — dengan tujuan menjadikan Provinsi Gyeonggi sebagai pusat peluang pertumbuhan dunia.",
     gbsaMission: "Misi",
     gbsaVision: "Visi",
-    gbsaVideoCaption: "Video perkenalan GBSA (English — versi Indonesia dalam proses)",
+    gbsaVideoCaption: "Video perkenalan GBSA",
     gyeonggiDesc:
       "Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang 25.4% total produksi nasional dan menjadi rumah bagi konglomerat global seperti Samsung Electronics & SK Hynix.",
     gyeonggiInNumbers: "GYEONGGI-DO DALAM ANGKA",

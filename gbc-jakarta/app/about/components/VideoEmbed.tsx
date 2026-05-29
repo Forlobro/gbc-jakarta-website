@@ -9,7 +9,7 @@ export function VideoEmbed({
   srcEn,
   captionId,
   captionEn,
-  posterSrc
+  posterSrc,
 }: {
   srcId: string
   srcEn: string

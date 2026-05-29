@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../lib/supabase.server"
-import { getLang, getMsg } from "../../lib/messages"
+import { msg } from "../../lib/messages"
 
 // GET /api/partners-categories — public, read all categories
 export async function GET(request: NextRequest) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const supabase = createServerClient()
 
@@ -22,6 +19,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(data ?? [])
   } catch (err) {
     console.error("[GET /api/partners-categories] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

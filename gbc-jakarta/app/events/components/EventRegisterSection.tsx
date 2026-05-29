@@ -4,18 +4,25 @@ import Link from "next/link"
 import ScrollReveal from "../../components/ScrollReveal"
 import { useTranslation } from "../../lib/LanguageContext"
 
+const FALLBACK_EMAIL = "mailto:chat.gbcjkt@gmail.com"
+
 interface EventRegisterSectionProps {
   title: string
   description: string
   ctaLabel: string
+  registerLink?: string | null
 }
 
 export default function EventRegisterSection({
   title,
   description,
   ctaLabel,
+  registerLink,
 }: EventRegisterSectionProps) {
   const { t } = useTranslation()
+
+  const href = registerLink || FALLBACK_EMAIL
+  const isExternal = !href.startsWith("mailto:")
 
   return (
     <section className="py-24 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
@@ -48,10 +55,12 @@ export default function EventRegisterSection({
           <p className="text-white/70 text-lg mb-10 text-justify">{description}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:chat.gbcjkt@gmail.com"
+              href={href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-accent text-primary rounded-full font-semibold text-[1rem] shadow-[0_4px_20px_rgba(0,194,203,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(0,194,203,0.5)]"
             >
-              <i className="far fa-envelope" />
+              <i className={isExternal ? "fas fa-external-link-alt" : "far fa-envelope"} />
               {ctaLabel}
             </a>
             <Link

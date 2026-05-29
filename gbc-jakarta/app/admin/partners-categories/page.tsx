@@ -127,7 +127,7 @@ export default function AdminPartnersCategoriesPage() {
   }
 
   const handleDelete = async (id: number, name: string) => {
-    if (!confirm(`Delete category "${name}"? Companies using this category will not be affected.`))
+    if (!confirm(`Delete category "${name}"? Partners using this category will not be affected.`))
       return
     setDeletingId(id)
     setError(null)

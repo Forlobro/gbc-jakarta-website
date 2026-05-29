@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../lib/supabase.server"
-import { getLang, getMsg } from "../../../lib/messages"
+import { msg } from "../../../lib/messages"
 
 // GET /api/admin/partners — list all companies with photos
 export async function GET(request: NextRequest) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const supabase = createServerClient()
 
@@ -17,7 +14,7 @@ export async function GET(request: NextRequest) {
 
     if (companiesError) {
       console.error("[GET /api/admin/partners] Supabase error:", companiesError)
-      return NextResponse.json({ error: m.serverError }, { status: 500 })
+      return NextResponse.json({ error: msg.serverError }, { status: 500 })
     }
 
     const { data: photos } = await supabase.from("gbc_companies_photos").select("*")
@@ -30,15 +27,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(result)
   } catch (err) {
     console.error("[GET /api/admin/partners] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // POST /api/admin/partners — create new company
 export async function POST(request: NextRequest) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const supabase = createServerClient()
 
@@ -47,7 +41,7 @@ export async function POST(request: NextRequest) {
       body = await request.json()
     } catch (e) {
       console.error("[POST /api/admin/partners] JSON parse error:", e)
-      return NextResponse.json({ error: m.invalidJson }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidJson }, { status: 400 })
     }
 
     const { name, category, description_id, description_en, start_date, end_date, link_video } =
@@ -70,23 +64,23 @@ export async function POST(request: NextRequest) {
       typeof link_video === "string" && link_video.trim().length > 0 ? link_video.trim() : null
 
     if (!normalizedName) {
-      return NextResponse.json({ error: m.nameRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.nameRequired }, { status: 400 })
     }
 
     if (!normalizedCategory) {
-      return NextResponse.json({ error: m.categoryRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.partnerRequired }, { status: 400 })
     }
 
     if (normalizedStartDate && Number.isNaN(Date.parse(normalizedStartDate))) {
-      return NextResponse.json({ error: m.invalidStartDate }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidStartDate }, { status: 400 })
     }
 
     if (normalizedEndDate && Number.isNaN(Date.parse(normalizedEndDate))) {
-      return NextResponse.json({ error: m.invalidEndDate }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidEndDate }, { status: 400 })
     }
 
     if (normalizedStartDate && normalizedEndDate && normalizedStartDate > normalizedEndDate) {
-      return NextResponse.json({ error: m.startAfterEnd }, { status: 400 })
+      return NextResponse.json({ error: msg.startAfterEnd }, { status: 400 })
     }
 
     const { data, error } = await supabase
@@ -105,12 +99,12 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("[POST /api/admin/partners] Supabase error:", error)
-      return NextResponse.json({ error: m.serverError }, { status: 500 })
+      return NextResponse.json({ error: msg.serverError }, { status: 500 })
     }
 
-    return NextResponse.json({ ...data, message: m.companyCreateSuccess }, { status: 201 })
+    return NextResponse.json({ ...data, message: msg.partnerCreateSuccess }, { status: 201 })
   } catch (err) {
     console.error("[POST /api/admin/partners] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

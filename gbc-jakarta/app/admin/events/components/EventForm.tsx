@@ -14,6 +14,7 @@ export type EventFormData = Pick<
   | "is_published"
   | "link_video_1"
   | "link_video_2"
+  | "link_form_register"
   | "event_start"
   | "event_end"
 >
@@ -42,6 +43,7 @@ export default function EventForm({
   const [isPublished, setIsPublished] = useState(initialData?.is_published ?? false)
   const [linkVideo1, setLinkVideo1] = useState(initialData?.link_video_1 || "")
   const [linkVideo2, setLinkVideo2] = useState(initialData?.link_video_2 || "")
+  const [linkFormRegister, setLinkFormRegister] = useState(initialData?.link_form_register || "")
   const [eventStart, setEventStart] = useState(
     initialData?.event_start ? initialData.event_start.slice(0, 16) : "",
   )
@@ -61,6 +63,7 @@ export default function EventForm({
       is_published: isPublished,
       link_video_1: linkVideo1 || null,
       link_video_2: linkVideo2 || null,
+      link_form_register: linkFormRegister || null,
       event_start: eventStart || null,
       event_end: eventEnd || null,
     })
@@ -226,6 +229,18 @@ export default function EventForm({
           value={linkVideo2}
           onChange={(e) => setLinkVideo2(e.target.value)}
           placeholder="https://youtube.com/watch?v=..."
+          className={inputClass}
+        />
+      </div>
+
+      {/* Registration Form Link */}
+      <div>
+        <label className={labelClass}>Registration Form Link</label>
+        <input
+          type="url"
+          value={linkFormRegister}
+          onChange={(e) => setLinkFormRegister(e.target.value)}
+          placeholder="https://forms.google.com/..."
           className={inputClass}
         />
       </div>

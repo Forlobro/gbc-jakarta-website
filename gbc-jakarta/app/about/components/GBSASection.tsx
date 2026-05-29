@@ -23,8 +23,8 @@ export default function GBSASection() {
         <ScrollReveal>
           <VideoProvider>
             <VideoEmbed
-              srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
-              srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA || ""}
+              srcId={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA_ID || ""}
+              srcEn={process.env.NEXT_PUBLIC_HPANEL_VIDEO_PROFILE_GBSA_EN || ""}
               captionId={t("gbsaVideoCaption")}
               captionEn={t("gbsaVideoCaption")}
             />

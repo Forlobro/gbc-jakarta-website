@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../lib/supabase.server"
-import { getLang, getMsg } from "../../../../lib/messages"
+import { msg } from "../../../../lib/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -8,9 +8,6 @@ interface RouteParams {
 
 // GET /api/admin/events/[id]
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
@@ -23,7 +20,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       .single()
 
     if (error) {
-      return NextResponse.json({ error: m.eventNotFound }, { status: 404 })
+      return NextResponse.json({ error: msg.eventNotFound }, { status: 404 })
     }
 
     const { data: photos } = await supabase
@@ -34,29 +31,26 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ ...event, gbc_events_photos: photos ?? [] })
   } catch (err) {
     console.error("[GET /api/admin/events/[id]] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // PUT /api/admin/events/[id]
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
     const eventId = parseInt(id)
 
     if (Number.isNaN(eventId)) {
-      return NextResponse.json({ error: m.invalidId }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidId }, { status: 400 })
     }
 
     let body
     try {
       body = await request.json()
     } catch {
-      return NextResponse.json({ error: m.invalidJson }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidJson }, { status: 400 })
     }
 
     const {
@@ -89,14 +83,16 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const normalizedEventEnd =
       typeof event_end === "string" && event_end.trim() ? event_end.trim() : null
 
-    if (!normalizedTitle) return NextResponse.json({ error: m.eventTitleRequired }, { status: 400 })
+    if (!normalizedTitle)
+      return NextResponse.json({ error: msg.eventTitleRequired }, { status: 400 })
     if (!normalizedLocation)
-      return NextResponse.json({ error: m.eventLocationRequired }, { status: 400 })
-    if (!normalizedVenue) return NextResponse.json({ error: m.eventVenueRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.eventLocationRequired }, { status: 400 })
+    if (!normalizedVenue)
+      return NextResponse.json({ error: msg.eventVenueRequired }, { status: 400 })
     if (!normalizedDescEn || !normalizedDescId)
-      return NextResponse.json({ error: m.eventDescriptionRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.eventDescriptionRequired }, { status: 400 })
     if (!["upcoming", "accomplished"].includes(normalizedStatus))
-      return NextResponse.json({ error: m.eventStatusRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.eventStatusRequired }, { status: 400 })
 
     const { data, error } = await supabase
       .from("gbc_events")
@@ -123,25 +119,22 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ ...data, message: m.eventUpdateSuccess })
+    return NextResponse.json({ ...data, message: msg.eventUpdateSuccess })
   } catch (err) {
     console.error("[PUT /api/admin/events/[id]] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // DELETE /api/admin/events/[id]
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
     const eventId = parseInt(id)
 
     if (Number.isNaN(eventId)) {
-      return NextResponse.json({ error: m.invalidId }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidId }, { status: 400 })
     }
 
     // Delete photos from storage
@@ -177,9 +170,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ success: true, message: m.eventDeleteSuccess })
+    return NextResponse.json({ success: true, message: msg.eventDeleteSuccess })
   } catch (err) {
     console.error("[DELETE /api/admin/events/[id]] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../lib/supabase.server"
-import { getLang, getMsg } from "../../../../lib/messages"
+import { msg } from "../../../../lib/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -8,9 +8,6 @@ interface RouteParams {
 
 // GET /api/admin/partners/[id]
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
@@ -23,7 +20,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       .single()
 
     if (error) {
-      return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
+      return NextResponse.json({ error: msg.partnerNotFound }, { status: 404 })
     }
 
     const { data: photos } = await supabase
@@ -37,29 +34,26 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     })
   } catch (err) {
     console.error("[GET /api/admin/partners/[id]] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // PUT /api/admin/partners/[id]
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
     const companyId = parseInt(id)
 
     if (Number.isNaN(companyId)) {
-      return NextResponse.json({ error: m.invalidId }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidId }, { status: 400 })
     }
 
     let body
     try {
       body = await request.json()
     } catch {
-      return NextResponse.json({ error: m.invalidJson }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidJson }, { status: 400 })
     }
 
     const { name, category, description_id, description_en, start_date, end_date, link_video } =
@@ -82,23 +76,23 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       typeof link_video === "string" && link_video.trim().length > 0 ? link_video.trim() : null
 
     if (!normalizedName) {
-      return NextResponse.json({ error: m.nameRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.nameRequired }, { status: 400 })
     }
 
     if (!normalizedCategory) {
-      return NextResponse.json({ error: m.categoryRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.partnerRequired }, { status: 400 })
     }
 
     if (normalizedStartDate && Number.isNaN(Date.parse(normalizedStartDate))) {
-      return NextResponse.json({ error: m.invalidStartDate }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidStartDate }, { status: 400 })
     }
 
     if (normalizedEndDate && Number.isNaN(Date.parse(normalizedEndDate))) {
-      return NextResponse.json({ error: m.invalidEndDate }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidEndDate }, { status: 400 })
     }
 
     if (normalizedStartDate && normalizedEndDate && normalizedStartDate > normalizedEndDate) {
-      return NextResponse.json({ error: m.startAfterEnd }, { status: 400 })
+      return NextResponse.json({ error: msg.startAfterEnd }, { status: 400 })
     }
 
     const { data, error } = await supabase
@@ -120,25 +114,22 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ ...data, message: m.companyUpdateSuccess })
+    return NextResponse.json({ ...data, message: msg.partnerUpdateSuccess })
   } catch (err) {
     console.error("[PUT /api/admin/partners/[id]] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // DELETE /api/admin/partners/[id]
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
     const companyId = parseInt(id)
 
     if (Number.isNaN(companyId)) {
-      return NextResponse.json({ error: m.invalidId }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidId }, { status: 400 })
     }
 
     // Delete logo from storage first
@@ -194,9 +185,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ success: true, message: m.companyDeleteSuccess })
+    return NextResponse.json({ success: true, message: msg.partnerDeleteSuccess })
   } catch (err) {
     console.error("[DELETE /api/admin/partners/[id]] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

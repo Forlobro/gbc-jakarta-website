@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../../lib/supabase.server"
-import { getLang, getMsg } from "../../../../../lib/messages"
+import { msg } from "../../../../../lib/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -8,23 +8,20 @@ interface RouteParams {
 
 // POST /api/admin/partners/[id]/photos — upload multiple photos
 export async function POST(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
     const companyId = parseInt(id)
 
     if (Number.isNaN(companyId)) {
-      return NextResponse.json({ error: m.invalidId }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidId }, { status: 400 })
     }
 
     const formData = await request.formData()
     const files = formData.getAll("photos") as File[]
 
     if (!files || files.length === 0) {
-      return NextResponse.json({ error: m.noPhotosProvided }, { status: 400 })
+      return NextResponse.json({ error: msg.noPhotosProvided }, { status: 400 })
     }
 
     const uploadedPhotos = []
@@ -36,14 +33,12 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       console.log(`[photos POST] file: name=${file.name} type=${file.type} size=${file.size}`)
 
       if (!file.type.startsWith("image/")) {
-        const msg = m.photoNotImage(file.name)
-        console.error("[photos POST] type error:", msg)
-        errors.push(msg)
+        errors.push(msg.photoNotImage(file.name))
         continue
       }
 
       if (file.size > 10 * 1024 * 1024) {
-        errors.push(m.photoTooLarge(file.name))
+        errors.push(msg.photoTooLarge(file.name))
         continue
       }
 
@@ -60,7 +55,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
 
       if (uploadError) {
         console.error("[photos POST] Storage upload error:", uploadError)
-        errors.push(m.photoUploadFailed(file.name, uploadError.message))
+        errors.push(msg.photoUploadFailed(file.name, uploadError.message))
         continue
       }
 
@@ -78,7 +73,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       if (dbError) {
         console.error("[photos POST] DB insert error:", dbError)
         await supabase.storage.from("gbc_companies_photos").remove([fileName])
-        errors.push(m.photoDbError(file.name, dbError.message))
+        errors.push(msg.photoDbError(file.name, dbError.message))
         continue
       }
 
@@ -93,15 +88,12 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     )
   } catch (err) {
     console.error("[POST /api/admin/partners/[id]/photos] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // DELETE /api/admin/partners/[id]/photos?photoId=X
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
@@ -110,7 +102,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     const photoId = searchParams.get("photoId")
 
     if (!photoId) {
-      return NextResponse.json({ error: m.photoIdRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.photoIdRequired }, { status: 400 })
     }
 
     const { data: photo } = await supabase
@@ -141,9 +133,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ success: true, message: m.photoDeleteSuccess })
+    return NextResponse.json({ success: true, message: msg.photoDeleteSuccess })
   } catch (err) {
     console.error("[DELETE /api/admin/partners/[id]/photos] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

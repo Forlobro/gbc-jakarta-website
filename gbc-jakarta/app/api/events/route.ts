@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../lib/supabase.server"
-import { getLang, getMsg } from "../../lib/messages"
+import { msg } from "../../lib/messages"
 
 // GET /api/events — public, all published events with photos, ordered by event_start desc
 export async function GET(request: NextRequest) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const supabase = createServerClient()
 
@@ -18,7 +15,7 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error("[GET /api/events] Supabase error:", error)
-      return NextResponse.json({ error: m.serverError, detail: error.message }, { status: 500 })
+      return NextResponse.json({ error: msg.serverError, detail: error.message }, { status: 500 })
     }
 
     console.log(`[GET /api/events] Found ${events?.length ?? 0} published events`)
@@ -33,6 +30,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(result)
   } catch (err) {
     console.error("[GET /api/events] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

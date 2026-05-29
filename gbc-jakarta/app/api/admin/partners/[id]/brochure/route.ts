@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../../lib/supabase.server"
-import { getLang, getMsg } from "../../../../../lib/messages"
+import { msg } from "../../../../../lib/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -17,15 +17,12 @@ function extractStoragePath(publicUrl: string) {
 
 // POST /api/admin/partners/[id]/brochure — upload/replace PDF brochure
 export async function POST(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const partnerId = parseInt(id)
 
     if (Number.isNaN(partnerId)) {
-      return NextResponse.json({ error: m.invalidId }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidId }, { status: 400 })
     }
 
     const supabase = createServerClient()
@@ -33,15 +30,15 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     const file = formData.get("brochure") as File | null
 
     if (!file) {
-      return NextResponse.json({ error: m.noBrochureProvided }, { status: 400 })
+      return NextResponse.json({ error: msg.noBrochureProvided }, { status: 400 })
     }
 
     if (file.type !== "application/pdf") {
-      return NextResponse.json({ error: m.brochureMustBePdf }, { status: 400 })
+      return NextResponse.json({ error: msg.brochureMustBePdf }, { status: 400 })
     }
 
     if (file.size > 20 * 1024 * 1024) {
-      return NextResponse.json({ error: m.brochureTooLarge }, { status: 400 })
+      return NextResponse.json({ error: msg.brochureTooLarge }, { status: 400 })
     }
 
     const { data: company, error: companyError } = await supabase
@@ -51,7 +48,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       .single()
 
     if (companyError) {
-      return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
+      return NextResponse.json({ error: msg.partnerNotFound }, { status: 404 })
     }
 
     const fileName = `pdf/${partnerId}/${Date.now()}-${Math.random().toString(36).slice(2)}.pdf`
@@ -91,24 +88,22 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     }
 
     return NextResponse.json(
-      { link_brochure: newBrochureUrl, message: m.brochureUploadSuccess },
+      { link_brochure: newBrochureUrl, message: msg.brochureUploadSuccess },
       { status: 201 },
     )
   } catch (err) {
     console.error("[POST brochure] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // DELETE /api/admin/partners/[id]/brochure — remove brochure and clear link_brochure
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
   const { id } = await params
   const partnerId = parseInt(id)
 
   if (Number.isNaN(partnerId)) {
-    return NextResponse.json({ error: m.invalidId }, { status: 400 })
+    return NextResponse.json({ error: msg.invalidId }, { status: 400 })
   }
 
   const supabase = createServerClient()
@@ -120,7 +115,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     .single()
 
   if (companyError) {
-    return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
+    return NextResponse.json({ error: msg.partnerNotFound }, { status: 404 })
   }
 
   const oldBrochureUrl = company.link_brochure
@@ -139,5 +134,5 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     await supabase.storage.from("gbc_companies_photos").remove([oldPath])
   }
 
-  return NextResponse.json({ success: true, message: m.brochureDeleteSuccess })
+  return NextResponse.json({ success: true, message: msg.brochureDeleteSuccess })
 }

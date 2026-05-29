@@ -13,23 +13,12 @@ export function getYear(dateValue: string | null | undefined): number | null {
   return Number.isNaN(year) ? null : year
 }
 
-export function getCoveredYears(company: GbcCompanyWithPhotos): number[] {
-  const startYear = getYear(company.start_date)
-  const endYear = getYear(company.end_date)
-
-  if (startYear && endYear) {
-    const from = Math.min(startYear, endYear)
-    const to = Math.max(startYear, endYear)
-    const years: number[] = []
-    for (let year = from; year <= to; year += 1) {
-      years.push(year)
-    }
-    return years
-  }
-
-  if (startYear) return [startYear]
-  if (endYear) return [endYear]
-  return []
+/**
+ * Returns the single year a company belongs to, derived from start_date only.
+ * Using start_date exclusively ensures each company appears in exactly one year bucket.
+ */
+export function getCompanyYear(company: GbcCompanyWithPhotos): number | null {
+  return getYear(company.start_date)
 }
 
 interface PartnersContextValue {
@@ -99,16 +88,15 @@ export function PartnersProvider({ children }: { children: React.ReactNode }) {
   const availableYears = useMemo(() => {
     const years = new Set<number>()
     for (const company of companies) {
-      for (const year of getCoveredYears(company)) {
-        years.add(year)
-      }
+      const year = getCompanyYear(company)
+      if (year !== null) years.add(year)
     }
     return Array.from(years).sort((a, b) => a - b)
   }, [companies])
 
   const filtered = companies.filter((c) => {
-    const years = getCoveredYears(c)
-    const matchesYear = selectedYear === null || years.includes(selectedYear)
+    const companyYear = getCompanyYear(c)
+    const matchesYear = selectedYear === null || companyYear === selectedYear
     const matchesSearch =
       (c.name ?? "").toLowerCase().includes(search.toLowerCase()) ||
       (c.category ?? "").toLowerCase().includes(search.toLowerCase()) ||
@@ -119,9 +107,14 @@ export function PartnersProvider({ children }: { children: React.ReactNode }) {
   })
 
   const categoryTotal = useMemo(() => {
-    if (activeFilter === "All") return companies.length
-    return companies.filter((c) => c.category === activeFilter).length
-  }, [companies, activeFilter])
+    // Count respects both year and category filters (but not search)
+    return companies.filter((c) => {
+      const companyYear = getCompanyYear(c)
+      const matchesYear = selectedYear === null || companyYear === selectedYear
+      const matchesFilter = activeFilter === "All" || c.category === activeFilter
+      return matchesYear && matchesFilter
+    }).length
+  }, [companies, activeFilter, selectedYear])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
   const safePage = Math.min(currentPage, totalPages)

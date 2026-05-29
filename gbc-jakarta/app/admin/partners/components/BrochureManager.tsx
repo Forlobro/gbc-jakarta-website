@@ -2,9 +2,7 @@
 
 import { useRef, useState } from "react"
 import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
-import { getClientLang, getMsg } from "../../../lib/messages"
-
-const m = getMsg(getClientLang())
+import { msg } from "../../../lib/messages"
 
 interface BrochureManagerProps {
   companyId: number
@@ -27,11 +25,11 @@ export default function BrochureManager({
   const handlePickFile = (file: File | null) => {
     if (!file) return
     if (file.type !== "application/pdf") {
-      alert(m.brochureMustBePdf)
+      alert(msg.brochureMustBePdf)
       return
     }
     if (file.size > 20 * 1024 * 1024) {
-      alert(m.brochureTooLarge)
+      alert(msg.brochureTooLarge)
       return
     }
     setSelectedFile(file)
@@ -64,7 +62,7 @@ export default function BrochureManager({
       clearSelected()
       onBrochureChange()
     } catch {
-      alert(m.serverError)
+      alert(msg.serverError)
     } finally {
       setUploading(false)
     }
@@ -89,7 +87,7 @@ export default function BrochureManager({
       clearSelected()
       onBrochureChange()
     } catch {
-      alert(m.serverError)
+      alert(msg.serverError)
     } finally {
       setDeleting(false)
     }

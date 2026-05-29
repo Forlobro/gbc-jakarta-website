@@ -41,8 +41,10 @@ export interface GbcEvent {
   is_published: boolean
   link_video_1: string | null
   link_video_2: string | null
+  link_form_register: string | null
   event_start: string | null
   event_end: string | null
+  thumbnail_url: string | null
   created_at: string | null
   created_by: string | null
   updated_at: string | null

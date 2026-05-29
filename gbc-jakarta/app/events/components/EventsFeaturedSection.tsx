@@ -7,17 +7,9 @@ import ScrollReveal from "../../components/ScrollReveal"
 import SectionBadge from "../../components/SectionBadge"
 import StatusBadge from "../../components/StatusBadge"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
+import { formatDate } from "../../lib/date"
 
 const FALLBACK_IMAGE = "/images/gbc-hero.jpeg"
-
-function formatDate(dateStr: string | null): string {
-  if (!dateStr) return "—"
-  return new Date(dateStr).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
-}
 
 function FeaturedSkeleton() {
   return (
@@ -52,9 +44,7 @@ export default function EventsFeaturedSection() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const res = await fetch("/api/events", {
-          headers: { "Accept-Language": language === "id" ? "id" : "en" },
-        })
+        const res = await fetch("/api/events")
         if (!res.ok) return
         const data: GbcEventWithPhotos[] = await res.json()
 
@@ -86,7 +76,7 @@ export default function EventsFeaturedSection() {
       }
     }
     fetchEvents()
-  }, [language])
+  }, [])
 
   const hasUpcoming = upcomingEvents.length > 0
   const hasLatest = latestEvent !== null

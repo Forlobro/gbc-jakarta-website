@@ -3,9 +3,7 @@
 import { useRef, useState } from "react"
 import Image from "next/image"
 import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
-import { getClientLang, getMsg } from "../../../lib/messages"
-
-const m = getMsg(getClientLang())
+import { msg } from "../../../lib/messages"
 
 interface LogoManagerProps {
   companyId: number
@@ -43,13 +41,13 @@ export default function LogoManager({
     setFileError(null)
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      setFileError(m.logoMustBePng)
+      setFileError(msg.logoMustBePng)
       if (fileInputRef.current) fileInputRef.current.value = ""
       return
     }
 
     if (file.size > 10 * 1024 * 1024) {
-      setFileError(m.logoTooLarge)
+      setFileError(msg.logoTooLarge)
       if (fileInputRef.current) fileInputRef.current.value = ""
       return
     }
@@ -94,7 +92,7 @@ export default function LogoManager({
       clearSelected()
       onLogoChange()
     } catch {
-      setFileError(m.serverError)
+      setFileError(msg.serverError)
     } finally {
       setUploading(false)
     }
@@ -119,7 +117,7 @@ export default function LogoManager({
       clearSelected()
       onLogoChange()
     } catch {
-      setFileError(m.serverError)
+      setFileError(msg.serverError)
     } finally {
       setDeleting(false)
     }

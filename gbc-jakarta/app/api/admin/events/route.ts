@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../lib/supabase.server"
-import { getLang, getMsg } from "../../../lib/messages"
+import { msg } from "../../../lib/messages"
 
 // GET /api/admin/events
 export async function GET(request: NextRequest) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const supabase = createServerClient()
 
@@ -16,7 +13,7 @@ export async function GET(request: NextRequest) {
       .order("id", { ascending: false })
 
     if (error) {
-      return NextResponse.json({ error: m.serverError }, { status: 500 })
+      return NextResponse.json({ error: msg.serverError }, { status: 500 })
     }
 
     const { data: photos } = await supabase.from("gbc_events_photos").select("*")
@@ -29,15 +26,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(result)
   } catch (err) {
     console.error("[GET /api/admin/events] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }
 
 // POST /api/admin/events
 export async function POST(request: NextRequest) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const supabase = createServerClient()
 
@@ -45,7 +39,7 @@ export async function POST(request: NextRequest) {
     try {
       body = await request.json()
     } catch {
-      return NextResponse.json({ error: m.invalidJson }, { status: 400 })
+      return NextResponse.json({ error: msg.invalidJson }, { status: 400 })
     }
 
     const {
@@ -78,14 +72,16 @@ export async function POST(request: NextRequest) {
     const normalizedEventEnd =
       typeof event_end === "string" && event_end.trim() ? event_end.trim() : null
 
-    if (!normalizedTitle) return NextResponse.json({ error: m.eventTitleRequired }, { status: 400 })
+    if (!normalizedTitle)
+      return NextResponse.json({ error: msg.eventTitleRequired }, { status: 400 })
     if (!normalizedLocation)
-      return NextResponse.json({ error: m.eventLocationRequired }, { status: 400 })
-    if (!normalizedVenue) return NextResponse.json({ error: m.eventVenueRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.eventLocationRequired }, { status: 400 })
+    if (!normalizedVenue)
+      return NextResponse.json({ error: msg.eventVenueRequired }, { status: 400 })
     if (!normalizedDescEn || !normalizedDescId)
-      return NextResponse.json({ error: m.eventDescriptionRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.eventDescriptionRequired }, { status: 400 })
     if (!["upcoming", "accomplished"].includes(normalizedStatus))
-      return NextResponse.json({ error: m.eventStatusRequired }, { status: 400 })
+      return NextResponse.json({ error: msg.eventStatusRequired }, { status: 400 })
 
     const now = new Date().toISOString()
 
@@ -112,12 +108,12 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (error) {
-      return NextResponse.json({ error: m.serverError }, { status: 500 })
+      return NextResponse.json({ error: msg.serverError }, { status: 500 })
     }
 
-    return NextResponse.json({ ...data, message: m.eventCreateSuccess }, { status: 201 })
+    return NextResponse.json({ ...data, message: msg.eventCreateSuccess }, { status: 201 })
   } catch (err) {
     console.error("[POST /api/admin/events] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

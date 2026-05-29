@@ -13,6 +13,7 @@ import SectionBadge from "@/app/components/SectionBadge"
 import HeroDecor from "../../components/HeroDecor"
 import EventDetailPageDecor from "../../events/components/EventDetailPageDecor"
 import ContentCard from "../../components/ContentCard"
+import PhotoGallery from "../../components/PhotoGallery"
 
 function getEmbedUrl(url: string | null | undefined): string | null {
   if (!url) return null
@@ -38,7 +39,6 @@ export default function PartnerDetailPage() {
   const [related, setRelated] = useState<GbcCompanyWithPhotos[]>([])
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
-  const [activePhoto, setActivePhoto] = useState(0)
 
   const { language, t } = useTranslation()
 
@@ -87,14 +87,14 @@ export default function PartnerDetailPage() {
         <div className="min-h-screen flex items-center justify-center pt-20">
           <div className="text-center">
             <h1 className="font-display text-4xl font-bold text-primary mb-4">
-              {t("companyNotFound")}
+              {t("partnerNotFound")}
             </h1>
-            <p className="text-text-light mb-8 text-justify">{t("companyNotFoundMsg")}</p>
+            <p className="text-text-light mb-8 text-justify">{t("partnerNotFoundMsg")}</p>
             <Link
               href="/partners"
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-semibold"
             >
-              <i className="fas fa-arrow-left" /> {t("backToCompanies")}
+              <i className="fas fa-arrow-left" /> {t("backToPartners")}
             </Link>
           </div>
         </div>
@@ -172,7 +172,7 @@ export default function PartnerDetailPage() {
                 {/* Description */}
                 {(company.description_id || company.description_en) && (
                   <div className="mb-12">
-                    <SectionBadge>{t("aboutCompany")}</SectionBadge>
+                    <SectionBadge>{t("aboutPartner")}</SectionBadge>
                     <div className="text-text-light text-[1.05rem] leading-[1.9] whitespace-pre-line">
                       {language === "en"
                         ? company.description_en || company.description_id
@@ -187,42 +187,10 @@ export default function PartnerDetailPage() {
                     <SectionBadge>
                       {t("galleryLabel")} ({photos.length} photos)
                     </SectionBadge>
-
-                    {/* Main Photo */}
-                    <div className="rounded-3xl overflow-hidden shadow-xl mb-4 aspect-video relative">
-                      <Image
-                        src={photos[activePhoto].photo_url ?? ""}
-                        alt={`${company.name} photo ${activePhoto + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 66vw"
-                      />
-                    </div>
-
-                    {/* Thumbnails */}
-                    {photos.length > 1 && (
-                      <div className="flex gap-3 flex-wrap">
-                        {photos.map((photo, idx) => (
-                          <button
-                            key={photo.id}
-                            onClick={() => setActivePhoto(idx)}
-                            className={`w-20 h-16 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
-                              idx === activePhoto
-                                ? "border-accent scale-105"
-                                : "border-transparent opacity-60 hover:opacity-100"
-                            }`}
-                          >
-                            <Image
-                              src={photo.photo_url ?? ""}
-                              alt={`Thumbnail ${idx + 1}`}
-                              width={80}
-                              height={64}
-                              className="w-full h-full object-cover"
-                            />
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                    <PhotoGallery
+                      photos={photos.map((p) => p.photo_url ?? "").filter(Boolean)}
+                      altPrefix={company.name ?? "Photo"}
+                    />
                   </div>
                 )}
               </div>

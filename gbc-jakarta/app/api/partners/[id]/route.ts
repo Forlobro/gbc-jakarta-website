@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../lib/supabase.server"
-import { getLang, getMsg } from "../../../lib/messages"
+import { msg } from "../../../lib/messages"
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -8,9 +8,6 @@ interface RouteParams {
 
 // GET /api/partners/[id] — public, single company with photos
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const lang = getLang(request)
-  const m = getMsg(lang)
-
   try {
     const { id } = await params
     const supabase = createServerClient()
@@ -23,7 +20,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       .single()
 
     if (error || !company) {
-      return NextResponse.json({ error: m.companyNotFound }, { status: 404 })
+      return NextResponse.json({ error: msg.partnerNotFound }, { status: 404 })
     }
 
     const { data: photos } = await supabase
@@ -37,6 +34,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     })
   } catch (err) {
     console.error("[GET /api/partners/[id]] Unexpected error:", err)
-    return NextResponse.json({ error: m.serverError }, { status: 500 })
+    return NextResponse.json({ error: msg.serverError }, { status: 500 })
   }
 }

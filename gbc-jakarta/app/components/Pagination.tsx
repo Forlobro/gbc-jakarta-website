@@ -5,7 +5,7 @@
  * - currentPage: current active page (1-indexed)
  * - totalPages: total number of pages
  * - onPageChange: callback when page changes
- * - countLabel: text shown on the left (e.g. "Showing 9 of 45 companies")
+ * - countLabel: text shown on the left (e.g. "Showing 9 of 45 partners")
  */
 
 interface PaginationProps {

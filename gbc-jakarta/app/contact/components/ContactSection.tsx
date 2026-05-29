@@ -256,12 +256,12 @@ export default function ContactSection() {
                 {/* Company */}
                 <div className="mb-[30px]">
                   <label className="block text-[0.8rem] font-semibold text-text mb-1.5">
-                    {t("formCompany")}
+                    {t("formPartner")}
                   </label>
                   <input
                     type="text"
                     name="company"
-                    placeholder={t("companyPlaceholder")}
+                    placeholder={t("partnerPlaceholder")}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-[inherit] transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_4px_rgba(0,194,203,0.3)]"
                   />
                 </div>
