@@ -1,46 +1,46 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { GbcCompanyPhoto } from "@/app/lib/supabase"
-import { uploadToStorage, makeStoragePath } from "@/app/lib/supabase.upload"
+import { GbcEventPhoto } from "../../../lib/supabase"
+import { uploadToStorage, makeStoragePath } from "../../../lib/supabase.upload"
 import DropZone from "../../components/DropZone"
 import UploadQueue, { UploadQueueItem } from "../../components/UploadQueue"
 import PhotoGrid from "../../components/PhotoGrid"
 
-interface PhotoManagerProps {
-  companyId: number
-  photos: GbcCompanyPhoto[]
+interface EventPhotoManagerProps {
+  eventId: number
+  photos: GbcEventPhoto[]
   onPhotosChange: () => void
-  title?: string
 }
 
-export default function PhotoManager({
-  companyId,
+export default function EventPhotoManager({
+  eventId,
   photos,
   onPhotosChange,
-  title = "Gallery Photos",
-}: PhotoManagerProps) {
+}: EventPhotoManagerProps) {
   const [queue, setQueue] = useState<UploadQueueItem[]>([])
   const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const uploadingCount = queue.filter((i) => i.status === "uploading").length
 
   const addFiles = useCallback(
     (files: File[]) => {
+      setError(null)
       const imageFiles = files.filter((f) => f.type.startsWith("image/"))
       const pendingCount = queue.filter((i) => i.status === "pending").length
       const totalAfter = pendingCount + imageFiles.length
 
       if (totalAfter > 8) {
-        alert(`You can upload a maximum of 8 photos at a time (currently ${pendingCount} queued)`)
+        setError(
+          `You can upload a maximum of 8 photos at a time (currently ${pendingCount} queued)`,
+        )
         return
       }
 
       const oversized = imageFiles.filter((f) => f.size > 5 * 1024 * 1024)
       if (oversized.length > 0) {
-        alert(
-          `The following files exceed 5 MB and were skipped:\n${oversized.map((f) => f.name).join("\n")}`,
-        )
+        setError(`Files exceed 5 MB and were skipped: ${oversized.map((f) => f.name).join(", ")}`)
       }
 
       const valid = imageFiles.filter((f) => f.size <= 5 * 1024 * 1024)
@@ -69,14 +69,10 @@ export default function PhotoManager({
     setQueue((prev) => prev.map((item, i) => (i === idx ? { ...item, status: "uploading" } : item)))
 
     try {
-      const storagePath = makeStoragePath(`${companyId}/gallery`, fileItem.file.name)
-      const { publicUrl } = await uploadToStorage(
-        "gbc_companies_photos",
-        storagePath,
-        fileItem.file,
-      )
+      const storagePath = makeStoragePath(`${eventId}/gallery`, fileItem.file.name)
+      const { publicUrl } = await uploadToStorage("gbc_events_photos", storagePath, fileItem.file)
 
-      const res = await fetch(`/api/admin/partners/${companyId}/photos`, {
+      const res = await fetch(`/api/admin/events/${eventId}/photos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ photoUrl: publicUrl }),
@@ -121,47 +117,53 @@ export default function PhotoManager({
     })
   }
 
-  const handleDelete = async (photoId: number) => {
-    if (!confirm("Delete this photo? This cannot be undone.")) return
+  const deletePhoto = async (photoId: number) => {
+    if (!confirm("Delete this photo?")) return
     setDeletingId(photoId)
 
     try {
-      const res = await fetch(`/api/admin/partners/${companyId}/photos?photoId=${photoId}`, {
+      const res = await fetch(`/api/admin/events/${eventId}/photos?photoId=${photoId}`, {
         method: "DELETE",
       })
       if (!res.ok) {
         const err = await res.json()
-        throw new Error(err.error || "Delete failed")
+        setError(err.error)
+        return
       }
       onPhotosChange()
-    } catch (error) {
-      const msg = error instanceof Error ? error.message : "Delete failed. Please try again."
-      alert(msg)
+    } catch {
+      setError("Delete failed. Please try again.")
     } finally {
       setDeletingId(null)
     }
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 flex flex-col h-full">
       <div>
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i className="far fa-images text-accent" />
-          {title}
-          <span className="text-slate-500 text-sm font-normal ml-1">({photos.length} saved)</span>
+          <i className="far fa-images text-accent" /> Photos
         </h3>
       </div>
 
-      {/* Saved Photos Grid */}
+      {error && (
+        <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm">
+          <i className="fas fa-exclamation-circle shrink-0" />
+          {error}
+          <button onClick={() => setError(null)} className="ml-auto cursor-pointer">
+            <i className="fas fa-times" />
+          </button>
+        </div>
+      )}
+
+      {/* Photos Grid */}
       <PhotoGrid
         photos={photos}
-        onDelete={handleDelete}
+        onDelete={deletePhoto}
         deletingId={deletingId}
-        aspect="aspect-4/3"
-        showViewLink
-        altText="Partner gallery photo"
-        emptyText="No gallery photos saved yet."
+        aspect="aspect-square"
+        showViewLink={false}
+        altText="Event photo"
       />
 
       {/* Drop Zone */}
@@ -181,6 +183,12 @@ export default function PhotoManager({
         onClearDone={clearDone}
         uploading={uploadingCount > 0}
       />
+
+      {photos.length === 0 && queue.length === 0 && (
+        <p className="text-slate-400 text-sm text-center py-6 border-2 border-dashed border-slate-200 rounded-xl">
+          No photos yet. Drop files above to upload.
+        </p>
+      )}
     </div>
   )
 }

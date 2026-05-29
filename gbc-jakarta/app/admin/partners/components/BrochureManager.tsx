@@ -48,11 +48,9 @@ export default function BrochureManager({
     setUploading(true)
 
     try {
-      // 1. Upload directly to Supabase Storage (bypasses Vercel 4.5MB limit)
       const storagePath = makeStoragePath(`pdf/${companyId}`, selectedFile.name)
       const { publicUrl } = await uploadToStorage("gbc_companies_photos", storagePath, selectedFile)
 
-      // 2. Update DB via API route (tiny JSON payload)
       const res = await fetch(`/api/admin/partners/${companyId}/brochure`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -103,7 +101,7 @@ export default function BrochureManager({
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i className="far fa-file-pdf text-accent" /> Partner Brochure (PDF)
+          <i className="far fa-file-pdf text-accent" /> Brochure
         </h3>
       </div>
 

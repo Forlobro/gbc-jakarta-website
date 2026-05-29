@@ -106,7 +106,7 @@ export default function ThumbnailManager({
     <div className="space-y-5">
       <div>
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i className="far fa-image text-accent" /> Event Thumbnail
+          <i className="far fa-image text-accent" /> Thumbnail
         </h3>
         <p className="text-slate-500 text-xs mt-1">
           Used as the card image in the public events list. Max 5 MB.

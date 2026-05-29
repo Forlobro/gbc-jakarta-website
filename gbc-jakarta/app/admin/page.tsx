@@ -8,18 +8,20 @@ export const dynamic = "force-dynamic"
 
 export default function AdminDashboard() {
   const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
+  const [events, setEvents] = useState<unknown[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/admin/partners")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setCompanies(data)
+    Promise.all([
+      fetch("/api/admin/partners").then((res) => res.json()),
+      fetch("/api/admin/events").then((res) => res.json()),
+    ])
+      .then(([partnersData, eventsData]) => {
+        if (Array.isArray(partnersData)) setCompanies(partnersData)
+        if (Array.isArray(eventsData)) setEvents(eventsData)
       })
       .finally(() => setLoading(false))
   }, [])
-
-  const totalPhotos = companies.reduce((acc, c) => acc + (c.gbc_companies_photos?.length || 0), 0)
 
   return (
     <div>
@@ -41,16 +43,16 @@ export default function AdminDashboard() {
             color: "from-blue-500 to-blue-600",
           },
           {
-            label: "Total Photos",
-            value: loading ? "—" : totalPhotos,
-            icon: "far fa-images",
-            color: "from-emerald-500 to-emerald-600",
-          },
-          {
             label: "Categories",
             value: loading ? "—" : new Set(companies.map((c) => c.category).filter(Boolean)).size,
             icon: "fas fa-tags",
             color: "from-violet-500 to-violet-600",
+          },
+          {
+            label: "Total Events",
+            value: loading ? "—" : events.length,
+            icon: "far fa-calendar",
+            color: "from-emerald-500 to-emerald-600",
           },
           {
             label: "Last Updated",

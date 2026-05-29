@@ -4,7 +4,7 @@ import { useEffect, useState, use, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import EventForm, { EventFormData } from "../../components/EventForm"
-import EventPhotoManager from "../../components/EventPhotoManager"
+import EventPhotoManager from "../../components/PhotoManager"
 import ThumbnailManager from "../../components/ThumbnailManager"
 import { GbcEventWithPhotos } from "../../../../lib/supabase"
 
@@ -77,12 +77,12 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
         >
           <i className="fas fa-arrow-left" /> Back to Events
         </Link>
-        <h1 className="text-2xl font-bold text-slate-900">Edit: {event.title}</h1>
+        <h1 className="text-2xl font-bold text-slate-900">{event.title}</h1>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start xl:items-stretch">
         {/* Event Form */}
-        <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8 flex flex-col">
+        <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8 flex flex-col h-full">
           <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
             <i className="far fa-edit text-accent" /> Event Details
           </h2>
@@ -107,7 +107,7 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
         </div>
 
         {/* Right column: Thumbnail + Photos */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 h-full">
           {/* Thumbnail Manager */}
           <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
             <ThumbnailManager
@@ -117,8 +117,8 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
             />
           </div>
 
-          {/* Photo Manager */}
-          <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8">
+          {/* Photo Manager — flex-1 fills remaining height */}
+          <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-4 sm:p-8 flex flex-col flex-1">
             <EventPhotoManager
               eventId={event.id}
               photos={event.gbc_events_photos || []}

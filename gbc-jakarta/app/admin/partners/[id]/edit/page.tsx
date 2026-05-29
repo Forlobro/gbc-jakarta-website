@@ -81,7 +81,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
           <i className="fas fa-arrow-left" /> Back to Partners
         </Link>
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-slate-900">Edit: {company.name}</h1>
+          <h1 className="text-2xl font-bold text-slate-900">{company.name}</h1>
         </div>
       </div>
 
@@ -123,7 +123,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
               companyId={company.id}
               photos={company.gbc_companies_photos || []}
               onPhotosChange={fetchPartner}
-              title="Gallery"
+              title="Products"
             />
           </div>
 

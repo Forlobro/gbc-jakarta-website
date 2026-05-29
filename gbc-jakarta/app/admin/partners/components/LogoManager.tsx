@@ -123,7 +123,7 @@ export default function LogoManager({
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i className="far fa-image text-accent" /> Partner Logo
+          <i className="far fa-image text-accent" /> Logo
         </h3>
       </div>
 

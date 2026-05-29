@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
               <div className="relative">
-                <i className="far fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
+                <i className="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
                 <input
                   type="password"
                   value={password}
@@ -115,7 +115,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-slate-500 text-xs mt-6">&copy; 2026 GBC Jakarta CMS</p>
+        <p className="text-center text-slate-500 text-xs mt-6">&copy; 2026 GBC Jakarta</p>
       </div>
     </div>
   )
