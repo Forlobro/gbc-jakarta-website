@@ -1,7 +1,6 @@
 "use client"
 
 import { useTranslation } from "../../lib/LanguageContext"
-import PageBadge from "../../components/PageBadge"
 import HeroDecor from "../../components/HeroDecor"
 
 export default function EventsHeaderSection() {
@@ -9,7 +8,7 @@ export default function EventsHeaderSection() {
 
   return (
     <section
-      className="min-h-screen flex items-center bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden pb-20"
+      className="pt-36 pb-36 flex items-center bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden"
       id="events-header"
     >
       <HeroDecor />
@@ -17,7 +16,6 @@ export default function EventsHeaderSection() {
       {/* Content */}
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-10">
         <div className="max-w-[700px]">
-          <PageBadge>{t("eventsPageBadge")}</PageBadge>
           <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white leading-[1.15] mb-5">
             {t("eventsPageTitle")}
           </h1>

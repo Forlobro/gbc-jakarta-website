@@ -9,7 +9,7 @@ export default function GBSASection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-24 relative overflow-hidden" id="gbsa">
+    <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden" id="gbsa">
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <ScrollReveal className="text-center max-w-[640px] mx-auto mb-12">

@@ -66,6 +66,7 @@ export default function PartnersCardsSection() {
                   logoFallback={(company.name ?? "?").split(" ").slice(0, 2).join(" ")}
                   title={company.name}
                   badge={company.category || undefined}
+                  year={company.start_date ? new Date(company.start_date).getFullYear() : undefined}
                   description={
                     language === "en"
                       ? company.description_en || company.description_id || undefined

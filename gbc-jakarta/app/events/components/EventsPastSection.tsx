@@ -177,6 +177,7 @@ export default function EventsPastSection() {
                       logoUrl={photoUrl ? undefined : null}
                       logoFallback={event.title}
                       badge={event.status}
+                      year={event.event_start ? new Date(event.event_start).getFullYear() : undefined}
                       meta={[
                         { icon: "far fa-calendar-alt", text: formatDate(event.event_start) },
                         { icon: "fas fa-map-marker-alt", text: event.location },

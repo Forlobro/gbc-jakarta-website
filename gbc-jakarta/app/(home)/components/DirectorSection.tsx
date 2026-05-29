@@ -16,7 +16,7 @@ export default function DirectorSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-36 relative" id="team">
+    <section className="py-16 md:py-24 lg:py-32 relative" id="team">
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-20">
@@ -32,7 +32,7 @@ export default function DirectorSection() {
             <ScrollReveal key={director.name}>
               <div className="grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden shadow-xl border border-gray-100">
                 {/* Left: Title */}
-                <div className="bg-white flex flex-col justify-center px-10 py-12">
+                <div className="bg-white flex flex-col justify-center px-10 py-12 order-2 lg:order-1">
                   <h3 className="font-display text-3xl font-extrabold text-text leading-tight mb-4">
                     {t("messageTitle")}
                   </h3>
@@ -43,7 +43,7 @@ export default function DirectorSection() {
                 </div>
 
                 {/* Right: Photo */}
-                <div className="relative bg-gradient-to-br from-blue-50 via-slate-50 to-sky-100 flex flex-col items-center justify-center gap-6 py-12 px-10 overflow-hidden">
+                <div className="relative bg-gradient-to-br from-blue-50 via-slate-50 to-sky-100 flex flex-col items-center justify-center gap-6 py-12 px-10 overflow-hidden order-1 lg:order-2">
                   {/* Diagonal streaks */}
                   <div
                     className="absolute inset-0 pointer-events-none"

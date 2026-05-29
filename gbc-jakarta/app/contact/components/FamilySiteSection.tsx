@@ -29,7 +29,7 @@ export default function FamilySiteSection() {
     },
     {
       id: 4,
-      href: "https://www.gfair.or.kr/home/kr/index.do",
+      href: "https://www.gfair.or.kr/home/en/index.do",
       alt: "G-Fair",
       src: "/images/G-fair korea transparent logo.png",
       size: "xlarge",
@@ -37,7 +37,7 @@ export default function FamilySiteSection() {
   ]
 
   return (
-    <section className="flex-1 py-20 relative overflow-hidden" id="family-site">
+    <section className="py-12 md:py-16 lg:py-20 relative overflow-hidden" id="family-site">
       <div className="max-w-[1400px] mx-auto px-[5%]">
         <ScrollReveal>
           <div className="text-center mb-12">

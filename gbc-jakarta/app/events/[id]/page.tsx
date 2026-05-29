@@ -123,25 +123,26 @@ export default function EventDetailPage() {
       <Navbar />
 
       {/* ── Event Hero ── */}
-      <section className="pt-36 pb-20 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
+      <section className="pt-28 pb-14 md:pt-36 md:pb-20 bg-gradient-to-br from-primary via-primary-light to-[#2d5a9e] relative overflow-hidden">
         <HeroDecor />
         <div className="max-w-[1400px] mx-auto px-[5%] relative z-10">
-          <span className="inline-block text-[0.75rem] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 bg-accent/20 text-accent">
-            {event.venue}
+          <span className="inline-flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 bg-accent/20 text-accent">
+            <i className="far fa-calendar-alt" />
+            {date}
           </span>
 
-          <h1 className="font-display text-4xl md:text-5xl font-extrabold text-white leading-[1.15] mb-6 max-w-[750px]">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] mb-6 max-w-[750px]">
             {title}
           </h1>
 
-          <div className="flex flex-wrap gap-6 text-white/70 text-[0.9rem]">
-            <span className="flex items-center gap-2">
-              <i className="far fa-calendar-alt text-accent" />
-              {date}
-            </span>
+          <div className="flex flex-wrap gap-3 md:gap-6 text-white/70 text-[0.85rem] md:text-[0.9rem]">
             <span className="flex items-center gap-2">
               <i className="fas fa-map-marker-alt text-accent" />
               {location}
+            </span>
+            <span className="flex items-center gap-2">
+              <i className="fas fa-building text-accent" />
+              {event.venue}
             </span>
           </div>
         </div>
@@ -168,7 +169,7 @@ export default function EventDetailPage() {
         {event.link_video_1 && (
           <section className="py-16 relative">
             <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-              <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
+              <h2 className="font-display text-2xl md:text-3xl font-extrabold text-primary mb-6 md:mb-10 text-center">
                 {t("eventVideo")}
               </h2>
               <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">

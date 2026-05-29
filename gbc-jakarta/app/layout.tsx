@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${jakartaSans.variable} ${outfit.variable} antialiased`}>
+    <html lang="en" className={`${jakartaSans.variable} ${outfit.variable} antialiased overflow-x-hidden`}>
       <head>
         <link
           rel="stylesheet"

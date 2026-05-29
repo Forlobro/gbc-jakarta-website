@@ -20,7 +20,7 @@ export const translations = {
 
     // Stats
     partnerCompanies: "Partner Companies",
-    partnerExport: "Partner Export value 2024-2025",
+    partnerExport: "Total Export",
     businessMatches: "Business Matches",
     established: "Established",
 
@@ -196,7 +196,7 @@ export const translations = {
 
     // Featured Events (new: upcoming + latest)
     eventsUpcomingLabel: "Upcoming Events",
-    eventsLatestLabel: "Recent Highlight",
+    eventsLatestLabel: "Latest Event",
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, South Korea",
@@ -296,7 +296,7 @@ export const translations = {
     gbsaVision: "Vision",
     gbsaVideoCaption: "Video introduction of GBSA",
     gyeonggiDesc:
-      "The largest province in South Korea — the center of economy, innovation, and technology, contributing 25.4% of national output and home to global conglomerates like Samsung Electronics & SK Hynix.",
+      "The largest province in South Korea — the center of economy, innovation, and technology, contributing 25.4% of national output and home to conglomerates.",
     gyeonggiInNumbers: "GYEONGGI-DO IN NUMBERS",
     gyeonggiVideoCaption: "Video introduction of Gyeonggi-do",
     timelineTitle: "GBSA & GBC Journey",
@@ -327,9 +327,9 @@ export const translations = {
     timeline2017: "GBSA officially launched as an integrated institution",
     timeline2017Note:
       "Integration of Small and Medium Business Center + Science Technology Promotion Agency",
-    timeline2020: "GBC Bangkok opened. Korean Presidential Award",
-    timeline2023: "GBC Jakarta, opened. Digital GBC launched in 5 locations.",
-    timeline2025: "draft",
+    timeline2020: "GBC Bangkok opened.",
+    timeline2023: "GBC Jakarta, opened. Digital GBC launched in 5 countries.",
+    timeline2025: "Transformation of GBC Jakarta from a digital office to a hub office.",
   },
 
   id: {
@@ -353,7 +353,7 @@ export const translations = {
 
     // Stats
     partnerCompanies: "Perusahaan Mitra",
-    partnerExport: "nilai ekspor mitra 2024-2025",
+    partnerExport: "Total Ekspor",
     businessMatches: "Kerja Sama Bisnis",
     established: "Didirikan",
 
@@ -526,7 +526,7 @@ export const translations = {
 
     // Featured Events (new: upcoming + latest)
     eventsUpcomingLabel: "Segera Hadir",
-    eventsLatestLabel: "Baru Saja Berakhir",
+    eventsLatestLabel: "Acara Terbaru",
     eventsUpcomingTitle: "GBC Jakarta Business Networking 2025",
     eventsUpcomingDate: "TBA 2025",
     eventsUpcomingLocation: "Gyeonggi-do, Korea Selatan",
@@ -625,7 +625,7 @@ export const translations = {
     gbsaVision: "Visi",
     gbsaVideoCaption: "Video perkenalan GBSA",
     gyeonggiDesc:
-      "Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang 25.4% total produksi nasional dan menjadi rumah bagi konglomerat global seperti Samsung Electronics & SK Hynix.",
+      "Provinsi terbesar di Korea Selatan — pusat ekonomi, inovasi, dan teknologi yang menyumbang 25.4% total produksi nasional dan menjadi rumah bagi konglomerat.",
     gyeonggiInNumbers: "GYEONGGI-DO DALAM ANGKA",
     gyeonggiVideoCaption: "Video perkenalan Gyeonggi-do",
     timelineTitle: "Perjalanan GBSA & GBC",
@@ -656,9 +656,9 @@ export const translations = {
     timeline2017: "GBSA resmi diluncurkan sebagai lembaga terintegrasi",
     timeline2017Note:
       "Integrasi Small and Medium Business Center + Science Technology Promotion Agency",
-    timeline2020: "GBC Bangkok dibuka. Penghargaan Presiden Korea",
-    timeline2023: "GBC Jakarta, dibuka. Digital GBC diluncurkan di 5 lokasi.",
-    timeline2025: "draft",
+    timeline2020: "GBC Bangkok dibuka.",
+    timeline2023: "GBC Jakarta, dibuka. Digital GBC diluncurkan di 5 negara.",
+    timeline2025: "Transformasi GBC Jakarta dari kantor digital menjadi kantor hub.",
   },
 } as const
 

@@ -7,7 +7,7 @@ export default function MapSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="min-h-screen py-36 relative" id="location">
+    <section className="py-16 md:py-24 lg:py-32 relative" id="location">
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         {/* Header */}
         <div className="text-center max-w-[600px] mx-auto mb-8">

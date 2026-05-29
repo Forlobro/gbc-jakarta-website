@@ -59,7 +59,6 @@ export default function TimelineSection() {
               </div>
             ))}
 
-            <p className="text-xs text-text-light italic mt-6">{t("timelineFootnote")}</p>
           </div>
         </ScrollReveal>
       </div>

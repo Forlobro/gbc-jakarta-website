@@ -30,7 +30,7 @@ export default function EventDetailCards({ cards, note }: EventDetailCardsProps)
           return (
             <ScrollReveal key={i} className="h-full">
               <div
-                className={`${isAccent ? "bg-accent" : "bg-primary"} rounded-3xl p-8 text-center flex flex-col items-center justify-center gap-4 shadow-lg h-full min-h-[200px]`}
+                className={`${isAccent ? "bg-accent" : "bg-primary"} rounded-2xl md:rounded-3xl p-6 md:p-8 text-center flex flex-col items-center justify-center gap-3 md:gap-4 shadow-lg h-full min-h-[160px] sm:min-h-[200px]`}
               >
                 <div
                   className={`w-14 h-14 ${isAccent ? "bg-primary/20" : "bg-white/10"} rounded-2xl flex items-center justify-center ${isAccent ? "text-primary" : "text-accent"} text-2xl shrink-0`}
