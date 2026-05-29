@@ -37,8 +37,8 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "File must be an image" }, { status: 400 })
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      return NextResponse.json({ error: "File size must not exceed 10 MB" }, { status: 400 })
+    if (file.size > 5 * 1024 * 1024) {
+      return NextResponse.json({ error: "File size must not exceed 5 MB" }, { status: 400 })
     }
 
     // Fetch current thumbnail to delete old one after upload

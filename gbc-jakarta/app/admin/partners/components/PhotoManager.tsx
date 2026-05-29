@@ -31,16 +31,35 @@ export default function PhotoManager({
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Add files to queue (from input or drop)
-  const addFiles = useCallback((files: File[]) => {
-    const imageFiles = files.filter((f) => f.type.startsWith("image/"))
-    const newPreviews: FilePreview[] = imageFiles.map((f) => ({
-      file: f,
-      previewUrl: URL.createObjectURL(f),
-      status: "pending",
-    }))
+  const addFiles = useCallback(
+    (files: File[]) => {
+      const imageFiles = files.filter((f) => f.type.startsWith("image/"))
+      const pendingCount = queue.filter((i) => i.status === "pending").length
+      const totalAfter = pendingCount + imageFiles.length
 
-    setQueue((prev) => [...prev, ...newPreviews])
-  }, [])
+      if (totalAfter > 8) {
+        alert(`You can upload a maximum of 8 photos at a time (currently ${pendingCount} queued)`)
+        return
+      }
+
+      const oversized = imageFiles.filter((f) => f.size > 5 * 1024 * 1024)
+      if (oversized.length > 0) {
+        alert(
+          `The following files exceed 5 MB and were skipped:\n${oversized.map((f) => f.name).join("\n")}`,
+        )
+      }
+
+      const valid = imageFiles.filter((f) => f.size <= 5 * 1024 * 1024)
+      const newPreviews: FilePreview[] = valid.map((f) => ({
+        file: f,
+        previewUrl: URL.createObjectURL(f),
+        status: "pending",
+      }))
+
+      setQueue((prev) => [...prev, ...newPreviews])
+    },
+    [queue],
+  )
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     addFiles(Array.from(e.target.files || []))
@@ -234,7 +253,7 @@ export default function PhotoManager({
           {isDragOver ? "Drop photos here" : "Click or drag & drop photos"}
         </p>
         <p className="text-slate-500 text-xs mt-1">
-          JPG, PNG, WebP, GIF - up to 10MB each - multiple allowed
+          JPG, PNG, WebP — max 5 MB each — up to 8 photos at a time
         </p>
         <input
           ref={fileInputRef}

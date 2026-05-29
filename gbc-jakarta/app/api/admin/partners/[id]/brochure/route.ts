@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server"
 import { createServerClient } from "../../../../../lib/supabase.server"
 import { msg } from "../../../../../lib/messages"
 
-export const maxDuration = 60
 export const dynamic = "force-dynamic"
 
 interface RouteParams {
@@ -40,7 +39,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: msg.brochureMustBePdf }, { status: 400 })
     }
 
-    if (file.size > 20 * 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       return NextResponse.json({ error: msg.brochureTooLarge }, { status: 400 })
     }
 

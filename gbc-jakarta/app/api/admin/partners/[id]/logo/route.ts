@@ -37,7 +37,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: msg.logoMustBePng }, { status: 400 })
     }
 
-    if (logo.size > 10 * 1024 * 1024) {
+    if (logo.size > 5 * 1024 * 1024) {
       return NextResponse.json({ error: msg.logoTooLarge }, { status: 400 })
     }
 

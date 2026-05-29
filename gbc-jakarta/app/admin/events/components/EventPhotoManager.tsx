@@ -25,14 +25,24 @@ export default function EventPhotoManager({
   const handlePickFiles = (files: FileList | null) => {
     if (!files) return
     setError(null)
+
+    const incoming = Array.from(files)
+    const totalAfter = selectedFiles.length + incoming.length
+    if (totalAfter > 8) {
+      setError(
+        `You can upload a maximum of 8 photos at a time (currently ${selectedFiles.length} selected)`,
+      )
+      return
+    }
+
     const valid: File[] = []
-    for (const file of Array.from(files)) {
+    for (const file of incoming) {
       if (!file.type.startsWith("image/")) {
         setError(`${file.name}: File is not an image`)
         continue
       }
-      if (file.size > 10 * 1024 * 1024) {
-        setError(`${file.name}: File size exceeds 10 MB`)
+      if (file.size > 5 * 1024 * 1024) {
+        setError(`${file.name}: File size exceeds 5 MB`)
         continue
       }
       valid.push(file)
@@ -101,7 +111,9 @@ export default function EventPhotoManager({
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <i className="far fa-images text-accent" /> Event Photos
         </h3>
-        <p className="text-slate-500 text-xs mt-1">Upload photos for this event gallery.</p>
+        <p className="text-slate-500 text-xs mt-1">
+          Upload photos for this event gallery. Max 8 photos, 5 MB each.
+        </p>
       </div>
 
       {error && (

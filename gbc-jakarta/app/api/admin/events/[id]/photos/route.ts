@@ -24,6 +24,10 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: msg.noPhotosProvided }, { status: 400 })
     }
 
+    if (files.length > 8) {
+      return NextResponse.json({ error: msg.tooManyPhotos(8) }, { status: 400 })
+    }
+
     const uploadedPhotos = []
     const errors: string[] = []
 
@@ -33,7 +37,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         continue
       }
 
-      if (file.size > 10 * 1024 * 1024) {
+      if (file.size > 5 * 1024 * 1024) {
         errors.push(msg.photoTooLarge(file.name))
         continue
       }

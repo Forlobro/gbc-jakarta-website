@@ -19,14 +19,15 @@ export const msg = {
   // Logo
   noLogoProvided: "No logo provided",
   logoMustBePng: "Logo must be in PNG format",
-  logoTooLarge: "Logo file size must not exceed 10 MB",
+  logoTooLarge: "Logo file size must not exceed 5 MB",
   logoUploadSuccess: "Logo uploaded successfully",
   logoDeleteSuccess: "Logo deleted successfully",
 
   // Photos
   noPhotosProvided: "No photos provided",
+  tooManyPhotos: (max: number) => `You can upload a maximum of ${max} photos at a time`,
   photoNotImage: (name: string) => `${name}: File is not an image`,
-  photoTooLarge: (name: string) => `${name}: File size exceeds 10 MB`,
+  photoTooLarge: (name: string) => `${name}: File size exceeds 5 MB`,
   photoUploadFailed: (name: string, detail: string) => `${name}: Upload failed — ${detail}`,
   photoDbError: (name: string, detail: string) => `${name}: Database error — ${detail}`,
   photoIdRequired: "photoId is required",
@@ -35,7 +36,7 @@ export const msg = {
   // Brochure
   noBrochureProvided: "No file provided",
   brochureMustBePdf: "File must be in PDF format",
-  brochureTooLarge: "PDF file size must not exceed 20 MB",
+  brochureTooLarge: "PDF file size must not exceed 10 MB",
   brochureUploadSuccess: "Brochure uploaded successfully",
   brochureDeleteSuccess: "Brochure deleted successfully",
 
