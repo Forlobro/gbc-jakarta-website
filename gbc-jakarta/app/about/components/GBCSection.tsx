@@ -13,10 +13,10 @@ export default function GBCSection() {
     <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden" id="global-network">
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-tight mb-3">
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-tight mb-3 justify-center">
             GBC — Gyeonggi Business Center
           </h2>
-          <p className="text-text-light text-lg text-justify">{t("globalNetworkDesc")}</p>
+          <p className="text-text-light text-lg text-center">{t("globalNetworkDesc")}</p>
         </ScrollReveal>
 
         <ScrollReveal>

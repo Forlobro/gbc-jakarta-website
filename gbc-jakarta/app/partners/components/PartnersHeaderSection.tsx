@@ -31,7 +31,7 @@ export default function PartnersHeaderSection() {
           <h2 className="font-display text-3xl md:text-[3rem] font-extrabold text-primary mb-4 leading-[1.2]">
             {t("featured")}
           </h2>
-          <p className="text-text-light text-lg mb-4 text-justify">{t("discover")}</p>
+          <p className="text-text-light text-lg mb-4 text-center">{t("discover")}</p>
 
           <div className="relative max-w-md mx-auto">
             <SearchBar
