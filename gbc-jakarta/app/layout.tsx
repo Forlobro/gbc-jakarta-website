@@ -16,10 +16,10 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: "GBC Jakarta - Bridging Korean Excellence to Indonesia",
+  title: "GBC Jakarta - Bridging Gyeonggi Excellence to Indonesia",
   description:
-    "GBC Jakarta - Gyeonggi Business Center Jakarta. Bridging Korean Excellence to Indonesia through strategic partnerships and business facilitation.",
-  keywords: "GBC Jakarta, Korean business, Indonesia, Gyeonggi Province, B2B, trade, partnership",
+    "GBC Jakarta - Gyeonggi Business Center Jakarta. Bridging Gyeonggi Excellence to Indonesia through strategic partnerships and business facilitation.",
+  keywords: "GBC Jakarta, GBC, Gyeonggi, ,Korean business, Indonesia, Gyeonggi Province, B2B, trade, partnership",
   authors: [{ name: "GBC Jakarta" }],
   icons: {
     icon: "/images/favicon.ico",
