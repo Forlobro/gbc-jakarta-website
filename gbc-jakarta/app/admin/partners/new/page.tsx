@@ -4,15 +4,18 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import PartnerForm, { PartnerFormData } from "../components/PartnerForm"
+import AlertBanner from "../../components/AlertBanner"
 
 export const dynamic = "force-dynamic"
 
 export default function AdminNewPartnerPage() {
   const [loading, setLoading] = useState(false)
+  const [pageError, setPageError] = useState<string | null>(null)
   const router = useRouter()
 
   const handleSubmit = async (data: PartnerFormData) => {
     setLoading(true)
+    setPageError(null)
 
     try {
       const res = await fetch("/api/admin/partners", {
@@ -23,14 +26,14 @@ export default function AdminNewPartnerPage() {
 
       if (!res.ok) {
         const err = await res.json()
-        alert(`Error: ${err.error}`)
+        setPageError(err.error || "Create failed")
         return
       }
 
       const company = await res.json()
       router.push(`/admin/partners/${company.id}/edit`)
     } catch {
-      alert("Failed to create partner. Please try again.")
+      setPageError("Failed to create partner. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -51,6 +54,12 @@ export default function AdminNewPartnerPage() {
           Create a new Partner entry. You can add photos after saving.
         </p>
       </div>
+
+      {pageError && (
+        <div className="max-w-2xl mb-6">
+          <AlertBanner message={pageError} onDismiss={() => setPageError(null)} />
+        </div>
+      )}
 
       {/* Form */}
       <div className="max-w-2xl bg-white border border-slate-200 rounded-2xl p-4 sm:p-8 shadow-sm flex flex-col">

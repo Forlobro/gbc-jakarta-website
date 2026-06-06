@@ -6,6 +6,7 @@ import Link from "next/link"
 import EventForm, { EventFormData } from "../../components/EventForm"
 import EventPhotoManager from "../../components/PhotoManager"
 import ThumbnailManager from "../../components/ThumbnailManager"
+import AlertBanner from "../../../components/AlertBanner"
 import { GbcEventWithPhotos } from "../../../../lib/supabase"
 
 export const dynamic = "force-dynamic"
@@ -15,6 +16,7 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
   const [event, setEvent] = useState<GbcEventWithPhotos | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [pageError, setPageError] = useState<string | null>(null)
   const router = useRouter()
 
   const fetchEvent = useCallback(() => {
@@ -22,7 +24,7 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert("Event not found")
+          setPageError("Event not found")
           router.push("/admin/events")
           return
         }
@@ -37,6 +39,7 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
 
   const handleSubmit = async (data: EventFormData) => {
     setSaving(true)
+    setPageError(null)
     try {
       const res = await fetch(`/api/admin/events/${id}`, {
         method: "PUT",
@@ -46,13 +49,13 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
 
       if (!res.ok) {
         const err = await res.json()
-        alert(`Error: ${err.error}`)
+        setPageError(err.error || "Update failed")
         return
       }
 
       router.push("/admin/events")
     } catch {
-      alert("Failed to update. Please try again.")
+      setPageError("Failed to update. Please try again.")
     } finally {
       setSaving(false)
     }
@@ -79,6 +82,12 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
         </Link>
         <h1 className="text-2xl font-bold text-slate-900">{event.title}</h1>
       </div>
+
+      {pageError && (
+        <div className="mb-6">
+          <AlertBanner message={pageError} onDismiss={() => setPageError(null)} />
+        </div>
+      )}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start xl:items-stretch">
         {/* Event Form */}
