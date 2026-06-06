@@ -7,8 +7,6 @@ import ScrollReveal from "../../components/ScrollReveal"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
 import { formatDate } from "../../lib/date"
 
-const FALLBACK_IMAGE = "/images/gbc-hero.jpeg"
-
 function FeaturedSkeleton() {
   return (
     <div className="flex flex-col gap-16">
@@ -100,7 +98,8 @@ export default function EventsFeaturedSection() {
             {hasUpcoming &&
               (() => {
                 const event = upcomingEvents[upcomingSliderIndex]
-                const image = event.thumbnail_url ?? FALLBACK_IMAGE
+                const image =
+                  event.thumbnail_url ?? event.gbc_events_photos[0]?.photo_url
                 const description = language === "id" ? event.description_id : event.description_en
                 return (
                   <ScrollReveal key={event.id}>
@@ -191,7 +190,8 @@ export default function EventsFeaturedSection() {
             {hasAccomplished &&
               (() => {
                 const event = accomplishedEvents[sliderIndex]
-                const image = event.thumbnail_url ?? FALLBACK_IMAGE
+                const image =
+                  event.thumbnail_url ?? event.gbc_events_photos[0]?.photo_url
                 const description = language === "id" ? event.description_id : event.description_en
                 return (
                   <ScrollReveal key={event.id}>

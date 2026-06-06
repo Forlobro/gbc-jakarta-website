@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
-import SectionBadge from "../../components/SectionBadge"
 import ContentCard from "../../components/ContentCard"
 import SearchBar from "../../components/SearchBar"
 import FilterPills from "../../components/FilterPills"
