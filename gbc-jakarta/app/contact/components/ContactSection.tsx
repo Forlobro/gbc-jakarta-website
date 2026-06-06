@@ -262,7 +262,6 @@ export default function ContactSection() {
           {/* Contact Form */}
           <ScrollReveal>
             <div className="bg-white rounded-2xl px-6 pt-5 pb-5 shadow-2xl h-[700px] flex flex-col box-border">
-
               <h3 className="font-display text-[25px] font-bold text-text mb-[14px]">
                 {t("sendMessage")}
               </h3>
@@ -270,9 +269,7 @@ export default function ContactSection() {
               <form onSubmit={handleSubmit} className="flex flex-col flex-1 gap-[10px]">
                 {/* Name */}
                 <div className="flex flex-col gap-[3px]">
-                  <label className="text-[15px] font-semibold text-text">
-                    {t("formName")}
-                  </label>
+                  <label className="text-[15px] font-semibold text-text">{t("formName")}</label>
                   <input
                     type="text"
                     name="name"
@@ -284,9 +281,7 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <div className="flex flex-col gap-[3px]">
-                  <label className="text-[15px] font-semibold text-text">
-                    {t("formEmail")}
-                  </label>
+                  <label className="text-[15px] font-semibold text-text">{t("formEmail")}</label>
                   <input
                     type="email"
                     name="email"
@@ -298,9 +293,7 @@ export default function ContactSection() {
 
                 {/* Company */}
                 <div className="flex flex-col gap-[3px]">
-                  <label className="text-[15px] font-semibold text-text">
-                    {t("formPartner")}
-                  </label>
+                  <label className="text-[15px] font-semibold text-text">{t("formPartner")}</label>
                   <input
                     type="text"
                     name="company"
@@ -311,9 +304,7 @@ export default function ContactSection() {
 
                 {/* Message — flex-1 supaya mengisi sisa ruang */}
                 <div className="flex flex-col gap-[3px] flex-1">
-                  <label className="text-[15px] font-semibold text-text">
-                    {t("formMessage")}
-                  </label>
+                  <label className="text-[15px] font-semibold text-text">{t("formMessage")}</label>
                   <textarea
                     name="message"
                     placeholder={t("messagePlaceholder")}

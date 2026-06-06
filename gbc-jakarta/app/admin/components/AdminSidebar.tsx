@@ -68,7 +68,7 @@ export default function AdminSidebar() {
         <div className="p-6 border-b border-slate-200 hidden md:block">
           <div className="flex items-center gap-3">
             <div className="w-16 h-10 rounded-xl overflow-hidden flex items-center justify-center">
-             <Image
+              <Image
                 src="/images/logo.jpg"
                 alt="GBC Jakarta"
                 width={80}
