@@ -56,7 +56,7 @@ export default function EventRegisterSection({
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-4 leading-[1.2]">
             {title}
           </h2>
-          <p className="text-white/70 text-base md:text-lg mb-8 md:mb-10 text-justify">
+          <p className="text-white/70 text-base md:text-lg mb-8 md:mb-10 text-center">
             {description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
