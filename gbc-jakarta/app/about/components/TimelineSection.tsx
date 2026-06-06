@@ -34,14 +34,16 @@ export default function TimelineSection() {
             {TIMELINE.map((item) => (
               <div
                 key={item.year}
-                className={`relative mb-8 last:mb-0 ${item.highlight ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-2" : ""
-                  }`}
+                className={`relative mb-8 last:mb-0 ${
+                  item.highlight ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 ml-2" : ""
+                }`}
               >
                 <div
-                  className={`absolute top-1.5 rounded-full border-2 border-white shadow ${item.highlight
+                  className={`absolute top-1.5 rounded-full border-2 border-white shadow ${
+                    item.highlight
                       ? "-left-[36px] w-4 h-4 bg-amber-400 shadow-amber-200"
                       : "-left-[28px] w-3 h-3 bg-gray-300"
-                    }`}
+                  }`}
                 />
                 <div className="flex flex-col gap-1">
                   <span

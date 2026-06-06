@@ -111,9 +111,8 @@ export default function EventsPastSection() {
     <section className="py-24 relative" id="events-past">
       <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
         <ScrollReveal className="text-center max-w-[600px] mx-auto mb-14">
-          <SectionBadge centered>{t("eventsPastTag")}</SectionBadge>
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-[1.2]">
-            {t("eventsPastTitle")}
+            {t("eventsPastTag")}
           </h2>
         </ScrollReveal>
 

@@ -285,7 +285,8 @@ export const translations = {
       "GBC Jakarta (Gyeonggi Business Center Jakarta) is the official representative office of Gyeonggi Business & Science Accelerator (GBSA) — a government agency of Gyeonggi Province, South Korea — dedicated to facilitating Korean business expansion into the Indonesian market.",
     aboutPageDesc2:
       "We serve as a bridge between Gyeonggi's dynamic innovation ecosystem and the growing business opportunities in Indonesia, providing tangible support for Korean SMEs looking to grow in Southeast Asia.",
-    globalNetworkDesc: "GBSA maintains a network of 28 overseas representative offices located in 21 countries, with 13 offices functioning as regional hubs.",
+    globalNetworkDesc:
+      "GBSA maintains a network of 28 overseas representative offices located in 21 countries, with 13 offices functioning as regional hubs.",
     globalNetworkVideoCaption: "GBC Global Network Introduction Video",
     gbsaDesc:
       "Official public institution of Gyeonggi Provincial Government that oversees the entire global GBC network.",
@@ -616,7 +617,8 @@ export const translations = {
       "GBC Jakarta (Gyeonggi Business Center Jakarta) adalah kantor perwakilan resmi dari Gyeonggi Business & Science Accelerator (GBSA) — lembaga pemerintah Provinsi Gyeonggi, Korea Selatan — yang berdedikasi memfasilitasi ekspansi bisnis perusahaan Korea ke pasar Indonesia.",
     aboutPageDesc2:
       "Kami hadir sebagai jembatan antara ekosistem inovasi Gyeonggi yang dinamis dengan peluang bisnis yang terus berkembang di Indonesia, memberikan dukungan nyata bagi UKM Korea yang ingin tumbuh di Asia Tenggara.",
-    globalNetworkDesc: "Jaringan kantor perwakilan luar negeri GBSA mencakup 28 kantor di 21 negara, dengan 13 di antaranya berperan sebagai kantor hub.",
+    globalNetworkDesc:
+      "Jaringan kantor perwakilan luar negeri GBSA mencakup 28 kantor di 21 negara, dengan 13 di antaranya berperan sebagai kantor hub.",
     globalNetworkVideoCaption: "Video perkenalan jaringan GBC global",
     gbsaDesc:
       "Lembaga publik resmi milik Pemerintah Provinsi Gyeonggi yang menjadi induk dari seluruh jaringan GBC di dunia.",
