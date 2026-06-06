@@ -7,6 +7,11 @@ import ScrollReveal from "../../components/ScrollReveal"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
 import { formatDate } from "../../lib/date"
 
+const truncate = (text: string | null | undefined, max = 100) => {
+  if (!text) return ""
+  return text.length > max ? text.slice(0, max).trimEnd() + "…" : text
+}
+
 function FeaturedSkeleton() {
   return (
     <div className="flex flex-col gap-16">
@@ -193,7 +198,7 @@ export default function EventsFeaturedSection() {
                         </div>
 
                         <p className="text-[0.65rem] sm:text-[0.8rem] md:text-sm lg:text-[0.95rem] leading-[1.3] sm:leading-[1.6] lg:leading-[1.8] mb-3 sm:mb-5 lg:mb-7 text-justify text-white/75 line-clamp-3 sm:line-clamp-none">
-                          {description}
+                          {truncate(description)}
                         </p>
 
                         <Link
@@ -277,7 +282,7 @@ export default function EventsFeaturedSection() {
                           </span>
                         </div>
                         <p className="text-[0.65rem] sm:text-[0.8rem] md:text-sm lg:text-[1.05rem] leading-[1.3] sm:leading-[1.6] lg:leading-[1.9] mb-3 sm:mb-6 lg:mb-8 text-justify text-text-light line-clamp-3 sm:line-clamp-none">
-                          {description}
+                          {truncate(description)}
                         </p>
                         <Link
                           href={`/events/${event.id}`}
