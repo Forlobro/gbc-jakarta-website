@@ -182,7 +182,7 @@ export default function EventsFeaturedSection() {
                         className="p-3 sm:p-6 md:p-8 lg:p-10 col-span-3 flex flex-col justify-center"
                         style={{ backgroundColor: "#0f2847", direction: "ltr" }}
                       >
-                        <h3 className="font-display text-xs sm:text-lg md:text-xl lg:text-2xl font-extrabold leading-[1.2] mb-1 sm:mb-2 lg:mb-3 text-white">
+                        <h3 className="font-display text-xs sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold leading-[1.2] mb-1 sm:mb-2 lg:mb-3 text-white">
                           {event.title}
                         </h3>
 
