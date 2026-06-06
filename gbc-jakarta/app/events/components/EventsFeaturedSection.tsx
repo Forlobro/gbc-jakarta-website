@@ -41,6 +41,7 @@ export default function EventsFeaturedSection() {
   const [loading, setLoading] = useState(true)
   const [upcomingSliderIndex, setUpcomingSliderIndex] = useState(0)
   const [sliderIndex, setSliderIndex] = useState(0)
+  const [imagePreview, setImagePreview] = useState<{ rect: DOMRect; src: string; alt: string; bg: string } | null>(null)
 
   useEffect(() => {
     async function fetchEvents() {
@@ -137,8 +138,17 @@ export default function EventsFeaturedSection() {
                   >
                     {/* Image */}
                     <div
-                      className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[450px] bg-cover bg-center"
+                      className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[450px] bg-cover bg-center cursor-zoom-in"
                       style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
+                      onMouseEnter={(e) => {
+                        const rect = e.currentTarget.getBoundingClientRect()
+                        setImagePreview({ rect, src: image, alt: event.title, bg: "#0a1f3a" })
+                      }}
+                      onMouseMove={(e) => {
+                        const rect = e.currentTarget.getBoundingClientRect()
+                        setImagePreview((prev) => prev ? { ...prev, rect } : null)
+                      }}
+                      onMouseLeave={() => setImagePreview(null)}
                     />
 
                     {/* Content */}
@@ -214,40 +224,77 @@ export default function EventsFeaturedSection() {
                       )}
                     </div>
 
-                  <div className="grid grid-cols-5 md:mx-[5%] lg:mx-[10%] gap-0 rounded-3xl overflow-hidden shadow-lg [direction:rtl] transition-all duration-500">
-                    <div
-                      className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[520px] bg-cover bg-center"
-                      style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
-                    />
-                    <div
-                      className="p-3 sm:p-6 md:p-8 lg:p-14 col-span-3 flex flex-col justify-center"
-                      style={{ backgroundColor: "#f8fafc", direction: "ltr" }}
-                    >
-                      <h3 className="font-display text-xs sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold leading-[1.2] mb-1 sm:mb-3 lg:mb-4 text-primary">
-                        {event.title}
-                      </h3>
-                      <div className="flex flex-col gap-0.5 sm:gap-1 text-[0.6rem] sm:text-[0.75rem] md:text-[0.85rem] lg:text-[1rem] mb-2 sm:mb-4 lg:mb-6 text-text-light">
-                        <span><i className="far fa-calendar-alt mr-2" />{formatDate(event.event_start)}</span>
-                        <span><i className="fas fa-map-marker-alt mr-2" />{event.location}</span>
-                      </div>
-                      <p className="text-[0.65rem] sm:text-[0.8rem] md:text-sm lg:text-[1.05rem] leading-[1.3] sm:leading-[1.6] lg:leading-[1.9] mb-3 sm:mb-6 lg:mb-8 text-justify text-text-light line-clamp-3 sm:line-clamp-none">
-                        {description}
-                      </p>
-                      <Link
-                        href={`/events/${event.id}`}
-                        className="w-fit inline-flex items-center gap-1 sm:gap-2 text-[0.6rem] sm:text-xs lg:text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:gap-3 text-primary"
+                    <div className="grid grid-cols-5 md:mx-[5%] lg:mx-[10%] gap-0 rounded-3xl overflow-hidden shadow-lg [direction:rtl] transition-all duration-500">
+                      <div
+                        className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[520px] bg-cover bg-center cursor-zoom-in"
+                        style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
+                        onMouseEnter={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect()
+                          setImagePreview({ rect, src: image, alt: event.title, bg: "#f8fafc" })
+                        }}
+                        onMouseMove={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect()
+                          setImagePreview((prev) => prev ? { ...prev, rect } : null)
+                        }}
+                        onMouseLeave={() => setImagePreview(null)}
+                      />
+                      <div
+                        className="p-3 sm:p-6 md:p-8 lg:p-14 col-span-3 flex flex-col justify-center"
+                        style={{ backgroundColor: "#f8fafc", direction: "ltr" }}
                       >
-                        {t("eventsLatestCta")} <i className="fas fa-arrow-right text-xs" />
-                      </Link>
+                        <h3 className="font-display text-xs sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold leading-[1.2] mb-1 sm:mb-3 lg:mb-4 text-primary">
+                          {event.title}
+                        </h3>
+                        <div className="flex flex-col gap-0.5 sm:gap-1 text-[0.6rem] sm:text-[0.75rem] md:text-[0.85rem] lg:text-[1rem] mb-2 sm:mb-4 lg:mb-6 text-text-light">
+                          <span><i className="far fa-calendar-alt mr-2" />{formatDate(event.event_start)}</span>
+                          <span><i className="fas fa-map-marker-alt mr-2" />{event.location}</span>
+                        </div>
+                        <p className="text-[0.65rem] sm:text-[0.8rem] md:text-sm lg:text-[1.05rem] leading-[1.3] sm:leading-[1.6] lg:leading-[1.9] mb-3 sm:mb-6 lg:mb-8 text-justify text-text-light line-clamp-3 sm:line-clamp-none">
+                          {description}
+                        </p>
+                        <Link
+                          href={`/events/${event.id}`}
+                          className="w-fit inline-flex items-center gap-1 sm:gap-2 text-[0.6rem] sm:text-xs lg:text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:gap-3 text-primary"
+                        >
+                          {t("eventsLatestCta")} <i className="fas fa-arrow-right text-xs" />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </ScrollReveal>
-              )
-            })()}
+                  </ScrollReveal>
+                )
+              })()}
 
           </div>
         )}
       </div>
+
+      {/* Floating full-image preview — escapes overflow:hidden via position:fixed */}
+      {imagePreview && (
+        <div
+          className="fixed pointer-events-none z-[9999] rounded-3xl overflow-hidden"
+          style={{
+            top: imagePreview.rect.top - 24,
+            left: imagePreview.rect.left - 14,
+            width: imagePreview.rect.width + 28,
+            height: imagePreview.rect.height + 48,
+            animation: "imagePopOut 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards",
+            boxShadow: "0 32px 80px rgba(0,0,0,0.55), 0 0 0 2px rgba(255,255,255,0.08)",
+          }}
+        >
+          <img
+            src={imagePreview.src}
+            alt={imagePreview.alt}
+            className="w-full h-full object-contain"
+            style={{ backgroundColor: imagePreview.bg }}
+          />
+        </div>
+      )}
+      <style>{`
+        @keyframes imagePopOut {
+          from { opacity: 0; transform: translateY(10px) scale(0.95); box-shadow: none; }
+          to   { opacity: 1; transform: translateY(-24px) scale(1.03); }
+        }
+      `}</style>
     </section>
   )
 }
