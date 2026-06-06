@@ -45,13 +45,25 @@ export default function EventsPastSection() {
           return
         }
         const data: GbcEventWithPhotos[] = await res.json()
-        console.log("[EventsPastSection] Total events from API:", data.length)
-        console.log(
-          "[EventsPastSection] Statuses:",
-          data.map((e) => e.status),
-        )
         const accomplished = data.filter((e) => e.status === "accomplished")
-        console.log("[EventsPastSection] Accomplished events:", accomplished.length)
+
+        // Preload all event photo images before hiding skeleton
+        const allImages = accomplished
+          .map((e) => e.gbc_events_photos[0]?.photo_url)
+          .filter(Boolean) as string[]
+
+        await Promise.all(
+          allImages.map(
+            (url) =>
+              new Promise<void>((resolve) => {
+                const img = new Image()
+                img.onload = () => resolve()
+                img.onerror = () => resolve()
+                img.src = url
+              }),
+          ),
+        )
+
         setAllEvents(accomplished)
       } catch (err) {
         console.error("[EventsPastSection] Fetch error:", err)
@@ -164,7 +176,7 @@ export default function EventsPastSection() {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
               {paginated.map((event) => {
-                const photoUrl = event.thumbnail_url || undefined
+                const photoUrl = event.gbc_events_photos[0]?.photo_url || undefined
                 const description =
                   language === "id"
                     ? event.description_id || event.description_en

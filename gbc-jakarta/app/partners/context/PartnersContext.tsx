@@ -64,15 +64,38 @@ export function PartnersProvider({ children }: { children: React.ReactNode }) {
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
-    fetch("/api/partners")
-      .then((r) => r.json())
-      .then((data) => {
+    async function loadPartners() {
+      try {
+        const r = await fetch("/api/partners")
+        const data = await r.json()
         if (Array.isArray(data)) {
+          // Preload all logo images before hiding skeleton
+          const allLogos = data
+            .map((c: GbcCompanyWithPhotos) => c.logo_url)
+            .filter(Boolean) as string[]
+
+          await Promise.all(
+            allLogos.map(
+              (url) =>
+                new Promise<void>((resolve) => {
+                  const img = new window.Image()
+                  img.onload = () => resolve()
+                  img.onerror = () => resolve()
+                  img.src = url
+                }),
+            ),
+          )
+
           setCompanies(data)
           setSelectedYear((prev) => prev ?? null)
         }
-      })
-      .finally(() => setLoading(false))
+      } catch {
+        // silently fail
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadPartners()
   }, [])
 
   useEffect(() => {

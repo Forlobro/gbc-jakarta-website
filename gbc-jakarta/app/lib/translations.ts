@@ -109,8 +109,7 @@ export const translations = {
     backToEvents: "Back to Events",
     aboutThisEvent: "About This Event",
     eventVideo: "Video",
-    eventGallery: "Event Gallery",
-    eventPoster: "Photos",
+    eventImages: "Photos",
     exhibitorList: "Exhibitor List",
     brochure: "Brochure",
     eventsP1Details:
@@ -444,8 +443,7 @@ export const translations = {
     backToEvents: "Kembali ke Events",
     aboutThisEvent: "Tentang Event Ini",
     eventVideo: "Video",
-    eventGallery: "Galeri Event",
-    eventPoster: "Foto",
+    eventImages: "Foto",
     exhibitorList: "Daftar Peserta",
     brochure: "Brosur",
     eventsP1Details:

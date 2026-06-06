@@ -211,7 +211,7 @@ export default function EventDetailPage() {
           <section className="py-16 relative">
             <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
               <h2 className="font-display text-3xl font-extrabold text-primary mb-8 text-center">
-                {t("eventGallery")}
+                {t("eventImages")}
               </h2>
               <div className="max-w-4xl mx-auto">
                 <PhotoGallery photos={galleryPhotos} altPrefix={title} />
@@ -225,7 +225,7 @@ export default function EventDetailPage() {
           <section className="py-16 relative">
             <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
               <h2 className="font-display text-3xl font-extrabold text-primary mb-10 text-center">
-                {t("eventPoster")}
+                {t("eventImages")}
               </h2>
               <PosterCarousel photos={galleryPhotos} altPrefix={title} />
             </div>

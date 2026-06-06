@@ -38,7 +38,12 @@ export default function EventsFeaturedSection() {
   const [loading, setLoading] = useState(true)
   const [upcomingSliderIndex, setUpcomingSliderIndex] = useState(0)
   const [sliderIndex, setSliderIndex] = useState(0)
-  const [imagePreview, setImagePreview] = useState<{ rect: DOMRect; src: string; alt: string; bg: string } | null>(null)
+  const [imagePreview, setImagePreview] = useState<{
+    rect: DOMRect
+    src: string
+    alt: string
+    bg: string
+  } | null>(null)
 
   useEffect(() => {
     async function fetchEvents() {
@@ -63,6 +68,24 @@ export default function EventsFeaturedSection() {
             if (!b.event_start) return -1
             return new Date(b.event_start).getTime() - new Date(a.event_start).getTime()
           })
+
+        // Preload thumbnail images before hiding skeleton
+        const imageUrls = [
+          ...upcoming.map((e) => e.thumbnail_url ?? e.gbc_events_photos[0]?.photo_url),
+          ...accomplished.slice(0, 1).map((e) => e.gbc_events_photos[0]?.photo_url),
+        ].filter(Boolean) as string[]
+
+        await Promise.all(
+          imageUrls.map(
+            (url) =>
+              new Promise<void>((resolve) => {
+                const img = new Image()
+                img.onload = () => resolve()
+                img.onerror = () => resolve()
+                img.src = url
+              }),
+          ),
+        )
 
         setUpcomingEvents(upcoming)
         setAccomplishedEvents(accomplished)
@@ -98,8 +121,7 @@ export default function EventsFeaturedSection() {
             {hasUpcoming &&
               (() => {
                 const event = upcomingEvents[upcomingSliderIndex]
-                const image =
-                  event.thumbnail_url ?? event.gbc_events_photos[0]?.photo_url
+                const image = event.thumbnail_url ?? event.gbc_events_photos[0]?.photo_url
                 const description = language === "id" ? event.description_id : event.description_en
                 return (
                   <ScrollReveal key={event.id}>
@@ -145,7 +167,7 @@ export default function EventsFeaturedSection() {
                         }}
                         onMouseMove={(e) => {
                           const rect = e.currentTarget.getBoundingClientRect()
-                          setImagePreview((prev) => prev ? { ...prev, rect } : null)
+                          setImagePreview((prev) => (prev ? { ...prev, rect } : null))
                         }}
                         onMouseLeave={() => setImagePreview(null)}
                       />
@@ -190,8 +212,7 @@ export default function EventsFeaturedSection() {
             {hasAccomplished &&
               (() => {
                 const event = accomplishedEvents[sliderIndex]
-                const image =
-                  event.thumbnail_url ?? event.gbc_events_photos[0]?.photo_url
+                const image = event.gbc_events_photos[0]?.photo_url
                 const description = language === "id" ? event.description_id : event.description_en
                 return (
                   <ScrollReveal key={event.id}>
@@ -234,7 +255,7 @@ export default function EventsFeaturedSection() {
                         }}
                         onMouseMove={(e) => {
                           const rect = e.currentTarget.getBoundingClientRect()
-                          setImagePreview((prev) => prev ? { ...prev, rect } : null)
+                          setImagePreview((prev) => (prev ? { ...prev, rect } : null))
                         }}
                         onMouseLeave={() => setImagePreview(null)}
                       />
@@ -246,8 +267,14 @@ export default function EventsFeaturedSection() {
                           {event.title}
                         </h3>
                         <div className="flex flex-col gap-0.5 sm:gap-1 text-[0.6rem] sm:text-[0.75rem] md:text-[0.85rem] lg:text-[1rem] mb-2 sm:mb-4 lg:mb-6 text-text-light">
-                          <span><i className="far fa-calendar-alt mr-2" />{formatDate(event.event_start)}</span>
-                          <span><i className="fas fa-map-marker-alt mr-2" />{event.location}</span>
+                          <span>
+                            <i className="far fa-calendar-alt mr-2" />
+                            {formatDate(event.event_start)}
+                          </span>
+                          <span>
+                            <i className="fas fa-map-marker-alt mr-2" />
+                            {event.location}
+                          </span>
                         </div>
                         <p className="text-[0.65rem] sm:text-[0.8rem] md:text-sm lg:text-[1.05rem] leading-[1.3] sm:leading-[1.6] lg:leading-[1.9] mb-3 sm:mb-6 lg:mb-8 text-justify text-text-light line-clamp-3 sm:line-clamp-none">
                           {description}
@@ -263,7 +290,6 @@ export default function EventsFeaturedSection() {
                   </ScrollReveal>
                 )
               })()}
-
           </div>
         )}
       </div>
@@ -281,6 +307,7 @@ export default function EventsFeaturedSection() {
             boxShadow: "0 32px 80px rgba(0,0,0,0.55), 0 0 0 2px rgba(255,255,255,0.08)",
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imagePreview.src}
             alt={imagePreview.alt}

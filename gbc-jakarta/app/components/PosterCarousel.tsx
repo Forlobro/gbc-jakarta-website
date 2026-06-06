@@ -1,10 +1,5 @@
 "use client"
 
-/**
- * PosterCarousel — supports both portrait & landscape poster images.
- * Lightbox is rendered via React Portal to escape stacking context issues.
- */
-
 import { useState, useCallback, useEffect } from "react"
 import { createPortal } from "react-dom"
 import Image from "next/image"
@@ -68,15 +63,6 @@ export default function PosterCarousel({ photos, altPrefix = "Poster" }: PosterC
               </button>
             </>
           )}
-
-          {/* Zoom hint */}
-          <button
-            onClick={() => setZoomed(true)}
-            className="absolute bottom-4 right-4 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center text-primary/70 hover:text-primary transition-all duration-200"
-            aria-label="Zoom poster"
-          >
-            <i className="fas fa-search-plus text-sm" />
-          </button>
         </div>
 
         {/* Dots + counter */}
