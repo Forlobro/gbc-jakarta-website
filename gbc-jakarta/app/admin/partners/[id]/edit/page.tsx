@@ -31,6 +31,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
         }
         setCompany(data)
       })
+      .catch(() => setPageError("Failed to load partner data."))
       .finally(() => setLoading(false))
   }, [id, router])
 

@@ -24,6 +24,7 @@ export default function AdminPartnersPage() {
       .then((data) => {
         if (Array.isArray(data)) setCompanies(data)
       })
+      .catch(() => setPageError("Failed to load partners."))
       .finally(() => setLoading(false))
   }
 

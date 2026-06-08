@@ -44,6 +44,9 @@ export default function PartnerForm({
       .then((data) => {
         if (Array.isArray(data)) setCategories(data)
       })
+      .catch(() => {
+        // Categories load failed silently — form still usable with manual input
+      })
       .finally(() => setCategoriesLoading(false))
   }, [])
 

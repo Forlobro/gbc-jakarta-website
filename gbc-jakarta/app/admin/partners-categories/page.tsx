@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import { GbcCompanyCategory } from "../../lib/supabase"
+import AlertBanner from "../components/AlertBanner"
 
 export const dynamic = "force-dynamic"
 
@@ -30,6 +31,7 @@ export default function AdminPartnersCategoriesPage() {
       .then((data) => {
         if (Array.isArray(data)) setCategories(data)
       })
+      .catch(() => setError("Failed to load categories."))
       .finally(() => setLoading(false))
   }
 
@@ -184,15 +186,8 @@ export default function AdminPartnersCategoriesPage() {
 
       {/* Error banner */}
       {error && (
-        <div className="mb-6 flex items-center gap-2 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm">
-          <i className="fas fa-exclamation-circle shrink-0" />
-          {error}
-          <button
-            onClick={() => setError(null)}
-            className="ml-auto text-red-400 hover:text-red-600 cursor-pointer"
-          >
-            <i className="fas fa-times" />
-          </button>
+        <div className="mb-6">
+          <AlertBanner message={error} onDismiss={() => setError(null)} />
         </div>
       )}
 
@@ -377,9 +372,8 @@ export default function AdminPartnersCategoriesPage() {
             </div>
 
             {error && (
-              <div className="mb-4 flex items-center gap-2 p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm">
-                <i className="fas fa-exclamation-circle shrink-0" />
-                {error}
+              <div className="mb-4">
+                <AlertBanner message={error} />
               </div>
             )}
 

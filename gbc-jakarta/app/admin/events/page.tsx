@@ -25,6 +25,7 @@ export default function AdminEventsPage() {
       .then((data) => {
         if (Array.isArray(data)) setEvents(data)
       })
+      .catch(() => setPageError("Failed to load events."))
       .finally(() => setLoading(false))
   }
 

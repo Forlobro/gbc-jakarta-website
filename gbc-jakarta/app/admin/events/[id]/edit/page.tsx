@@ -30,6 +30,7 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
         }
         setEvent(data)
       })
+      .catch(() => setPageError("Failed to load event data."))
       .finally(() => setLoading(false))
   }, [id, router])
 
