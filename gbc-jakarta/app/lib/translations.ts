@@ -466,7 +466,7 @@ export const translations = {
       "GBC Jakarta secara aktif menyelenggarakan dan berpartisipasi dalam berbagai event bisnis, pameran dagang, dan forum kemitraan untuk mempertemukan perusahaan Gyeonggi dengan mitra strategis di Indonesia.",
     eventsFeaturedTag: "Agenda Utama",
     eventsLatestTag: "Kegiatan Terkini",
-    eventsPastTag: "Arsip Kegiatan",
+    eventsPastTag: "Acara Sebelumnya",
     eventsPastTitle: "Kegiatan yang Telah Berlangsung",
     // Featured Event 1
     eventsF1Tag: "Pameran Internasional",

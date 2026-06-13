@@ -33,7 +33,7 @@ export default function GBCSection() {
         <ScrollReveal>
           <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 md:p-10">
             <Image
-              src="/images/gbc_map (1).svg"
+              src="/images/gbc-map.png"
               alt="GBC Network Map — 19 lokasi di 14 negara"
               width={1200}
               height={800}
