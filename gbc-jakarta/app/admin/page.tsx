@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { GbcCompanyWithPhotos } from "../lib/supabase"
+import AlertBanner from "./components/AlertBanner"
 
 export const dynamic = "force-dynamic"
 
@@ -10,6 +11,7 @@ export default function AdminDashboard() {
   const [companies, setCompanies] = useState<GbcCompanyWithPhotos[]>([])
   const [events, setEvents] = useState<unknown[]>([])
   const [loading, setLoading] = useState(true)
+  const [pageError, setPageError] = useState<string | null>(null)
 
   useEffect(() => {
     Promise.all([
@@ -20,6 +22,7 @@ export default function AdminDashboard() {
         if (Array.isArray(partnersData)) setCompanies(partnersData)
         if (Array.isArray(eventsData)) setEvents(eventsData)
       })
+      .catch(() => setPageError("Failed to load dashboard data."))
       .finally(() => setLoading(false))
   }, [])
 
@@ -32,6 +35,12 @@ export default function AdminDashboard() {
           Welcome back! Here&#39;s an overview of your data.
         </p>
       </div>
+
+      {pageError && (
+        <div className="mb-6">
+          <AlertBanner message={pageError} onDismiss={() => setPageError(null)} />
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

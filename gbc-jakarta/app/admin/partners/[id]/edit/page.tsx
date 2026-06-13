@@ -7,6 +7,7 @@ import PartnerForm, { PartnerFormData } from "../../components/PartnerForm"
 import LogoManager from "../../components/LogoManager"
 import PhotoManager from "../../components/PhotoManager"
 import BrochureManager from "../../components/BrochureManager"
+import AlertBanner from "../../../components/AlertBanner"
 import { GbcCompanyWithPhotos } from "../../../../lib/supabase"
 
 export const dynamic = "force-dynamic"
@@ -16,6 +17,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
   const [company, setCompany] = useState<GbcCompanyWithPhotos | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [pageError, setPageError] = useState<string | null>(null)
   const router = useRouter()
 
   const fetchPartner = useCallback(() => {
@@ -23,12 +25,13 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert("Partner not found")
+          setPageError("Partner not found")
           router.push("/admin/partners")
           return
         }
         setCompany(data)
       })
+      .catch(() => setPageError("Failed to load partner data."))
       .finally(() => setLoading(false))
   }, [id, router])
 
@@ -38,6 +41,7 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
 
   const handleSubmit = async (data: PartnerFormData) => {
     setSaving(true)
+    setPageError(null)
 
     try {
       const res = await fetch(`/api/admin/partners/${id}`, {
@@ -48,13 +52,13 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
 
       if (!res.ok) {
         const err = await res.json()
-        alert(`Error: ${err.error}`)
+        setPageError(err.error || "Update failed")
         return
       }
 
       router.push("/admin")
     } catch {
-      alert("Failed to update. Please try again.")
+      setPageError("Failed to update. Please try again.")
     } finally {
       setSaving(false)
     }
@@ -84,6 +88,12 @@ export default function AdminEditPartnerPage({ params }: { params: Promise<{ id:
           <h1 className="text-2xl font-bold text-slate-900">{company.name}</h1>
         </div>
       </div>
+
+      {pageError && (
+        <div className="mb-6">
+          <AlertBanner message={pageError} onDismiss={() => setPageError(null)} />
+        </div>
+      )}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         {/* Partner Form */}

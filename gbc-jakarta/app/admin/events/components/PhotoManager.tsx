@@ -6,6 +6,7 @@ import { uploadToStorage, makeStoragePath } from "../../../lib/supabase.upload"
 import DropZone from "../../components/DropZone"
 import UploadQueue, { UploadQueueItem } from "../../components/UploadQueue"
 import PhotoGrid from "../../components/PhotoGrid"
+import AlertBanner from "../../components/AlertBanner"
 
 interface EventPhotoManagerProps {
   eventId: number
@@ -22,19 +23,24 @@ export default function EventPhotoManager({
   const [deletingId, setDeletingId] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
 
+  const MAX_PHOTOS = 8
   const uploadingCount = queue.filter((i) => i.status === "uploading").length
+  const pendingCount = queue.filter((i) => i.status === "pending").length
+  const remainingSlots = MAX_PHOTOS - photos.length - pendingCount
+  const isAtLimit = remainingSlots <= 0
 
   const addFiles = useCallback(
     (files: File[]) => {
       setError(null)
       const imageFiles = files.filter((f) => f.type.startsWith("image/"))
-      const pendingCount = queue.filter((i) => i.status === "pending").length
-      const totalAfter = pendingCount + imageFiles.length
 
-      if (totalAfter > 8) {
-        setError(
-          `You can upload a maximum of 8 photos at a time (currently ${pendingCount} queued)`,
-        )
+      if (remainingSlots <= 0) {
+        setError(`Maximum ${MAX_PHOTOS} photos reached. Delete existing photos to upload new ones.`)
+        return
+      }
+
+      if (imageFiles.length > remainingSlots) {
+        setError(`You can only add ${remainingSlots} more photo${remainingSlots > 1 ? "s" : ""}`)
         return
       }
 
@@ -52,7 +58,7 @@ export default function EventPhotoManager({
 
       setQueue((prev) => [...prev, ...newItems])
     },
-    [queue],
+    [remainingSlots],
   )
 
   const removeFromQueue = (index: number) => {
@@ -143,18 +149,13 @@ export default function EventPhotoManager({
       <div>
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <i className="far fa-images text-accent" /> Photos
+          <span className="text-slate-500 text-sm font-normal ml-1">
+            ({photos.length}/{MAX_PHOTOS} saved)
+          </span>
         </h3>
       </div>
 
-      {error && (
-        <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm">
-          <i className="fas fa-exclamation-circle shrink-0" />
-          {error}
-          <button onClick={() => setError(null)} className="ml-auto cursor-pointer">
-            <i className="fas fa-times" />
-          </button>
-        </div>
-      )}
+      {error && <AlertBanner message={error} onDismiss={() => setError(null)} />}
 
       {/* Photos Grid */}
       <PhotoGrid
@@ -171,8 +172,12 @@ export default function EventPhotoManager({
         onFiles={addFiles}
         accept="image/*"
         multiple
-        disabled={uploadingCount > 0}
-        hint="JPG, PNG, WebP — max 5 MB each — up to 8 photos at a time"
+        disabled={uploadingCount > 0 || isAtLimit}
+        hint={
+          isAtLimit
+            ? `Maximum ${MAX_PHOTOS} photos reached. Delete existing photos to upload new ones.`
+            : `JPG, PNG, WebP — max 5 MB each — ${remainingSlots} slot${remainingSlots > 1 ? "s" : ""} remaining`
+        }
       />
 
       {/* Upload Queue */}
@@ -183,12 +188,6 @@ export default function EventPhotoManager({
         onClearDone={clearDone}
         uploading={uploadingCount > 0}
       />
-
-      {photos.length === 0 && queue.length === 0 && (
-        <p className="text-slate-400 text-sm text-center py-6 border-2 border-dashed border-slate-200 rounded-xl">
-          No photos yet. Drop files above to upload.
-        </p>
-      )}
     </div>
   )
 }

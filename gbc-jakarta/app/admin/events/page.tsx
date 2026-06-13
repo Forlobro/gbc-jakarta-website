@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { GbcEventWithPhotos } from "../../lib/supabase"
 import { formatDateShort } from "../../lib/date"
+import AlertBanner from "../components/AlertBanner"
 
 export const dynamic = "force-dynamic"
 
@@ -14,6 +15,7 @@ export default function AdminEventsPage() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [pageError, setPageError] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
 
   const fetchEvents = () => {
@@ -23,6 +25,7 @@ export default function AdminEventsPage() {
       .then((data) => {
         if (Array.isArray(data)) setEvents(data)
       })
+      .catch(() => setPageError("Failed to load events."))
       .finally(() => setLoading(false))
   }
 
@@ -33,16 +36,17 @@ export default function AdminEventsPage() {
   const handleDelete = async (id: number, title: string) => {
     if (!confirm(`Delete "${title}"? This will also delete all photos.`)) return
     setDeletingId(id)
+    setPageError(null)
     try {
       const res = await fetch(`/api/admin/events/${id}`, { method: "DELETE" })
       if (res.ok) {
         setEvents((prev) => prev.filter((e) => e.id !== id))
       } else {
         const err = await res.json()
-        alert(`Delete failed: ${err.error}`)
+        setPageError(`Delete failed: ${err.error}`)
       }
     } catch {
-      alert("Delete failed. Please try again.")
+      setPageError("Delete failed. Please try again.")
     } finally {
       setDeletingId(null)
     }
@@ -74,7 +78,11 @@ export default function AdminEventsPage() {
           <i className="fas fa-plus" /> Add Event
         </Link>
       </div>
-
+      {pageError && (
+        <div className="mb-6">
+          <AlertBanner message={pageError} onDismiss={() => setPageError(null)} />
+        </div>
+      )}{" "}
       {/* Search */}
       <div className="mb-6">
         <div className="relative max-w-md">
@@ -91,7 +99,6 @@ export default function AdminEventsPage() {
           />
         </div>
       </div>
-
       {/* Table + Pagination */}
       <div className="flex flex-col justify-between flex-1">
         <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">

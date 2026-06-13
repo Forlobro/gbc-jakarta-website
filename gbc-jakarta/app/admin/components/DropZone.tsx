@@ -3,19 +3,12 @@
 import { useRef, useState } from "react"
 
 interface DropZoneProps {
-  /** Called with valid files after selection or drop */
   onFiles: (files: File[]) => void
-  /** Accepted MIME types (e.g. "image/*") */
   accept?: string
-  /** Allow multiple file selection */
   multiple?: boolean
-  /** Disable interaction */
   disabled?: boolean
-  /** Hint text shown below the main label */
   hint?: string
-  /** Main label when idle */
   label?: string
-  /** Label shown during drag-over */
   dragLabel?: string
 }
 
@@ -40,6 +33,7 @@ export default function DropZone({
   }
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled) return
     const files = Array.from(e.target.files || [])
     if (files.length > 0) onFiles(files)
     if (fileInputRef.current) fileInputRef.current.value = ""
@@ -53,14 +47,18 @@ export default function DropZone({
       }}
       onDragLeave={() => setIsDragOver(false)}
       onDrop={handleDrop}
-      onClick={() => !disabled && fileInputRef.current?.click()}
+      onClick={() => {
+        if (disabled) return
+        fileInputRef.current?.click()
+      }}
       className={`relative border-2 border-dashed rounded-2xl p-8 text-center transition-all duration-200 ${
-        disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+        disabled ? "opacity-50 cursor-not-allowed pointer-events-auto" : "cursor-pointer"
       } ${
         isDragOver
           ? "border-accent bg-accent/5 scale-[1.01]"
           : "border-slate-300 hover:border-slate-400 bg-slate-50"
       }`}
+      aria-disabled={disabled}
     >
       <i
         className={`fas fa-cloud-upload-alt text-3xl mb-3 ${

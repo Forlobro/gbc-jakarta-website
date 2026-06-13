@@ -6,6 +6,7 @@ import { uploadToStorage, makeStoragePath } from "@/app/lib/supabase.upload"
 import DropZone from "../../components/DropZone"
 import UploadQueue, { UploadQueueItem } from "../../components/UploadQueue"
 import PhotoGrid from "../../components/PhotoGrid"
+import AlertBanner from "../../components/AlertBanner"
 
 interface PhotoManagerProps {
   companyId: number
@@ -22,25 +23,32 @@ export default function PhotoManager({
 }: PhotoManagerProps) {
   const [queue, setQueue] = useState<UploadQueueItem[]>([])
   const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
+  const MAX_PHOTOS = 8
   const uploadingCount = queue.filter((i) => i.status === "uploading").length
+  const pendingCount = queue.filter((i) => i.status === "pending").length
+  const remainingSlots = MAX_PHOTOS - photos.length - pendingCount
+  const isAtLimit = remainingSlots <= 0
 
   const addFiles = useCallback(
     (files: File[]) => {
+      setError(null)
       const imageFiles = files.filter((f) => f.type.startsWith("image/"))
-      const pendingCount = queue.filter((i) => i.status === "pending").length
-      const totalAfter = pendingCount + imageFiles.length
 
-      if (totalAfter > 8) {
-        alert(`You can upload a maximum of 8 photos at a time (currently ${pendingCount} queued)`)
+      if (remainingSlots <= 0) {
+        setError(`Maximum ${MAX_PHOTOS} photos reached. Delete existing photos to upload new ones.`)
+        return
+      }
+
+      if (imageFiles.length > remainingSlots) {
+        setError(`You can only add ${remainingSlots} more photo${remainingSlots > 1 ? "s" : ""}`)
         return
       }
 
       const oversized = imageFiles.filter((f) => f.size > 5 * 1024 * 1024)
       if (oversized.length > 0) {
-        alert(
-          `The following files exceed 5 MB and were skipped:\n${oversized.map((f) => f.name).join("\n")}`,
-        )
+        setError(`Files exceed 5 MB and were skipped: ${oversized.map((f) => f.name).join(", ")}`)
       }
 
       const valid = imageFiles.filter((f) => f.size <= 5 * 1024 * 1024)
@@ -52,7 +60,7 @@ export default function PhotoManager({
 
       setQueue((prev) => [...prev, ...newItems])
     },
-    [queue],
+    [remainingSlots],
   )
 
   const removeFromQueue = (index: number) => {
@@ -136,7 +144,7 @@ export default function PhotoManager({
       onPhotosChange()
     } catch (error) {
       const msg = error instanceof Error ? error.message : "Delete failed. Please try again."
-      alert(msg)
+      setError(msg)
     } finally {
       setDeletingId(null)
     }
@@ -149,9 +157,14 @@ export default function PhotoManager({
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <i className="far fa-images text-accent" />
           {title}
-          <span className="text-slate-500 text-sm font-normal ml-1">({photos.length} saved)</span>
+          <span className="text-slate-500 text-sm font-normal ml-1">
+            ({photos.length}/{MAX_PHOTOS} saved)
+          </span>
         </h3>
       </div>
+
+      {/* Error Alert */}
+      {error && <AlertBanner message={error} onDismiss={() => setError(null)} />}
 
       {/* Saved Photos Grid */}
       <PhotoGrid
@@ -169,8 +182,12 @@ export default function PhotoManager({
         onFiles={addFiles}
         accept="image/*"
         multiple
-        disabled={uploadingCount > 0}
-        hint="JPG, PNG, WebP — max 5 MB each — up to 8 photos at a time"
+        disabled={uploadingCount > 0 || isAtLimit}
+        hint={
+          isAtLimit
+            ? `Maximum ${MAX_PHOTOS} photos reached. Delete existing photos to upload new ones.`
+            : `JPG, PNG, WebP — max 5 MB each — ${remainingSlots} slot${remainingSlots > 1 ? "s" : ""} remaining`
+        }
       />
 
       {/* Upload Queue */}

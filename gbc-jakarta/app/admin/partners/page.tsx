@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { GbcCompanyWithPhotos } from "../../lib/supabase"
+import AlertBanner from "../components/AlertBanner"
 
 export const dynamic = "force-dynamic"
 
@@ -13,6 +14,7 @@ export default function AdminPartnersPage() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [pageError, setPageError] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
 
   const fetchPartners = () => {
@@ -22,6 +24,7 @@ export default function AdminPartnersPage() {
       .then((data) => {
         if (Array.isArray(data)) setCompanies(data)
       })
+      .catch(() => setPageError("Failed to load partners."))
       .finally(() => setLoading(false))
   }
 
@@ -32,6 +35,7 @@ export default function AdminPartnersPage() {
   const handleDelete = async (id: number, name: string) => {
     if (!confirm(`Delete "${name}"? This will also delete all photos.`)) return
     setDeletingId(id)
+    setPageError(null)
 
     try {
       const res = await fetch(`/api/admin/partners/${id}`, { method: "DELETE" })
@@ -39,10 +43,10 @@ export default function AdminPartnersPage() {
         setCompanies((prev) => prev.filter((c) => c.id !== id))
       } else {
         const err = await res.json()
-        alert(`Delete failed: ${err.error}`)
+        setPageError(`Delete failed: ${err.error}`)
       }
     } catch {
-      alert("Delete failed. Please try again.")
+      setPageError("Delete failed. Please try again.")
     } finally {
       setDeletingId(null)
     }
@@ -73,6 +77,12 @@ export default function AdminPartnersPage() {
           <i className="fas fa-plus" /> Add Partner
         </Link>
       </div>
+
+      {pageError && (
+        <div className="mb-6">
+          <AlertBanner message={pageError} onDismiss={() => setPageError(null)} />
+        </div>
+      )}
 
       {/* Search */}
       <div className="mb-6">

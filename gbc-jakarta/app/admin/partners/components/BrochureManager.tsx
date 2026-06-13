@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react"
 import { SelectFileButton, DeleteButton } from "../../components/FileActionButtons"
+import AlertBanner from "../../components/AlertBanner"
 import { msg } from "../../../lib/messages"
 import { uploadToStorage, makeStoragePath } from "../../../lib/supabase.upload"
 
@@ -23,16 +24,18 @@ export default function BrochureManager({
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [uploading, setUploading] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handlePickFile = (file: File | null) => {
     if (!file) return
+    setError(null)
     if (file.type !== "application/pdf") {
-      alert(msg.brochureMustBePdf)
+      setError(msg.brochureMustBePdf)
       return
     }
     if (file.size > MAX_PDF_BYTES) {
-      alert(msg.brochureTooLarge)
+      setError(msg.brochureTooLarge)
       return
     }
     setSelectedFile(file)
@@ -46,6 +49,7 @@ export default function BrochureManager({
   const uploadBrochure = async () => {
     if (!selectedFile) return
     setUploading(true)
+    setError(null)
 
     try {
       const storagePath = makeStoragePath(`pdf/${companyId}`, selectedFile.name)
@@ -59,14 +63,14 @@ export default function BrochureManager({
 
       if (!res.ok) {
         const err = await res.json()
-        alert(err.error)
+        setError(err.error)
         return
       }
 
       clearSelected()
       onBrochureChange()
     } catch (err) {
-      alert(err instanceof Error ? err.message : msg.serverError)
+      setError(err instanceof Error ? err.message : msg.serverError)
     } finally {
       setUploading(false)
     }
@@ -77,6 +81,7 @@ export default function BrochureManager({
     if (!confirm("Hapus brosur PDF ini?")) return
 
     setDeleting(true)
+    setError(null)
     try {
       const res = await fetch(`/api/admin/partners/${companyId}/brochure`, {
         method: "DELETE",
@@ -84,14 +89,14 @@ export default function BrochureManager({
 
       if (!res.ok) {
         const err = await res.json()
-        alert(err.error)
+        setError(err.error)
         return
       }
 
       clearSelected()
       onBrochureChange()
     } catch {
-      alert(msg.serverError)
+      setError(msg.serverError)
     } finally {
       setDeleting(false)
     }
@@ -104,6 +109,9 @@ export default function BrochureManager({
           <i className="far fa-file-pdf text-accent" /> Brochure
         </h3>
       </div>
+
+      {/* Error */}
+      {error && <AlertBanner message={error} onDismiss={() => setError(null)} />}
 
       {/* Current Brochure Status */}
       <div className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-200 rounded-xl shadow-sm">
