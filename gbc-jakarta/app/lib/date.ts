@@ -40,10 +40,47 @@ export function formatDateShort(dateStr: string | null | undefined): string {
 }
 
 /**
+ * Format a date range from start to end.
+ * - Same day        → "11 June 2026"
+ * - Same month/year → "11 – 13 June 2026"
+ * - Same year       → "28 June – 3 July 2026"
+ * - Different years → "30 December 2025 – 2 January 2026"
+ */
+export function formatDateRange(
+  startStr: string | null | undefined,
+  endStr: string | null | undefined,
+): string {
+  if (!startStr) return "—"
+  if (!endStr) return formatDate(startStr)
+
+  const [sy, sm, sd] = startStr.slice(0, 10).split("-").map(Number)
+  const [ey, em, ed] = endStr.slice(0, 10).split("-").map(Number)
+
+  // Same day
+  if (sy === ey && sm === em && sd === ed) return formatDate(startStr)
+
+  const startDate = new Date(sy, sm - 1, sd)
+  const endDate = new Date(ey, em - 1, ed)
+
+  // Same month and year → "11 – 13 June 2026"
+  if (sy === ey && sm === em) {
+    return `${sd} – ${endDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`
+  }
+
+  // Same year → "28 June – 3 July 2026"
+  if (sy === ey) {
+    return `${startDate.toLocaleDateString("en-GB", { day: "numeric", month: "long" })} – ${endDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`
+  }
+
+  // Different years → "30 December 2025 – 2 January 2026"
+  return `${formatDate(startStr)} – ${formatDate(endStr)}`
+}
+
+/**
  * Format the time portion of an ISO timestamp string, appending "WIB".
  * e.g. "2026-06-11T09:00:00+00:00" → "09:00 WIB"
  */
 export function formatTime(dateStr: string | null | undefined): string {
   if (!dateStr) return "—"
-  return dateStr.slice(11, 16) + " WIB" // "HH:MM WIB"
+  return dateStr.slice(11, 16)
 }

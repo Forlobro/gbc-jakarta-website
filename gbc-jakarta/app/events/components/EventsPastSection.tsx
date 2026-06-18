@@ -8,7 +8,7 @@ import SearchBar from "../../components/SearchBar"
 import FilterPills from "../../components/FilterPills"
 import Pagination from "../../components/Pagination"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
-import { formatDate } from "../../lib/date"
+import { formatDateRange } from "../../lib/date"
 
 const PAGE_SIZE = 9
 
@@ -45,7 +45,14 @@ export default function EventsPastSection() {
           return
         }
         const data: GbcEventWithPhotos[] = await res.json()
-        const accomplished = data.filter((e) => e.status === "accomplished")
+        const accomplished = data
+          .filter((e) => e.status === "accomplished")
+          .sort((a, b) => {
+            if (!a.event_start) return 1
+            if (!b.event_start) return -1
+            return new Date(b.event_start).getTime() - new Date(a.event_start).getTime()
+          })
+          .slice(3)
 
         // Preload all event photo images before hiding skeleton
         const allImages = accomplished
@@ -192,7 +199,7 @@ export default function EventsPastSection() {
                         event.event_start ? new Date(event.event_start).getFullYear() : undefined
                       }
                       meta={[
-                        { icon: "far fa-calendar-alt", text: formatDate(event.event_start) },
+                        { icon: "far fa-calendar-alt", text: formatDateRange(event.event_start, event.event_end) },
                         { icon: "fas fa-map-marker-alt", text: event.location },
                       ]}
                       title={event.title}

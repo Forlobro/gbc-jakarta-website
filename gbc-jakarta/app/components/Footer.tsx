@@ -98,12 +98,12 @@ export default function Footer() {
               <li className="flex items-center gap-2.5 text-gray-500 text-[0.82rem]">
                 <i className="fab fa-whatsapp text-accent text-[0.65rem] w-3 shrink-0" />
                 <a
-                  href="https://wa.me/628111300313?text=Halo%20Tim%20GBC%20Jakarta%2C%0A%0ASaya%20ingin%20mengetahui%20lebih%20lanjut%20mengenai%20%5Btopik%5D.%0A%0ANama%3A%20%0APerusahaan%2FInstitusi%3A%20"
+                  href="https://wa.me/628111300313?text=Hello%20GBC%20Jakarta%20Team%2C%0A%0AI%20would%20like%20to%20get%20in%20touch%20and%20learn%20more%20about%20your%20services.%0A%0AName%3A%20%0ACompany%2FInstitution%3A%20"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors"
                 >
-                  +62 8111-300-313
+                  +62 8111 300 313
                 </a>
               </li>
             </ul>

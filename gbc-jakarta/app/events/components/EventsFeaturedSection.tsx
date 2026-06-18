@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useTranslation } from "../../lib/LanguageContext"
 import ScrollReveal from "../../components/ScrollReveal"
 import type { GbcEventWithPhotos } from "../../lib/supabase"
-import { formatDate } from "../../lib/date"
+import { formatDateRange } from "../../lib/date"
 
 const truncate = (text: string | null | undefined, max = 100) => {
   if (!text) return ""
@@ -73,6 +73,7 @@ export default function EventsFeaturedSection() {
             if (!b.event_start) return -1
             return new Date(b.event_start).getTime() - new Date(a.event_start).getTime()
           })
+          .slice(0, 3)
 
         // Preload thumbnail images before hiding skeleton
         const imageUrls = [
@@ -189,7 +190,7 @@ export default function EventsFeaturedSection() {
                         <div className="flex flex-col gap-0.5 sm:gap-1 text-[0.6rem] sm:text-[0.75rem] md:text-[0.85rem] mb-2 sm:mb-4 lg:mb-5 text-white/60">
                           <span>
                             <i className="far fa-calendar-alt mr-2" />
-                            {formatDate(event.event_start)}
+                            {formatDateRange(event.event_start, event.event_end)}
                           </span>
                           <span>
                             <i className="fas fa-map-marker-alt mr-2" />
@@ -274,7 +275,7 @@ export default function EventsFeaturedSection() {
                         <div className="flex flex-col gap-0.5 sm:gap-1 text-[0.6rem] sm:text-[0.75rem] md:text-[0.85rem] lg:text-[1rem] mb-2 sm:mb-4 lg:mb-6 text-text-light">
                           <span>
                             <i className="far fa-calendar-alt mr-2" />
-                            {formatDate(event.event_start)}
+                            {formatDateRange(event.event_start, event.event_end)}
                           </span>
                           <span>
                             <i className="fas fa-map-marker-alt mr-2" />
