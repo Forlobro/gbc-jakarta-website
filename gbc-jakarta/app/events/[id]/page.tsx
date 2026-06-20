@@ -154,13 +154,44 @@ export default function EventDetailPage() {
 
         <section className="py-16 relative">
           <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
-            <div className="max-w-[800px]">
-              <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
-                {t("aboutThisEvent")}
-              </h2>
-              <p className="text-text-light text-[1rem] leading-[1.9] text-justify">
-                {description}
-              </p>
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+              {/* Description */}
+              <div className="flex-1 max-w-[800px]">
+                <h2 className="font-display text-2xl font-extrabold text-primary mb-4">
+                  {t("aboutThisEvent")}
+                </h2>
+                <p className="text-text-light text-[1rem] leading-[1.9] text-justify">
+                  {description}
+                </p>
+              </div>
+
+              {/* Right-side contact card */}
+              <div className="lg:sticky lg:top-32 w-full lg:w-[300px] shrink-0">
+                <div className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+                  {/* Card Header */}
+                  <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                      <i className="fas fa-globe text-sm" />
+                    </div>
+                    <span className="font-display font-bold text-primary text-[0.95rem]">
+                      Info Lebih Lanjut
+                    </span>
+                  </div>
+
+
+
+                  {/* Email Button */}
+                  <div className="px-5 py-4">
+                    <a
+                      href="mailto:chat.gbcjkt@gmail.com"
+                      className="flex items-center justify-center gap-2.5 w-full px-5 py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg shadow-md"
+                    >
+                      <i className="fas fa-envelope text-sm" />
+                      Website
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
