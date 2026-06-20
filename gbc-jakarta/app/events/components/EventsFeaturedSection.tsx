@@ -43,12 +43,6 @@ export default function EventsFeaturedSection() {
   const [loading, setLoading] = useState(true)
   const [upcomingSliderIndex, setUpcomingSliderIndex] = useState(0)
   const [sliderIndex, setSliderIndex] = useState(0)
-  const [imagePreview, setImagePreview] = useState<{
-    rect: DOMRect
-    src: string
-    alt: string
-    bg: string
-  } | null>(null)
 
   useEffect(() => {
     async function fetchEvents() {
@@ -165,17 +159,8 @@ export default function EventsFeaturedSection() {
                     >
                       {/* Image */}
                       <div
-                        className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[450px] bg-cover bg-center cursor-zoom-in"
+                        className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[450px] bg-cover bg-center"
                         style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
-                        onMouseEnter={(e) => {
-                          const rect = e.currentTarget.getBoundingClientRect()
-                          setImagePreview({ rect, src: image, alt: event.title, bg: "#0a1f3a" })
-                        }}
-                        onMouseMove={(e) => {
-                          const rect = e.currentTarget.getBoundingClientRect()
-                          setImagePreview((prev) => (prev ? { ...prev, rect } : null))
-                        }}
-                        onMouseLeave={() => setImagePreview(null)}
                       />
 
                       {/* Content */}
@@ -253,17 +238,8 @@ export default function EventsFeaturedSection() {
 
                     <div className="grid grid-cols-5 md:mx-[5%] lg:mx-[10%] gap-0 rounded-3xl overflow-hidden shadow-lg [direction:rtl] transition-all duration-500">
                       <div
-                        className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[520px] bg-cover bg-center cursor-zoom-in"
+                        className="col-span-2 h-auto min-h-[140px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[520px] bg-cover bg-center"
                         style={{ backgroundImage: `url('${image}')`, direction: "ltr" }}
-                        onMouseEnter={(e) => {
-                          const rect = e.currentTarget.getBoundingClientRect()
-                          setImagePreview({ rect, src: image, alt: event.title, bg: "#f8fafc" })
-                        }}
-                        onMouseMove={(e) => {
-                          const rect = e.currentTarget.getBoundingClientRect()
-                          setImagePreview((prev) => (prev ? { ...prev, rect } : null))
-                        }}
-                        onMouseLeave={() => setImagePreview(null)}
                       />
                       <div
                         className="p-3 sm:p-6 md:p-8 lg:p-14 col-span-3 flex flex-col justify-center"
@@ -300,34 +276,7 @@ export default function EventsFeaturedSection() {
         )}
       </div>
 
-      {/* Floating full-image preview — escapes overflow:hidden via position:fixed */}
-      {imagePreview && (
-        <div
-          className="fixed pointer-events-none z-[9999] rounded-3xl overflow-hidden"
-          style={{
-            top: imagePreview.rect.top - 24,
-            left: imagePreview.rect.left - 14,
-            width: imagePreview.rect.width + 28,
-            height: imagePreview.rect.height + 48,
-            animation: "imagePopOut 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards",
-            boxShadow: "0 32px 80px rgba(0,0,0,0.55), 0 0 0 2px rgba(255,255,255,0.08)",
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imagePreview.src}
-            alt={imagePreview.alt}
-            className="w-full h-full object-contain"
-            style={{ backgroundColor: imagePreview.bg }}
-          />
-        </div>
-      )}
-      <style>{`
-        @keyframes imagePopOut {
-          from { opacity: 0; transform: translateY(10px) scale(0.95); box-shadow: none; }
-          to   { opacity: 1; transform: translateY(-24px) scale(1.03); }
-        }
-      `}</style>
+
     </section>
   )
 }
