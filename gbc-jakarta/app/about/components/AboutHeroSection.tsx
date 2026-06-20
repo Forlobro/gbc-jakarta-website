@@ -30,7 +30,7 @@ export default function AboutHero() {
           <div className="flex flex-col items-center gap-10">
             {/* Gyeonggi-do + GBSA side by side */}
             <div className="flex items-center justify-center gap-16 w-full">
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center">
                 <Image
                   src="/images/gyeonggi-logo.jpeg"
                   alt="Gyeonggi-do"
@@ -39,11 +39,8 @@ export default function AboutHero() {
                   className="w-auto object-contain mix-blend-multiply"
                   style={{ height: "60px" }}
                 />
-                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">
-                  Gyeonggi-do
-                </span>
               </div>
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center">
                 <Image
                   src="/images/Desain_tanpa_judul__1_-removebg-preview.png"
                   alt="GBSA"
@@ -52,14 +49,11 @@ export default function AboutHero() {
                   className="w-auto object-contain"
                   style={{ height: "50px" }}
                 />
-                <span className="text-[0.68rem] font-semibold text-text-light tracking-wide uppercase">
-                  GBSA
-                </span>
               </div>
             </div>
 
             {/* GBC Jakarta */}
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center">
               <Image
                 src="/images/logo.jpg"
                 alt="GBC Jakarta"
@@ -67,9 +61,6 @@ export default function AboutHero() {
                 height={70}
                 className="h-16 w-auto object-contain mix-blend-multiply"
               />
-              <span className="text-[0.68rem] font-semibold text-primary/50 tracking-wide uppercase">
-                GBC Jakarta
-              </span>
             </div>
           </div>
         </div>

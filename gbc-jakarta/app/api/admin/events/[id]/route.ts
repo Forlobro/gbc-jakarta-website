@@ -63,6 +63,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       is_published,
       link_video_1,
       link_video_2,
+      link_form_register,
       event_start,
       event_end,
     } = body
@@ -78,6 +79,10 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       typeof link_video_1 === "string" && link_video_1.trim() ? link_video_1.trim() : null
     const normalizedVideo2 =
       typeof link_video_2 === "string" && link_video_2.trim() ? link_video_2.trim() : null
+    const normalizedFormRegister =
+      typeof link_form_register === "string" && link_form_register.trim()
+        ? link_form_register.trim()
+        : null
     const normalizedEventStart =
       typeof event_start === "string" && event_start.trim() ? event_start.trim() : null
     const normalizedEventEnd =
@@ -106,6 +111,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         is_published: normalizedIsPublished,
         link_video_1: normalizedVideo1,
         link_video_2: normalizedVideo2,
+        link_form_register: normalizedFormRegister,
         event_start: normalizedEventStart,
         event_end: normalizedEventEnd,
         updated_at: new Date().toISOString(),

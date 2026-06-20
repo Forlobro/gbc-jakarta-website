@@ -107,6 +107,7 @@ export default function AdminEditEventPage({ params }: { params: Promise<{ id: s
               is_published: event.is_published,
               link_video_1: event.link_video_1 || "",
               link_video_2: event.link_video_2 || "",
+              link_form_register: event.link_form_register || "",
               event_start: event.event_start || "",
               event_end: event.event_end || "",
             }}

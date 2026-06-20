@@ -7,27 +7,32 @@ import { VideoProvider } from "./VideoContext"
 
 const GYEONGGI_STATS = [
   {
-    value: "350 Milliar USD",
+    valueId: "350 Miliar USD",
+    valueEn: "350 Billion USD",
     labelKey: "gyeonggiStat1" as const,
     color: "text-[#f59e0b]",
   },
   {
-    value: "13.6 Juta",
+    valueId: "13,6 Juta",
+    valueEn: "13.6 Million",
     labelKey: "gyeonggiStat2" as const,
     color: "text-[#60a5fa]",
   },
   {
-    value: "1.84 Juta UKM",
+    valueId: "1,84 Juta UKM",
+    valueEn: "1.84 Million SMEs",
     labelKey: "gyeonggiStat3" as const,
     color: "text-[#a78bfa]",
   },
   {
-    value: "312 Milliar USD",
+    valueId: "312 Miliar USD",
+    valueEn: "312 Billion USD",
     labelKey: "gyeonggiStat4" as const,
     color: "text-[#34d399]",
   },
   {
-    value: "250,652",
+    valueId: "250.652",
+    valueEn: "250,652",
     labelKey: "gyeonggiStat5" as const,
     color: "text-[#f472b6]",
   },
@@ -41,7 +46,7 @@ const GYEONGGI_FACTS = [
 ]
 
 export default function GyeonggiSection() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
 
   return (
     <section
@@ -78,9 +83,9 @@ export default function GyeonggiSection() {
                 {t("gyeonggiInNumbers")}
               </p>
               {GYEONGGI_STATS.map((s) => (
-                <div key={s.value} className="flex flex-col gap-0.5">
+                <div key={s.valueEn} className="flex flex-col gap-0.5">
                   <span className={`text-xl font-extrabold leading-tight ${s.color}`}>
-                    {s.value}
+                    {language === "id" ? s.valueId : s.valueEn}
                   </span>
                   <span className="text-xs text-gray-500">{t(s.labelKey)}</span>
                 </div>

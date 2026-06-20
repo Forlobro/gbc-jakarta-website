@@ -11,21 +11,6 @@ export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState("")
-  const [copiedPhone, setCopiedPhone] = useState(false)
-  const [copiedEmail, setCopiedEmail] = useState(false)
-
-  const copyPhone = () => {
-    navigator.clipboard.writeText("+622139712135")
-    setCopiedPhone(true)
-    setTimeout(() => setCopiedPhone(false), 2000)
-  }
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText("chat.gbcjkt@gmail.com")
-    setCopiedEmail(true)
-    setTimeout(() => setCopiedEmail(false), 2000)
-  }
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSending(true)
@@ -173,15 +158,14 @@ export default function ContactSection() {
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
                     {t("contactEmail")}
                   </h4>
-                  <button
-                    onClick={copyEmail}
-                    className="group text-[1.05rem] text-white hover:text-accent transition-colors flex items-center gap-2"
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&to=chat.gbcjkt@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[1.05rem] text-white hover:text-accent transition-colors"
                   >
                     chat.gbcjkt@gmail.com
-                    <span className="text-[0.7rem] font-semibold px-2 py-0.5 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      {copiedEmail ? "Tersalin!" : "Salin"}
-                    </span>
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -194,15 +178,12 @@ export default function ContactSection() {
                   <h4 className="text-[0.9rem] font-semibold text-white/60 uppercase tracking-[0.05em] mb-1">
                     {t("contactPhone")}
                   </h4>
-                  <button
-                    onClick={copyPhone}
-                    className="group text-[1.05rem] text-white hover:text-accent transition-colors flex items-center gap-2"
+                  <a
+                    href="tel:+622139712135"
+                    className="text-[1.05rem] text-white hover:text-accent transition-colors"
                   >
                     +62 21 3971 2135
-                    <span className="text-[0.7rem] font-semibold px-2 py-0.5 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      {copiedPhone ? "Tersalin!" : "Salin"}
-                    </span>
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -216,12 +197,12 @@ export default function ContactSection() {
                     WhatsApp
                   </h4>
                   <a
-                    href="https://wa.me/628111300313?text=Halo%20Tim%20GBC%20Jakarta%2C%0A%0ASaya%20ingin%20mengetahui%20lebih%20lanjut%20mengenai%20%5Btopik%5D.%0A%0ANama%3A%20%0APerusahaan%2FInstitusi%3A%20"
+                    href="https://wa.me/628111300313?text=Hello%20GBC%20Jakarta%20Team%2C%0A%0AI%20would%20like%20to%20get%20in%20touch%20and%20learn%20more%20about%20your%20services.%0A%0AName%3A%20%0ACompany%2FInstitution%3A%20"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[1.05rem] text-white hover:text-accent transition-colors"
                   >
-                    +62 8111-300-313
+                    +62 8111 300 313
                   </a>
                 </div>
               </div>

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import EventForm, { EventFormData } from "../components/EventForm"
-import AlertBanner from "../components/AlertBanner"
+import AlertBanner from "../../components/AlertBanner"
 
 export const dynamic = "force-dynamic"
 

@@ -7,8 +7,8 @@ import { useTranslation } from "../../lib/LanguageContext"
 const FALLBACK_GMAIL_URL =
   "https://mail.google.com/mail/?view=cm" +
   "&to=chat.gbcjkt@gmail.com" +
-  "&subject=Pendaftaran%20Minat%20Acara%20-%20GBC%20Jakarta" +
-  "&body=Halo%20Tim%20GBC%20Jakarta%2C%0A%0ASaya%20tertarik%20untuk%20mengikuti%20acara%20yang%20akan%20datang.%0A%0ANama%3A%20%0APerusahaan%2FInstitusi%3A%20%0ANomor%20HP%3A%20%0A%0ATerima%20kasih."
+  "&subject=Event%20Registration%20Interest%20-%20GBC%20Jakarta" +
+  "&body=Hello%20GBC%20Jakarta%20Team%2C%0A%0AI%20am%20interested%20in%20participating%20in%20the%20upcoming%20event.%0A%0AName%3A%20%0ACompany%2FInstitution%3A%20%0APhone%20Number%3A%20%0A%0AThank%20you."
 
 interface EventRegisterSectionProps {
   title: string

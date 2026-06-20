@@ -242,7 +242,7 @@ export default function PartnerDetailPage() {
                           {t("phoneLabel")}
                         </label>
                         <span className="text-[0.95rem] text-text font-medium">
-                          +62 8111-300-313
+                          +62 8111 300 313
                         </span>
                       </div>
                     </div>

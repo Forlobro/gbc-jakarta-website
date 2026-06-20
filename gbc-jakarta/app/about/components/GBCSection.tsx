@@ -7,7 +7,7 @@ import { VideoEmbed } from "./VideoEmbed"
 import { VideoProvider } from "./VideoContext"
 
 export default function GBCSection() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
 
   return (
     <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden" id="global-network">
@@ -33,8 +33,8 @@ export default function GBCSection() {
         <ScrollReveal>
           <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 md:p-10">
             <Image
-              src="/images/gbc_map (1).svg"
-              alt="GBC Network Map — 19 lokasi di 14 negara"
+              src={language === "en" ? "/images/gbc_map_en.svg" : "/images/gbc-map.png"}
+              alt="GBC Network Map"
               width={1200}
               height={800}
               className="w-full h-auto rounded-2xl"

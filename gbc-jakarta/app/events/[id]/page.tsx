@@ -13,7 +13,7 @@ import EventDetailsSection from "../components/EventDetailsSection"
 import EventRegisterSection from "../components/EventRegisterSection"
 import PhotoGallery from "../../components/PhotoGallery"
 import PosterCarousel from "../../components/PosterCarousel"
-import { formatDate, formatTime } from "../../lib/date"
+import { formatDateRange, formatTime } from "../../lib/date"
 import { toYouTubeEmbedUrl } from "../../lib/youtube"
 
 function LoadingSkeleton() {
@@ -106,7 +106,7 @@ export default function EventDetailPage() {
   }
 
   const title = event.title
-  const date = formatDate(event.event_start)
+  const date = formatDateRange(event.event_start, event.event_end)
   const time = formatTime(event.event_start)
   const location = event.location
   const description =
@@ -166,7 +166,7 @@ export default function EventDetailPage() {
         </section>
 
         {/* ── Event Video 1 ── */}
-        {event.link_video_1 && (
+        {toYouTubeEmbedUrl(event.link_video_1) && (
           <section className="py-16 relative">
             <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
               <h2 className="font-display text-2xl md:text-3xl font-extrabold text-primary mb-6 md:mb-10 text-center">
@@ -175,7 +175,7 @@ export default function EventDetailPage() {
               <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
                 <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                   <iframe
-                    src={toYouTubeEmbedUrl(event.link_video_1) ?? event.link_video_1}
+                    src={toYouTubeEmbedUrl(event.link_video_1)!}
                     className="absolute inset-0 w-full h-full"
                     title={title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -188,13 +188,13 @@ export default function EventDetailPage() {
         )}
 
         {/* ── Event Video 2 ── */}
-        {event.link_video_2 && (
+        {toYouTubeEmbedUrl(event.link_video_2) && (
           <section className="py-16 relative">
             <div className="max-w-[1400px] mx-auto px-[5%] relative z-[2]">
               <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
                 <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                   <iframe
-                    src={toYouTubeEmbedUrl(event.link_video_2) ?? event.link_video_2}
+                    src={toYouTubeEmbedUrl(event.link_video_2)!}
                     className="absolute inset-0 w-full h-full"
                     title={`${title} — Video 2`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
