@@ -42,6 +42,7 @@ export interface GbcEvent {
   link_video_1: string | null
   link_video_2: string | null
   link_form_register: string | null
+  link_website: string | null
   event_start: string | null
   event_end: string | null
   thumbnail_url: string | null

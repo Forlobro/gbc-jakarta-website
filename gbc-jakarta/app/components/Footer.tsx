@@ -14,11 +14,11 @@ export default function Footer() {
           {/* Col 1: Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Image
-              src="/images/logo-panjang.png"
+              src="/images/LOGO GBC 2026.png"
               alt="GBC Jakarta"
               width={140}
               height={50}
-              style={{ height: "42px", width: "auto" }}
+              style={{ height: "60px", width: "auto" }}
               className="mb-4 rounded-xl"
             />
             <p className="text-gray-500 text-[0.83rem] leading-[1.9] mb-6 max-w-[260px] text-justify">

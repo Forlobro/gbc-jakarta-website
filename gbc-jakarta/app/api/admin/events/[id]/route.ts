@@ -64,6 +64,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       link_video_1,
       link_video_2,
       link_form_register,
+      link_website,
       event_start,
       event_end,
     } = body
@@ -83,6 +84,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       typeof link_form_register === "string" && link_form_register.trim()
         ? link_form_register.trim()
         : null
+    const normalizedWebsite =
+      typeof link_website === "string" && link_website.trim() ? link_website.trim() : null
     const normalizedEventStart =
       typeof event_start === "string" && event_start.trim() ? event_start.trim() : null
     const normalizedEventEnd =
@@ -112,6 +115,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         link_video_1: normalizedVideo1,
         link_video_2: normalizedVideo2,
         link_form_register: normalizedFormRegister,
+        link_website: normalizedWebsite,
         event_start: normalizedEventStart,
         event_end: normalizedEventEnd,
         updated_at: new Date().toISOString(),

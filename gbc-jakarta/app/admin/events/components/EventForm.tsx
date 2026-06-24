@@ -15,6 +15,7 @@ export type EventFormData = Pick<
   | "link_video_1"
   | "link_video_2"
   | "link_form_register"
+  | "link_website"
   | "event_start"
   | "event_end"
 >
@@ -44,6 +45,7 @@ export default function EventForm({
   const [linkVideo1, setLinkVideo1] = useState(initialData?.link_video_1 || "")
   const [linkVideo2, setLinkVideo2] = useState(initialData?.link_video_2 || "")
   const [linkFormRegister, setLinkFormRegister] = useState(initialData?.link_form_register || "")
+  const [linkWebsite, setLinkWebsite] = useState(initialData?.link_website || "")
   const [eventStart, setEventStart] = useState(
     initialData?.event_start ? initialData.event_start.slice(0, 16) : "",
   )
@@ -64,6 +66,7 @@ export default function EventForm({
       link_video_1: linkVideo1 || null,
       link_video_2: linkVideo2 || null,
       link_form_register: linkFormRegister || null,
+      link_website: linkWebsite || null,
       event_start: eventStart || null,
       event_end: eventEnd || null,
     })
@@ -241,6 +244,18 @@ export default function EventForm({
           value={linkFormRegister}
           onChange={(e) => setLinkFormRegister(e.target.value)}
           placeholder="https://forms.google.com/..."
+          className={inputClass}
+        />
+      </div>
+
+      {/* Website Link */}
+      <div>
+        <label className={labelClass}>Website Link</label>
+        <input
+          type="url"
+          value={linkWebsite}
+          onChange={(e) => setLinkWebsite(e.target.value)}
+          placeholder="https://example.com/..."
           className={inputClass}
         />
       </div>
