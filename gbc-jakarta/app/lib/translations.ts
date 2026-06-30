@@ -328,9 +328,9 @@ export const translations = {
     timeline2017: "GBSA officially launched as an integrated institution",
     timeline2017Note:
       "Integration of Small and Medium Business Center + Science Technology Promotion Agency",
-    timeline2020: "GBC Bangkok opened.",
-    timeline2023: "GBC Jakarta, opened. Digital GBC launched in 5 countries.",
-    timeline2025: "Transformation of GBC Jakarta from a digital office to a hub office.",
+    timeline2020: "GBC Bangkok opened",
+    timeline2023: "GBC Jakarta opened. Digital GBC launched in 5 countries",
+    timeline2025: "Transformation of GBC Jakarta from a digital office to a hub office",
   },
 
   id: {
@@ -659,9 +659,9 @@ export const translations = {
     timeline2017: "GBSA resmi diluncurkan sebagai lembaga terintegrasi",
     timeline2017Note:
       "Integrasi Small and Medium Business Center + Science Technology Promotion Agency",
-    timeline2020: "GBC Bangkok dibuka.",
-    timeline2023: "GBC Jakarta, dibuka. Digital GBC diluncurkan di 5 negara.",
-    timeline2025: "Transformasi GBC Jakarta dari kantor digital menjadi kantor hub.",
+    timeline2020: "GBC Bangkok dibuka",
+    timeline2023: "GBC Jakarta dibuka. Digital GBC diluncurkan di 5 negara",
+    timeline2025: "Transformasi GBC Jakarta dari kantor digital menjadi kantor hub",
   },
 } as const
 

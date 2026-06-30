@@ -33,7 +33,7 @@ export default function GBCSection() {
         <ScrollReveal>
           <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 md:p-10">
             <Image
-              src={language === "en" ? "/images/gbc_map_en.svg" : "/images/gbc-map.png"}
+              src={language === "en" ? "/images/GBC around the world (2).png" : "/images/GBC around the world.png"}
               alt="GBC Network Map"
               width={1200}
               height={800}
